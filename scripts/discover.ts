@@ -9,12 +9,12 @@
  * Usage: npm run discover
  * The human-written summary and decisions live in docs/catalog-notes.md.
  */
-import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { getTypesense, productsCollection } from "../src/lib/typesense";
 import { getEnv } from "../src/lib/env";
+import { getTypesense, productsCollection } from "../src/lib/typesense";
+import { ROOT, round, writeJson } from "./lib/io";
+import { count, esc, multiSearch, pricePercentiles, search, searchMany, type Params, type PriceGroup, type SearchResult } from "./lib/ts";
 
-const ROOT = path.resolve(__dirname, "..");
 const FACET_DIR = path.join(ROOT, "data", "raw-facets");
 const REPORT_DIR = path.join(ROOT, "data", "discovery");
 
@@ -24,79 +24,7 @@ const MAX_FACET_VALUES = 100_000;
 const SAMPLE_SIZE = 30;
 const COVERAGE_PAGES = 8;
 const COVERAGE_PER_PAGE = 125;
-const MULTI_SEARCH_CHUNK = 40;
 const PERCENTILES = [0.1, 0.25, 0.5, 0.75, 0.9] as const;
-
-// ---------- Typesense helpers ----------
-
-type Params = Record<string, string | number | boolean>;
-type FacetCount = {
-  field_name: string;
-  counts: { value: string; count: number }[];
-  stats?: { min?: number; max?: number; avg?: number; sum?: number; total_values?: number };
-};
-type Hit = { document: Record<string, unknown>; text_match?: number; vector_distance?: number; hybrid_search_info?: unknown; text_match_info?: unknown };
-type SearchResult = {
-  found: number;
-  search_time_ms: number;
-  hits?: Hit[];
-  facet_counts?: FacetCount[];
-  error?: string;
-  code?: number;
-};
-
-function collection() {
-  return getTypesense().collections(productsCollection()).documents();
-}
-
-async function search(params: Params): Promise<SearchResult> {
-  const res = await collection().search({ q: "*", query_by: "title", ...params } as never);
-  return res as unknown as SearchResult;
-}
-
-/** Runs many searches via multi_search (POST), chunked, preserving order. Throws on per-search errors. */
-async function multiSearch(searches: Params[]): Promise<SearchResult[]> {
-  const out: SearchResult[] = [];
-  for (let i = 0; i < searches.length; i += MULTI_SEARCH_CHUNK) {
-    const chunk = searches.slice(i, i + MULTI_SEARCH_CHUNK).map((s) => ({
-      collection: productsCollection(),
-      q: "*",
-      query_by: "title",
-      ...s,
-    }));
-    const res = (await getTypesense().multiSearch.perform({ searches: chunk } as never)) as unknown as {
-      results: SearchResult[];
-    };
-    for (const r of res.results) {
-      if (r.error) throw new Error(`multi_search error ${r.code ?? ""}: ${r.error}`);
-      out.push(r);
-    }
-  }
-  return out;
-}
-
-/** Runs searches individually with limited concurrency (deep pages are too slow to batch). */
-async function searchMany(searches: Params[], concurrency = 5): Promise<SearchResult[]> {
-  const out: SearchResult[] = new Array(searches.length);
-  let next = 0;
-  await Promise.all(
-    Array.from({ length: Math.min(concurrency, searches.length) }, async () => {
-      while (next < searches.length) {
-        const i = next++;
-        out[i] = await search(searches[i]);
-      }
-    }),
-  );
-  return out;
-}
-
-const esc = (v: string) => "`" + v.replace(/`/g, "\\`") + "`";
-const and = (...parts: (string | undefined)[]) => parts.filter(Boolean).join(" && ");
-
-async function count(filter?: string): Promise<number> {
-  const r = await search({ per_page: 0, ...(filter ? { filter_by: filter } : {}) });
-  return r.found;
-}
 
 // ---------- 1. counts ----------
 
@@ -162,60 +90,21 @@ async function discoverFacets(total: number) {
   return summary;
 }
 
-// ---------- 3. price distribution (exact percentiles by bisection on count queries) ----------
-
-type PriceGroup = { name: string; filter?: string };
+// ---------- 3. price distribution ----------
 
 async function priceStats(groups: PriceGroup[]) {
-  // min/max/avg per group from facet stats.
-  const statsRes = await multiSearch(
-    groups.map((g) => ({
-      per_page: 0,
-      facet_by: "price",
-      ...(g.filter ? { filter_by: g.filter } : {}),
-    })),
-  );
-
-  type State = { group: PriceGroup; p: number; target: number; lo: number; hi: number };
-  const states: State[] = [];
-  const base = groups.map((g, i) => {
-    const r = statsRes[i];
-    const s = r.facet_counts?.find((f) => f.field_name === "price")?.stats ?? {};
-    const n = r.found;
-    for (const p of PERCENTILES) {
-      if (n > 0 && s.min !== undefined && s.max !== undefined) {
-        states.push({ group: g, p, target: Math.max(1, Math.ceil(p * n)), lo: s.min, hi: s.max });
-      }
-    }
-    // Facet-stats `avg` is not a per-document mean on this server version, so it is not reported.
-    return { name: g.name, count: n, min: s.min ?? null, max: s.max ?? null };
-  });
-
-  // Smallest x with count(price <= x) >= target, to ~₹1 precision. All groups bisect in parallel.
-  for (let iter = 0; iter < 40; iter++) {
-    const active = states.filter((s) => s.hi - s.lo > 1);
-    if (!active.length) break;
-    const mids = active.map((s) => (s.lo + s.hi) / 2);
-    const res = await multiSearch(
-      active.map((s, i) => ({ per_page: 0, filter_by: and(s.group.filter, `price:<=${mids[i].toFixed(2)}`) })),
-    );
-    active.forEach((s, i) => {
-      if (res[i].found >= s.target) s.hi = mids[i];
-      else s.lo = mids[i];
-    });
-  }
-
-  return base.map((b) => {
-    const row: Record<string, number | string | null> = { ...b };
-    for (const p of PERCENTILES) {
-      const s = states.find((x) => x.group.name === b.name && x.p === p);
-      row[p === 0.5 ? "median" : `p${Math.round(p * 100)}`] = s ? Math.round(s.hi) : null;
-    }
-    return {
-      name: row.name, count: row.count, min: row.min, p10: row.p10, p25: row.p25,
-      median: row.median, p75: row.p75, p90: row.p90, max: row.max,
-    };
-  });
+  const stats = await pricePercentiles(groups, PERCENTILES);
+  return stats.map((g) => ({
+    name: g.name,
+    count: g.count,
+    min: g.min,
+    p10: g.percentiles.get(0.1) ?? null,
+    p25: g.percentiles.get(0.25) ?? null,
+    median: g.percentiles.get(0.5) ?? null,
+    p75: g.percentiles.get(0.75) ?? null,
+    p90: g.percentiles.get(0.9) ?? null,
+    max: g.max,
+  }));
 }
 
 // ---------- 4. sampling ----------
@@ -422,17 +311,7 @@ async function serverInfo() {
   };
 }
 
-// ---------- utils + main ----------
-
-function round(n: number, dp: number) {
-  const f = 10 ** dp;
-  return Math.round(n * f) / f;
-}
-
-async function writeJson(file: string, data: unknown) {
-  await mkdir(path.dirname(file), { recursive: true });
-  await writeFile(file, JSON.stringify(data, null, 2) + "\n", "utf8");
-}
+// ---------- main ----------
 
 async function main() {
   const env = getEnv();

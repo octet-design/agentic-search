@@ -1,0 +1,3733 @@
+{
+  "categories": [
+    {
+      "id": "saree",
+      "label": "Saree",
+      "department": "ethnic-wear",
+      "parent": null
+    },
+    {
+      "id": "lehenga",
+      "label": "Lehenga",
+      "department": "ethnic-wear",
+      "parent": null
+    },
+    {
+      "id": "kurta",
+      "label": "Kurta",
+      "department": "ethnic-wear",
+      "parent": null
+    },
+    {
+      "id": "kurta-set",
+      "label": "Kurta Set",
+      "department": "ethnic-wear",
+      "parent": null
+    },
+    {
+      "id": "kurti",
+      "label": "Kurti",
+      "department": "ethnic-wear",
+      "parent": null
+    },
+    {
+      "id": "anarkali",
+      "label": "Anarkali",
+      "department": "ethnic-wear",
+      "parent": null
+    },
+    {
+      "id": "unstitched-suit-set",
+      "label": "Unstitched Suit Set",
+      "department": "ethnic-wear",
+      "parent": null
+    },
+    {
+      "id": "sharara-set",
+      "label": "Sharara & Gharara Set",
+      "department": "ethnic-wear",
+      "parent": null
+    },
+    {
+      "id": "dupatta",
+      "label": "Dupatta",
+      "department": "ethnic-wear",
+      "parent": null
+    },
+    {
+      "id": "blouse",
+      "label": "Blouse",
+      "department": "ethnic-wear",
+      "parent": null
+    },
+    {
+      "id": "ethnic-skirt",
+      "label": "Ethnic Skirt",
+      "department": "ethnic-wear",
+      "parent": null
+    },
+    {
+      "id": "salwar",
+      "label": "Salwar",
+      "department": "ethnic-wear",
+      "parent": null
+    },
+    {
+      "id": "churidar",
+      "label": "Churidar",
+      "department": "ethnic-wear",
+      "parent": null
+    },
+    {
+      "id": "palazzo",
+      "label": "Palazzo",
+      "department": "ethnic-wear",
+      "parent": null
+    },
+    {
+      "id": "ethnic-top",
+      "label": "Ethnic Top",
+      "department": "ethnic-wear",
+      "parent": null
+    },
+    {
+      "id": "angrakha-kurta",
+      "label": "Angrakha Kurta",
+      "department": "ethnic-wear",
+      "parent": "kurta"
+    },
+    {
+      "id": "nehru-jacket",
+      "label": "Nehru Jacket",
+      "department": "ethnic-wear",
+      "parent": null
+    },
+    {
+      "id": "sherwani",
+      "label": "Sherwani",
+      "department": "ethnic-wear",
+      "parent": null
+    },
+    {
+      "id": "bandhgala",
+      "label": "Bandhgala / Jodhpuri Set",
+      "department": "ethnic-wear",
+      "parent": null
+    },
+    {
+      "id": "dhoti",
+      "label": "Dhoti",
+      "department": "ethnic-wear",
+      "parent": null
+    },
+    {
+      "id": "waistcoat",
+      "label": "Waistcoat",
+      "department": "ethnic-wear",
+      "parent": null
+    },
+    {
+      "id": "fusion-gown",
+      "label": "Fusion Gown",
+      "department": "ethnic-wear",
+      "parent": null
+    },
+    {
+      "id": "kurta-pyjama-set",
+      "label": "Kurta Pyjama Set",
+      "department": "ethnic-wear",
+      "parent": "kurta-set"
+    },
+    {
+      "id": "kurta-palazzo-set",
+      "label": "Kurta Palazzo Set",
+      "department": "ethnic-wear",
+      "parent": "kurta-set"
+    },
+    {
+      "id": "kurta-churidar-set",
+      "label": "Kurta Churidar Set",
+      "department": "ethnic-wear",
+      "parent": "kurta-set"
+    },
+    {
+      "id": "kurta-pyjama-nehru-jacket-set",
+      "label": "Kurta Pyjama Nehru Jacket Set",
+      "department": "ethnic-wear",
+      "parent": "kurta-set"
+    },
+    {
+      "id": "petticoat",
+      "label": "Petticoat & Saree Shapewear",
+      "department": "ethnic-wear",
+      "parent": null
+    },
+    {
+      "id": "shawl",
+      "label": "Shawl",
+      "department": "ethnic-wear",
+      "parent": null
+    },
+    {
+      "id": "stole",
+      "label": "Stole",
+      "department": "ethnic-wear",
+      "parent": null
+    },
+    {
+      "id": "jacket",
+      "label": "Jacket",
+      "department": "outerwear",
+      "parent": null
+    },
+    {
+      "id": "blazer",
+      "label": "Blazer",
+      "department": "outerwear",
+      "parent": null
+    },
+    {
+      "id": "bomber-jacket",
+      "label": "Bomber Jacket",
+      "department": "outerwear",
+      "parent": "jacket"
+    },
+    {
+      "id": "denim-jacket",
+      "label": "Denim Jacket",
+      "department": "outerwear",
+      "parent": "jacket"
+    },
+    {
+      "id": "puffer-jacket",
+      "label": "Puffer/Padded Jacket",
+      "department": "outerwear",
+      "parent": "jacket"
+    },
+    {
+      "id": "overcoat",
+      "label": "Overcoat",
+      "department": "outerwear",
+      "parent": "jacket"
+    },
+    {
+      "id": "windcheater",
+      "label": "Windcheater",
+      "department": "outerwear",
+      "parent": "jacket"
+    },
+    {
+      "id": "shrug",
+      "label": "Shrug",
+      "department": "outerwear",
+      "parent": null
+    },
+    {
+      "id": "sweater",
+      "label": "Sweater",
+      "department": "outerwear",
+      "parent": null
+    },
+    {
+      "id": "cardigan",
+      "label": "Cardigan",
+      "department": "outerwear",
+      "parent": "sweater"
+    },
+    {
+      "id": "sweatshirt",
+      "label": "Sweatshirt",
+      "department": "outerwear",
+      "parent": null
+    },
+    {
+      "id": "hoodie",
+      "label": "Hoodie",
+      "department": "outerwear",
+      "parent": "sweatshirt"
+    },
+    {
+      "id": "trench-coat",
+      "label": "Trench Coat",
+      "department": "outerwear",
+      "parent": "jacket"
+    },
+    {
+      "id": "shirt",
+      "label": "Shirt",
+      "department": "western-tops",
+      "parent": null
+    },
+    {
+      "id": "t-shirt",
+      "label": "T-shirt",
+      "department": "western-tops",
+      "parent": null
+    },
+    {
+      "id": "polo-t-shirt",
+      "label": "Polo T-shirt",
+      "department": "western-tops",
+      "parent": "t-shirt"
+    },
+    {
+      "id": "top",
+      "label": "Top",
+      "department": "western-tops",
+      "parent": null
+    },
+    {
+      "id": "tunic",
+      "label": "Tunic",
+      "department": "western-tops",
+      "parent": "top"
+    },
+    {
+      "id": "camisole",
+      "label": "Camisole",
+      "department": "western-tops",
+      "parent": "top"
+    },
+    {
+      "id": "crop-top",
+      "label": "Crop Top",
+      "department": "western-tops",
+      "parent": "top"
+    },
+    {
+      "id": "blouse-western",
+      "label": "Blouse (Western)",
+      "department": "western-tops",
+      "parent": "top"
+    },
+    {
+      "id": "dress",
+      "label": "Dress",
+      "department": "dresses-jumpsuits",
+      "parent": null
+    },
+    {
+      "id": "midi-dress",
+      "label": "Midi Dress",
+      "department": "dresses-jumpsuits",
+      "parent": "dress"
+    },
+    {
+      "id": "maxi-dress",
+      "label": "Maxi Dress",
+      "department": "dresses-jumpsuits",
+      "parent": "dress"
+    },
+    {
+      "id": "shift-dress",
+      "label": "Shift Dress",
+      "department": "dresses-jumpsuits",
+      "parent": "dress"
+    },
+    {
+      "id": "wrap-dress",
+      "label": "Wrap Dress",
+      "department": "dresses-jumpsuits",
+      "parent": "dress"
+    },
+    {
+      "id": "a-line-dress",
+      "label": "A-line Dress",
+      "department": "dresses-jumpsuits",
+      "parent": "dress"
+    },
+    {
+      "id": "bodycon-dress",
+      "label": "Bodycon Dress",
+      "department": "dresses-jumpsuits",
+      "parent": "dress"
+    },
+    {
+      "id": "jumpsuit",
+      "label": "Jumpsuit",
+      "department": "dresses-jumpsuits",
+      "parent": null
+    },
+    {
+      "id": "playsuit",
+      "label": "Playsuit",
+      "department": "dresses-jumpsuits",
+      "parent": "jumpsuit"
+    },
+    {
+      "id": "co-ord-set",
+      "label": "Co-ord Set",
+      "department": "co-ord-sets",
+      "parent": null
+    },
+    {
+      "id": "matching-set",
+      "label": "Matching Set",
+      "department": "co-ord-sets",
+      "parent": "co-ord-set"
+    },
+    {
+      "id": "clothing-set",
+      "label": "Clothing Set",
+      "department": "co-ord-sets",
+      "parent": "co-ord-set"
+    },
+    {
+      "id": "trouser",
+      "label": "Trouser",
+      "department": "western-bottoms",
+      "parent": null
+    },
+    {
+      "id": "jeans",
+      "label": "Jeans",
+      "department": "western-bottoms",
+      "parent": null
+    },
+    {
+      "id": "shorts",
+      "label": "Shorts",
+      "department": "western-bottoms",
+      "parent": null
+    },
+    {
+      "id": "skirt",
+      "label": "Skirt",
+      "department": "western-bottoms",
+      "parent": null
+    },
+    {
+      "id": "chino",
+      "label": "Chino",
+      "department": "western-bottoms",
+      "parent": "trouser"
+    },
+    {
+      "id": "cargo-pant",
+      "label": "Cargo Pant",
+      "department": "western-bottoms",
+      "parent": "trouser"
+    },
+    {
+      "id": "legging",
+      "label": "Legging",
+      "department": "western-bottoms",
+      "parent": null
+    },
+    {
+      "id": "capri",
+      "label": "Capri",
+      "department": "western-bottoms",
+      "parent": null
+    },
+    {
+      "id": "jogger",
+      "label": "Jogger",
+      "department": "western-bottoms",
+      "parent": null
+    },
+    {
+      "id": "track-pant",
+      "label": "Track Pant",
+      "department": "activewear",
+      "parent": null
+    },
+    {
+      "id": "tracksuit",
+      "label": "Tracksuit",
+      "department": "activewear",
+      "parent": null
+    },
+    {
+      "id": "active-t-shirt",
+      "label": "Active T-shirt",
+      "department": "activewear",
+      "parent": null
+    },
+    {
+      "id": "sports-bra",
+      "label": "Sports Bra",
+      "department": "activewear",
+      "parent": null
+    },
+    {
+      "id": "sports-accessory",
+      "label": "Sports Accessory",
+      "department": "activewear",
+      "parent": null
+    },
+    {
+      "id": "running-shoe",
+      "label": "Running Shoe",
+      "department": "footwear",
+      "parent": "sports-shoe"
+    },
+    {
+      "id": "sneaker",
+      "label": "Sneaker",
+      "department": "footwear",
+      "parent": "casual-shoe"
+    },
+    {
+      "id": "sports-shoe",
+      "label": "Sports Shoe",
+      "department": "footwear",
+      "parent": null
+    },
+    {
+      "id": "casual-shoe",
+      "label": "Casual Shoe",
+      "department": "footwear",
+      "parent": null
+    },
+    {
+      "id": "loafer",
+      "label": "Loafer",
+      "department": "footwear",
+      "parent": "casual-shoe"
+    },
+    {
+      "id": "sandal",
+      "label": "Sandal",
+      "department": "footwear",
+      "parent": null
+    },
+    {
+      "id": "flat-sandal",
+      "label": "Flat Sandal",
+      "department": "footwear",
+      "parent": "sandal"
+    },
+    {
+      "id": "block-heel",
+      "label": "Block Heel",
+      "department": "footwear",
+      "parent": "heel"
+    },
+    {
+      "id": "wedge",
+      "label": "Wedge",
+      "department": "footwear",
+      "parent": "heel"
+    },
+    {
+      "id": "heel",
+      "label": "Heel",
+      "department": "footwear",
+      "parent": null
+    },
+    {
+      "id": "ballet-flat",
+      "label": "Ballet Flat",
+      "department": "footwear",
+      "parent": "casual-shoe"
+    },
+    {
+      "id": "jutti",
+      "label": "Jutti",
+      "department": "footwear",
+      "parent": null
+    },
+    {
+      "id": "kolhapuri",
+      "label": "Kolhapuri",
+      "department": "footwear",
+      "parent": null
+    },
+    {
+      "id": "mojari",
+      "label": "Mojari",
+      "department": "footwear",
+      "parent": null
+    },
+    {
+      "id": "floaters",
+      "label": "Floaters",
+      "department": "footwear",
+      "parent": "sandal"
+    },
+    {
+      "id": "flip-flop",
+      "label": "Flip Flop",
+      "department": "footwear",
+      "parent": "sandal"
+    },
+    {
+      "id": "boot",
+      "label": "Boot",
+      "department": "footwear",
+      "parent": null
+    },
+    {
+      "id": "ankle-boot",
+      "label": "Ankle Boot",
+      "department": "footwear",
+      "parent": "boot"
+    },
+    {
+      "id": "chelsea-boot",
+      "label": "Chelsea Boot",
+      "department": "footwear",
+      "parent": "boot"
+    },
+    {
+      "id": "oxford",
+      "label": "Oxford",
+      "department": "footwear",
+      "parent": "formal-shoe"
+    },
+    {
+      "id": "derby",
+      "label": "Derby",
+      "department": "footwear",
+      "parent": "formal-shoe"
+    },
+    {
+      "id": "formal-shoe",
+      "label": "Formal Shoe",
+      "department": "footwear",
+      "parent": null
+    },
+    {
+      "id": "slip-on",
+      "label": "Slip-on",
+      "department": "footwear",
+      "parent": "casual-shoe"
+    },
+    {
+      "id": "penny-loafer",
+      "label": "Penny Loafer",
+      "department": "footwear",
+      "parent": "loafer"
+    },
+    {
+      "id": "school-shoe",
+      "label": "School Shoe",
+      "department": "footwear",
+      "parent": null
+    },
+    {
+      "id": "bag",
+      "label": "Bag",
+      "department": "bags",
+      "parent": null
+    },
+    {
+      "id": "handbag",
+      "label": "Handbag",
+      "department": "bags",
+      "parent": "bag"
+    },
+    {
+      "id": "tote",
+      "label": "Tote",
+      "department": "bags",
+      "parent": "bag"
+    },
+    {
+      "id": "clutch",
+      "label": "Clutch",
+      "department": "bags",
+      "parent": "bag"
+    },
+    {
+      "id": "potli-bag",
+      "label": "Potli Bag",
+      "department": "bags",
+      "parent": "bag"
+    },
+    {
+      "id": "sling-bag",
+      "label": "Sling/Crossbody Bag",
+      "department": "bags",
+      "parent": "bag"
+    },
+    {
+      "id": "wallet",
+      "label": "Wallet",
+      "department": "bags",
+      "parent": null
+    },
+    {
+      "id": "backpack",
+      "label": "Backpack",
+      "department": "bags",
+      "parent": "bag"
+    },
+    {
+      "id": "travel-backpack",
+      "label": "Travel Backpack",
+      "department": "bags",
+      "parent": "backpack"
+    },
+    {
+      "id": "laptop-bag",
+      "label": "Laptop Bag",
+      "department": "bags",
+      "parent": "bag"
+    },
+    {
+      "id": "duffel-bag",
+      "label": "Duffel/Gym Bag",
+      "department": "bags",
+      "parent": "bag"
+    },
+    {
+      "id": "jewellery",
+      "label": "Jewellery",
+      "department": "jewellery",
+      "parent": null
+    },
+    {
+      "id": "earring",
+      "label": "Earring",
+      "department": "jewellery",
+      "parent": "jewellery"
+    },
+    {
+      "id": "jhumka",
+      "label": "Jhumka",
+      "department": "jewellery",
+      "parent": "earring"
+    },
+    {
+      "id": "stud",
+      "label": "Stud",
+      "department": "jewellery",
+      "parent": "earring"
+    },
+    {
+      "id": "danglers",
+      "label": "Danglers",
+      "department": "jewellery",
+      "parent": "earring"
+    },
+    {
+      "id": "hoop",
+      "label": "Hoop",
+      "department": "jewellery",
+      "parent": "earring"
+    },
+    {
+      "id": "bracelet",
+      "label": "Bracelet",
+      "department": "jewellery",
+      "parent": "jewellery"
+    },
+    {
+      "id": "bangle",
+      "label": "Bangle",
+      "department": "jewellery",
+      "parent": "jewellery"
+    },
+    {
+      "id": "ring",
+      "label": "Ring",
+      "department": "jewellery",
+      "parent": "jewellery"
+    },
+    {
+      "id": "cocktail-ring",
+      "label": "Cocktail Ring",
+      "department": "jewellery",
+      "parent": "ring"
+    },
+    {
+      "id": "pendant-set",
+      "label": "Pendant Set",
+      "department": "jewellery",
+      "parent": "jewellery"
+    },
+    {
+      "id": "necklace",
+      "label": "Necklace",
+      "department": "jewellery",
+      "parent": "jewellery"
+    },
+    {
+      "id": "choker",
+      "label": "Choker",
+      "department": "jewellery",
+      "parent": "necklace"
+    },
+    {
+      "id": "anklet",
+      "label": "Anklet",
+      "department": "jewellery",
+      "parent": "jewellery"
+    },
+    {
+      "id": "nose-pin",
+      "label": "Nose Pin",
+      "department": "jewellery",
+      "parent": "jewellery"
+    },
+    {
+      "id": "maang-tikka",
+      "label": "Maang Tikka / Bridal Hair Jewellery",
+      "department": "jewellery",
+      "parent": "jewellery"
+    },
+    {
+      "id": "watch",
+      "label": "Watch",
+      "department": "accessories",
+      "parent": null
+    },
+    {
+      "id": "belt",
+      "label": "Belt",
+      "department": "accessories",
+      "parent": null
+    },
+    {
+      "id": "scarf",
+      "label": "Scarf",
+      "department": "accessories",
+      "parent": null
+    },
+    {
+      "id": "muffler",
+      "label": "Muffler",
+      "department": "accessories",
+      "parent": "scarf"
+    },
+    {
+      "id": "cap",
+      "label": "Cap",
+      "department": "accessories",
+      "parent": null
+    },
+    {
+      "id": "hat",
+      "label": "Hat",
+      "department": "accessories",
+      "parent": "cap"
+    },
+    {
+      "id": "beanie",
+      "label": "Beanie",
+      "department": "accessories",
+      "parent": "cap"
+    },
+    {
+      "id": "headband",
+      "label": "Headband",
+      "department": "accessories",
+      "parent": null
+    },
+    {
+      "id": "hairband",
+      "label": "Hairband",
+      "department": "accessories",
+      "parent": "headband"
+    },
+    {
+      "id": "hair-clip",
+      "label": "Hair Clip",
+      "department": "accessories",
+      "parent": null
+    },
+    {
+      "id": "scrunchie",
+      "label": "Scrunchie",
+      "department": "accessories",
+      "parent": null
+    },
+    {
+      "id": "sunglasses",
+      "label": "Sunglasses",
+      "department": "accessories",
+      "parent": null
+    },
+    {
+      "id": "wayfarer",
+      "label": "Wayfarer",
+      "department": "accessories",
+      "parent": "sunglasses"
+    },
+    {
+      "id": "aviator",
+      "label": "Aviator",
+      "department": "accessories",
+      "parent": "sunglasses"
+    },
+    {
+      "id": "sports-sunglasses",
+      "label": "Sports Sunglasses",
+      "department": "accessories",
+      "parent": "sunglasses"
+    },
+    {
+      "id": "eyeglasses",
+      "label": "Eyeglasses",
+      "department": "accessories",
+      "parent": null
+    },
+    {
+      "id": "glove",
+      "label": "Glove",
+      "department": "accessories",
+      "parent": null
+    },
+    {
+      "id": "sock",
+      "label": "Sock",
+      "department": "accessories",
+      "parent": null
+    },
+    {
+      "id": "wristband",
+      "label": "Wristband",
+      "department": "accessories",
+      "parent": null
+    },
+    {
+      "id": "tie",
+      "label": "Tie",
+      "department": "accessories",
+      "parent": null
+    },
+    {
+      "id": "pocket-square",
+      "label": "Pocket Square",
+      "department": "accessories",
+      "parent": null
+    },
+    {
+      "id": "cufflink",
+      "label": "Cufflink",
+      "department": "accessories",
+      "parent": null
+    },
+    {
+      "id": "keychain",
+      "label": "Keychain",
+      "department": "accessories",
+      "parent": null
+    },
+    {
+      "id": "baby-wear",
+      "label": "Baby Wear",
+      "department": "baby-wear",
+      "parent": null
+    },
+    {
+      "id": "romper",
+      "label": "Romper & Sleepsuit",
+      "department": "baby-wear",
+      "parent": "baby-wear"
+    },
+    {
+      "id": "bodysuit",
+      "label": "Bodysuit",
+      "department": "baby-wear",
+      "parent": "baby-wear"
+    },
+    {
+      "id": "swaddle",
+      "label": "Swaddle & Sleeping Bag",
+      "department": "baby-wear",
+      "parent": "baby-wear"
+    },
+    {
+      "id": "brief",
+      "label": "Brief",
+      "department": "innerwear-sleepwear",
+      "parent": null
+    },
+    {
+      "id": "trunk",
+      "label": "Trunk",
+      "department": "innerwear-sleepwear",
+      "parent": "brief"
+    },
+    {
+      "id": "boxer",
+      "label": "Boxer",
+      "department": "innerwear-sleepwear",
+      "parent": null
+    },
+    {
+      "id": "vest",
+      "label": "Vest",
+      "department": "innerwear-sleepwear",
+      "parent": null
+    },
+    {
+      "id": "bra",
+      "label": "Bra",
+      "department": "innerwear-sleepwear",
+      "parent": null
+    },
+    {
+      "id": "bralette",
+      "label": "Bralette",
+      "department": "innerwear-sleepwear",
+      "parent": "bra"
+    },
+    {
+      "id": "nightdress",
+      "label": "Nightdress",
+      "department": "innerwear-sleepwear",
+      "parent": "nightwear"
+    },
+    {
+      "id": "nightwear",
+      "label": "Nightwear & Loungewear",
+      "department": "innerwear-sleepwear",
+      "parent": null
+    },
+    {
+      "id": "pyjama-set",
+      "label": "Pyjama Set",
+      "department": "innerwear-sleepwear",
+      "parent": "nightwear"
+    },
+    {
+      "id": "camisole-top",
+      "label": "Camisole Top",
+      "department": "innerwear-sleepwear",
+      "parent": "nightwear"
+    },
+    {
+      "id": "shapewear",
+      "label": "Shapewear",
+      "department": "innerwear-sleepwear",
+      "parent": null
+    },
+    {
+      "id": "thermal-top",
+      "label": "Thermal Top",
+      "department": "innerwear-sleepwear",
+      "parent": null
+    },
+    {
+      "id": "thermal-bottom",
+      "label": "Thermal Bottom",
+      "department": "innerwear-sleepwear",
+      "parent": null
+    },
+    {
+      "id": "swimsuit",
+      "label": "Swimsuit",
+      "department": "swimwear",
+      "parent": null
+    },
+    {
+      "id": "bikini",
+      "label": "Bikini",
+      "department": "swimwear",
+      "parent": "swimsuit"
+    },
+    {
+      "id": "swim-trunk",
+      "label": "Swim Trunk",
+      "department": "swimwear",
+      "parent": "swimsuit"
+    },
+    {
+      "id": "other",
+      "label": "Other",
+      "department": "non-fashion",
+      "parent": null
+    }
+  ],
+  "fabric": [
+    {
+      "id": "cotton",
+      "label": "Cotton",
+      "related": [
+        "cotton-blend",
+        "linen",
+        "rayon"
+      ],
+      "keywords": [
+        "cotton",
+        "100% cotton",
+        "pure cotton",
+        "organic cotton",
+        "bci cotton",
+        "supima cotton",
+        "giza cotton",
+        "mulmul cotton",
+        "mul cotton",
+        "muslin cotton",
+        "handloom cotton",
+        "cambric cotton",
+        "kala cotton",
+        "malai cotton",
+        "muslin",
+        "mulmul",
+        "cotton slub",
+        "cotton poplin",
+        "cotton jersey",
+        "cotton twill",
+        "cotton flex",
+        "cotton fleece",
+        "cotton dobby",
+        "cotton satin",
+        "cotton cambric",
+        "cotton mul",
+        "cotton fabric",
+        "cotton-poly",
+        "cotton-polyester",
+        "cotton-elastane",
+        "cotton stretch",
+        "cotton spandex",
+        "cotton lycra",
+        "cotton acrylic",
+        "cotton linen",
+        "cotton viscose",
+        "cotton rayon",
+        "cotton blend",
+        "cotton-poly blend",
+        "cotton-polyester blend",
+        "cotton-elastane blend",
+        "cotton lycra blend",
+        "cotton spandex blend",
+        "cotton acrylic blend",
+        "cotton linen blend",
+        "cotton viscose blend",
+        "cotton rayon blend",
+        "cotton-polyester-elastane blend",
+        "cotton-polyester-lycra blend",
+        "cotton-polyester-spandex blend",
+        "cotton-polyester-acrylic blend",
+        "cotton-polyester-linen blend",
+        "cotton-polyester-viscose blend",
+        "cotton-polyester-rayon blend",
+        "cotton-polyester-nylon blend",
+        "cotton-polyester-modal blend",
+        "cotton-polyester-tencel blend",
+        "cotton-polyester-bamboo blend",
+        "cotton-polyester-jute blend",
+        "cotton-polyester-wool blend",
+        "cotton-polyester-silk blend",
+        "cotton-polyester-leather blend",
+        "cotton-polyester-faux leather blend",
+        "cotton-polyester-pu blend",
+        "cotton-polyester-eva blend",
+        "cotton-polyester-rubber blend",
+        "cotton-polyester-canvas blend",
+        "cotton-polyester-denim blend",
+        "cotton-polyester-chiffon blend",
+        "cotton-polyester-georgette blend",
+        "cotton-polyester-crepe blend",
+        "cotton-polyester-satin blend",
+        "cotton-polyester-velvet blend",
+        "cotton-polyester-net blend",
+        "cotton-polyester-mesh blend",
+        "cotton-polyester-lace blend",
+        "cotton-polyester-jacquard blend",
+        "cotton-polyester-brocade blend",
+        "cotton-polyester-tissue blend",
+        "cotton-polyester-organza blend",
+        "cotton-polyester-chanderi blend",
+        "cotton-polyester-tussar blend",
+        "cotton-polyester-banarasi blend",
+        "cotton-polyester-kanjivaram blend",
+        "cotton-polyester-raw silk blend",
+        "cotton-polyester-mulberry silk blend",
+        "cotton-polyester-mashru silk blend",
+        "cotton-polyester-habutai silk blend",
+        "cotton-polyester-kosa silk blend",
+        "cotton-polyester-gaji silk blend",
+        "cotton-polyester-paithani blend",
+        "cotton-polyester-vasansi silk blend",
+        "cotton-polyester-south silk blend",
+        "cotton-polyester-soft silk blend",
+        "cotton-polyester-silk blend",
+        "cotton-polyester-silk cotton blend",
+        "cotton-polyester-silk blend jacquard",
+        "cotton-polyester-silk blend brocade",
+        "cotton-polyester-silk blend tissue",
+        "cotton-polyester-silk blend organza",
+        "cotton-polyester-silk blend chanderi",
+        "cotton-polyester-silk blend tussar",
+        "cotton-polyester-silk blend banarasi",
+        "cotton-polyester-silk blend kanjivaram",
+        "cotton-polyester-silk blend raw silk",
+        "cotton-polyester-silk blend mulberry silk",
+        "cotton-polyester-silk blend mashru silk",
+        "cotton-polyester-silk blend habutai silk",
+        "cotton-polyester-silk blend kosa silk",
+        "cotton-polyester-silk blend gaji silk",
+        "cotton-polyester-silk blend paithani",
+        "cotton-polyester-silk blend vasansi silk",
+        "cotton-polyester-silk blend south silk",
+        "cotton-polyester-silk blend soft silk",
+        "cotton-polyester-silk blend silk cotton",
+        "cotton-polyester-silk blend silk blend",
+        "cotton-polyester-silk blend silk blend jacquard",
+        "cotton-polyester-silk blend silk blend brocade",
+        "cotton-polyester-silk blend silk blend tissue",
+        "cotton-polyester-silk blend silk blend organza",
+        "cotton-polyester-silk blend silk blend chanderi",
+        "cotton-polyester-silk blend silk blend tussar",
+        "cotton-polyester-silk blend silk blend banarasi",
+        "cotton-polyester-silk blend silk blend kanjivaram",
+        "cotton-polyester-silk blend silk blend raw silk",
+        "cotton-polyester-silk blend silk blend mulberry silk",
+        "cotton-polyester-silk blend silk blend mashru silk",
+        "cotton-polyester-silk blend silk blend habutai silk",
+        "cotton-polyester-silk blend silk blend kosa silk",
+        "cotton-polyester-silk blend silk blend gaji silk",
+        "cotton-polyester-silk blend silk blend paithani",
+        "cotton-polyester-silk blend silk blend vasansi silk",
+        "cotton-polyester-silk blend silk blend south silk",
+        "cotton-polyester-silk blend silk blend soft silk",
+        "cotton-polyester-silk blend silk blend silk cotton",
+        "cotton-polyester-silk blend silk blend silk blend"
+      ]
+    },
+    {
+      "id": "cotton-blend",
+      "label": "Cotton Blend",
+      "related": [
+        "cotton",
+        "polyester-blend"
+      ],
+      "keywords": [
+        "cotton blend",
+        "cotton-blend",
+        "cotton poly",
+        "cotton polyester",
+        "cotton lycra",
+        "cotton spandex",
+        "cotton elastane",
+        "cotton acrylic",
+        "cotton linen",
+        "cotton viscose",
+        "cotton rayon",
+        "cotton modal",
+        "cotton nylon",
+        "cotton wool",
+        "cotton silk",
+        "cotton flex",
+        "cotton fleece blend",
+        "cotton stretch",
+        "cotton slub blend",
+        "cotton-poly blend",
+        "cotton-polyester blend",
+        "cotton-elastane blend",
+        "cotton-lycra blend",
+        "cotton-spandex blend",
+        "cotton-acrylic blend",
+        "cotton-linen blend",
+        "cotton-viscose blend",
+        "cotton-rayon blend",
+        "cotton-modal blend",
+        "cotton-nylon blend",
+        "cotton-wool blend",
+        "cotton-silk blend",
+        "cotton-flex blend",
+        "cotton-fleece blend",
+        "cotton-stretch blend",
+        "cotton-slub blend"
+      ]
+    },
+    {
+      "id": "linen",
+      "label": "Linen",
+      "related": [
+        "cotton",
+        "linen-blend"
+      ],
+      "keywords": [
+        "linen",
+        "pure linen",
+        "100% linen",
+        "linen fabric"
+      ]
+    },
+    {
+      "id": "linen-blend",
+      "label": "Linen Blend",
+      "related": [
+        "linen",
+        "cotton-blend",
+        "viscose-blend"
+      ],
+      "keywords": [
+        "linen blend",
+        "linen-blend",
+        "linen cotton",
+        "linen viscose",
+        "linen silk",
+        "linen polyester",
+        "linen rayon",
+        "linen modal"
+      ]
+    },
+    {
+      "id": "silk",
+      "label": "Silk",
+      "related": [
+        "satin",
+        "crepe",
+        "art-silk"
+      ],
+      "keywords": [
+        "silk",
+        "pure silk",
+        "100% silk",
+        "mulberry silk",
+        "raw silk",
+        "tussar silk",
+        "banarasi silk",
+        "chanderi silk",
+        "organza silk",
+        "kora silk",
+        "kosa silk",
+        "mashru silk",
+        "dupion silk",
+        "habutai silk",
+        "gaji silk",
+        "kanjivaram",
+        "paithani",
+        "vasansi silk",
+        "south silk",
+        "soft silk",
+        "dola silk",
+        "tissue silk",
+        "muslin silk",
+        "crepe silk",
+        "silk velvet",
+        "silk chanderi",
+        "silk slub",
+        "silk blend jacquard",
+        "silk blend brocade",
+        "silk blend tissue",
+        "silk blend organza",
+        "silk blend chanderi",
+        "silk blend tussar",
+        "silk blend banarasi",
+        "silk blend kanjivaram",
+        "silk blend raw silk",
+        "silk blend mulberry silk",
+        "silk blend mashru silk",
+        "silk blend habutai silk",
+        "silk blend kosa silk",
+        "silk blend gaji silk",
+        "silk blend paithani",
+        "silk blend vasansi silk",
+        "silk blend south silk",
+        "silk blend soft silk",
+        "silk blend silk cotton",
+        "silk blend silk blend"
+      ]
+    },
+    {
+      "id": "silk-blend",
+      "label": "Silk Blend",
+      "related": [
+        "silk",
+        "art-silk",
+        "cotton-blend"
+      ],
+      "keywords": [
+        "silk blend",
+        "silk-blend",
+        "cotton silk",
+        "silk cotton",
+        "silk blend jacquard",
+        "silk blend brocade",
+        "silk blend tissue",
+        "silk blend organza",
+        "silk blend chanderi",
+        "silk blend tussar",
+        "silk blend banarasi",
+        "silk blend kanjivaram",
+        "silk blend raw silk",
+        "silk blend mulberry silk",
+        "silk blend mashru silk",
+        "silk blend habutai silk",
+        "silk blend kosa silk",
+        "silk blend gaji silk",
+        "silk blend paithani",
+        "silk blend vasansi silk",
+        "silk blend south silk",
+        "silk blend soft silk",
+        "silk blend silk cotton",
+        "silk blend silk blend"
+      ]
+    },
+    {
+      "id": "art-silk",
+      "label": "Art Silk",
+      "related": [
+        "silk",
+        "satin",
+        "polyester"
+      ],
+      "keywords": [
+        "art silk",
+        "artificial silk",
+        "vegan silk"
+      ]
+    },
+    {
+      "id": "polyester",
+      "label": "Polyester",
+      "related": [
+        "polyester-blend",
+        "nylon"
+      ],
+      "keywords": [
+        "polyester",
+        "100% polyester",
+        "polyester 100%",
+        "pure polyester",
+        "recycled polyester",
+        "quick dry polyester"
+      ]
+    },
+    {
+      "id": "polyester-blend",
+      "label": "Polyester Blend",
+      "related": [
+        "polyester",
+        "cotton-blend",
+        "nylon-blend"
+      ],
+      "keywords": [
+        "polyester blend",
+        "polyester-blend",
+        "poly cotton",
+        "poly-cotton",
+        "polyester cotton",
+        "polyester viscose",
+        "polyester rayon",
+        "polyester lycra",
+        "polyester spandex",
+        "polyester elastane",
+        "polyester acrylic",
+        "polyester linen",
+        "polyester silk",
+        "polyester modal",
+        "polyester nylon",
+        "polyester wool",
+        "polyester flex",
+        "polyester fleece",
+        "polyester stretch",
+        "polyester slub",
+        "polyester satin",
+        "polyester georgette",
+        "polyester crepe",
+        "polyester velvet",
+        "polyester net",
+        "polyester mesh",
+        "polyester lace",
+        "polyester jacquard",
+        "polyester brocade",
+        "polyester tissue",
+        "polyester organza",
+        "polyester chanderi",
+        "polyester tussar",
+        "polyester banarasi",
+        "polyester kanjivaram",
+        "polyester raw silk",
+        "polyester mulberry silk",
+        "polyester mashru silk",
+        "polyester habutai silk",
+        "polyester kosa silk",
+        "polyester gaji silk",
+        "polyester paithani",
+        "polyester vasansi silk",
+        "polyester south silk",
+        "polyester soft silk",
+        "polyester silk cotton",
+        "polyester silk blend"
+      ]
+    },
+    {
+      "id": "nylon",
+      "label": "Nylon",
+      "related": [
+        "polyester",
+        "nylon-blend"
+      ],
+      "keywords": [
+        "nylon",
+        "100% nylon",
+        "nylon 100%"
+      ]
+    },
+    {
+      "id": "nylon-blend",
+      "label": "Nylon Blend",
+      "related": [
+        "nylon",
+        "polyester-blend",
+        "spandex"
+      ],
+      "keywords": [
+        "nylon blend",
+        "nylon-blend",
+        "nylon spandex",
+        "nylon elastane",
+        "nylon lycra",
+        "nylon polyester",
+        "nylon viscose",
+        "nylon rayon",
+        "nylon modal",
+        "nylon wool"
+      ]
+    },
+    {
+      "id": "rayon",
+      "label": "Rayon",
+      "related": [
+        "viscose",
+        "modal",
+        "cotton"
+      ],
+      "keywords": [
+        "rayon",
+        "100% rayon",
+        "pure rayon",
+        "viscose rayon",
+        "liva (rayon)"
+      ]
+    },
+    {
+      "id": "viscose",
+      "label": "Viscose",
+      "related": [
+        "rayon",
+        "modal",
+        "viscose-blend"
+      ],
+      "keywords": [
+        "viscose",
+        "100% viscose",
+        "pure viscose"
+      ]
+    },
+    {
+      "id": "viscose-blend",
+      "label": "Viscose Blend",
+      "related": [
+        "viscose",
+        "polyester-blend"
+      ],
+      "keywords": [
+        "viscose blend",
+        "viscose-blend",
+        "viscose polyester",
+        "viscose rayon",
+        "viscose silk",
+        "viscose cotton",
+        "viscose modal",
+        "viscose nylon",
+        "viscose wool"
+      ]
+    },
+    {
+      "id": "modal",
+      "label": "Modal",
+      "related": [
+        "rayon",
+        "viscose",
+        "modal-blend"
+      ],
+      "keywords": [
+        "modal",
+        "micromodal",
+        "bemberg modal"
+      ]
+    },
+    {
+      "id": "modal-blend",
+      "label": "Modal Blend",
+      "related": [
+        "modal",
+        "viscose-blend",
+        "cotton-blend"
+      ],
+      "keywords": [
+        "modal blend",
+        "modal-blend",
+        "modal cotton",
+        "modal polyester",
+        "modal viscose",
+        "modal silk",
+        "modal nylon",
+        "modal wool",
+        "modal spandex"
+      ]
+    },
+    {
+      "id": "acrylic",
+      "label": "Acrylic",
+      "related": [
+        "acrylic-blend",
+        "wool",
+        "polyester"
+      ],
+      "keywords": [
+        "acrylic",
+        "100% acrylic",
+        "pure acrylic"
+      ]
+    },
+    {
+      "id": "acrylic-blend",
+      "label": "Acrylic Blend",
+      "related": [
+        "acrylic",
+        "wool-blend",
+        "polyester-blend"
+      ],
+      "keywords": [
+        "acrylic blend",
+        "acrylic-blend",
+        "acrylic wool",
+        "acrylic cotton",
+        "acrylic polyester"
+      ]
+    },
+    {
+      "id": "wool",
+      "label": "Wool",
+      "related": [
+        "wool-blend",
+        "acrylic",
+        "pashmina"
+      ],
+      "keywords": [
+        "wool",
+        "pure wool",
+        "100% wool",
+        "merino wool",
+        "lamb wool",
+        "fine wool",
+        "pashmina",
+        "pure pashmina",
+        "woollen"
+      ]
+    },
+    {
+      "id": "wool-blend",
+      "label": "Wool Blend",
+      "related": [
+        "wool",
+        "acrylic-blend",
+        "polyester-blend"
+      ],
+      "keywords": [
+        "wool blend",
+        "wool-blend",
+        "blend wool",
+        "wool acrylic",
+        "wool polyester",
+        "wool cotton"
+      ]
+    },
+    {
+      "id": "denim",
+      "label": "Denim",
+      "related": [
+        "canvas",
+        "cotton"
+      ],
+      "keywords": [
+        "denim",
+        "denims",
+        "cotton denim",
+        "denim weave"
+      ]
+    },
+    {
+      "id": "canvas",
+      "label": "Canvas",
+      "related": [
+        "denim",
+        "cotton",
+        "jute"
+      ],
+      "keywords": [
+        "canvas"
+      ]
+    },
+    {
+      "id": "jute",
+      "label": "Jute",
+      "related": [
+        "canvas",
+        "cotton",
+        "linen"
+      ],
+      "keywords": [
+        "jute"
+      ]
+    },
+    {
+      "id": "leather",
+      "label": "Leather",
+      "related": [
+        "faux-leather",
+        "suede"
+      ],
+      "keywords": [
+        "leather",
+        "genuine leather",
+        "full grain leather",
+        "plain leather",
+        "pebble leather",
+        "saffiano leather",
+        "embossed leather",
+        "imported leather",
+        "buffalo leather",
+        "italian leather"
+      ]
+    },
+    {
+      "id": "faux-leather",
+      "label": "Faux Leather",
+      "related": [
+        "leather",
+        "pu"
+      ],
+      "keywords": [
+        "faux leather",
+        "synthetic leather",
+        "vegan leather",
+        "vegan-friendly leather",
+        "vegan-friendly material",
+        "cruelty-free leather"
+      ]
+    },
+    {
+      "id": "pu",
+      "label": "PU",
+      "related": [
+        "faux-leather",
+        "leather",
+        "eva"
+      ],
+      "keywords": [
+        "pu",
+        "pu leather",
+        "pu cfb"
+      ]
+    },
+    {
+      "id": "eva",
+      "label": "EVA",
+      "related": [
+        "pu",
+        "rubber"
+      ],
+      "keywords": [
+        "eva"
+      ]
+    },
+    {
+      "id": "rubber",
+      "label": "Rubber",
+      "related": [
+        "eva",
+        "pu"
+      ],
+      "keywords": [
+        "rubber",
+        "tpr"
+      ]
+    },
+    {
+      "id": "pvc",
+      "label": "PVC",
+      "related": [
+        "pu",
+        "eva"
+      ],
+      "keywords": [
+        "pvc",
+        "pvc cfb"
+      ]
+    },
+    {
+      "id": "metal",
+      "label": "Metal",
+      "related": [
+        "brass",
+        "alloy",
+        "silver"
+      ],
+      "keywords": [
+        "metal",
+        "mixed metal",
+        "mix metal",
+        "high quality mixed metal"
+      ]
+    },
+    {
+      "id": "brass",
+      "label": "Brass",
+      "related": [
+        "alloy",
+        "metal",
+        "gold-plated"
+      ],
+      "keywords": [
+        "brass",
+        "brass alloy"
+      ]
+    },
+    {
+      "id": "alloy",
+      "label": "Alloy",
+      "related": [
+        "brass",
+        "metal",
+        "silver"
+      ],
+      "keywords": [
+        "alloy",
+        "brass alloy"
+      ]
+    },
+    {
+      "id": "silver",
+      "label": "Silver",
+      "related": [
+        "sterling-silver",
+        "metal",
+        "alloy"
+      ],
+      "keywords": [
+        "silver",
+        "925 silver",
+        "pure silver",
+        "sterling silver",
+        "925 pure silver",
+        "925 sterling silver",
+        "92.5 sterling silver",
+        "92.5 silver",
+        "rhodium plated silver",
+        "oxidized silver",
+        "gold plated silver",
+        "silver with pearls",
+        "silver with semi-precious stones",
+        "silver with pearls and semi-precious stones",
+        "gold plated pure silver"
+      ]
+    },
+    {
+      "id": "sterling-silver",
+      "label": "Sterling Silver",
+      "related": [
+        "silver",
+        "metal",
+        "alloy"
+      ],
+      "keywords": [
+        "sterling silver",
+        "925 sterling silver",
+        "92.5 sterling silver",
+        "pure 925 sterling silver"
+      ]
+    },
+    {
+      "id": "gold-plated",
+      "label": "Gold Plated",
+      "related": [
+        "brass",
+        "silver",
+        "metal"
+      ],
+      "keywords": [
+        "gold plated",
+        "22 kt gold plating",
+        "24ct gold plated",
+        "gold plated mixed metal",
+        "gold plated pure silver"
+      ]
+    },
+    {
+      "id": "stainless-steel",
+      "label": "Stainless Steel",
+      "related": [
+        "metal",
+        "silver",
+        "alloy"
+      ],
+      "keywords": [
+        "stainless steel"
+      ]
+    },
+    {
+      "id": "ceramic",
+      "label": "Ceramic",
+      "related": [
+        "metal"
+      ],
+      "keywords": [
+        "ceramic",
+        "stoneware"
+      ]
+    },
+    {
+      "id": "tencel",
+      "label": "Tencel",
+      "related": [
+        "modal",
+        "rayon",
+        "bamboo"
+      ],
+      "keywords": [
+        "tencel",
+        "tencel luxe"
+      ]
+    },
+    {
+      "id": "bamboo",
+      "label": "Bamboo",
+      "related": [
+        "tencel",
+        "cotton",
+        "linen"
+      ],
+      "keywords": [
+        "bamboo",
+        "bamboo fabric"
+      ]
+    },
+    {
+      "id": "lace",
+      "label": "Lace",
+      "related": [
+        "net",
+        "mesh",
+        "chiffon"
+      ],
+      "keywords": [
+        "lace"
+      ]
+    },
+    {
+      "id": "net",
+      "label": "Net",
+      "related": [
+        "mesh",
+        "lace"
+      ],
+      "keywords": [
+        "net"
+      ]
+    },
+    {
+      "id": "mesh",
+      "label": "Mesh",
+      "related": [
+        "net",
+        "lace"
+      ],
+      "keywords": [
+        "mesh"
+      ]
+    },
+    {
+      "id": "chiffon",
+      "label": "Chiffon",
+      "related": [
+        "georgette",
+        "organza",
+        "crepe"
+      ],
+      "keywords": [
+        "chiffon"
+      ]
+    },
+    {
+      "id": "georgette",
+      "label": "Georgette",
+      "related": [
+        "chiffon",
+        "crepe",
+        "organza"
+      ],
+      "keywords": [
+        "georgette"
+      ]
+    },
+    {
+      "id": "organza",
+      "label": "Organza",
+      "related": [
+        "chiffon",
+        "tissue",
+        "georgette"
+      ],
+      "keywords": [
+        "organza"
+      ]
+    },
+    {
+      "id": "crepe",
+      "label": "Crepe",
+      "related": [
+        "satin",
+        "georgette",
+        "chiffon"
+      ],
+      "keywords": [
+        "crepe"
+      ]
+    },
+    {
+      "id": "satin",
+      "label": "Satin",
+      "related": [
+        "silk",
+        "crepe",
+        "art-silk"
+      ],
+      "keywords": [
+        "satin"
+      ]
+    },
+    {
+      "id": "velvet",
+      "label": "Velvet",
+      "related": [
+        "satin",
+        "silk",
+        "suede"
+      ],
+      "keywords": [
+        "velvet"
+      ]
+    },
+    {
+      "id": "suede",
+      "label": "Suede",
+      "related": [
+        "leather",
+        "velvet",
+        "faux-leather"
+      ],
+      "keywords": [
+        "suede",
+        "suede leather"
+      ]
+    },
+    {
+      "id": "jacquard",
+      "label": "Jacquard",
+      "related": [
+        "brocade",
+        "cotton"
+      ],
+      "keywords": [
+        "jacquard"
+      ]
+    },
+    {
+      "id": "brocade",
+      "label": "Brocade",
+      "related": [
+        "jacquard",
+        "silk",
+        "cotton"
+      ],
+      "keywords": [
+        "brocade"
+      ]
+    },
+    {
+      "id": "tissue",
+      "label": "Tissue",
+      "related": [
+        "organza",
+        "silk",
+        "chiffon"
+      ],
+      "keywords": [
+        "tissue"
+      ]
+    },
+    {
+      "id": "pashmina",
+      "label": "Pashmina",
+      "related": [
+        "wool",
+        "wool-blend"
+      ],
+      "keywords": [
+        "pashmina",
+        "pure pashmina"
+      ]
+    },
+    {
+      "id": "spandex",
+      "label": "Spandex",
+      "related": [
+        "elastane",
+        "lycra"
+      ],
+      "keywords": [
+        "spandex"
+      ]
+    },
+    {
+      "id": "lycra",
+      "label": "Lycra",
+      "related": [
+        "spandex",
+        "elastane"
+      ],
+      "keywords": [
+        "lycra"
+      ]
+    },
+    {
+      "id": "elastane",
+      "label": "Elastane",
+      "related": [
+        "spandex",
+        "lycra"
+      ],
+      "keywords": [
+        "elastane"
+      ]
+    },
+    {
+      "id": "modal-silk",
+      "label": "Modal Silk",
+      "related": [
+        "modal",
+        "silk-blend",
+        "art-silk"
+      ],
+      "keywords": [
+        "modal silk"
+      ]
+    }
+  ],
+  "pattern": [
+    {
+      "id": "solid",
+      "label": "Solid",
+      "related": [],
+      "keywords": [
+        "solid",
+        "plain",
+        "plain body",
+        "plain coloured",
+        "solid contrast"
+      ]
+    },
+    {
+      "id": "printed",
+      "label": "Printed",
+      "related": [
+        "graphic",
+        "floral",
+        "abstract"
+      ],
+      "keywords": [
+        "printed",
+        "print",
+        "prints",
+        "all over print",
+        "all-over print",
+        "placement print",
+        "aop",
+        "patterned"
+      ]
+    },
+    {
+      "id": "embroidered",
+      "label": "Embroidered",
+      "related": [
+        "chikankari"
+      ],
+      "keywords": [
+        "embroidered",
+        "embroidery",
+        "threadwork",
+        "thread embroidery",
+        "floral embroidery"
+      ]
+    },
+    {
+      "id": "embellished",
+      "label": "Embellished",
+      "related": [
+        "sequins",
+        "mirror-work"
+      ],
+      "keywords": [
+        "embellished",
+        "embellished/sequined",
+        "embellishment",
+        "stonework",
+        "applique",
+        "applique work",
+        "applique embroidery"
+      ]
+    },
+    {
+      "id": "striped",
+      "label": "Striped",
+      "related": [],
+      "keywords": [
+        "striped",
+        "stripes",
+        "stripe",
+        "pinstripe",
+        "lines"
+      ]
+    },
+    {
+      "id": "checked",
+      "label": "Checked",
+      "related": [],
+      "keywords": [
+        "checked",
+        "checkered",
+        "checks",
+        "plaid",
+        "gingham",
+        "grid"
+      ]
+    },
+    {
+      "id": "colorblock",
+      "label": "Colorblock",
+      "related": [
+        "solid"
+      ],
+      "keywords": [
+        "colorblock",
+        "color block",
+        "colorblocked",
+        "colour block",
+        "colourblocked",
+        "color blocks",
+        "colorblocks"
+      ]
+    },
+    {
+      "id": "floral",
+      "label": "Floral",
+      "related": [
+        "printed",
+        "paisley"
+      ],
+      "keywords": [
+        "floral",
+        "flower",
+        "florals",
+        "floral print",
+        "floral motif",
+        "floral motifs",
+        "floral design",
+        "floral prints",
+        "floral printed",
+        "floral embroidery",
+        "floral applique",
+        "floral border",
+        "floral block print",
+        "floral digital print",
+        "floral digital printed",
+        "floral jaal",
+        "floral boota",
+        "floral bootis",
+        "floral booti",
+        "ditsy floral",
+        "flower motif",
+        "flower print"
+      ]
+    },
+    {
+      "id": "graphic",
+      "label": "Graphic",
+      "related": [
+        "printed",
+        "typography"
+      ],
+      "keywords": [
+        "graphic",
+        "graphic print",
+        "graphic printed",
+        "graphic prints",
+        "graphic print design",
+        "graphic printed pattern",
+        "graphic brand printed",
+        "graphic block print"
+      ]
+    },
+    {
+      "id": "textured",
+      "label": "Textured",
+      "related": [
+        "quilted"
+      ],
+      "keywords": [
+        "textured",
+        "texture",
+        "textured pattern",
+        "structured",
+        "patterned",
+        "croco-textured",
+        "croco",
+        "croc-embossed",
+        "embossed",
+        "debossed",
+        "emboss",
+        "heathered",
+        "melange",
+        "seersucker",
+        "hammered",
+        "rib",
+        "ribbed",
+        "cable knit",
+        "jacquard-knit",
+        "jacquard knit",
+        "jacquard-knit artwork",
+        "jacquard-knit pattern",
+        "jacquard weave",
+        "woven design",
+        "woven",
+        "weaving",
+        "weave",
+        "knitted",
+        "patterned knit",
+        "tweed"
+      ]
+    },
+    {
+      "id": "paisley",
+      "label": "Paisley",
+      "related": [
+        "floral",
+        "ethnic-motifs"
+      ],
+      "keywords": [
+        "paisley",
+        "paisleys",
+        "paisley print",
+        "paisley motifs",
+        "paisley printed"
+      ]
+    },
+    {
+      "id": "geometric",
+      "label": "Geometric",
+      "related": [
+        "abstract",
+        "checked"
+      ],
+      "keywords": [
+        "geometric",
+        "geometric print",
+        "geometric printed",
+        "geometric motifs",
+        "geometric block print",
+        "geometric applique",
+        "geometric lines",
+        "geometrical",
+        "diamond",
+        "argyle",
+        "lattice",
+        "zigzag",
+        "zig-zag",
+        "zig zag",
+        "criss-cross",
+        "wave",
+        "herringbone"
+      ]
+    },
+    {
+      "id": "abstract",
+      "label": "Abstract",
+      "related": [
+        "geometric",
+        "printed"
+      ],
+      "keywords": [
+        "abstract",
+        "abstract print",
+        "abstract printed",
+        "abstract floral",
+        "abstract geometric",
+        "abstract floral print"
+      ]
+    },
+    {
+      "id": "digital-print",
+      "label": "Digital Print",
+      "related": [
+        "printed"
+      ],
+      "keywords": [
+        "digital print",
+        "digital printed",
+        "digitally printed",
+        "digital floral print",
+        "all-over digital print",
+        "digital placement print"
+      ]
+    },
+    {
+      "id": "block-print",
+      "label": "Block Print",
+      "related": [
+        "printed"
+      ],
+      "keywords": [
+        "block print",
+        "block printed",
+        "block printing",
+        "blockprint",
+        "blockprinted",
+        "block-print",
+        "block-printed",
+        "hand block print",
+        "hand block printed",
+        "hand block prints",
+        "hand-block printed",
+        "handblock print",
+        "handblock printed",
+        "handblock printing",
+        "mughal block",
+        "bagru print",
+        "block print border"
+      ]
+    },
+    {
+      "id": "ikat",
+      "label": "Ikat",
+      "related": [
+        "patola"
+      ],
+      "keywords": [
+        "ikat",
+        "ikat print",
+        "ikat patola",
+        "ikat-inspired",
+        "ikat weave",
+        "single ikat",
+        "pure ikat",
+        "ikkat",
+        "ikkat print"
+      ]
+    },
+    {
+      "id": "bandhani",
+      "label": "Bandhani",
+      "related": [
+        "leheriya",
+        "tie-dye"
+      ],
+      "keywords": [
+        "bandhani",
+        "bandhani print",
+        "bandhani printed",
+        "bandhej",
+        "bandhej print",
+        "bandhini",
+        "bandhini print",
+        "bandhni"
+      ]
+    },
+    {
+      "id": "leheriya",
+      "label": "Leheriya",
+      "related": [
+        "bandhani",
+        "tie-dye"
+      ],
+      "keywords": [
+        "leheriya",
+        "leheriya print",
+        "leheriya printed"
+      ]
+    },
+    {
+      "id": "tie-dye",
+      "label": "Tie & Dye",
+      "related": [
+        "bandhani",
+        "leheriya"
+      ],
+      "keywords": [
+        "tie-dye",
+        "tie & dye",
+        "tie dye",
+        "tie and dye",
+        "tiedye effect",
+        "shibori",
+        "shibori print"
+      ]
+    },
+    {
+      "id": "zari-brocade",
+      "label": "Zari/Brocade",
+      "related": [],
+      "keywords": [
+        "zari",
+        "zari brocade",
+        "zari work",
+        "zari butta",
+        "zari woven",
+        "zariwork",
+        "zari and thread butta",
+        "zari weaving",
+        "brocade",
+        "banarasi",
+        "banarasi patola",
+        "kimkhab",
+        "jamawar",
+        "jangla",
+        "kadhwa"
+      ]
+    },
+    {
+      "id": "mirror-work",
+      "label": "Mirror Work",
+      "related": [
+        "embellished"
+      ],
+      "keywords": [
+        "mirror work",
+        "mirrorwork"
+      ]
+    },
+    {
+      "id": "chikankari",
+      "label": "Chikankari",
+      "related": [
+        "embroidered"
+      ],
+      "keywords": [
+        "chikankari"
+      ]
+    },
+    {
+      "id": "kalamkari",
+      "label": "Kalamkari",
+      "related": [
+        "printed",
+        "madhubani"
+      ],
+      "keywords": [
+        "kalamkari",
+        "kalamkari print"
+      ]
+    },
+    {
+      "id": "madhubani",
+      "label": "Madhubani",
+      "related": [
+        "kalamkari"
+      ],
+      "keywords": [
+        "madhubani",
+        "madhubani painting",
+        "madhubani hand painting",
+        "madhubani hand-painting"
+      ]
+    },
+    {
+      "id": "batik",
+      "label": "Batik",
+      "related": [
+        "printed"
+      ],
+      "keywords": [
+        "batik",
+        "batik print",
+        "hand batik"
+      ]
+    },
+    {
+      "id": "ajrak",
+      "label": "Ajrakh",
+      "related": [
+        "block-print"
+      ],
+      "keywords": [
+        "ajrakh",
+        "ajrakh print"
+      ]
+    },
+    {
+      "id": "patola",
+      "label": "Patola",
+      "related": [
+        "ikat"
+      ],
+      "keywords": [
+        "patola",
+        "patola print",
+        "patola printed",
+        "banarasi patola"
+      ]
+    },
+    {
+      "id": "jaal",
+      "label": "Jaal",
+      "related": [
+        "floral",
+        "ethnic-motifs"
+      ],
+      "keywords": [
+        "jaal",
+        "jaal print",
+        "jaal printed",
+        "jaal weave",
+        "floral jaal"
+      ]
+    },
+    {
+      "id": "motif",
+      "label": "Motif",
+      "related": [
+        "ethnic-motifs",
+        "floral"
+      ],
+      "keywords": [
+        "motif",
+        "motifs",
+        "booti",
+        "buti",
+        "boota",
+        "bootis",
+        "booti",
+        "peacock motif",
+        "peacock motifs",
+        "lotus motif",
+        "lotus motifs",
+        "leaf motif",
+        "leaf motifs",
+        "tribal motif",
+        "tribal motifs",
+        "bird print"
+      ]
+    },
+    {
+      "id": "ethnic-motifs",
+      "label": "Ethnic Motifs",
+      "related": [
+        "motif",
+        "paisley"
+      ],
+      "keywords": [
+        "ethnic motifs",
+        "ethnic motifs printed",
+        "ethnic print",
+        "heritage-inspired motifs",
+        "traditional motifs",
+        "oriental prints",
+        "mughal motif"
+      ]
+    },
+    {
+      "id": "lace",
+      "label": "Lace",
+      "related": [
+        "embroidered"
+      ],
+      "keywords": [
+        "lace",
+        "floral lace"
+      ]
+    },
+    {
+      "id": "sequins",
+      "label": "Sequins",
+      "related": [
+        "embellished"
+      ],
+      "keywords": [
+        "sequins",
+        "sequin",
+        "sequins work",
+        "sequins work, thread embroidery"
+      ]
+    },
+    {
+      "id": "applique",
+      "label": "Applique",
+      "related": [
+        "embellished"
+      ],
+      "keywords": [
+        "applique",
+        "applique work",
+        "applique embroidery"
+      ]
+    },
+    {
+      "id": "quilted",
+      "label": "Quilted",
+      "related": [
+        "textured"
+      ],
+      "keywords": [
+        "quilted",
+        "quilting"
+      ]
+    },
+    {
+      "id": "washed",
+      "label": "Washed/Distressed",
+      "related": [
+        "textured"
+      ],
+      "keywords": [
+        "washed",
+        "washed effect",
+        "distressed",
+        "acid wash",
+        "stone wash",
+        "stonewashed",
+        "stone washed",
+        "light wash",
+        "heavy wash",
+        "normal wash",
+        "light fade",
+        "faded",
+        "fade",
+        "whiskered",
+        "stonewashed and whiskered",
+        "ripped",
+        "ripped effect",
+        "denim",
+        "bleached"
+      ]
+    },
+    {
+      "id": "animal-print",
+      "label": "Animal Print",
+      "related": [
+        "printed"
+      ],
+      "keywords": [
+        "animal print",
+        "animal printed",
+        "leopard print",
+        "leopard",
+        "camo print",
+        "camo",
+        "camouflage",
+        "tiger print",
+        "zebra print"
+      ]
+    },
+    {
+      "id": "polka-dot",
+      "label": "Polka Dot",
+      "related": [
+        "printed"
+      ],
+      "keywords": [
+        "polka dot",
+        "polka dots",
+        "polka",
+        "polka print"
+      ]
+    },
+    {
+      "id": "logo",
+      "label": "Logo/Monogram",
+      "related": [
+        "graphic"
+      ],
+      "keywords": [
+        "logo",
+        "logo print",
+        "logo pattern",
+        "brand logo",
+        "brand logo pattern",
+        "brand print",
+        "brand printed pattern",
+        "brand embossed",
+        "brand embossed pattern",
+        "monogram",
+        "monogram print"
+      ]
+    },
+    {
+      "id": "typography",
+      "label": "Typography/Slogan",
+      "related": [
+        "graphic"
+      ],
+      "keywords": [
+        "typography",
+        "typography print",
+        "typography printed",
+        "typographic",
+        "typographic print",
+        "slogan print",
+        "text print"
+      ]
+    }
+  ],
+  "fit": [
+    {
+      "id": "regular",
+      "label": "Regular",
+      "related": [
+        "straight"
+      ],
+      "keywords": [
+        "regular",
+        "standard fit",
+        "normal",
+        "classic regular",
+        "regular-fit",
+        "regular fit",
+        "classic fit",
+        "standard",
+        "classic"
+      ]
+    },
+    {
+      "id": "slim",
+      "label": "Slim",
+      "related": [
+        "skinny",
+        "tailored"
+      ],
+      "keywords": [
+        "slim",
+        "slim fit",
+        "slim-fit",
+        "slimfit",
+        "slim comfort",
+        "slim straight",
+        "slim straight fit",
+        "slim tapered",
+        "slim tapered fit",
+        "slim-tapered",
+        "slim-tapered fit",
+        "slim through seat and thigh",
+        "slim through thigh",
+        "slim through hip and thigh",
+        "slim through the seat and leg",
+        "slim at arms and shoulders",
+        "slim at biceps and shoulders",
+        "indian slim fit",
+        "american slim fit",
+        "neo fit",
+        "needle fit",
+        "narrow fit",
+        "narrow-fit",
+        "narrowfit",
+        "ultra narrow fit",
+        "super slim",
+        "super slim fit",
+        "slim bootcut",
+        "slim at biceps, neck and shoulders"
+      ]
+    },
+    {
+      "id": "skinny",
+      "label": "Skinny",
+      "related": [
+        "slim",
+        "bodycon"
+      ],
+      "keywords": [
+        "skinny",
+        "skinny fit",
+        "skinny leg",
+        "super skinny",
+        "super skinny fit",
+        "helium-skinny fit",
+        "sleek skinny",
+        "skinny crop",
+        "skinny comfort fit",
+        "slimming skinny fit"
+      ]
+    },
+    {
+      "id": "relaxed",
+      "label": "Relaxed",
+      "related": [
+        "loose",
+        "regular"
+      ],
+      "keywords": [
+        "relaxed",
+        "relaxed fit",
+        "relaxed-fit",
+        "relax fit",
+        "relax / comfort fit",
+        "relaxed straight fit",
+        "relaxed straight",
+        "relaxed silhouette",
+        "relaxed, comfortable",
+        "relaxed, boxy",
+        "relaxed yet flattering",
+        "relaxed yet structured",
+        "relaxed wide-leg",
+        "relaxed tapered",
+        "relaxed and comfortable fit",
+        "relaxed with room to move",
+        "relaxed/straight fit",
+        "relaxed/boxy",
+        "relaxed a-line silhouette",
+        "relaxed fit top and true to size pants",
+        "relaxed, flattering fit"
+      ]
+    },
+    {
+      "id": "loose",
+      "label": "Loose",
+      "related": [
+        "relaxed",
+        "oversized"
+      ],
+      "keywords": [
+        "loose",
+        "loose fit",
+        "loose-fit",
+        "loose fitted",
+        "loose-fitting",
+        "loose-fitting silhouette",
+        "anti fit",
+        "anti-fit",
+        "anti fit/ loose fitted",
+        "ultra loose fit",
+        "baggy",
+        "baggy fit",
+        "baggy flared fit",
+        "oversized/very loose",
+        "slouchy",
+        "slouchy fit",
+        "slouchy",
+        "airy fit"
+      ]
+    },
+    {
+      "id": "oversized",
+      "label": "Oversized",
+      "related": [
+        "loose",
+        "boxy"
+      ],
+      "keywords": [
+        "oversized",
+        "oversized fit",
+        "over-sized",
+        "slightly oversized",
+        "larger fit than usual"
+      ]
+    },
+    {
+      "id": "boxy",
+      "label": "Boxy",
+      "related": [
+        "oversized",
+        "relaxed"
+      ],
+      "keywords": [
+        "boxy",
+        "boxy fit",
+        "boxy-fit",
+        "box fit",
+        "regular/boxy"
+      ]
+    },
+    {
+      "id": "tailored",
+      "label": "Tailored",
+      "related": [
+        "slim",
+        "regular"
+      ],
+      "keywords": [
+        "tailored",
+        "tailored fit",
+        "tailored & comfortable",
+        "tailored yet relaxed",
+        "perfect fit tailored for indian sizes",
+        "structured",
+        "structured fit",
+        "structured silhouette",
+        "structured cut",
+        "structured yet comfortable",
+        "structured yet relaxed"
+      ]
+    },
+    {
+      "id": "fitted",
+      "label": "Fitted",
+      "related": [
+        "bodycon",
+        "slim"
+      ],
+      "keywords": [
+        "fitted",
+        "fitted silhouette",
+        "fitted through the body",
+        "fitted through hips and thighs",
+        "fitted through hip and thigh",
+        "fitted at waist",
+        "fitted at the bodice",
+        "fitted through the bodice",
+        "fitted throughout the body",
+        "body fitted",
+        "body-fitted",
+        "body fit",
+        "body-hugging",
+        "body-skimming",
+        "form-fitting",
+        "close fit",
+        "snug fit",
+        "snug-fit",
+        "snug",
+        "hugged fit",
+        "body adaptive fit",
+        "body adaptive",
+        "body adaptive fit",
+        "body adaptive",
+        "body adaptive fit",
+        "body adaptive"
+      ]
+    },
+    {
+      "id": "bodycon",
+      "label": "Bodycon",
+      "related": [
+        "fitted",
+        "skinny"
+      ],
+      "keywords": [
+        "bodycon",
+        "bodycon fit",
+        "body-hugging",
+        "figure-hugging",
+        "sculpting fit",
+        "sculpting",
+        "sculpted fit",
+        "sculpted",
+        "sculpt fit",
+        "sculpting high-rise",
+        "compression fit",
+        "compression",
+        "shaping",
+        "shaping fit",
+        "smoothing fit",
+        "firm control",
+        "control fit"
+      ]
+    },
+    {
+      "id": "straight",
+      "label": "Straight",
+      "related": [
+        "regular",
+        "slim"
+      ],
+      "keywords": [
+        "straight",
+        "straight fit",
+        "straight-fit",
+        "straight fitted",
+        "straight slim-fit",
+        "straight relaxed",
+        "relaxed straight fit",
+        "relaxed straight",
+        "straight cut",
+        "regular, slightly fitted, straight cut"
+      ]
+    },
+    {
+      "id": "tapered",
+      "label": "Tapered",
+      "related": [
+        "slim",
+        "straight"
+      ],
+      "keywords": [
+        "tapered",
+        "tapered fit",
+        "slim tapered",
+        "slim tapered fit",
+        "slim-tapered",
+        "slim-tapered fit",
+        "carrot fit",
+        "loose tapered fit"
+      ]
+    },
+    {
+      "id": "wide-leg",
+      "label": "Wide Leg",
+      "related": [
+        "flared",
+        "relaxed"
+      ],
+      "keywords": [
+        "wide-leg",
+        "wide leg",
+        "wide fit",
+        "wide",
+        "relaxed wide-leg",
+        "barrel leg",
+        "barrel fit",
+        "barrel"
+      ]
+    },
+    {
+      "id": "flared",
+      "label": "Flared",
+      "related": [
+        "a-line",
+        "wide-leg"
+      ],
+      "keywords": [
+        "flared",
+        "flared fit",
+        "flared bottom",
+        "fit & flare",
+        "fit and flare",
+        "fit-and-flare",
+        "fit & flared",
+        "fit and flared",
+        "mini flared",
+        "snug fit through hips and thighs, soft flare from knee down",
+        "flare fit",
+        "baggy flared fit"
+      ]
+    },
+    {
+      "id": "a-line",
+      "label": "A-Line",
+      "related": [
+        "flared",
+        "fit-and-flare"
+      ],
+      "keywords": [
+        "a-line",
+        "semi a-line",
+        "relaxed a-line silhouette"
+      ]
+    },
+    {
+      "id": "fit-and-flare",
+      "label": "Fit and Flare",
+      "related": [
+        "a-line",
+        "flared"
+      ],
+      "keywords": [
+        "fit & flare",
+        "fit and flare",
+        "fit-and-flare",
+        "fit & flared",
+        "fit and flared",
+        "fit & flare / comfort fit",
+        "comfort fit/ fit & flare"
+      ]
+    },
+    {
+      "id": "bootcut",
+      "label": "Bootcut",
+      "related": [
+        "flared",
+        "straight"
+      ],
+      "keywords": [
+        "bootcut",
+        "bootcut fit",
+        "boot cut",
+        "boot-leg"
+      ]
+    },
+    {
+      "id": "flowy",
+      "label": "Flowy",
+      "related": [
+        "relaxed",
+        "a-line"
+      ],
+      "keywords": [
+        "flowy",
+        "breezy fit",
+        "breezy and comfortable",
+        "breezy and comfortable fit",
+        "flowy skirt"
+      ]
+    },
+    {
+      "id": "comfort",
+      "label": "Comfort",
+      "related": [
+        "relaxed",
+        "regular"
+      ],
+      "keywords": [
+        "comfort",
+        "comfort fit",
+        "comfort-fit",
+        "comfort fit silhouette",
+        "comfort fit/straight fit",
+        "comfort cropped fit",
+        "comfort cropped",
+        "comfort/loose",
+        "comfoft fit",
+        "easy fit",
+        "easy-fit",
+        "comfortable fit",
+        "comfortable and easy fit",
+        "comfortable",
+        "super comfortable",
+        "comfortable yet compressive & supportive",
+        "just the right amount of ease",
+        "comfortable and easy fit",
+        "comfortable yet compressive & supportive"
+      ]
+    },
+    {
+      "id": "athletic",
+      "label": "Athletic",
+      "related": [
+        "slim",
+        "fitted"
+      ],
+      "keywords": [
+        "athletic",
+        "athletic fit",
+        "muscle fit",
+        "chiseled"
+      ]
+    },
+    {
+      "id": "cropped",
+      "label": "Cropped",
+      "related": [
+        "skinny",
+        "slim"
+      ],
+      "keywords": [
+        "cropped",
+        "cropped fit",
+        "crop fit",
+        "crop top",
+        "skinny cropped",
+        "argon-cropped fit"
+      ]
+    },
+    {
+      "id": "mom-fit",
+      "label": "Mom Fit",
+      "related": [
+        "relaxed",
+        "tapered"
+      ],
+      "keywords": [
+        "mom fit"
+      ]
+    },
+    {
+      "id": "boyfriend",
+      "label": "Boyfriend",
+      "related": [
+        "relaxed",
+        "loose"
+      ],
+      "keywords": [
+        "boyfriend fit"
+      ]
+    },
+    {
+      "id": "jogger",
+      "label": "Jogger",
+      "related": [
+        "tapered",
+        "relaxed"
+      ],
+      "keywords": [
+        "jogger fit",
+        "jogger",
+        "joggers"
+      ]
+    }
+  ],
+  "useCase": [
+    {
+      "id": "casual",
+      "label": "Casual",
+      "related": [
+        "daily-wear",
+        "lounge"
+      ],
+      "keywords": [
+        "casual",
+        "casual wear",
+        "casual outings",
+        "casual day out",
+        "casual outing",
+        "casual gatherings",
+        "casual celebrations",
+        "casual styling",
+        "laid-back occasions",
+        "informal meetings"
+      ]
+    },
+    {
+      "id": "daily-wear",
+      "label": "Daily Wear",
+      "related": [
+        "casual",
+        "lounge"
+      ],
+      "keywords": [
+        "daily wear",
+        "everyday wear",
+        "everyday",
+        "regular wear",
+        "day wear",
+        "school | daily wear",
+        "workdays",
+        "work | casual | daily wear",
+        "work | travel | daily wear",
+        "everyday use",
+        "everyday elegance"
+      ]
+    },
+    {
+      "id": "office",
+      "label": "Office/Work",
+      "related": [
+        "formal",
+        "daily-wear"
+      ],
+      "keywords": [
+        "office wear",
+        "work",
+        "work wear",
+        "workwear",
+        "business",
+        "business meetings",
+        "professional",
+        "business meeting",
+        "business wear",
+        "professional settings",
+        "client meetings",
+        "formal | office wear"
+      ]
+    },
+    {
+      "id": "formal",
+      "label": "Formal",
+      "related": [
+        "office",
+        "evening"
+      ],
+      "keywords": [
+        "formal",
+        "formal events",
+        "formal occasions",
+        "formal gatherings",
+        "formal | party | festive",
+        "more formal occasions",
+        "semi-formal",
+        "semi formal",
+        "semi-formal events",
+        "semi-formal occasions",
+        "semi-formal gatherings",
+        "semi-formal wear"
+      ]
+    },
+    {
+      "id": "party",
+      "label": "Party/Club",
+      "related": [
+        "evening",
+        "festive"
+      ],
+      "keywords": [
+        "party",
+        "party wear",
+        "club wear",
+        "night out",
+        "nights out",
+        "evening out",
+        "evening | party",
+        "evening | party | festive",
+        "cocktail",
+        "cocktail party",
+        "cocktail evenings",
+        "cocktail nights",
+        "cocktail events",
+        "cocktail celebrations",
+        "cocktail parties",
+        "celebratory soiree"
+      ]
+    },
+    {
+      "id": "festive",
+      "label": "Festive",
+      "related": [
+        "wedding",
+        "party"
+      ],
+      "keywords": [
+        "festive",
+        "festival",
+        "festivals",
+        "festive occasions",
+        "festive wear",
+        "festive gatherings",
+        "festive celebrations",
+        "festive evenings",
+        "festive | wedding | party",
+        "cultural festivities",
+        "cultural celebration",
+        "cultural celebrations",
+        "cultural festivities",
+        "cultural events",
+        "cultural event",
+        "cultural functions",
+        "cultural gatherings",
+        "cultural occasions",
+        "cultural ceremonies",
+        "cultural gathering",
+        "cultural",
+        "cultural functions",
+        "cultural events",
+        "cultural occasions",
+        "cultural ceremonies"
+      ]
+    },
+    {
+      "id": "wedding",
+      "label": "Wedding",
+      "related": [
+        "festive",
+        "party"
+      ],
+      "keywords": [
+        "wedding",
+        "weddings",
+        "wedding functions",
+        "wedding wear",
+        "wedding | festive | cultural events",
+        "bridal",
+        "bridal wear",
+        "bridal ceremonies",
+        "engagement",
+        "engagements",
+        "engagement ceremonies",
+        "engagement functions",
+        "reception",
+        "receptions",
+        "sangeet",
+        "sangeets",
+        "mehendi",
+        "mehendi functions",
+        "mehendi celebrations",
+        "haldi",
+        "haldi ceremonies",
+        "haldi ceremony",
+        "marriage",
+        "anniversary",
+        "anniversary celebrations"
+      ]
+    },
+    {
+      "id": "ethnic-traditional",
+      "label": "Ethnic/Traditional",
+      "related": [
+        "festive",
+        "wedding"
+      ],
+      "keywords": [
+        "traditional",
+        "traditional wear",
+        "traditional celebrations",
+        "traditional ceremonies",
+        "traditional events",
+        "traditional functions",
+        "traditional gatherings",
+        "traditional occasions",
+        "ethnic",
+        "ethnic wear",
+        "indo-western",
+        "fusion",
+        "pooja",
+        "puja",
+        "poojas",
+        "pujas",
+        "pooja ceremonies",
+        "pooja occasions",
+        "religious",
+        "religious rituals",
+        "religious ceremonies",
+        "spiritual"
+      ]
+    },
+    {
+      "id": "sports-active",
+      "label": "Sports/Active",
+      "related": [
+        "gym"
+      ],
+      "keywords": [
+        "sports",
+        "sport",
+        "sportswear",
+        "activewear",
+        "athleisure",
+        "training",
+        "workout",
+        "workouts",
+        "fitness",
+        "running",
+        "jogging",
+        "walking",
+        "hiking",
+        "trekking",
+        "outdoor activities",
+        "outdoor adventures",
+        "outdoor activity",
+        "outdoor",
+        "outdoor wear",
+        "outdoor adventures",
+        "outdoor activity"
+      ]
+    },
+    {
+      "id": "gym",
+      "label": "Gym/Workout",
+      "related": [
+        "sports-active",
+        "yoga"
+      ],
+      "keywords": [
+        "gym",
+        "workout",
+        "workouts",
+        "training",
+        "fitness",
+        "activewear",
+        "athleisure"
+      ]
+    },
+    {
+      "id": "yoga",
+      "label": "Yoga/Pilates",
+      "related": [
+        "gym",
+        "sports-active"
+      ],
+      "keywords": [
+        "yoga",
+        "pilates",
+        "meditation"
+      ]
+    },
+    {
+      "id": "lounge",
+      "label": "Lounge/Leisure",
+      "related": [
+        "sleep",
+        "casual"
+      ],
+      "keywords": [
+        "lounge",
+        "lounge wear",
+        "lounging",
+        "leisure",
+        "leisure wear",
+        "leisurewear",
+        "relaxation"
+      ]
+    },
+    {
+      "id": "sleep",
+      "label": "Sleep/Nightwear",
+      "related": [
+        "lounge"
+      ],
+      "keywords": [
+        "sleep",
+        "sleepwear",
+        "nightwear",
+        "night wear",
+        "bedtime",
+        "sleeping",
+        "sleepovers"
+      ]
+    },
+    {
+      "id": "travel",
+      "label": "Travel/Vacation",
+      "related": [
+        "beach",
+        "casual"
+      ],
+      "keywords": [
+        "travel",
+        "vacation",
+        "holidays",
+        "holiday",
+        "business trips",
+        "business travel",
+        "short trips",
+        "weekend getaways",
+        "weekend getaway",
+        "weekend adventures",
+        "weekend outings",
+        "weekend hangouts",
+        "weekend gatherings",
+        "weekend brunches",
+        "weekend",
+        "day trips",
+        "day outings",
+        "day out",
+        "exploring the city",
+        "resort",
+        "resort wear",
+        "summer outings",
+        "summer wear",
+        "warm-weather gatherings",
+        "warm-weather",
+        "warm weather"
+      ]
+    },
+    {
+      "id": "beach",
+      "label": "Beach/Pool/Resort",
+      "related": [
+        "travel"
+      ],
+      "keywords": [
+        "beach",
+        "beach days",
+        "pool",
+        "poolside",
+        "resort",
+        "resort wear"
+      ]
+    },
+    {
+      "id": "winter",
+      "label": "Winter/Cold Weather",
+      "related": [
+        "travel"
+      ],
+      "keywords": [
+        "winter",
+        "winter wear",
+        "layering",
+        "monsoon",
+        "protection"
+      ]
+    },
+    {
+      "id": "evening",
+      "label": "Evening/Soirée",
+      "related": [
+        "party",
+        "formal"
+      ],
+      "keywords": [
+        "evening",
+        "evening wear",
+        "evening out",
+        "evening events",
+        "evening gatherings",
+        "evening occasions",
+        "evening outings",
+        "evening celebrations",
+        "evening soirees",
+        "evening soirées",
+        "evening plans",
+        "evening look",
+        "elegant evenings"
+      ]
+    },
+    {
+      "id": "streetwear",
+      "label": "Streetwear",
+      "related": [
+        "casual"
+      ],
+      "keywords": [
+        "streetwear",
+        "street wear",
+        "street style",
+        "street-ready",
+        "street"
+      ]
+    },
+    {
+      "id": "school",
+      "label": "School/College",
+      "related": [
+        "daily-wear"
+      ],
+      "keywords": [
+        "school",
+        "school days",
+        "college",
+        "college bag"
+      ]
+    },
+    {
+      "id": "date",
+      "label": "Date/Brunch",
+      "related": [
+        "evening",
+        "party"
+      ],
+      "keywords": [
+        "date",
+        "date night",
+        "date nights",
+        "first date",
+        "dinner date",
+        "dinner dates",
+        "brunch",
+        "brunches",
+        "brunch dates",
+        "casual brunch",
+        "casual brunches"
+      ]
+    },
+    {
+      "id": "family-gathering",
+      "label": "Family Gathering",
+      "related": [
+        "festive",
+        "wedding"
+      ],
+      "keywords": [
+        "family gatherings",
+        "family gathering",
+        "family celebrations",
+        "family event",
+        "family events",
+        "family occasions",
+        "family outings",
+        "family function",
+        "family functions"
+      ]
+    },
+    {
+      "id": "gift-giving",
+      "label": "Gift/Gifting",
+      "related": [
+        "festive"
+      ],
+      "keywords": [
+        "gift",
+        "gifting",
+        "gift giving",
+        "self-gifting",
+        "spiritual gift"
+      ]
+    }
+  ]
+}
