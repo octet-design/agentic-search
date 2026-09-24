@@ -3,6 +3,8 @@ import { jsonError, publicMessage } from "@/lib/sse";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+// LLM + search work can take 10–25s; give it room on Vercel.
+export const maxDuration = 60;
 
 export async function GET(req: Request) {
   const ids = (new URL(req.url).searchParams.get("ids") ?? "")

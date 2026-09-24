@@ -11,6 +11,8 @@ import { jsonError, sseResponse } from "@/lib/sse";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+// LLM + search work can take 10–25s; give it room on Vercel.
+export const maxDuration = 60;
 
 const BodySchema = z.object({
   imageBase64: z

@@ -6,6 +6,8 @@ import type { RawProduct } from "@/lib/agent/types";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+// LLM + search work can take 10–25s; give it room on Vercel.
+export const maxDuration = 60;
 
 const STYLES = [
   { id: "minimal", label: "Minimal", q: "minimal solid neutral top" },

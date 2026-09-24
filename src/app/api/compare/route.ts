@@ -10,6 +10,8 @@ import { jsonError, publicMessage } from "@/lib/sse";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+// LLM + search work can take 10–25s; give it room on Vercel.
+export const maxDuration = 60;
 
 const BodySchema = z.object({ ids: z.array(z.string()).min(2).max(3), query: z.string().max(500).optional(), criterion: z.string().max(200).optional() });
 const VerdictSchema = z.object({ bullets: z.array(z.string()) });
