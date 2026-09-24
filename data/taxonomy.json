@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-09-24T13:06:18.399Z",
+  "generatedAt": "2026-09-24T13:37:53.938Z",
   "model": "gpt-4.1",
   "minCount": 5,
   "genderMap": {
@@ -1313,6 +1313,7 @@
       "rawValues": [
         "casual shoes",
         "lace-up casual shoes",
+        "footwear",
         "canvas shoes"
       ],
       "genders": [
@@ -1321,7 +1322,7 @@
         "boys",
         "unisex"
       ],
-      "count": 595
+      "count": 650
     },
     {
       "id": "loafer",
@@ -1776,13 +1777,14 @@
       "department": "bags",
       "parent": "bag",
       "rawValues": [
-        "laptop bags"
+        "laptop bags",
+        "briefcases"
       ],
       "genders": [
         "men",
         "unisex"
       ],
-      "count": 221
+      "count": 252
     },
     {
       "id": "duffel-bag",
@@ -1809,6 +1811,7 @@
         "gold jewellery",
         "fine jewellery",
         "precious stone jewellery",
+        "brooches & pins",
         "jewellery",
         "diamond jewellery"
       ],
@@ -1819,7 +1822,7 @@
         "kids",
         "unisex"
       ],
-      "count": 10035
+      "count": 10069
     },
     {
       "id": "earring",
@@ -2184,13 +2187,14 @@
       "department": "accessories",
       "parent": null,
       "rawValues": [
-        "hair clips"
+        "hair clips",
+        "hair accessories"
       ],
       "genders": [
         "women",
         "unisex"
       ],
-      "count": 120
+      "count": 170
     },
     {
       "id": "scrunchie",
@@ -2718,17 +2722,13 @@
     "hard-sided luggage",
     "accessory gift sets",
     "soft toys",
-    "footwear",
     "western wear",
     "lipsticks",
     "fashion accessories",
-    "hair accessories",
     "masks & protective gear",
     "activity toys",
     "cabin trolleys",
     "gadgets",
-    "brooches & pins",
-    "briefcases",
     "kids accessories",
     "fitness gadgets",
     "makeup",
@@ -26341,10 +26341,10 @@
   "priceStats": {
     "women": {
       "all": {
-        "count": 178697,
+        "count": 178735,
         "p25": 1249,
         "median": 2599,
-        "p75": 8565
+        "p75": 8560
       },
       "ethnic-wear": {
         "count": 91015,
@@ -26419,39 +26419,39 @@
         "p75": 4290
       },
       "jewellery": {
-        "count": 13699,
+        "count": 13724,
         "p25": 974,
-        "median": 2700,
+        "median": 2719,
         "p75": 8100
       },
       "accessories": {
-        "count": 2234,
+        "count": 2247,
         "p25": 749,
         "median": 1099,
-        "p75": 1715
+        "p75": 1750
       }
     },
     "men": {
       "all": {
-        "count": 113120,
+        "count": 113569,
         "p25": 899,
         "median": 1499,
-        "p75": 2552
+        "p75": 2543
       },
       "ethnic-wear": {
-        "count": 9075,
-        "p25": 3248,
-        "median": 7199,
-        "p75": 16998
+        "count": 9178,
+        "p25": 2999,
+        "median": 7039,
+        "p75": 16800
       },
       "western-tops": {
-        "count": 54508,
+        "count": 54817,
         "p25": 760,
         "median": 1264,
         "p75": 1999
       },
       "western-bottoms": {
-        "count": 18907,
+        "count": 18931,
         "p25": 1249,
         "median": 1749,
         "p75": 2573
@@ -26463,7 +26463,7 @@
         "p75": 2499
       },
       "outerwear": {
-        "count": 10630,
+        "count": 10636,
         "p25": 1374,
         "median": 2099,
         "p75": 3649
@@ -26475,7 +26475,7 @@
         "p75": 1319
       },
       "innerwear-sleepwear": {
-        "count": 4783,
+        "count": 4784,
         "p25": 319,
         "median": 441,
         "p75": 660
@@ -26493,7 +26493,7 @@
         "p75": 2999
       },
       "bags": {
-        "count": 690,
+        "count": 696,
         "p25": 999,
         "median": 1999,
         "p75": 3499
@@ -26581,8 +26581,8 @@
     },
     "boys": {
       "all": {
-        "count": 13592,
-        "p25": 502,
+        "count": 13616,
+        "p25": 499,
         "median": 849,
         "p75": 1349
       },
@@ -26629,10 +26629,10 @@
         "p75": 999
       },
       "footwear": {
-        "count": 321,
-        "p25": 499,
-        "median": 717,
-        "p75": 969
+        "count": 345,
+        "p25": 469,
+        "median": 693,
+        "p75": 949
       },
       "bags": {
         "count": 34,
@@ -26681,7 +26681,7 @@
     },
     "unisex": {
       "all": {
-        "count": 28206,
+        "count": 28256,
         "p25": 1000,
         "median": 2499,
         "p75": 6110
@@ -26747,16 +26747,16 @@
         "p75": 1499
       },
       "footwear": {
-        "count": 1558,
-        "p25": 899,
+        "count": 1575,
+        "p25": 849,
         "median": 1499,
         "p75": 2499
       },
       "bags": {
-        "count": 3981,
-        "p25": 1579,
-        "median": 2998,
-        "p75": 5399
+        "count": 4006,
+        "p25": 1599,
+        "median": 2999,
+        "p75": 5498
       },
       "jewellery": {
         "count": 5664,
@@ -26765,7 +26765,7 @@
         "p75": 5400
       },
       "accessories": {
-        "count": 2104,
+        "count": 2112,
         "p25": 499,
         "median": 899,
         "p75": 1499

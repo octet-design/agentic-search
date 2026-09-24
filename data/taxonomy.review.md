@@ -1,6 +1,6 @@
 # Taxonomy review
 
-Generated 2026-09-24T13:06:18.399Z by `npm run build:taxonomy` (gpt-4.1). Values with fewer than 5 docs are dropped (except categories, which are all mapped so the non-fashion deny-list is complete).
+Generated 2026-09-24T13:37:53.938Z by `npm run build:taxonomy` (gpt-4.1). Values with fewer than 5 docs are dropped (except categories, which are all mapped so the non-fashion deny-list is complete).
 
 Skim the low-confidence and unmapped lists. To fix a family (id, label, department, parent), edit `data/taxonomy.families.json`. To fix a raw-value mapping, add an entry to `OVERRIDES` / `FABRIC_MERGES` / `PARENT_OVERRIDES` in `scripts/build-taxonomy.ts`. Then re-run; cached LLM calls make re-runs cheap.
 
@@ -167,8 +167,8 @@ Skim the low-confidence and unmapped lists. To fix a family (id, label, departme
 | `sports-shoe` | Sports Shoe |  | 957 | women, men, girls, boys, unisex | sports shoes, training shoes |
 | `slip-on` | Slip-on | casual-shoe | 711 | women, men, unisex | slip-ons |
 | `ballet-flat` | Ballet Flat | casual-shoe | 682 | women | ballet flats |
+| `casual-shoe` | Casual Shoe |  | 650 | men, girls, boys, unisex | casual shoes, lace-up casual shoes, footwear, canvas shoes |
 | `flip-flop` | Flip Flop | sandal | 635 | men, girls, boys, unisex | flip flops, flipflops |
-| `casual-shoe` | Casual Shoe |  | 595 | men, girls, boys, unisex | casual shoes, lace-up casual shoes, canvas shoes |
 | `ankle-boot` | Ankle Boot | boot | 585 | women, men, unisex | chelsea boots, ankle boots |
 | `derby` | Derby | formal-shoe | 530 | men | derbies |
 | `oxford` | Oxford | formal-shoe | 477 | men, unisex | oxfords, brogues |
@@ -193,7 +193,7 @@ Skim the low-confidence and unmapped lists. To fix a family (id, label, departme
 | `sling-bag` | Sling/Crossbody Bag | bag | 648 | men, unisex | sling/crossbody bags |
 | `potli-bag` | Potli Bag | bag | 543 | women, unisex | potlis |
 | `bag` | Bag |  | 524 | women, girls, boys, kids, unisex | bags & backpacks, bags & luggage, handbags, bags & wallets, bags & briefcases |
-| `laptop-bag` | Laptop Bag | bag | 221 | men, unisex | laptop bags |
+| `laptop-bag` | Laptop Bag | bag | 252 | men, unisex | laptop bags, briefcases |
 | `backpack` | Backpack | bag | 148 | women, unisex | backpacks, school backpacks |
 | `duffel-bag` | Duffel/Gym Bag | bag | 131 | men, unisex | duffel/gym bags |
 
@@ -201,7 +201,7 @@ Skim the low-confidence and unmapped lists. To fix a family (id, label, departme
 
 | id | label | parent | docs | audiences | raw values |
 |---|---|---|---:|---|---|
-| `jewellery` | Jewellery |  | 10,035 | women, girls, boys, kids, unisex | fashion jewellery, jewellery & hair accessory, gold jewellery, fine jewellery, precious stone jewellery, jewellery, diamond jewellery |
+| `jewellery` | Jewellery |  | 10,069 | women, girls, boys, kids, unisex | fashion jewellery, jewellery & hair accessory, gold jewellery, fine jewellery, precious stone jewellery, brooches & pins, jewellery, diamond jewellery |
 | `pendant-set` | Pendant Set | jewellery | 3,905 | women, unisex | pendant sets |
 | `danglers` | Danglers | earring | 3,394 | women, unisex | danglers |
 | `jhumka` | Jhumka | earring | 3,294 | women, unisex | jhumkas |
@@ -237,10 +237,10 @@ Skim the low-confidence and unmapped lists. To fix a family (id, label, departme
 | `glove` | Glove |  | 210 | women, men, unisex | gym gloves, gloves |
 | `scarf` | Scarf |  | 184 | men, unisex | scarves, mufflers, scarves & gloves |
 | `muffler` | Muffler | scarf | 175 | men | mufflers |
+| `hair-clip` | Hair Clip |  | 170 | women, unisex | hair clips, hair accessories |
 | `scrunchie` | Scrunchie |  | 139 | women, unisex | scrunchies |
 | `keychain` | Keychain |  | 138 | men, unisex | keychains & small leather goods |
 | `aviator` | Aviator | sunglasses | 121 | women, men, unisex | aviators |
-| `hair-clip` | Hair Clip |  | 120 | women, unisex | hair clips |
 | `cufflink` | Cufflink |  | 76 | men, unisex | cufflinks |
 | `hairband` | Hairband | headband | 74 | women | hairbands |
 | `eyeglasses` | Eyeglasses |  | 40 | unisex | full-rim eyeglasses, eyeglasses, rimless eyeglasses, half-rim eyeglasses |
@@ -920,4 +920,4 @@ Skim the low-confidence and unmapped lists. To fix a family (id, label, departme
 
 ## Excluded category values (non-fashion deny-list)
 
-other, baby care essentials, fragrances, soft-sided luggage, luggages & trolleys, gift cards, premium beauty, hard-sided luggage, accessory gift sets, soft toys, footwear, western wear, lipsticks, fashion accessories, hair accessories, masks & protective gear, activity toys, cabin trolleys, gadgets, brooches & pins, briefcases, kids accessories, fitness gadgets, makeup, skincare, women, smart wearables, infant care, beauty & personal care, action figure / play sets, bindis, bath & body, men, learning & development, speakers, hair care, kids, headphones
+other, baby care essentials, fragrances, soft-sided luggage, luggages & trolleys, gift cards, premium beauty, hard-sided luggage, accessory gift sets, soft toys, western wear, lipsticks, fashion accessories, masks & protective gear, activity toys, cabin trolleys, gadgets, kids accessories, fitness gadgets, makeup, skincare, women, smart wearables, infant care, beauty & personal care, action figure / play sets, bindis, bath & body, men, learning & development, speakers, hair care, kids, headphones

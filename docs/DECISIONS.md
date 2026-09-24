@@ -33,3 +33,22 @@ Newest last. Each entry: what, why, and where it applies.
 - **Price bands per audience × department** (p25/median/p75, in stock, base filter) are stored in `taxonomy.json` for "cheap"/"premium" parsing. They're computed exactly from price facet counts: one request per group. An earlier bisection approach took 10+ minutes.
 - **Filter escaping:** backslashes and backticks inside values are escaped. Both were verified on the live server against real values.
 - **For M2: long expanded filters are slow.** Measured on the live server: "no polyester" expands to 868 raw values (31k-char filter, ~1.2s), and black + cotton + kurta set is a 16k-char filter (~0.8s). Both break the 400 ms budget. Raw values are stored count-descending, so the query builder should filter on the top values covering ~99% of docs and let a code post-filter (`classify()` on each hit) catch the tail. Exclusions stay 100% safe.
+
+## M2 + M3 — Pipeline, rerank, planner (one commit)
+
+M2 and M3 were built together because the pipeline orchestrator needed both. Eval: **25/25 pass** the automatic checks (docs/eval-report.md).
+
+- **Two-leg retrieval instead of one filtered hybrid search.** On this Typesense server, vector search under a restrictive filter is pathologically slow. Measured: black + cotton + kurta set for women under ₹2k took 8.4s vector-only and >60s hybrid, against ~0.3s hybrid with a light filter. `flat_search_cutoff` didn't help. Each rail therefore runs, in one `multi_search`:
+  - an **exact** leg: keyword on title with every filter, `drop_tokens_threshold = perPage` so it doesn't return 1 hit;
+  - a **semantic** leg: title+embedding hybrid with only base + audience filters.
+
+  Must-requirements and exclusions for semantic hits are checked in code (`Checker.unmet()` / `violations()` over the full taxonomy), and the legs are merged with reciprocal-rank fusion. Search went from 4–10s+ (with timeouts) to ~1s.
+- **Filter lists are capped** (60 include / 120 exclude values, most common first). The post-filter catches the tail, so exclusions stay 100% enforced.
+- **Smart filters come from the curated pool**, not Typesense facets. It's cheaper, and it reflects what's shown.
+- **Dedupe key includes colour** (M0); **brand display names come from the taxonomy** ("Jackjones" → "Jack & Jones"). Mojibake with a lost byte (`KAPRAÃHA`) can't be decoded, so the taxonomy label is used instead.
+- **Rerank:** chunks of 4 candidates scored in parallel (output tokens dominate latency). Main pool is 36, not the brief's 60; rails score 18 and keep 12. The hard 5s timeout falls back to deterministic reasons, and late LLM reasons arrive as a `reasons` event.
+- **LLM "violates" is advisory.** The model kept flagging missed *preferences* ("over budget" on a prefer price, "not office") as violations, which emptied results: "Levi's-like denim jacket, cheaper" kept 8 of 36. Exclusions and musts are already enforced in code, so an LLM violation only drops an item when it names a user text exclusion; otherwise the score is halved.
+- **Reasons never invent budgets:** the prompt states "Budget: none stated" explicitly.
+- **Category deny-list fixes:** the seeded families file had a single non-fashion bucket, so a few fashion raw categories landed in it (`footwear`, `hair accessories`, `brooches & pins`, `briefcases`, ~170 docs). `CATEGORY_OVERRIDES` in build-taxonomy maps them back.
+- **Latency gap (documented, not hidden).** From this dev machine, a trivial gpt-4.1-mini call takes ~1.3s (network) and generation runs ~100 tok/s. Intent (≈200 output tokens, cached 5k prompt) therefore takes 2.5–4s, against the brief's 1.2s target. Eval p50 is ~8.7s end to end (product queries ~7–9s, occasion queries ~15–19s with planner + 4–5 rails). Options if this matters: deploy close to OpenAI's region, use gpt-4.1-nano for rerank, or merge the intent and plan calls.
+- **Alpha:** kept at 0.5. With the two-leg design, alpha only affects the semantic leg; tuning is left for M8.

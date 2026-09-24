@@ -11,7 +11,8 @@
     "test": "vitest run",
     "check": "node --env-file-if-exists=.env.local --import tsx scripts/check-env.ts",
     "discover": "node --env-file-if-exists=.env.local --import tsx scripts/discover.ts",
-    "build:taxonomy": "node --env-file-if-exists=.env.local --import tsx scripts/build-taxonomy.ts"
+    "build:taxonomy": "node --env-file-if-exists=.env.local --import tsx scripts/build-taxonomy.ts",
+    "eval": "node --env-file-if-exists=.env.local --import tsx scripts/eval.ts"
   },
   "dependencies": {
     "next": "16.3.6",

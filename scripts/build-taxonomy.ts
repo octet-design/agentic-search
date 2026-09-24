@@ -139,6 +139,17 @@ const PARENT_OVERRIDES: Record<string, string | null> = {
   scrunchie: null,
 };
 
+/**
+ * Raw categories the model filed under non-fashion `other` that are real fashion items. Ambiguous
+ * buckets (luggage, "western wear", "women"/"men") stay excluded. Applied only if the target exists.
+ */
+const CATEGORY_OVERRIDES: Record<string, string> = {
+  footwear: "casual-shoe",
+  "hair accessories": "hair-clip",
+  "brooches & pins": "jewellery",
+  briefcases: "laptop-bag",
+};
+
 /** Individual raw values the model got wrong. */
 const OVERRIDES: Partial<Record<"color" | "fabric" | "pattern" | "fit" | "useCase", Record<string, Assignment>>> = {
   // Fleece is almost always polyester; "no polyester" must catch it.
@@ -715,6 +726,10 @@ async function main() {
   const fitAssign = await assignValues(model, "fit", fits, fitDefs, true);
   const useCaseAssign = await assignValues(model, "useCase", useCases, useCaseDefs, true);
 
+  const catIds = new Set(catDefs.map((c) => c.id));
+  for (const [raw, id] of Object.entries(CATEGORY_OVERRIDES)) {
+    if (catAssign.has(raw) && catIds.has(id)) catAssign.set(raw, { primary: id, also: [], confidence: "high" });
+  }
   const fabricFinalDefs = applyMerges(fabricDefs, fabricAssign, FABRIC_MERGES);
   applyOverrides("fabric", fabricAssign, new Set(fabricFinalDefs.map((d) => d.id)));
   applyOverrides("color", colorAssign, new Set(COLOR_FAMILIES.map((d) => d.id)));
