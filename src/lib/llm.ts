@@ -45,6 +45,8 @@ export async function llmStructured<S extends z.ZodType>(opts: {
   timeoutMs?: number;
   signal?: AbortSignal;
   maxTokens?: number;
+  /** Non-reasoning models only; defaults to 0.2. */
+  temperature?: number;
 }): Promise<z.infer<S>> {
   const t0 = performance.now();
   const reasoning = isReasoningModel(opts.model);
@@ -60,7 +62,7 @@ export async function llmStructured<S extends z.ZodType>(opts: {
       // Latency over depth: lowest effort the model family accepts.
       ...(reasoning
         ? { reasoning_effort: /^gpt-5/i.test(opts.model) ? ("minimal" as const) : ("low" as const) }
-        : { temperature: 0.2 }),
+        : { temperature: opts.temperature ?? 0.2 }),
       ...(opts.maxTokens ? { max_completion_tokens: opts.maxTokens } : {}),
     },
     { timeout: opts.timeoutMs ?? 20_000, maxRetries: 1, signal: opts.signal },

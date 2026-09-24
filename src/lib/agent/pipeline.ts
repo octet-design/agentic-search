@@ -6,7 +6,7 @@ import { hashKey, namedCache } from "../cache";
 import { Usage, withTimeout } from "../llm";
 import { deriveChips } from "./chips";
 import { extractIntent, mergeIntent, sanitizeIntent } from "./intent";
-import { applyTaste, type TastePayload } from "./personalize";
+import { applyTaste, tasteBoost, type TastePayload } from "./personalize";
 import { planRails, rewriteQuery, type Plan } from "./plan";
 import { deterministicReason } from "./reasons";
 import { applyRerank, rerank, type RerankItem } from "./rerank";
@@ -151,7 +151,9 @@ export async function runSearch(req: SearchRequest, emit: Emit): Promise<void> {
       );
       return rail;
     }
-    const { kept, dropped } = applyRerank(withFallback, items, rail.intent.textExclusions);
+    const reranked = applyRerank(withFallback, items, rail.intent.textExclusions);
+    const dropped = reranked.dropped;
+    const kept = tasteBoost(reranked.kept, req.taste, tax);
     rerankDebug[rail.id] = { scored: items.length, kept: kept.length, dropped, errors };
     const good = kept.filter((p) => p.score >= 0.5).length;
     if (allowAdapt && good < 6 && !req.strict) {

@@ -14,6 +14,15 @@ export const TastePayloadSchema = z.object({
   onlyMySize: z.boolean().default(false),
   avoidColors: z.array(z.string()).default([]),
   avoidFabrics: z.array(z.string()).default([]),
+  /** Top learned values (raw facet strings, lowercase) used for deterministic tie-breaks. */
+  likes: z
+    .object({
+      colors: z.array(z.string()).default([]),
+      fabrics: z.array(z.string()).default([]),
+      brands: z.array(z.string()).default([]),
+      categories: z.array(z.string()).default([]),
+    })
+    .default({ colors: [], fabrics: [], brands: [], categories: [] }),
   /** Coarse hash of the taste for cache keys. */
   bucket: z.string().default(""),
 });
@@ -31,6 +40,45 @@ const SIZE_SLOT: Record<string, "top" | "bottom" | "footwear"> = {
 };
 
 const inr = (n: number) => `₹${n >= 1000 ? `${+(n / 1000).toFixed(1)}k` : n}`;
+
+const TIE_BONUS = 0.04;
+const TIE_BONUS_CAP = 0.1;
+const AVOID_PENALTY = 0.1;
+
+/**
+ * Taste as a tie-breaker (brief §8.3.2): a small bonus per liked colour family / fabric family /
+ * brand / category, a penalty for avoided colours/fabrics. Capped well below the gap between
+ * a clear match and a plausible one, so explicit words still win.
+ */
+export function tasteBoost<T extends { color: string; fabric: string | null; brand: string; category: string; score: number }>(
+  items: T[],
+  taste: TastePayload | undefined,
+  tax: TaxonomyApi,
+): T[] {
+  if (!taste) return items;
+  const fam = (field: "color" | "fabric", values: string[]) => new Set(values.flatMap((v) => tax.classify(field, v).slice(0, 1)));
+  const likeColors = fam("color", taste.likes.colors);
+  const likeFabrics = fam("fabric", taste.likes.fabrics);
+  const avoidColors = fam("color", taste.avoidColors);
+  const avoidFabrics = fam("fabric", taste.avoidFabrics);
+  const brands = new Set(taste.likes.brands.map((b) => b.toLowerCase()));
+  const cats = new Set(taste.likes.categories.map((c) => c.toLowerCase()));
+  if (!likeColors.size && !likeFabrics.size && !avoidColors.size && !avoidFabrics.size && !brands.size && !cats.size) return items;
+  return items
+    .map((p) => {
+      const c = tax.classify("color", p.color)[0];
+      const f = p.fabric ? tax.classify("fabric", p.fabric)[0] : undefined;
+      let bonus = 0;
+      if (c && likeColors.has(c)) bonus += TIE_BONUS;
+      if (f && likeFabrics.has(f)) bonus += TIE_BONUS;
+      if (brands.has(p.brand.toLowerCase())) bonus += TIE_BONUS;
+      if (cats.has(p.category.toLowerCase())) bonus += TIE_BONUS;
+      bonus = Math.min(bonus, TIE_BONUS_CAP);
+      if ((c && avoidColors.has(c)) || (f && avoidFabrics.has(f))) bonus -= AVOID_PENALTY;
+      return { ...p, score: p.score + bonus };
+    })
+    .sort((a, b) => b.score - a.score);
+}
 
 export function applyTaste(intent: Intent, taste: TastePayload | undefined, tax: TaxonomyApi): { intent: Intent; notes: string[] } {
   if (!taste) return { intent, notes: [] };

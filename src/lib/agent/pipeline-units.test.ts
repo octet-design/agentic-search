@@ -240,3 +240,48 @@ describe("applyRerank", () => {
     expect(dropped.map((d) => d.id)).toEqual(["b", "d"]);
   });
 });
+
+describe("taste tie-breaks", () => {
+  const card = (id: string, color: string, score: number) => ({ id, color, fabric: "cotton", brand: "b", category: "c", score });
+
+  it("reorders near-ties toward liked colours but never overrides a clearly better match", async () => {
+    const { tasteBoost, TastePayloadSchema: S } = await import("./personalize");
+    const taste = S.parse({ likes: { colors: ["navy blue"] }, avoidColors: ["red"] });
+    const out = tasteBoost([card("a", "black", 0.8), card("b", "navy blue", 0.78), card("c", "red", 0.79), card("d", "navy blue", 0.5)], taste, tax);
+    expect(out.map((p) => p.id)).toEqual(["b", "a", "c", "d"]);
+  });
+
+  it("is a no-op without taste", async () => {
+    const { tasteBoost } = await import("./personalize");
+    const items = [card("a", "black", 0.8), card("b", "navy blue", 0.78)];
+    expect(tasteBoost(items, undefined, tax)).toBe(items);
+  });
+});
+
+describe("taste derivation", () => {
+  it("weights likes/clicks/dislikes and builds a compact summary", async () => {
+    const { deriveTaste, serializeTaste } = await import("../taste");
+    const lite = (id: string, color: string, fabric: string, brand: string, price: number) => ({ id, color, fabric, brand, category: "kurtas", pattern: "solid", fit: "regular", price });
+    const t = deriveTaste({
+      profile: { audiences: ["women"], sizes: {}, budget: null, styles: [], avoidColors: ["neon"], avoidFabrics: [], onlyMySize: false },
+      signals: {
+        liked: [lite("1", "pastel pink", "cotton", "Fabindia", 1200), lite("2", "pastel pink", "cotton", "W", 2800), lite("3", "ivory", "cotton", "Fabindia", 2000)],
+        clicked: [],
+        disliked: [
+          { p: lite("4", "red", "polyester", "X", 900), reason: "fabric" },
+          { p: lite("5", "black", "rayon", "X", 900), reason: "style" },
+        ],
+      },
+    });
+    expect(t.colors[0]).toBe("pastel pink");
+    expect(t.brands[0]).toBe("fabindia");
+    expect(t.avoidColors).toEqual(["neon"]);
+    expect(t.avoidFabrics).toEqual(["polyester"]);
+    expect(t.avoidBrands).toEqual(["x"]);
+    expect(t.priceBand).toEqual({ min: 1200, max: 2000 });
+    const s = serializeTaste(t);
+    expect(s).toContain("likes: brands[fabindia, w]");
+    expect(s).toContain("avoids: colors[neon], fabrics[polyester], brands[x]");
+    expect(s.length / 4).toBeLessThan(400);
+  });
+});
