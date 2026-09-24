@@ -1,0 +1,6436 @@
+{
+  "field": "fit",
+  "multiValued": false,
+  "distinctValues": 1606,
+  "reportedTotalValues": 1606,
+  "truncated": false,
+  "valuesWithCountBelow5": 1242,
+  "coverage": 1,
+  "sumOfCounts": 551334,
+  "values": [
+    {
+      "value": "regular",
+      "count": 341363
+    },
+    {
+      "value": "flowy",
+      "count": 52136
+    },
+    {
+      "value": "slim",
+      "count": 43316
+    },
+    {
+      "value": "straight",
+      "count": 18967
+    },
+    {
+      "value": "relaxed",
+      "count": 17812
+    },
+    {
+      "value": "tailored",
+      "count": 13982
+    },
+    {
+      "value": "oversized",
+      "count": 7554
+    },
+    {
+      "value": "a-line",
+      "count": 5685
+    },
+    {
+      "value": "slim fit",
+      "count": 3299
+    },
+    {
+      "value": "fitted",
+      "count": 3239
+    },
+    {
+      "value": "boxy",
+      "count": 2702
+    },
+    {
+      "value": "comfort fit",
+      "count": 2485
+    },
+    {
+      "value": "loose",
+      "count": 2407
+    },
+    {
+      "value": "flared",
+      "count": 2385
+    },
+    {
+      "value": "classic fit",
+      "count": 2115
+    },
+    {
+      "value": "skinny fit",
+      "count": 1890
+    },
+    {
+      "value": "tapered",
+      "count": 1546
+    },
+    {
+      "value": "regular fit",
+      "count": 1497
+    },
+    {
+      "value": "bodycon",
+      "count": 1479
+    },
+    {
+      "value": "fit & flare",
+      "count": 1306
+    },
+    {
+      "value": "wide-leg",
+      "count": 1299
+    },
+    {
+      "value": "true to size",
+      "count": 1256
+    },
+    {
+      "value": "smart",
+      "count": 1141
+    },
+    {
+      "value": "skinny",
+      "count": 1110
+    },
+    {
+      "value": "bootcut",
+      "count": 1101
+    },
+    {
+      "value": "loose fit",
+      "count": 1049
+    },
+    {
+      "value": "relaxed fit",
+      "count": 812
+    },
+    {
+      "value": "fit and flare",
+      "count": 620
+    },
+    {
+      "value": "super slim",
+      "count": 554
+    },
+    {
+      "value": "baggy fit",
+      "count": 487
+    },
+    {
+      "value": "comfort",
+      "count": 430
+    },
+    {
+      "value": "slim comfort",
+      "count": 377
+    },
+    {
+      "value": "anarkali",
+      "count": 356
+    },
+    {
+      "value": "moderno fit",
+      "count": 355
+    },
+    {
+      "value": "muscle fit",
+      "count": 349
+    },
+    {
+      "value": "smart fit",
+      "count": 337
+    },
+    {
+      "value": "perfect fit tailored for indian sizes",
+      "count": 279
+    },
+    {
+      "value": "narrow",
+      "count": 261
+    },
+    {
+      "value": "contemporary fit",
+      "count": 255
+    },
+    {
+      "value": "easy fit",
+      "count": 230
+    },
+    {
+      "value": "flattering",
+      "count": 222
+    },
+    {
+      "value": "cargo",
+      "count": 216
+    },
+    {
+      "value": "anti fit",
+      "count": 213
+    },
+    {
+      "value": "modern fit",
+      "count": 206
+    },
+    {
+      "value": "anti",
+      "count": 205
+    },
+    {
+      "value": "snug fit",
+      "count": 205
+    },
+    {
+      "value": "super slim fit",
+      "count": 201
+    },
+    {
+      "value": "india fit",
+      "count": 194
+    },
+    {
+      "value": "classic",
+      "count": 192
+    },
+    {
+      "value": "argon-cropped fit",
+      "count": 178
+    },
+    {
+      "value": "compression fit",
+      "count": 164
+    },
+    {
+      "value": "ultra narrow fit",
+      "count": 157
+    },
+    {
+      "value": "comfortable and easy fit",
+      "count": 154
+    },
+    {
+      "value": "structured",
+      "count": 150
+    },
+    {
+      "value": "mom fit",
+      "count": 141
+    },
+    {
+      "value": "baggy",
+      "count": 138
+    },
+    {
+      "value": "crop fit",
+      "count": 136
+    },
+    {
+      "value": "comfortable fit",
+      "count": 129
+    },
+    {
+      "value": "cropped fit",
+      "count": 126
+    },
+    {
+      "value": "slim-fit",
+      "count": 123
+    },
+    {
+      "value": "perfect fit",
+      "count": 116
+    },
+    {
+      "value": "relax fit",
+      "count": 114
+    },
+    {
+      "value": "flared fit",
+      "count": 113
+    },
+    {
+      "value": "boxy fit",
+      "count": 108
+    },
+    {
+      "value": "straight fit",
+      "count": 105
+    },
+    {
+      "value": "brooklyn",
+      "count": 103
+    },
+    {
+      "value": "perfect fit design",
+      "count": 97
+    },
+    {
+      "value": "relaxed-fit",
+      "count": 86
+    },
+    {
+      "value": "regular-fit",
+      "count": 86
+    },
+    {
+      "value": "super skinny fit",
+      "count": 86
+    },
+    {
+      "value": "standard fit",
+      "count": 79
+    },
+    {
+      "value": "semi fit",
+      "count": 78
+    },
+    {
+      "value": "wide leg",
+      "count": 75
+    },
+    {
+      "value": "slim straight",
+      "count": 74
+    },
+    {
+      "value": "snug",
+      "count": 72
+    },
+    {
+      "value": "jogger fit",
+      "count": 65
+    },
+    {
+      "value": "made to measure",
+      "count": 63
+    },
+    {
+      "value": "comfort-fit",
+      "count": 62
+    },
+    {
+      "value": "loose-fit",
+      "count": 61
+    },
+    {
+      "value": "loose fitted",
+      "count": 58
+    },
+    {
+      "value": "box fit",
+      "count": 56
+    },
+    {
+      "value": "classic regular fit",
+      "count": 56
+    },
+    {
+      "value": "tailored fit",
+      "count": 55
+    },
+    {
+      "value": "resort fit",
+      "count": 53
+    },
+    {
+      "value": "sheath",
+      "count": 50
+    },
+    {
+      "value": "freesize",
+      "count": 50
+    },
+    {
+      "value": "cargo fit",
+      "count": 50
+    },
+    {
+      "value": "compression",
+      "count": 50
+    },
+    {
+      "value": "comfort cropped fit",
+      "count": 49
+    },
+    {
+      "value": "wide",
+      "count": 48
+    },
+    {
+      "value": "super skinny",
+      "count": 48
+    },
+    {
+      "value": "casual fit",
+      "count": 47
+    },
+    {
+      "value": "body-fitted",
+      "count": 47
+    },
+    {
+      "value": "flattering silhouette",
+      "count": 46
+    },
+    {
+      "value": "urban",
+      "count": 44
+    },
+    {
+      "value": "gentle fit",
+      "count": 42
+    },
+    {
+      "value": "fit-and-flare",
+      "count": 42
+    },
+    {
+      "value": "relax / comfort fit",
+      "count": 41
+    },
+    {
+      "value": "fit & flared",
+      "count": 40
+    },
+    {
+      "value": "indian slim fit",
+      "count": 40
+    },
+    {
+      "value": "american slim fit",
+      "count": 40
+    },
+    {
+      "value": "american regular fit",
+      "count": 39
+    },
+    {
+      "value": "oversized fit",
+      "count": 37
+    },
+    {
+      "value": "structured fit",
+      "count": 37
+    },
+    {
+      "value": "helium-skinny fit",
+      "count": 37
+    },
+    {
+      "value": "breezy and comfortable",
+      "count": 37
+    },
+    {
+      "value": "normal",
+      "count": 36
+    },
+    {
+      "value": "freedom fit",
+      "count": 36
+    },
+    {
+      "value": "radon-anti fit",
+      "count": 36
+    },
+    {
+      "value": "anti-fit",
+      "count": 35
+    },
+    {
+      "value": "neon-slim fit",
+      "count": 35
+    },
+    {
+      "value": "body adaptive fit",
+      "count": 34
+    },
+    {
+      "value": "grip fit",
+      "count": 33
+    },
+    {
+      "value": "oganesson-jogger fit",
+      "count": 33
+    },
+    {
+      "value": "low-rise",
+      "count": 32
+    },
+    {
+      "value": "full brief",
+      "count": 32
+    },
+    {
+      "value": "flattering fit",
+      "count": 32
+    },
+    {
+      "value": "cropped",
+      "count": 31
+    },
+    {
+      "value": "comfortable",
+      "count": 31
+    },
+    {
+      "value": "cosmo classic",
+      "count": 31
+    },
+    {
+      "value": "close fit through thigh and hip, skinny leg",
+      "count": 31
+    },
+    {
+      "value": "slightly oversized",
+      "count": 30
+    },
+    {
+      "value": "relaxed straight fit",
+      "count": 30
+    },
+    {
+      "value": "kansas",
+      "count": 27
+    },
+    {
+      "value": "skinny leg",
+      "count": 27
+    },
+    {
+      "value": "hugged fit",
+      "count": 27
+    },
+    {
+      "value": "carrot fit",
+      "count": 27
+    },
+    {
+      "value": "tapered fit",
+      "count": 27
+    },
+    {
+      "value": "control fit",
+      "count": 27
+    },
+    {
+      "value": "oversized/very loose",
+      "count": 27
+    },
+    {
+      "value": "fs",
+      "count": 26
+    },
+    {
+      "value": "bikini",
+      "count": 26
+    },
+    {
+      "value": "easy-fit",
+      "count": 25
+    },
+    {
+      "value": "narrow fit",
+      "count": 25
+    },
+    {
+      "value": "hourglass",
+      "count": 24
+    },
+    {
+      "value": "athletic fit",
+      "count": 24
+    },
+    {
+      "value": "regular/classic fit",
+      "count": 24
+    },
+    {
+      "value": "joggers",
+      "count": 23
+    },
+    {
+      "value": "ultra-fit",
+      "count": 23
+    },
+    {
+      "value": "full coverage",
+      "count": 23
+    },
+    {
+      "value": "true to size fit",
+      "count": 23
+    },
+    {
+      "value": "slim at arms and shoulders , relaxed from torso and waist",
+      "count": 23
+    },
+    {
+      "value": "hipster",
+      "count": 22
+    },
+    {
+      "value": "mini flared",
+      "count": 22
+    },
+    {
+      "value": "low crotch fit",
+      "count": 22
+    },
+    {
+      "value": "slim tapered fit",
+      "count": 22
+    },
+    {
+      "value": "comfortable yet compressive & supportive",
+      "count": 22
+    },
+    {
+      "value": "fuller bust",
+      "count": 21
+    },
+    {
+      "value": "anti fit/ loose fitted",
+      "count": 21
+    },
+    {
+      "value": "jogger",
+      "count": 20
+    },
+    {
+      "value": "high leg",
+      "count": 20
+    },
+    {
+      "value": "slim at biceps and shoulders , relaxed from torso and waist",
+      "count": 20
+    },
+    {
+      "value": "easy",
+      "count": 19
+    },
+    {
+      "value": "slouchy fit",
+      "count": 19
+    },
+    {
+      "value": "semi fitted",
+      "count": 19
+    },
+    {
+      "value": "regular/boxy",
+      "count": 19
+    },
+    {
+      "value": "fits true to size",
+      "count": 19
+    },
+    {
+      "value": "comfort fit/straight fit",
+      "count": 19
+    },
+    {
+      "value": "skinny crop",
+      "count": 18
+    },
+    {
+      "value": "slim bootcut",
+      "count": 18
+    },
+    {
+      "value": "body-hugging",
+      "count": 18
+    },
+    {
+      "value": "loose straight fit",
+      "count": 18
+    },
+    {
+      "value": "kruger",
+      "count": 17
+    },
+    {
+      "value": "chiseled",
+      "count": 17
+    },
+    {
+      "value": "body fit",
+      "count": 17
+    },
+    {
+      "value": "angrakha",
+      "count": 17
+    },
+    {
+      "value": "narrow-fit",
+      "count": 17
+    },
+    {
+      "value": "balloon fit",
+      "count": 17
+    },
+    {
+      "value": "slim at biceps, neck and shoulders , relaxed from torso and waist",
+      "count": 17
+    },
+    {
+      "value": "wide fit",
+      "count": 16
+    },
+    {
+      "value": "breezy fit",
+      "count": 16
+    },
+    {
+      "value": "semi-fitted",
+      "count": 16
+    },
+    {
+      "value": "sculpting fit",
+      "count": 16
+    },
+    {
+      "value": "loose-fitting",
+      "count": 16
+    },
+    {
+      "value": "slim-tapered fit",
+      "count": 16
+    },
+    {
+      "value": "solid",
+      "count": 15
+    },
+    {
+      "value": "pencil",
+      "count": 15
+    },
+    {
+      "value": "kurta fit",
+      "count": 15
+    },
+    {
+      "value": "body fitted",
+      "count": 15
+    },
+    {
+      "value": "deluxe stretch",
+      "count": 15
+    },
+    {
+      "value": "fitted at waist",
+      "count": 15
+    },
+    {
+      "value": "loose tapered fit",
+      "count": 15
+    },
+    {
+      "value": "fitted silhouette",
+      "count": 15
+    },
+    {
+      "value": "fit & flare / comfort fit",
+      "count": 15
+    },
+    {
+      "value": "snug-fit",
+      "count": 14
+    },
+    {
+      "value": "free size",
+      "count": 14
+    },
+    {
+      "value": "low-impact",
+      "count": 14
+    },
+    {
+      "value": "straight-fit",
+      "count": 14
+    },
+    {
+      "value": "slim tapered",
+      "count": 14
+    },
+    {
+      "value": "parachute fit",
+      "count": 14
+    },
+    {
+      "value": "fitted through the body",
+      "count": 14
+    },
+    {
+      "value": "just the right amount of ease",
+      "count": 14
+    },
+    {
+      "value": "true to size with room to grow",
+      "count": 14
+    },
+    {
+      "value": "fitted through hips and thighs",
+      "count": 14
+    },
+    {
+      "value": "wrap",
+      "count": 13
+    },
+    {
+      "value": "shift",
+      "count": 13
+    },
+    {
+      "value": "shaping",
+      "count": 13
+    },
+    {
+      "value": "sculpted",
+      "count": 13
+    },
+    {
+      "value": "ease fit",
+      "count": 13
+    },
+    {
+      "value": "high coverage",
+      "count": 13
+    },
+    {
+      "value": "fit and flared",
+      "count": 13
+    },
+    {
+      "value": "ultra loose fit",
+      "count": 13
+    },
+    {
+      "value": "super comfortable",
+      "count": 13
+    },
+    {
+      "value": "larger fit than usual",
+      "count": 13
+    },
+    {
+      "value": "fiji (skinny cropped)",
+      "count": 13
+    },
+    {
+      "value": "slim through seat and thigh",
+      "count": 13
+    },
+    {
+      "value": "comfort fit with skin friendly",
+      "count": 13
+    },
+    {
+      "value": "slim at biceps and shoulders, relaxed from torso and waist",
+      "count": 13
+    },
+    {
+      "value": "trim fit",
+      "count": 12
+    },
+    {
+      "value": "sculpting",
+      "count": 12
+    },
+    {
+      "value": "bootcut fit",
+      "count": 12
+    },
+    {
+      "value": "slim-tapered",
+      "count": 12
+    },
+    {
+      "value": "sculpted fit",
+      "count": 12
+    },
+    {
+      "value": "flexible fit",
+      "count": 12
+    },
+    {
+      "value": "firm control",
+      "count": 12
+    },
+    {
+      "value": "slightly relaxed kurta with true to size pants",
+      "count": 12
+    },
+    {
+      "value": "skin fit",
+      "count": 11
+    },
+    {
+      "value": "sleek fit",
+      "count": 11
+    },
+    {
+      "value": "barrel fit",
+      "count": 11
+    },
+    {
+      "value": "custom-fitting",
+      "count": 11
+    },
+    {
+      "value": "relaxed straight",
+      "count": 11
+    },
+    {
+      "value": "slimming skinny fit",
+      "count": 11
+    },
+    {
+      "value": "relaxed yet structured",
+      "count": 11
+    },
+    {
+      "value": "structured yet comfortable",
+      "count": 11
+    },
+    {
+      "value": "glenn",
+      "count": 10
+    },
+    {
+      "value": "qlo fit",
+      "count": 10
+    },
+    {
+      "value": "athletic",
+      "count": 10
+    },
+    {
+      "value": "pencil fit",
+      "count": 10
+    },
+    {
+      "value": "barrel leg",
+      "count": 10
+    },
+    {
+      "value": "snug & sleek",
+      "count": 10
+    },
+    {
+      "value": "longline fit",
+      "count": 10
+    },
+    {
+      "value": "light control",
+      "count": 10
+    },
+    {
+      "value": "shirt-jacket cut",
+      "count": 10
+    },
+    {
+      "value": "corset style fit",
+      "count": 10
+    },
+    {
+      "value": "comfort fit silhouette",
+      "count": 10
+    },
+    {
+      "value": "comfort fit/ fit & flare",
+      "count": 10
+    },
+    {
+      "value": "fitted throughout the body",
+      "count": 10
+    },
+    {
+      "value": "slim through the seat and leg",
+      "count": 10
+    },
+    {
+      "value": "relaxed yet flattering silhouette",
+      "count": 10
+    },
+    {
+      "value": "liam",
+      "count": 9
+    },
+    {
+      "value": "barrel",
+      "count": 9
+    },
+    {
+      "value": "slimfit",
+      "count": 9
+    },
+    {
+      "value": "boxy-fit",
+      "count": 9
+    },
+    {
+      "value": "narrowfit",
+      "count": 9
+    },
+    {
+      "value": "lounge fit",
+      "count": 9
+    },
+    {
+      "value": "comfoft fit",
+      "count": 9
+    },
+    {
+      "value": "smoothing fit",
+      "count": 9
+    },
+    {
+      "value": "drop shoulder",
+      "count": 9
+    },
+    {
+      "value": "body-skimming",
+      "count": 9
+    },
+    {
+      "value": "original stretch",
+      "count": 9
+    },
+    {
+      "value": "relaxed silhouette",
+      "count": 9
+    },
+    {
+      "value": "structured silhouette",
+      "count": 9
+    },
+    {
+      "value": "fitted through hip and thigh",
+      "count": 9
+    },
+    {
+      "value": "casual",
+      "count": 8
+    },
+    {
+      "value": "bonded",
+      "count": 8
+    },
+    {
+      "value": "stretch",
+      "count": 8
+    },
+    {
+      "value": "printed",
+      "count": 8
+    },
+    {
+      "value": "standard",
+      "count": 8
+    },
+    {
+      "value": "relaxfit",
+      "count": 8
+    },
+    {
+      "value": "crop top",
+      "count": 8
+    },
+    {
+      "value": "ultra fit",
+      "count": 8
+    },
+    {
+      "value": "minimiser",
+      "count": 8
+    },
+    {
+      "value": "free-size",
+      "count": 8
+    },
+    {
+      "value": "everyday fit",
+      "count": 8
+    },
+    {
+      "value": "relaxed, boxy",
+      "count": 8
+    },
+    {
+      "value": "flared bottom",
+      "count": 8
+    },
+    {
+      "value": "contoured fit",
+      "count": 8
+    },
+    {
+      "value": "figure-hugging",
+      "count": 8
+    },
+    {
+      "value": "smart (comfort)",
+      "count": 8
+    },
+    {
+      "value": "skims the torso",
+      "count": 8
+    },
+    {
+      "value": "baggy flared fit",
+      "count": 8
+    },
+    {
+      "value": "slim straight fit",
+      "count": 8
+    },
+    {
+      "value": "regular comfort fit",
+      "count": 8
+    },
+    {
+      "value": "structured yet relaxed",
+      "count": 8
+    },
+    {
+      "value": "breezy and comfortable fit",
+      "count": 8
+    },
+    {
+      "value": "relaxed fit top and true to size pants",
+      "count": 8
+    },
+    {
+      "value": "maxi",
+      "count": 7
+    },
+    {
+      "value": "peplum",
+      "count": 7
+    },
+    {
+      "value": "dad fit",
+      "count": 7
+    },
+    {
+      "value": "boot cut",
+      "count": 7
+    },
+    {
+      "value": "flare fit",
+      "count": 7
+    },
+    {
+      "value": "over-sized",
+      "count": 7
+    },
+    {
+      "value": "needle fit",
+      "count": 7
+    },
+    {
+      "value": "asymmetric",
+      "count": 7
+    },
+    {
+      "value": "semi a-line",
+      "count": 7
+    },
+    {
+      "value": "bodycon fit",
+      "count": 7
+    },
+    {
+      "value": "slightly loose",
+      "count": 7
+    },
+    {
+      "value": "cross over fit",
+      "count": 7
+    },
+    {
+      "value": "relaxed tapered",
+      "count": 7
+    },
+    {
+      "value": "regular relaxed",
+      "count": 7
+    },
+    {
+      "value": "comfort cropped",
+      "count": 7
+    },
+    {
+      "value": "slightly relaxed",
+      "count": 7
+    },
+    {
+      "value": "asymmetrical fit",
+      "count": 7
+    },
+    {
+      "value": "normal silhouette",
+      "count": 7
+    },
+    {
+      "value": "mid waist hipster",
+      "count": 7
+    },
+    {
+      "value": "tailored yet relaxed",
+      "count": 7
+    },
+    {
+      "value": "relaxed, comfortable",
+      "count": 7
+    },
+    {
+      "value": "relaxed yet flattering",
+      "count": 7
+    },
+    {
+      "value": "loose-fitting silhouette",
+      "count": 7
+    },
+    {
+      "value": "updated fit slightly shorter and wider",
+      "count": 7
+    },
+    {
+      "value": "customized according to your measurements",
+      "count": 7
+    },
+    {
+      "value": "slim at arms and shoulders, relaxed from torso and waist",
+      "count": 7
+    },
+    {
+      "value": "paul",
+      "count": 6
+    },
+    {
+      "value": "clark",
+      "count": 6
+    },
+    {
+      "value": "bs-10",
+      "count": 6
+    },
+    {
+      "value": "neo fit",
+      "count": 6
+    },
+    {
+      "value": "low rise",
+      "count": 6
+    },
+    {
+      "value": "american",
+      "count": 6
+    },
+    {
+      "value": "urban fit",
+      "count": 6
+    },
+    {
+      "value": "sculpt fit",
+      "count": 6
+    },
+    {
+      "value": "high waist",
+      "count": 6
+    },
+    {
+      "value": "adjustable",
+      "count": 6
+    },
+    {
+      "value": "sleek skinny",
+      "count": 6
+    },
+    {
+      "value": "form-fitting",
+      "count": 6
+    },
+    {
+      "value": "contemporary",
+      "count": 6
+    },
+    {
+      "value": "carpenter fit",
+      "count": 6
+    },
+    {
+      "value": "body adaptive",
+      "count": 6
+    },
+    {
+      "value": "straight fitted",
+      "count": 6
+    },
+    {
+      "value": "indian body fit",
+      "count": 6
+    },
+    {
+      "value": "straight slim-fit",
+      "count": 6
+    },
+    {
+      "value": "full body stretch",
+      "count": 6
+    },
+    {
+      "value": "slim through thigh",
+      "count": 6
+    },
+    {
+      "value": "sculpting high-rise",
+      "count": 6
+    },
+    {
+      "value": "fitted through body",
+      "count": 6
+    },
+    {
+      "value": "relaxed/straight fit",
+      "count": 6
+    },
+    {
+      "value": "relaxed with room to move",
+      "count": 6
+    },
+    {
+      "value": "flattering yet comfortable",
+      "count": 6
+    },
+    {
+      "value": "chest gripped fit with relaxed waist",
+      "count": 6
+    },
+    {
+      "value": "regular, slightly fitted, straight cut",
+      "count": 6
+    },
+    {
+      "value": "fitted at the bodice with a flowy skirt",
+      "count": 6
+    },
+    {
+      "value": "fitted through the bodice with a relaxed skirt",
+      "count": 6
+    },
+    {
+      "value": "snug fit through hips and thighs, soft flare from knee down",
+      "count": 6
+    },
+    {
+      "value": "tonni",
+      "count": 5
+    },
+    {
+      "value": "slouchy",
+      "count": 5
+    },
+    {
+      "value": "fishcut",
+      "count": 5
+    },
+    {
+      "value": "semi-fit",
+      "count": 5
+    },
+    {
+      "value": "fish cut",
+      "count": 5
+    },
+    {
+      "value": "boot-leg",
+      "count": 5
+    },
+    {
+      "value": "airy fit",
+      "count": 5
+    },
+    {
+      "value": "short fit",
+      "count": 5
+    },
+    {
+      "value": "high-rise",
+      "count": 5
+    },
+    {
+      "value": "close fit",
+      "count": 5
+    },
+    {
+      "value": "stretch fit",
+      "count": 5
+    },
+    {
+      "value": "true-to-size",
+      "count": 5
+    },
+    {
+      "value": "asymmetrical",
+      "count": 5
+    },
+    {
+      "value": "ankle length",
+      "count": 5
+    },
+    {
+      "value": "comfort/loose",
+      "count": 5
+    },
+    {
+      "value": "boyfriend fit",
+      "count": 5
+    },
+    {
+      "value": "structured cut",
+      "count": 5
+    },
+    {
+      "value": "sleek body fit",
+      "count": 5
+    },
+    {
+      "value": "regular tapered",
+      "count": 5
+    },
+    {
+      "value": "straight relaxed",
+      "count": 5
+    },
+    {
+      "value": "relaxed wide-leg",
+      "count": 5
+    },
+    {
+      "value": "mid-rise hipster",
+      "count": 5
+    },
+    {
+      "value": "loose kurta style",
+      "count": 5
+    },
+    {
+      "value": "skinny comfort fit",
+      "count": 5
+    },
+    {
+      "value": "gentle waist shape",
+      "count": 5
+    },
+    {
+      "value": "balconette padded bra",
+      "count": 5
+    },
+    {
+      "value": "tailored & comfortable",
+      "count": 5
+    },
+    {
+      "value": "relaxed, flattering fit",
+      "count": 5
+    },
+    {
+      "value": "relaxed a-line silhouette",
+      "count": 5
+    },
+    {
+      "value": "slim through hip and thigh",
+      "count": 5
+    },
+    {
+      "value": "relaxed and comfortable fit",
+      "count": 5
+    },
+    {
+      "value": "semi-fitted through the bust with straight fall below",
+      "count": 5
+    },
+    {
+      "value": "low",
+      "count": 4
+    },
+    {
+      "value": "stan",
+      "count": 4
+    },
+    {
+      "value": "fluid",
+      "count": 4
+    },
+    {
+      "value": "unisex",
+      "count": 4
+    },
+    {
+      "value": "plunge",
+      "count": 4
+    },
+    {
+      "value": "antifit",
+      "count": 4
+    },
+    {
+      "value": "no-pinch",
+      "count": 4
+    },
+    {
+      "value": "mid-rise",
+      "count": 4
+    },
+    {
+      "value": "body con",
+      "count": 4
+    },
+    {
+      "value": "contoured",
+      "count": 4
+    },
+    {
+      "value": "slouch fit",
+      "count": 4
+    },
+    {
+      "value": "normal fit",
+      "count": 4
+    },
+    {
+      "value": "formal fit",
+      "count": 4
+    },
+    {
+      "value": "bella-wide",
+      "count": 4
+    },
+    {
+      "value": "active fit",
+      "count": 4
+    },
+    {
+      "value": "t-shirt bra",
+      "count": 4
+    },
+    {
+      "value": "streamlined",
+      "count": 4
+    },
+    {
+      "value": "mermaid fit",
+      "count": 4
+    },
+    {
+      "value": "compressive",
+      "count": 4
+    },
+    {
+      "value": "balloon-fit",
+      "count": 4
+    },
+    {
+      "value": "ultra-fitted",
+      "count": 4
+    },
+    {
+      "value": "tailored-fit",
+      "count": 4
+    },
+    {
+      "value": "princess cut",
+      "count": 4
+    },
+    {
+      "value": "parallel fit",
+      "count": 4
+    },
+    {
+      "value": "oversize fit",
+      "count": 4
+    },
+    {
+      "value": "high waisted",
+      "count": 4
+    },
+    {
+      "value": "wide-straight",
+      "count": 4
+    },
+    {
+      "value": "fitted bodice",
+      "count": 4
+    },
+    {
+      "value": "commutech fit",
+      "count": 4
+    },
+    {
+      "value": "cigarette fit",
+      "count": 4
+    },
+    {
+      "value": "super wide leg",
+      "count": 4
+    },
+    {
+      "value": "skinny bootcut",
+      "count": 4
+    },
+    {
+      "value": "relaxed a-line",
+      "count": 4
+    },
+    {
+      "value": "loose straight",
+      "count": 4
+    },
+    {
+      "value": "boxy loose fit",
+      "count": 4
+    },
+    {
+      "value": "medium coverage",
+      "count": 4
+    },
+    {
+      "value": "low-rise bikini",
+      "count": 4
+    },
+    {
+      "value": "kurt carrot fit",
+      "count": 4
+    },
+    {
+      "value": "snug, structured",
+      "count": 4
+    },
+    {
+      "value": "slim bootcut fit",
+      "count": 4
+    },
+    {
+      "value": "relaxed and roomy",
+      "count": 4
+    },
+    {
+      "value": "loose bootcut fit",
+      "count": 4
+    },
+    {
+      "value": "fit & flare dress",
+      "count": 4
+    },
+    {
+      "value": "figure-flattering",
+      "count": 4
+    },
+    {
+      "value": "close to the body",
+      "count": 4
+    },
+    {
+      "value": "slightly loose-fit",
+      "count": 4
+    },
+    {
+      "value": "mildly compressive",
+      "count": 4
+    },
+    {
+      "value": "indian regular fit",
+      "count": 4
+    },
+    {
+      "value": "relaxed regular fit",
+      "count": 4
+    },
+    {
+      "value": "easy comfortable fit",
+      "count": 4
+    },
+    {
+      "value": "straight fit/wide leg",
+      "count": 4
+    },
+    {
+      "value": "oversized wide-legged",
+      "count": 4
+    },
+    {
+      "value": "oversized comfort fit",
+      "count": 4
+    },
+    {
+      "value": "comfort fit, boxy fit",
+      "count": 4
+    },
+    {
+      "value": "streamlined silhouette",
+      "count": 4
+    },
+    {
+      "value": "lightweight active fit",
+      "count": 4
+    },
+    {
+      "value": "fitted at waist and hip",
+      "count": 4
+    },
+    {
+      "value": "straight, loosely flowing",
+      "count": 4
+    },
+    {
+      "value": "comfort fit/ straight fit",
+      "count": 4
+    },
+    {
+      "value": "slim fit from hip to ankle",
+      "count": 4
+    },
+    {
+      "value": "oversized top and true to size pants",
+      "count": 4
+    },
+    {
+      "value": "structured bodice with a flowing skirt",
+      "count": 4
+    },
+    {
+      "value": "fitted at the bodice with a relaxed skirt",
+      "count": 4
+    },
+    {
+      "value": "comfortable fit that provides roomy allowance between the fabric and wearer",
+      "count": 4
+    },
+    {
+      "value": "ben",
+      "count": 3
+    },
+    {
+      "value": "rick",
+      "count": 3
+    },
+    {
+      "value": "tight",
+      "count": 3
+    },
+    {
+      "value": "sporty",
+      "count": 3
+    },
+    {
+      "value": "padded",
+      "count": 3
+    },
+    {
+      "value": "muscle",
+      "count": 3
+    },
+    {
+      "value": "kaftan",
+      "count": 3
+    },
+    {
+      "value": "hanger",
+      "count": 3
+    },
+    {
+      "value": "draped",
+      "count": 3
+    },
+    {
+      "value": "a line",
+      "count": 3
+    },
+    {
+      "value": "wideleg",
+      "count": 3
+    },
+    {
+      "value": "updated",
+      "count": 3
+    },
+    {
+      "value": "smocked",
+      "count": 3
+    },
+    {
+      "value": "mermaid",
+      "count": 3
+    },
+    {
+      "value": "bodyfit",
+      "count": 3
+    },
+    {
+      "value": "slim cut",
+      "count": 3
+    },
+    {
+      "value": "seamless",
+      "count": 3
+    },
+    {
+      "value": "hug-like",
+      "count": 3
+    },
+    {
+      "value": "body-fit",
+      "count": 3
+    },
+    {
+      "value": "smart-fit",
+      "count": 3
+    },
+    {
+      "value": "shirt fit",
+      "count": 3
+    },
+    {
+      "value": "parachute",
+      "count": 3
+    },
+    {
+      "value": "mid flare",
+      "count": 3
+    },
+    {
+      "value": "high rise",
+      "count": 3
+    },
+    {
+      "value": "clean fit",
+      "count": 3
+    },
+    {
+      "value": "boyfriend",
+      "count": 3
+    },
+    {
+      "value": "slim flare",
+      "count": 3
+    },
+    {
+      "value": "skater fit",
+      "count": 3
+    },
+    {
+      "value": "non-clingy",
+      "count": 3
+    },
+    {
+      "value": "flared-fit",
+      "count": 3
+    },
+    {
+      "value": "custom fit",
+      "count": 3
+    },
+    {
+      "value": "barrel-leg",
+      "count": 3
+    },
+    {
+      "value": "ribcage fit",
+      "count": 3
+    },
+    {
+      "value": "held in fit",
+      "count": 3
+    },
+    {
+      "value": "fit + flare",
+      "count": 3
+    },
+    {
+      "value": "wide leg fit",
+      "count": 3
+    },
+    {
+      "value": "tummy tucker",
+      "count": 3
+    },
+    {
+      "value": "spacious fit",
+      "count": 3
+    },
+    {
+      "value": "relaxed ease",
+      "count": 3
+    },
+    {
+      "value": "paperbag fit",
+      "count": 3
+    },
+    {
+      "value": "full support",
+      "count": 3
+    },
+    {
+      "value": "fit + flared",
+      "count": 3
+    },
+    {
+      "value": "body hugging",
+      "count": 3
+    },
+    {
+      "value": "wide straight",
+      "count": 3
+    },
+    {
+      "value": "snug when dry",
+      "count": 3
+    },
+    {
+      "value": "snug straight",
+      "count": 3
+    },
+    {
+      "value": "slim, cropped",
+      "count": 3
+    },
+    {
+      "value": "semi stitched",
+      "count": 3
+    },
+    {
+      "value": "relaxed/loose",
+      "count": 3
+    },
+    {
+      "value": "maternity fit",
+      "count": 3
+    },
+    {
+      "value": "loose tapered",
+      "count": 3
+    },
+    {
+      "value": "classic frame",
+      "count": 3
+    },
+    {
+      "value": "boxy, relaxed",
+      "count": 3
+    },
+    {
+      "value": "baggy, flared",
+      "count": 3
+    },
+    {
+      "value": "hourglass look",
+      "count": 3
+    },
+    {
+      "value": "glove-like fit",
+      "count": 3
+    },
+    {
+      "value": "streamlined fit",
+      "count": 3
+    },
+    {
+      "value": "regular-relaxed",
+      "count": 3
+    },
+    {
+      "value": "medium-coverage",
+      "count": 3
+    },
+    {
+      "value": "low rise bikini",
+      "count": 3
+    },
+    {
+      "value": "easy silhouette",
+      "count": 3
+    },
+    {
+      "value": "slight loose fit",
+      "count": 3
+    },
+    {
+      "value": "relaxed, flowing",
+      "count": 3
+    },
+    {
+      "value": "minimal coverage",
+      "count": 3
+    },
+    {
+      "value": "loose & straight",
+      "count": 3
+    },
+    {
+      "value": "figure-enhancing",
+      "count": 3
+    },
+    {
+      "value": "comfort slim fit",
+      "count": 3
+    },
+    {
+      "value": "baggy street fit",
+      "count": 3
+    },
+    {
+      "value": "ankle length fit",
+      "count": 3
+    },
+    {
+      "value": "snug sculpted fit",
+      "count": 3
+    },
+    {
+      "value": "slim seat and leg",
+      "count": 3
+    },
+    {
+      "value": "relaxed oversized",
+      "count": 3
+    },
+    {
+      "value": "relaxed baggy fit",
+      "count": 3
+    },
+    {
+      "value": "relaxed and fluid",
+      "count": 3
+    },
+    {
+      "value": "figure flattering",
+      "count": 3
+    },
+    {
+      "value": "effortless sculpt",
+      "count": 3
+    },
+    {
+      "value": "relaxed yet fitted",
+      "count": 3
+    },
+    {
+      "value": "relaxed flattering",
+      "count": 3
+    },
+    {
+      "value": "mid-rise boyshorts",
+      "count": 3
+    },
+    {
+      "value": "medium compression",
+      "count": 3
+    },
+    {
+      "value": "snug structured fit",
+      "count": 3
+    },
+    {
+      "value": "skinny straight fit",
+      "count": 3
+    },
+    {
+      "value": "relaxed, flattering",
+      "count": 3
+    },
+    {
+      "value": "relaxed tapered fit",
+      "count": 3
+    },
+    {
+      "value": "oversized/loose fit",
+      "count": 3
+    },
+    {
+      "value": "full figure y-frame",
+      "count": 3
+    },
+    {
+      "value": "fitted corset style",
+      "count": 3
+    },
+    {
+      "value": "snug-compressive fit",
+      "count": 3
+    },
+    {
+      "value": "snug compressive fit",
+      "count": 3
+    },
+    {
+      "value": "slim fit/comfort fit",
+      "count": 3
+    },
+    {
+      "value": "relaxed, comfort fit",
+      "count": 3
+    },
+    {
+      "value": "relaxed yet tailored",
+      "count": 3
+    },
+    {
+      "value": "regular tailored fit",
+      "count": 3
+    },
+    {
+      "value": "regular everyday fit",
+      "count": 3
+    },
+    {
+      "value": "medium–high impact",
+      "count": 3
+    },
+    {
+      "value": "snug (extra slim) fit",
+      "count": 3
+    },
+    {
+      "value": "smart and comfortable",
+      "count": 3
+    },
+    {
+      "value": "well fitted silhouette",
+      "count": 3
+    },
+    {
+      "value": "balconette t-shirt bra",
+      "count": 3
+    },
+    {
+      "value": "perfect, flattering fit",
+      "count": 3
+    },
+    {
+      "value": "tailored yet comfortable",
+      "count": 3
+    },
+    {
+      "value": "oversized/very loose fit",
+      "count": 3
+    },
+    {
+      "value": "high support, high waist",
+      "count": 3
+    },
+    {
+      "value": "figure flattering design",
+      "count": 3
+    },
+    {
+      "value": "comfortable everyday fit",
+      "count": 3
+    },
+    {
+      "value": "sneaker fit (comfort fit)",
+      "count": 3
+    },
+    {
+      "value": "flattering and adjustable",
+      "count": 3
+    },
+    {
+      "value": "figure hugging silhouette",
+      "count": 3
+    },
+    {
+      "value": "snug fit through the thigh",
+      "count": 3
+    },
+    {
+      "value": "flattering, curve-enhancing",
+      "count": 3
+    },
+    {
+      "value": "comfortable, flattering fit",
+      "count": 3
+    },
+    {
+      "value": "slim fit, high waist, flared",
+      "count": 3
+    },
+    {
+      "value": "standard sized cot mattresses",
+      "count": 3
+    },
+    {
+      "value": "relaxed through hip and thigh",
+      "count": 3
+    },
+    {
+      "value": "fitted through chest and waist",
+      "count": 3
+    },
+    {
+      "value": "relaxed fit with a wide silhouette",
+      "count": 3
+    },
+    {
+      "value": "tailored to fit your body perfectly",
+      "count": 3
+    },
+    {
+      "value": "flattering fit over your growing bump",
+      "count": 3
+    },
+    {
+      "value": "relaxed fit through the hips and thighs",
+      "count": 3
+    },
+    {
+      "value": "fitted at the waist with a relaxed skirt",
+      "count": 3
+    },
+    {
+      "value": "fitted at the bodice with a flared skirt",
+      "count": 3
+    },
+    {
+      "value": "voluminous fit throughout hips and thighs",
+      "count": 3
+    },
+    {
+      "value": "easy through the hips and thigh, straight through the leg",
+      "count": 3
+    },
+    {
+      "value": "fitted at the bust and waist, relaxed through the hips with a fluid fall",
+      "count": 3
+    },
+    {
+      "value": "saree-length (~5.5m × 44\") for self-stitching, or our made-to-fit stitching service",
+      "count": 3
+    },
+    {
+      "value": "tom",
+      "count": 2
+    },
+    {
+      "value": "shirt",
+      "count": 2
+    },
+    {
+      "value": "roomy",
+      "count": 2
+    },
+    {
+      "value": "relax",
+      "count": 2
+    },
+    {
+      "value": "empire",
+      "count": 2
+    },
+    {
+      "value": "corset",
+      "count": 2
+    },
+    {
+      "value": "snugfit",
+      "count": 2
+    },
+    {
+      "value": "slimmer",
+      "count": 2
+    },
+    {
+      "value": "push up",
+      "count": 2
+    },
+    {
+      "value": "pleated",
+      "count": 2
+    },
+    {
+      "value": "flatter",
+      "count": 2
+    },
+    {
+      "value": "blouson",
+      "count": 2
+    },
+    {
+      "value": "ath fit",
+      "count": 2
+    },
+    {
+      "value": "stylized",
+      "count": 2
+    },
+    {
+      "value": "one size",
+      "count": 2
+    },
+    {
+      "value": "nuvo fit",
+      "count": 2
+    },
+    {
+      "value": "new rico",
+      "count": 2
+    },
+    {
+      "value": "longline",
+      "count": 2
+    },
+    {
+      "value": "fish-cut",
+      "count": 2
+    },
+    {
+      "value": "boot-cut",
+      "count": 2
+    },
+    {
+      "value": "tired fit",
+      "count": 2
+    },
+    {
+      "value": "tight fit",
+      "count": 2
+    },
+    {
+      "value": "sharp fit",
+      "count": 2
+    },
+    {
+      "value": "plus-size",
+      "count": 2
+    },
+    {
+      "value": "maternity",
+      "count": 2
+    },
+    {
+      "value": "ergonomic",
+      "count": 2
+    },
+    {
+      "value": "atleisure",
+      "count": 2
+    },
+    {
+      "value": "apple cut",
+      "count": 2
+    },
+    {
+      "value": "ankle fit",
+      "count": 2
+    },
+    {
+      "value": "wedgie fit",
+      "count": 2
+    },
+    {
+      "value": "unisex fit",
+      "count": 2
+    },
+    {
+      "value": "statuesque",
+      "count": 2
+    },
+    {
+      "value": "runs small",
+      "count": 2
+    },
+    {
+      "value": "muscle tee",
+      "count": 2
+    },
+    {
+      "value": "medium fit",
+      "count": 2
+    },
+    {
+      "value": "low crotch",
+      "count": 2
+    },
+    {
+      "value": "leaner fit",
+      "count": 2
+    },
+    {
+      "value": "high-waist",
+      "count": 2
+    },
+    {
+      "value": "fitted fit",
+      "count": 2
+    },
+    {
+      "value": "drop-waist",
+      "count": 2
+    },
+    {
+      "value": "column fit",
+      "count": 2
+    },
+    {
+      "value": "bomber-fit",
+      "count": 2
+    },
+    {
+      "value": "wide-legged",
+      "count": 2
+    },
+    {
+      "value": "well-fitted",
+      "count": 2
+    },
+    {
+      "value": "stylish fit",
+      "count": 2
+    },
+    {
+      "value": "stretch-fit",
+      "count": 2
+    },
+    {
+      "value": "low waisted",
+      "count": 2
+    },
+    {
+      "value": "lightweight",
+      "count": 2
+    },
+    {
+      "value": "held-in fit",
+      "count": 2
+    },
+    {
+      "value": "fluid drape",
+      "count": 2
+    },
+    {
+      "value": "flexifit™",
+      "count": 2
+    },
+    {
+      "value": "embrace fit",
+      "count": 2
+    },
+    {
+      "value": "carrot crop",
+      "count": 2
+    },
+    {
+      "value": "bell bottom",
+      "count": 2
+    },
+    {
+      "value": "triangle bra",
+      "count": 2
+    },
+    {
+      "value": "tapered fall",
+      "count": 2
+    },
+    {
+      "value": "tailored cut",
+      "count": 2
+    },
+    {
+      "value": "stretchy fit",
+      "count": 2
+    },
+    {
+      "value": "straight-leg",
+      "count": 2
+    },
+    {
+      "value": "straight-cut",
+      "count": 2
+    },
+    {
+      "value": "slouched fit",
+      "count": 2
+    },
+    {
+      "value": "slim-comfort",
+      "count": 2
+    },
+    {
+      "value": "relaxed boxy",
+      "count": 2
+    },
+    {
+      "value": "kaftan shape",
+      "count": 2
+    },
+    {
+      "value": "good fitting",
+      "count": 2
+    },
+    {
+      "value": "form fitting",
+      "count": 2
+    },
+    {
+      "value": "fitted shape",
+      "count": 2
+    },
+    {
+      "value": "fit to flare",
+      "count": 2
+    },
+    {
+      "value": "feminine cut",
+      "count": 2
+    },
+    {
+      "value": "easy to wear",
+      "count": 2
+    },
+    {
+      "value": "boot-leg fit",
+      "count": 2
+    },
+    {
+      "value": "boot cut fit",
+      "count": 2
+    },
+    {
+      "value": "body shaping",
+      "count": 2
+    },
+    {
+      "value": "angrakha fit",
+      "count": 2
+    },
+    {
+      "value": "tummy shaping",
+      "count": 2
+    },
+    {
+      "value": "super-relaxed",
+      "count": 2
+    },
+    {
+      "value": "snatched look",
+      "count": 2
+    },
+    {
+      "value": "semi-stitched",
+      "count": 2
+    },
+    {
+      "value": "relaxed shirt",
+      "count": 2
+    },
+    {
+      "value": "relaxed loose",
+      "count": 2
+    },
+    {
+      "value": "relaxed chest",
+      "count": 2
+    },
+    {
+      "value": "pencil-shaped",
+      "count": 2
+    },
+    {
+      "value": "overshirt fit",
+      "count": 2
+    },
+    {
+      "value": "medium impact",
+      "count": 2
+    },
+    {
+      "value": "laid back fit",
+      "count": 2
+    },
+    {
+      "value": "hugs the body",
+      "count": 2
+    },
+    {
+      "value": "flared a-line",
+      "count": 2
+    },
+    {
+      "value": "classic flare",
+      "count": 2
+    },
+    {
+      "value": "barcelone fit",
+      "count": 2
+    },
+    {
+      "value": "baggy tapered",
+      "count": 2
+    },
+    {
+      "value": "skinny comfort",
+      "count": 2
+    },
+    {
+      "value": "regular fitted",
+      "count": 2
+    },
+    {
+      "value": "flattering cut",
+      "count": 2
+    },
+    {
+      "value": "fitted on bust",
+      "count": 2
+    },
+    {
+      "value": "comfort skinny",
+      "count": 2
+    },
+    {
+      "value": "breathable fit",
+      "count": 2
+    },
+    {
+      "value": "balconette fit",
+      "count": 2
+    },
+    {
+      "value": "baggy wide leg",
+      "count": 2
+    },
+    {
+      "value": "tall barrel fit",
+      "count": 2
+    },
+    {
+      "value": "super baggy fit",
+      "count": 2
+    },
+    {
+      "value": "streamlined cut",
+      "count": 2
+    },
+    {
+      "value": "straight casual",
+      "count": 2
+    },
+    {
+      "value": "side bias shift",
+      "count": 2
+    },
+    {
+      "value": "relaxed/flowing",
+      "count": 2
+    },
+    {
+      "value": "relaxed cropped",
+      "count": 2
+    },
+    {
+      "value": "modern easy-fit",
+      "count": 2
+    },
+    {
+      "value": "mid-compression",
+      "count": 2
+    },
+    {
+      "value": "body responsive",
+      "count": 2
+    },
+    {
+      "value": "standard leg fit",
+      "count": 2
+    },
+    {
+      "value": "shift silhouette",
+      "count": 2
+    },
+    {
+      "value": "relaxed wrap fit",
+      "count": 2
+    },
+    {
+      "value": "relaxed slip fit",
+      "count": 2
+    },
+    {
+      "value": "flexible shaping",
+      "count": 2
+    },
+    {
+      "value": "flattering shape",
+      "count": 2
+    },
+    {
+      "value": "easy regular fit",
+      "count": 2
+    },
+    {
+      "value": "boxy relaxed fit",
+      "count": 2
+    },
+    {
+      "value": "balconette frame",
+      "count": 2
+    },
+    {
+      "value": "b-90 comfort fit",
+      "count": 2
+    },
+    {
+      "value": "super relaxed fit",
+      "count": 2
+    },
+    {
+      "value": "sporty silhouette",
+      "count": 2
+    },
+    {
+      "value": "slightly oversize",
+      "count": 2
+    },
+    {
+      "value": "relaxed and comfy",
+      "count": 2
+    },
+    {
+      "value": "oversized relaxed",
+      "count": 2
+    },
+    {
+      "value": "narrow silhouette",
+      "count": 2
+    },
+    {
+      "value": "loose fit / baggy",
+      "count": 2
+    },
+    {
+      "value": "flattering fitted",
+      "count": 2
+    },
+    {
+      "value": "fitted at the hip",
+      "count": 2
+    },
+    {
+      "value": "extra high impact",
+      "count": 2
+    },
+    {
+      "value": "drop shoulder fit",
+      "count": 2
+    },
+    {
+      "value": "structured profile",
+      "count": 2
+    },
+    {
+      "value": "straight yet fluid",
+      "count": 2
+    },
+    {
+      "value": "straight & relaxed",
+      "count": 2
+    },
+    {
+      "value": "slim, straight fit",
+      "count": 2
+    },
+    {
+      "value": "skinny tapered fit",
+      "count": 2
+    },
+    {
+      "value": "relaxed kaftan fit",
+      "count": 2
+    },
+    {
+      "value": "push-up plunge fit",
+      "count": 2
+    },
+    {
+      "value": "oversized and boxy",
+      "count": 2
+    },
+    {
+      "value": "mini fit and flare",
+      "count": 2
+    },
+    {
+      "value": "medium-high impact",
+      "count": 2
+    },
+    {
+      "value": "light flexible fit",
+      "count": 2
+    },
+    {
+      "value": "full bust coverage",
+      "count": 2
+    },
+    {
+      "value": "flatters the waist",
+      "count": 2
+    },
+    {
+      "value": "yoga pant style fit",
+      "count": 2
+    },
+    {
+      "value": "structured yet easy",
+      "count": 2
+    },
+    {
+      "value": "straight-fit a-line",
+      "count": 2
+    },
+    {
+      "value": "straight and fitted",
+      "count": 2
+    },
+    {
+      "value": "standard blouse fit",
+      "count": 2
+    },
+    {
+      "value": "relaxed, flared fit",
+      "count": 2
+    },
+    {
+      "value": "relaxed comfortable",
+      "count": 2
+    },
+    {
+      "value": "regular/relaxed fit",
+      "count": 2
+    },
+    {
+      "value": "regular tapered fit",
+      "count": 2
+    },
+    {
+      "value": "classic comfort fit",
+      "count": 2
+    },
+    {
+      "value": "b-95 (slim comfort)",
+      "count": 2
+    },
+    {
+      "value": "straight wide-legged",
+      "count": 2
+    },
+    {
+      "value": "standard festive fit",
+      "count": 2
+    },
+    {
+      "value": "slim fit, high waist",
+      "count": 2
+    },
+    {
+      "value": "sharp structured fit",
+      "count": 2
+    },
+    {
+      "value": "relaxed straight cut",
+      "count": 2
+    },
+    {
+      "value": "relaxed and airy fit",
+      "count": 2
+    },
+    {
+      "value": "relaxed a-line drape",
+      "count": 2
+    },
+    {
+      "value": "mid-rise hipster fit",
+      "count": 2
+    },
+    {
+      "value": "low waist bikini fit",
+      "count": 2
+    },
+    {
+      "value": "hugs all your curves",
+      "count": 2
+    },
+    {
+      "value": "standard layering fit",
+      "count": 2
+    },
+    {
+      "value": "roomy where it counts",
+      "count": 2
+    },
+    {
+      "value": "relaxed, straight fit",
+      "count": 2
+    },
+    {
+      "value": "relaxed fit-and-flare",
+      "count": 2
+    },
+    {
+      "value": "light compression fit",
+      "count": 2
+    },
+    {
+      "value": "extremely compressive",
+      "count": 2
+    },
+    {
+      "value": "cinched contoured fit",
+      "count": 2
+    },
+    {
+      "value": "boxy fit/ regular fit",
+      "count": 2
+    },
+    {
+      "value": "slim fit through thigh",
+      "count": 2
+    },
+    {
+      "value": "relaxed, oversized fit",
+      "count": 2
+    },
+    {
+      "value": "fitted yet comfortable",
+      "count": 2
+    },
+    {
+      "value": "fitted throughout body",
+      "count": 2
+    },
+    {
+      "value": "structured straight fit",
+      "count": 2
+    },
+    {
+      "value": "structured straight cut",
+      "count": 2
+    },
+    {
+      "value": "relaxed, graceful drape",
+      "count": 2
+    },
+    {
+      "value": "relaxed comfortable fit",
+      "count": 2
+    },
+    {
+      "value": "regular fit/comfort fit",
+      "count": 2
+    },
+    {
+      "value": "flattering feminine cut",
+      "count": 2
+    },
+    {
+      "value": "flattering and flexible",
+      "count": 2
+    },
+    {
+      "value": "straight fit/comfort fit",
+      "count": 2
+    },
+    {
+      "value": "relaxed, comfortable fit",
+      "count": 2
+    },
+    {
+      "value": "non-restrictive slim fit",
+      "count": 2
+    },
+    {
+      "value": "high-coverage plunge fit",
+      "count": 2
+    },
+    {
+      "value": "comfort fit/ tapered fit",
+      "count": 2
+    },
+    {
+      "value": "standard nehru jacket fit",
+      "count": 2
+    },
+    {
+      "value": "comfortable high-rise fit",
+      "count": 2
+    },
+    {
+      "value": "slightly flared silhouette",
+      "count": 2
+    },
+    {
+      "value": "figure friendly silhouette",
+      "count": 2
+    },
+    {
+      "value": "boxy loose fit (oversized)",
+      "count": 2
+    },
+    {
+      "value": "relaxed fit throughout body",
+      "count": 2
+    },
+    {
+      "value": "low-waist, minimal-coverage",
+      "count": 2
+    },
+    {
+      "value": "high-coverage boy short fit",
+      "count": 2
+    },
+    {
+      "value": "flexible yoga pant style fit",
+      "count": 2
+    },
+    {
+      "value": "adjustable wrap construction",
+      "count": 2
+    },
+    {
+      "value": "top- comfort/ bottom- regular",
+      "count": 2
+    },
+    {
+      "value": "relaxed fit from top to bottom",
+      "count": 2
+    },
+    {
+      "value": "regular, elasticated (relaxed)",
+      "count": 2
+    },
+    {
+      "value": "slightly oversized, cropped fit",
+      "count": 2
+    },
+    {
+      "value": "slightly fitted throughout body",
+      "count": 2
+    },
+    {
+      "value": "relaxed through hips and thighs",
+      "count": 2
+    },
+    {
+      "value": "fitted at waist, flared, a-line",
+      "count": 2
+    },
+    {
+      "value": "fit-and-flare with a-line skirt",
+      "count": 2
+    },
+    {
+      "value": "relaxed fit through hip and thigh",
+      "count": 2
+    },
+    {
+      "value": "made to measure. margin available.",
+      "count": 2
+    },
+    {
+      "value": "fully detachable multiway strap fit",
+      "count": 2
+    },
+    {
+      "value": "slim fit through thigh, straight leg",
+      "count": 2
+    },
+    {
+      "value": "true to size (size up for baggier fit)",
+      "count": 2
+    },
+    {
+      "value": "skims the torso with defined shoulders",
+      "count": 2
+    },
+    {
+      "value": "regular nehru jacket + kurta silhouette",
+      "count": 2
+    },
+    {
+      "value": "close-to-body fit with gentle structure",
+      "count": 2
+    },
+    {
+      "value": "shirt (anti fit), trousers (relaxed fit)",
+      "count": 2
+    },
+    {
+      "value": "relaxed and flattering for curvy figures",
+      "count": 2
+    },
+    {
+      "value": "high coverage with curve-enhancing design",
+      "count": 2
+    },
+    {
+      "value": "relaxed fit top and true to size wide pants",
+      "count": 2
+    },
+    {
+      "value": "comfortable fit that provides roomy allowance",
+      "count": 2
+    },
+    {
+      "value": "saree-length (~5.5m × 44\") for self-stitching",
+      "count": 2
+    },
+    {
+      "value": "comfortable fit on men, slightly oversized on women",
+      "count": 2
+    },
+    {
+      "value": "slim through hip, straight through leg with wide leg opening",
+      "count": 2
+    },
+    {
+      "value": "oversized fit (shirt), true to size with a comfort fit (skirt)",
+      "count": 2
+    },
+    {
+      "value": "slim at biceps, neck and shoulders, relaxed from torso and waist",
+      "count": 2
+    },
+    {
+      "value": "l",
+      "count": 1
+    },
+    {
+      "value": "fit",
+      "count": 1
+    },
+    {
+      "value": "trim",
+      "count": 1
+    },
+    {
+      "value": "soft",
+      "count": 1
+    },
+    {
+      "value": "kano",
+      "count": 1
+    },
+    {
+      "value": "gown",
+      "count": 1
+    },
+    {
+      "value": "free",
+      "count": 1
+    },
+    {
+      "value": "erik",
+      "count": 1
+    },
+    {
+      "value": "chic",
+      "count": 1
+    },
+    {
+      "value": "tunic",
+      "count": 1
+    },
+    {
+      "value": "sleek",
+      "count": 1
+    },
+    {
+      "value": "simon",
+      "count": 1
+    },
+    {
+      "value": "jorts",
+      "count": 1
+    },
+    {
+      "value": "dhoti",
+      "count": 1
+    },
+    {
+      "value": "chico",
+      "count": 1
+    },
+    {
+      "value": "alvin",
+      "count": 1
+    },
+    {
+      "value": "aline",
+      "count": 1
+    },
+    {
+      "value": "skater",
+      "count": 1
+    },
+    {
+      "value": "na fit",
+      "count": 1
+    },
+    {
+      "value": "leaner",
+      "count": 1
+    },
+    {
+      "value": "jacket",
+      "count": 1
+    },
+    {
+      "value": "flirty",
+      "count": 1
+    },
+    {
+      "value": "carrot",
+      "count": 1
+    },
+    {
+      "value": "bomber",
+      "count": 1
+    },
+    {
+      "value": "wrapped",
+      "count": 1
+    },
+    {
+      "value": "smaller",
+      "count": 1
+    },
+    {
+      "value": "shapely",
+      "count": 1
+    },
+    {
+      "value": "push-up",
+      "count": 1
+    },
+    {
+      "value": "peg-fit",
+      "count": 1
+    },
+    {
+      "value": "pallazo",
+      "count": 1
+    },
+    {
+      "value": "natural",
+      "count": 1
+    },
+    {
+      "value": "defined",
+      "count": 1
+    },
+    {
+      "value": "cinched",
+      "count": 1
+    },
+    {
+      "value": "balloon",
+      "count": 1
+    },
+    {
+      "value": "an-line",
+      "count": 1
+    },
+    {
+      "value": "amazing",
+      "count": 1
+    },
+    {
+      "value": "wrap fit",
+      "count": 1
+    },
+    {
+      "value": "stretchy",
+      "count": 1
+    },
+    {
+      "value": "slimming",
+      "count": 1
+    },
+    {
+      "value": "slimline",
+      "count": 1
+    },
+    {
+      "value": "slim-cut",
+      "count": 1
+    },
+    {
+      "value": "skin-fit",
+      "count": 1
+    },
+    {
+      "value": "sherwani",
+      "count": 1
+    },
+    {
+      "value": "maxi fit",
+      "count": 1
+    },
+    {
+      "value": "laidback",
+      "count": 1
+    },
+    {
+      "value": "knit fit",
+      "count": 1
+    },
+    {
+      "value": "high-leg",
+      "count": 1
+    },
+    {
+      "value": "generous",
+      "count": 1
+    },
+    {
+      "value": "full cut",
+      "count": 1
+    },
+    {
+      "value": "form fit",
+      "count": 1
+    },
+    {
+      "value": "firm fit",
+      "count": 1
+    },
+    {
+      "value": "feminine",
+      "count": 1
+    },
+    {
+      "value": "circular",
+      "count": 1
+    },
+    {
+      "value": "balanced",
+      "count": 1
+    },
+    {
+      "value": "yarn dyed",
+      "count": 1
+    },
+    {
+      "value": "tulip fit",
+      "count": 1
+    },
+    {
+      "value": "smoothing",
+      "count": 1
+    },
+    {
+      "value": "slim look",
+      "count": 1
+    },
+    {
+      "value": "slick fit",
+      "count": 1
+    },
+    {
+      "value": "roomy fit",
+      "count": 1
+    },
+    {
+      "value": "plus size",
+      "count": 1
+    },
+    {
+      "value": "paper bag",
+      "count": 1
+    },
+    {
+      "value": "over size",
+      "count": 1
+    },
+    {
+      "value": "naturally",
+      "count": 1
+    },
+    {
+      "value": "mid waist",
+      "count": 1
+    },
+    {
+      "value": "luxus fit",
+      "count": 1
+    },
+    {
+      "value": "low waist",
+      "count": 1
+    },
+    {
+      "value": "loose cut",
+      "count": 1
+    },
+    {
+      "value": "light fit",
+      "count": 1
+    },
+    {
+      "value": "kickflare",
+      "count": 1
+    },
+    {
+      "value": "forgiving",
+      "count": 1
+    },
+    {
+      "value": "fit flare",
+      "count": 1
+    },
+    {
+      "value": "chill fit",
+      "count": 1
+    },
+    {
+      "value": "brazilian",
+      "count": 1
+    },
+    {
+      "value": "boy short",
+      "count": 1
+    },
+    {
+      "value": "basic fit",
+      "count": 1
+    },
+    {
+      "value": "barel fit",
+      "count": 1
+    },
+    {
+      "value": "baggy-fit",
+      "count": 1
+    },
+    {
+      "value": "smooth fit",
+      "count": 1
+    },
+    {
+      "value": "slim drape",
+      "count": 1
+    },
+    {
+      "value": "skinny-fit",
+      "count": 1
+    },
+    {
+      "value": "skin tight",
+      "count": 1
+    },
+    {
+      "value": "peplum fit",
+      "count": 1
+    },
+    {
+      "value": "peplum cut",
+      "count": 1
+    },
+    {
+      "value": "party-wear",
+      "count": 1
+    },
+    {
+      "value": "minimizing",
+      "count": 1
+    },
+    {
+      "value": "mid-impact",
+      "count": 1
+    },
+    {
+      "value": "micro easy",
+      "count": 1
+    },
+    {
+      "value": "medium (m)",
+      "count": 1
+    },
+    {
+      "value": "l-size fit",
+      "count": 1
+    },
+    {
+      "value": "india slim",
+      "count": 1
+    },
+    {
+      "value": "free-sized",
+      "count": 1
+    },
+    {
+      "value": "fitted hip",
+      "count": 1
+    },
+    {
+      "value": "fitted cut",
+      "count": 1
+    },
+    {
+      "value": "fits close",
+      "count": 1
+    },
+    {
+      "value": "ethini set",
+      "count": 1
+    },
+    {
+      "value": "empire cut",
+      "count": 1
+    },
+    {
+      "value": "cut to fit",
+      "count": 1
+    },
+    {
+      "value": "corset fit",
+      "count": 1
+    },
+    {
+      "value": "comfortfit",
+      "count": 1
+    },
+    {
+      "value": "cheeky cut",
+      "count": 1
+    },
+    {
+      "value": "carrot-fit",
+      "count": 1
+    },
+    {
+      "value": "banana fit",
+      "count": 1
+    },
+    {
+      "value": "baloon fit",
+      "count": 1
+    },
+    {
+      "value": "balconette",
+      "count": 1
+    },
+    {
+      "value": "athleisure",
+      "count": 1
+    },
+    {
+      "value": "wideleg fit",
+      "count": 1
+    },
+    {
+      "value": "well fitted",
+      "count": 1
+    },
+    {
+      "value": "true to fit",
+      "count": 1
+    },
+    {
+      "value": "tapered-fit",
+      "count": 1
+    },
+    {
+      "value": "streamlines",
+      "count": 1
+    },
+    {
+      "value": "snuggle fit",
+      "count": 1
+    },
+    {
+      "value": "snug fitted",
+      "count": 1
+    },
+    {
+      "value": "smaller fit",
+      "count": 1
+    },
+    {
+      "value": "slouchy-fit",
+      "count": 1
+    },
+    {
+      "value": "slip-in fit",
+      "count": 1
+    },
+    {
+      "value": "semi-a-line",
+      "count": 1
+    },
+    {
+      "value": "second-skin",
+      "count": 1
+    },
+    {
+      "value": "relaxed cut",
+      "count": 1
+    },
+    {
+      "value": "perfect-fit",
+      "count": 1
+    },
+    {
+      "value": "no vpl look",
+      "count": 1
+    },
+    {
+      "value": "miami shape",
+      "count": 1
+    },
+    {
+      "value": "loose weave",
+      "count": 1
+    },
+    {
+      "value": "loose style",
+      "count": 1
+    },
+    {
+      "value": "full briefs",
+      "count": 1
+    },
+    {
+      "value": "full bodied",
+      "count": 1
+    },
+    {
+      "value": "fitted line",
+      "count": 1
+    },
+    {
+      "value": "easy jacket",
+      "count": 1
+    },
+    {
+      "value": "drapes well",
+      "count": 1
+    },
+    {
+      "value": "crop jacket",
+      "count": 1
+    },
+    {
+      "value": "comfy flare",
+      "count": 1
+    },
+    {
+      "value": "classic cut",
+      "count": 1
+    },
+    {
+      "value": "cinched fit",
+      "count": 1
+    },
+    {
+      "value": "bust fitted",
+      "count": 1
+    },
+    {
+      "value": "wide-leg fit",
+      "count": 1
+    },
+    {
+      "value": "waist-fitted",
+      "count": 1
+    },
+    {
+      "value": "waist fitted",
+      "count": 1
+    },
+    {
+      "value": "super combed",
+      "count": 1
+    },
+    {
+      "value": "soft stretch",
+      "count": 1
+    },
+    {
+      "value": "slimming fit",
+      "count": 1
+    },
+    {
+      "value": "slim-fitting",
+      "count": 1
+    },
+    {
+      "value": "slim profile",
+      "count": 1
+    },
+    {
+      "value": "slim figures",
+      "count": 1
+    },
+    {
+      "value": "slight flare",
+      "count": 1
+    },
+    {
+      "value": "skinny thigh",
+      "count": 1
+    },
+    {
+      "value": "sherwani-cut",
+      "count": 1
+    },
+    {
+      "value": "room to move",
+      "count": 1
+    },
+    {
+      "value": "relaxed fall",
+      "count": 1
+    },
+    {
+      "value": "mid-coverage",
+      "count": 1
+    },
+    {
+      "value": "loose-fitted",
+      "count": 1
+    },
+    {
+      "value": "loose, baggy",
+      "count": 1
+    },
+    {
+      "value": "jodhpuri fit",
+      "count": 1
+    },
+    {
+      "value": "hug-like fit",
+      "count": 1
+    },
+    {
+      "value": "high-waisted",
+      "count": 1
+    },
+    {
+      "value": "high-stretch",
+      "count": 1
+    },
+    {
+      "value": "high support",
+      "count": 1
+    },
+    {
+      "value": "graceful fit",
+      "count": 1
+    },
+    {
+      "value": "gentle waist",
+      "count": 1
+    },
+    {
+      "value": "free-flowing",
+      "count": 1
+    },
+    {
+      "value": "floor flared",
+      "count": 1
+    },
+    {
+      "value": "flared & fit",
+      "count": 1
+    },
+    {
+      "value": "fitted kurta",
+      "count": 1
+    },
+    {
+      "value": "fitted dress",
+      "count": 1
+    },
+    {
+      "value": "fits to size",
+      "count": 1
+    },
+    {
+      "value": "feminine fit",
+      "count": 1
+    },
+    {
+      "value": "empire waist",
+      "count": 1
+    },
+    {
+      "value": "easy to snug",
+      "count": 1
+    },
+    {
+      "value": "easy pull on",
+      "count": 1
+    },
+    {
+      "value": "corset shape",
+      "count": 1
+    },
+    {
+      "value": "comfort- fit",
+      "count": 1
+    },
+    {
+      "value": "cheeky tanga",
+      "count": 1
+    },
+    {
+      "value": "boxy/relaxed",
+      "count": 1
+    },
+    {
+      "value": "boxy relaxed",
+      "count": 1
+    },
+    {
+      "value": "body-shaping",
+      "count": 1
+    },
+    {
+      "value": "bikini style",
+      "count": 1
+    },
+    {
+      "value": "bikini shape",
+      "count": 1
+    },
+    {
+      "value": "bias-cut fit",
+      "count": 1
+    },
+    {
+      "value": "athletic cut",
+      "count": 1
+    },
+    {
+      "value": "angrakha cut",
+      "count": 1
+    },
+    {
+      "value": "wedgie shorts",
+      "count": 1
+    },
+    {
+      "value": "ultra wideleg",
+      "count": 1
+    },
+    {
+      "value": "uber feminine",
+      "count": 1
+    },
+    {
+      "value": "tummy control",
+      "count": 1
+    },
+    {
+      "value": "total support",
+      "count": 1
+    },
+    {
+      "value": "thigh slimmer",
+      "count": 1
+    },
+    {
+      "value": "tailored fall",
+      "count": 1
+    },
+    {
+      "value": "snug, cropped",
+      "count": 1
+    },
+    {
+      "value": "slim, tapered",
+      "count": 1
+    },
+    {
+      "value": "slim slip fit",
+      "count": 1
+    },
+    {
+      "value": "slight peplum",
+      "count": 1
+    },
+    {
+      "value": "slight a-line",
+      "count": 1
+    },
+    {
+      "value": "semi-tailored",
+      "count": 1
+    },
+    {
+      "value": "relaxed torso",
+      "count": 1
+    },
+    {
+      "value": "relaxed flare",
+      "count": 1
+    },
+    {
+      "value": "relaxed drape",
+      "count": 1
+    },
+    {
+      "value": "relaxed baggy",
+      "count": 1
+    },
+    {
+      "value": "plus-size fit",
+      "count": 1
+    },
+    {
+      "value": "natural shape",
+      "count": 1
+    },
+    {
+      "value": "mermaid style",
+      "count": 1
+    },
+    {
+      "value": "mermaid flair",
+      "count": 1
+    },
+    {
+      "value": "loose wideleg",
+      "count": 1
+    },
+    {
+      "value": "loose fitting",
+      "count": 1
+    },
+    {
+      "value": "light shaping",
+      "count": 1
+    },
+    {
+      "value": "free-size fit",
+      "count": 1
+    },
+    {
+      "value": "free size fit",
+      "count": 1
+    },
+    {
+      "value": "forgiving fit",
+      "count": 1
+    },
+    {
+      "value": "fitted kaftan",
+      "count": 1
+    },
+    {
+      "value": "firm bust fit",
+      "count": 1
+    },
+    {
+      "value": "ergonomic fit",
+      "count": 1
+    },
+    {
+      "value": "easygoing fit",
+      "count": 1
+    },
+    {
+      "value": "defined shape",
+      "count": 1
+    },
+    {
+      "value": "cullottes fit",
+      "count": 1
+    },
+    {
+      "value": "close-to-body",
+      "count": 1
+    },
+    {
+      "value": "cigarette-leg",
+      "count": 1
+    },
+    {
+      "value": "chocolate fit",
+      "count": 1
+    },
+    {
+      "value": "bump-friendly",
+      "count": 1
+    },
+    {
+      "value": "brazilian cut",
+      "count": 1
+    },
+    {
+      "value": "boxy slim fit",
+      "count": 1
+    },
+    {
+      "value": "baggy dad fit",
+      "count": 1
+    },
+    {
+      "value": "all body type",
+      "count": 1
+    },
+    {
+      "value": "waist coat fit",
+      "count": 1
+    },
+    {
+      "value": "super wide-leg",
+      "count": 1
+    },
+    {
+      "value": "straight kurta",
+      "count": 1
+    },
+    {
+      "value": "soft fit kurta",
+      "count": 1
+    },
+    {
+      "value": "slim taper fit",
+      "count": 1
+    },
+    {
+      "value": "slim structure",
+      "count": 1
+    },
+    {
+      "value": "skims the body",
+      "count": 1
+    },
+    {
+      "value": "relaxed, flowy",
+      "count": 1
+    },
+    {
+      "value": "relaxed motion",
+      "count": 1
+    },
+    {
+      "value": "regular/ loose",
+      "count": 1
+    },
+    {
+      "value": "regular draped",
+      "count": 1
+    },
+    {
+      "value": "non-clingy fit",
+      "count": 1
+    },
+    {
+      "value": "medium support",
+      "count": 1
+    },
+    {
+      "value": "loose boxy fit",
+      "count": 1
+    },
+    {
+      "value": "hourglass snug",
+      "count": 1
+    },
+    {
+      "value": "graceful flare",
+      "count": 1
+    },
+    {
+      "value": "girlfriend fit",
+      "count": 1
+    },
+    {
+      "value": "fitted to size",
+      "count": 1
+    },
+    {
+      "value": "easy kurta fit",
+      "count": 1
+    },
+    {
+      "value": "curve-friendly",
+      "count": 1
+    },
+    {
+      "value": "body-conscious",
+      "count": 1
+    },
+    {
+      "value": "babydoll-style",
+      "count": 1
+    },
+    {
+      "value": "athleisure fit",
+      "count": 1
+    },
+    {
+      "value": "anti fit ghera",
+      "count": 1
+    },
+    {
+      "value": "angrakha style",
+      "count": 1
+    },
+    {
+      "value": "snug, contoured",
+      "count": 1
+    },
+    {
+      "value": "snug structured",
+      "count": 1
+    },
+    {
+      "value": "snug silhouette",
+      "count": 1
+    },
+    {
+      "value": "snug pencil fit",
+      "count": 1
+    },
+    {
+      "value": "slim silhouette",
+      "count": 1
+    },
+    {
+      "value": "slightly shaped",
+      "count": 1
+    },
+    {
+      "value": "skinny fiji fit",
+      "count": 1
+    },
+    {
+      "value": "semi fitted cut",
+      "count": 1
+    },
+    {
+      "value": "sculpt/slim fit",
+      "count": 1
+    },
+    {
+      "value": "ribcage wideleg",
+      "count": 1
+    },
+    {
+      "value": "relaxed, breezy",
+      "count": 1
+    },
+    {
+      "value": "relaxed regular",
+      "count": 1
+    },
+    {
+      "value": "relaxed comfort",
+      "count": 1
+    },
+    {
+      "value": "relaxed & loose",
+      "count": 1
+    },
+    {
+      "value": "regular cropped",
+      "count": 1
+    },
+    {
+      "value": "loose & relaxed",
+      "count": 1
+    },
+    {
+      "value": "flattering fall",
+      "count": 1
+    },
+    {
+      "value": "fit & flare cut",
+      "count": 1
+    },
+    {
+      "value": "figure-skimming",
+      "count": 1
+    },
+    {
+      "value": "extra loose fit",
+      "count": 1
+    },
+    {
+      "value": "easy jacket fit",
+      "count": 1
+    },
+    {
+      "value": "easy baloon fit",
+      "count": 1
+    },
+    {
+      "value": "dond carrot fit",
+      "count": 1
+    },
+    {
+      "value": "custom-made fit",
+      "count": 1
+    },
+    {
+      "value": "corset-inspired",
+      "count": 1
+    },
+    {
+      "value": "compressive fit",
+      "count": 1
+    },
+    {
+      "value": "brazilian style",
+      "count": 1
+    },
+    {
+      "value": "boxy over-sized",
+      "count": 1
+    },
+    {
+      "value": "bomber semi fit",
+      "count": 1
+    },
+    {
+      "value": "body-contouring",
+      "count": 1
+    },
+    {
+      "value": "xenon-barrel fit",
+      "count": 1
+    },
+    {
+      "value": "tapered crop fit",
+      "count": 1
+    },
+    {
+      "value": "straight, a-line",
+      "count": 1
+    },
+    {
+      "value": "standard huf fit",
+      "count": 1
+    },
+    {
+      "value": "soft, flattering",
+      "count": 1
+    },
+    {
+      "value": "soft comfort fit",
+      "count": 1
+    },
+    {
+      "value": "snug stretch hip",
+      "count": 1
+    },
+    {
+      "value": "slim comfort fit",
+      "count": 1
+    },
+    {
+      "value": "slightly tapered",
+      "count": 1
+    },
+    {
+      "value": "slightly slouchy",
+      "count": 1
+    },
+    {
+      "value": "sleek silhouette",
+      "count": 1
+    },
+    {
+      "value": "sleek jacket fit",
+      "count": 1
+    },
+    {
+      "value": "shirt jacket fit",
+      "count": 1
+    },
+    {
+      "value": "seamless shaping",
+      "count": 1
+    },
+    {
+      "value": "relaxed wide leg",
+      "count": 1
+    },
+    {
+      "value": "relaxed tailored",
+      "count": 1
+    },
+    {
+      "value": "relaxed elegance",
+      "count": 1
+    },
+    {
+      "value": "relaxed coverage",
+      "count": 1
+    },
+    {
+      "value": "relaxed boxy fit",
+      "count": 1
+    },
+    {
+      "value": "relaxed and airy",
+      "count": 1
+    },
+    {
+      "value": "relaxed / a-line",
+      "count": 1
+    },
+    {
+      "value": "relax a-line fit",
+      "count": 1
+    },
+    {
+      "value": "regular coverage",
+      "count": 1
+    },
+    {
+      "value": "partial straight",
+      "count": 1
+    },
+    {
+      "value": "oversized, roomy",
+      "count": 1
+    },
+    {
+      "value": "one size fit all",
+      "count": 1
+    },
+    {
+      "value": "high-stretch fit",
+      "count": 1
+    },
+    {
+      "value": "high-compression",
+      "count": 1
+    },
+    {
+      "value": "high waisted cut",
+      "count": 1
+    },
+    {
+      "value": "fluid silhouette",
+      "count": 1
+    },
+    {
+      "value": "flared from bust",
+      "count": 1
+    },
+    {
+      "value": "fitted / relaxed",
+      "count": 1
+    },
+    {
+      "value": "figureflattering",
+      "count": 1
+    },
+    {
+      "value": "easy, flattering",
+      "count": 1
+    },
+    {
+      "value": "easy light flare",
+      "count": 1
+    },
+    {
+      "value": "coach jacket fit",
+      "count": 1
+    },
+    {
+      "value": "close column fit",
+      "count": 1
+    },
+    {
+      "value": "clean, fuss free",
+      "count": 1
+    },
+    {
+      "value": "classic athletic",
+      "count": 1
+    },
+    {
+      "value": "body-hugging fit",
+      "count": 1
+    },
+    {
+      "value": "avoid tight fits",
+      "count": 1
+    },
+    {
+      "value": "asymmetrical cut",
+      "count": 1
+    },
+    {
+      "value": "a-line / relaxed",
+      "count": 1
+    },
+    {
+      "value": "ultra-comfort fit",
+      "count": 1
+    },
+    {
+      "value": "ultimate easy fit",
+      "count": 1
+    },
+    {
+      "value": "tailored straight",
+      "count": 1
+    },
+    {
+      "value": "super-comfortable",
+      "count": 1
+    },
+    {
+      "value": "structured jacket",
+      "count": 1
+    },
+    {
+      "value": "structured corset",
+      "count": 1
+    },
+    {
+      "value": "structured bodice",
+      "count": 1
+    },
+    {
+      "value": "straight, relaxed",
+      "count": 1
+    },
+    {
+      "value": "straight wide-leg",
+      "count": 1
+    },
+    {
+      "value": "straight easy fit",
+      "count": 1
+    },
+    {
+      "value": "straight and easy",
+      "count": 1
+    },
+    {
+      "value": "slim, tapered fit",
+      "count": 1
+    },
+    {
+      "value": "slim tailored fit",
+      "count": 1
+    },
+    {
+      "value": "slim athletic fit",
+      "count": 1
+    },
+    {
+      "value": "slight a line cut",
+      "count": 1
+    },
+    {
+      "value": "sleek, flattering",
+      "count": 1
+    },
+    {
+      "value": "sharp and elegant",
+      "count": 1
+    },
+    {
+      "value": "sculpting stretch",
+      "count": 1
+    },
+    {
+      "value": "sculpted fish cut",
+      "count": 1
+    },
+    {
+      "value": "relaxed, easy-fit",
+      "count": 1
+    },
+    {
+      "value": "relaxed, boxy fit",
+      "count": 1
+    },
+    {
+      "value": "relaxed yet sharp",
+      "count": 1
+    },
+    {
+      "value": "relaxed free-flow",
+      "count": 1
+    },
+    {
+      "value": "relaxed boyfriend",
+      "count": 1
+    },
+    {
+      "value": "princess-panelled",
+      "count": 1
+    },
+    {
+      "value": "pleated dhoti fit",
+      "count": 1
+    },
+    {
+      "value": "peplum silhouette",
+      "count": 1
+    },
+    {
+      "value": "oversized cut-sew",
+      "count": 1
+    },
+    {
+      "value": "one size fits all",
+      "count": 1
+    },
+    {
+      "value": "narrow skinny fit",
+      "count": 1
+    },
+    {
+      "value": "mul fit and flare",
+      "count": 1
+    },
+    {
+      "value": "movement-friendly",
+      "count": 1
+    },
+    {
+      "value": "moderate coverage",
+      "count": 1
+    },
+    {
+      "value": "loose, voluminous",
+      "count": 1
+    },
+    {
+      "value": "loose fit garment",
+      "count": 1
+    },
+    {
+      "value": "loose comfort fit",
+      "count": 1
+    },
+    {
+      "value": "little extra room",
+      "count": 1
+    },
+    {
+      "value": "flowy outer layer",
+      "count": 1
+    },
+    {
+      "value": "flared silhouette",
+      "count": 1
+    },
+    {
+      "value": "fit-and-flare cut",
+      "count": 1
+    },
+    {
+      "value": "fit and flare fit",
+      "count": 1
+    },
+    {
+      "value": "fit and flare cut",
+      "count": 1
+    },
+    {
+      "value": "falls beautifully",
+      "count": 1
+    },
+    {
+      "value": "easy, comfortable",
+      "count": 1
+    },
+    {
+      "value": "easy straight fit",
+      "count": 1
+    },
+    {
+      "value": "easy everyday fit",
+      "count": 1
+    },
+    {
+      "value": "contours the body",
+      "count": 1
+    },
+    {
+      "value": "close-to-body fit",
+      "count": 1
+    },
+    {
+      "value": "close, structured",
+      "count": 1
+    },
+    {
+      "value": "close to body fit",
+      "count": 1
+    },
+    {
+      "value": "chest gripped fit",
+      "count": 1
+    },
+    {
+      "value": "body skimming fit",
+      "count": 1
+    },
+    {
+      "value": "angrakha anarkali",
+      "count": 1
+    },
+    {
+      "value": "tapered silhouette",
+      "count": 1
+    },
+    {
+      "value": "tailored kurta fit",
+      "count": 1
+    },
+    {
+      "value": "straight, easy fit",
+      "count": 1
+    },
+    {
+      "value": "snug sculpting fit",
+      "count": 1
+    },
+    {
+      "value": "smart straight fit",
+      "count": 1
+    },
+    {
+      "value": "slim fit (smocked)",
+      "count": 1
+    },
+    {
+      "value": "slim cigarette fit",
+      "count": 1
+    },
+    {
+      "value": "sleek, streamlined",
+      "count": 1
+    },
+    {
+      "value": "sharp tailored fit",
+      "count": 1
+    },
+    {
+      "value": "relaxed, oversized",
+      "count": 1
+    },
+    {
+      "value": "relaxed, mid-waist",
+      "count": 1
+    },
+    {
+      "value": "relaxed modern fit",
+      "count": 1
+    },
+    {
+      "value": "relaxed flared fit",
+      "count": 1
+    },
+    {
+      "value": "relaxed draped fit",
+      "count": 1
+    },
+    {
+      "value": "relaxed column fit",
+      "count": 1
+    },
+    {
+      "value": "regular fit- aw-24",
+      "count": 1
+    },
+    {
+      "value": "regular blouse fit",
+      "count": 1
+    },
+    {
+      "value": "oversized boxy fit",
+      "count": 1
+    },
+    {
+      "value": "original loose fit",
+      "count": 1
+    },
+    {
+      "value": "minimal silhouette",
+      "count": 1
+    },
+    {
+      "value": "lightly structured",
+      "count": 1
+    },
+    {
+      "value": "hug the upper body",
+      "count": 1
+    },
+    {
+      "value": "full sleeve hoodie",
+      "count": 1
+    },
+    {
+      "value": "flatters your body",
+      "count": 1
+    },
+    {
+      "value": "flared relaxed fit",
+      "count": 1
+    },
+    {
+      "value": "flair bottom swing",
+      "count": 1
+    },
+    {
+      "value": "fitted, structured",
+      "count": 1
+    },
+    {
+      "value": "fitted to the body",
+      "count": 1
+    },
+    {
+      "value": "fitted on the bust",
+      "count": 1
+    },
+    {
+      "value": "easy straight line",
+      "count": 1
+    },
+    {
+      "value": "easy & comfortable",
+      "count": 1
+    },
+    {
+      "value": "cropped silhouette",
+      "count": 1
+    },
+    {
+      "value": "cropped & snug fit",
+      "count": 1
+    },
+    {
+      "value": "classic silhouette",
+      "count": 1
+    },
+    {
+      "value": "structured yet soft",
+      "count": 1
+    },
+    {
+      "value": "structured crop top",
+      "count": 1
+    },
+    {
+      "value": "straight fit jogger",
+      "count": 1
+    },
+    {
+      "value": "snug, contoured fit",
+      "count": 1
+    },
+    {
+      "value": "snug and flattering",
+      "count": 1
+    },
+    {
+      "value": "slim or regular fit",
+      "count": 1
+    },
+    {
+      "value": "side support shaper",
+      "count": 1
+    },
+    {
+      "value": "sculpted silhouette",
+      "count": 1
+    },
+    {
+      "value": "ruched form-fitting",
+      "count": 1
+    },
+    {
+      "value": "relaxed, breezy fit",
+      "count": 1
+    },
+    {
+      "value": "relaxed yet refined",
+      "count": 1
+    },
+    {
+      "value": "relaxed strappy fit",
+      "count": 1
+    },
+    {
+      "value": "relaxed fit, fitted",
+      "count": 1
+    },
+    {
+      "value": "relaxed cropped fit",
+      "count": 1
+    },
+    {
+      "value": "relaxed comfort fit",
+      "count": 1
+    },
+    {
+      "value": "relaxed baggy jorts",
+      "count": 1
+    },
+    {
+      "value": "regular festive fit",
+      "count": 1
+    },
+    {
+      "value": "open structured fit",
+      "count": 1
+    },
+    {
+      "value": "narrow shoulder fit",
+      "count": 1
+    },
+    {
+      "value": "low-rise bikini fit",
+      "count": 1
+    },
+    {
+      "value": "loose relaxed baggy",
+      "count": 1
+    },
+    {
+      "value": "longline silhouette",
+      "count": 1
+    },
+    {
+      "value": "high low silhouette",
+      "count": 1
+    },
+    {
+      "value": "fun and comfortable",
+      "count": 1
+    },
+    {
+      "value": "fitted and straight",
+      "count": 1
+    },
+    {
+      "value": "firm structured fit",
+      "count": 1
+    },
+    {
+      "value": "easy-fit silhouette",
+      "count": 1
+    },
+    {
+      "value": "easy fit silhouette",
+      "count": 1
+    },
+    {
+      "value": "buff (slim comfort)",
+      "count": 1
+    },
+    {
+      "value": "anti-fit silhouette",
+      "count": 1
+    },
+    {
+      "value": "airy and flattering",
+      "count": 1
+    },
+    {
+      "value": "tailored relaxed fit",
+      "count": 1
+    },
+    {
+      "value": "structured, tailored",
+      "count": 1
+    },
+    {
+      "value": "structured, longline",
+      "count": 1
+    },
+    {
+      "value": "straight regular fit",
+      "count": 1
+    },
+    {
+      "value": "snug fit at the bust",
+      "count": 1
+    },
+    {
+      "value": "slightly relaxed fit",
+      "count": 1
+    },
+    {
+      "value": "slightly body fitted",
+      "count": 1
+    },
+    {
+      "value": "signature skinny fit",
+      "count": 1
+    },
+    {
+      "value": "ribcage wide leg fit",
+      "count": 1
+    },
+    {
+      "value": "relaxed, flowing fit",
+      "count": 1
+    },
+    {
+      "value": "relaxed yet polished",
+      "count": 1
+    },
+    {
+      "value": "relaxed slip top fit",
+      "count": 1
+    },
+    {
+      "value": "relaxed movement fit",
+      "count": 1
+    },
+    {
+      "value": "relaxed gathered fit",
+      "count": 1
+    },
+    {
+      "value": "relaxed everyday fit",
+      "count": 1
+    },
+    {
+      "value": "relaxed a-line shape",
+      "count": 1
+    },
+    {
+      "value": "regular athletic fit",
+      "count": 1
+    },
+    {
+      "value": "oversized kaftan fit",
+      "count": 1
+    },
+    {
+      "value": "lightly shaped waist",
+      "count": 1
+    },
+    {
+      "value": "krypton-straight fit",
+      "count": 1
+    },
+    {
+      "value": "hourglass silhouette",
+      "count": 1
+    },
+    {
+      "value": "heritage indowestern",
+      "count": 1
+    },
+    {
+      "value": "flattering, sculpted",
+      "count": 1
+    },
+    {
+      "value": "flattering structure",
+      "count": 1
+    },
+    {
+      "value": "fitted through chest",
+      "count": 1
+    },
+    {
+      "value": "fitted at the bodice",
+      "count": 1
+    },
+    {
+      "value": "easy through the hip",
+      "count": 1
+    },
+    {
+      "value": "comfortable easy fit",
+      "count": 1
+    },
+    {
+      "value": "classic athletic fit",
+      "count": 1
+    },
+    {
+      "value": "bandhgala silhouette",
+      "count": 1
+    },
+    {
+      "value": "super comfortable fit",
+      "count": 1
+    },
+    {
+      "value": "structured corset fit",
+      "count": 1
+    },
+    {
+      "value": "straight, relaxed fit",
+      "count": 1
+    },
+    {
+      "value": "straight relaxed fall",
+      "count": 1
+    },
+    {
+      "value": "smooth flattering fit",
+      "count": 1
+    },
+    {
+      "value": "slim-through-the-seat",
+      "count": 1
+    },
+    {
+      "value": "relaxed, free-flowing",
+      "count": 1
+    },
+    {
+      "value": "relaxed oversized fit",
+      "count": 1
+    },
+    {
+      "value": "regular & comfortable",
+      "count": 1
+    },
+    {
+      "value": "plus-size / curvy fit",
+      "count": 1
+    },
+    {
+      "value": "padded structured fit",
+      "count": 1
+    },
+    {
+      "value": "neat, comfortable fit",
+      "count": 1
+    },
+    {
+      "value": "flowy below the waist",
+      "count": 1
+    },
+    {
+      "value": "flared from the waist",
+      "count": 1
+    },
+    {
+      "value": "extra baggy loose fit",
+      "count": 1
+    },
+    {
+      "value": "elastic fit and flare",
+      "count": 1
+    },
+    {
+      "value": "easy, comfortable fit",
+      "count": 1
+    },
+    {
+      "value": "crepe flatters curves",
+      "count": 1
+    },
+    {
+      "value": "comfortable kurta fit",
+      "count": 1
+    },
+    {
+      "value": "comfortable & stylish",
+      "count": 1
+    },
+    {
+      "value": "classic sweatpant fit",
+      "count": 1
+    },
+    {
+      "value": "classic fit-and-flare",
+      "count": 1
+    },
+    {
+      "value": "boxy fit, regular fit",
+      "count": 1
+    },
+    {
+      "value": "widens through the leg",
+      "count": 1
+    },
+    {
+      "value": "universally flattering",
+      "count": 1
+    },
+    {
+      "value": "structured, flattering",
+      "count": 1
+    },
+    {
+      "value": "structured yet flowing",
+      "count": 1
+    },
+    {
+      "value": "structured brocade fit",
+      "count": 1
+    },
+    {
+      "value": "structured and refined",
+      "count": 1
+    },
+    {
+      "value": "standard pleasures fit",
+      "count": 1
+    },
+    {
+      "value": "snugly around the bust",
+      "count": 1
+    },
+    {
+      "value": "slimming, form-fitting",
+      "count": 1
+    },
+    {
+      "value": "slightly tapered waist",
+      "count": 1
+    },
+    {
+      "value": "slightly relaxed kurta",
+      "count": 1
+    },
+    {
+      "value": "slightly oversized cut",
+      "count": 1
+    },
+    {
+      "value": "slightly drop shoulder",
+      "count": 1
+    },
+    {
+      "value": "skims the body cleanly",
+      "count": 1
+    },
+    {
+      "value": "semi fitted silhouette",
+      "count": 1
+    },
+    {
+      "value": "relaxed with waist tie",
+      "count": 1
+    },
+    {
+      "value": "relaxed straight baggy",
+      "count": 1
+    },
+    {
+      "value": "relaxed and flattering",
+      "count": 1
+    },
+    {
+      "value": "relaxed and breathable",
+      "count": 1
+    },
+    {
+      "value": "relaxed adjustable fit",
+      "count": 1
+    },
+    {
+      "value": "power shoulder relaxed",
+      "count": 1
+    },
+    {
+      "value": "low-rise string bikini",
+      "count": 1
+    },
+    {
+      "value": "flexifit™ technology",
+      "count": 1
+    },
+    {
+      "value": "fits close to the body",
+      "count": 1
+    },
+    {
+      "value": "easy fit, fit & flared",
+      "count": 1
+    },
+    {
+      "value": "draped and comfortable",
+      "count": 1
+    },
+    {
+      "value": "crisp and true to size",
+      "count": 1
+    },
+    {
+      "value": "comfortable silhouette",
+      "count": 1
+    },
+    {
+      "value": "comfortable open front",
+      "count": 1
+    },
+    {
+      "value": "comfortable flared fit",
+      "count": 1
+    },
+    {
+      "value": "comfort with structure",
+      "count": 1
+    },
+    {
+      "value": "comfort fit - freesize",
+      "count": 1
+    },
+    {
+      "value": "clean, comfortable fit",
+      "count": 1
+    },
+    {
+      "value": "cheeky brazilian style",
+      "count": 1
+    },
+    {
+      "value": "casual and slouchy fit",
+      "count": 1
+    },
+    {
+      "value": "body-fitted silhouette",
+      "count": 1
+    },
+    {
+      "value": "yoga style flexible fit",
+      "count": 1
+    },
+    {
+      "value": "structured shoulder fit",
+      "count": 1
+    },
+    {
+      "value": "structured at the chest",
+      "count": 1
+    },
+    {
+      "value": "slightly structured fit",
+      "count": 1
+    },
+    {
+      "value": "relaxed, drape-friendly",
+      "count": 1
+    },
+    {
+      "value": "regular cropped (w) fit",
+      "count": 1
+    },
+    {
+      "value": "regular comfortable fit",
+      "count": 1
+    },
+    {
+      "value": "neat taper at the waist",
+      "count": 1
+    },
+    {
+      "value": "flattering and graceful",
+      "count": 1
+    },
+    {
+      "value": "flatter most body types",
+      "count": 1
+    },
+    {
+      "value": "fit smaller than normal",
+      "count": 1
+    },
+    {
+      "value": "easy, cinched at bottom",
+      "count": 1
+    },
+    {
+      "value": "drop shoulder basic fit",
+      "count": 1
+    },
+    {
+      "value": "contemporary silhouette",
+      "count": 1
+    },
+    {
+      "value": "comfortable, flattering",
+      "count": 1
+    },
+    {
+      "value": "comfortable relaxed fit",
+      "count": 1
+    },
+    {
+      "value": "comfortable festive fit",
+      "count": 1
+    },
+    {
+      "value": "comfort fit/fit & flare",
+      "count": 1
+    },
+    {
+      "value": "close fitted silhouette",
+      "count": 1
+    },
+    {
+      "value": "classic polo silhouette",
+      "count": 1
+    },
+    {
+      "value": "classic comfortable fit",
+      "count": 1
+    },
+    {
+      "value": "body-sculpting snug-fit",
+      "count": 1
+    },
+    {
+      "value": "wide-leg fit with pleats",
+      "count": 1
+    },
+    {
+      "value": "urban relaxed silhouette",
+      "count": 1
+    },
+    {
+      "value": "tailored and comfortable",
+      "count": 1
+    },
+    {
+      "value": "structured fit-and-flare",
+      "count": 1
+    },
+    {
+      "value": "straight and comfortable",
+      "count": 1
+    },
+    {
+      "value": "standard slip blouse fit",
+      "count": 1
+    },
+    {
+      "value": "slim through hip & thigh",
+      "count": 1
+    },
+    {
+      "value": "skims rather than clings",
+      "count": 1
+    },
+    {
+      "value": "semi fit comfort-focused",
+      "count": 1
+    },
+    {
+      "value": "relaxed, easy silhouette",
+      "count": 1
+    },
+    {
+      "value": "relaxed yet tailored fit",
+      "count": 1
+    },
+    {
+      "value": "relaxed tapered wide-leg",
+      "count": 1
+    },
+    {
+      "value": "relaxed dress silhouette",
+      "count": 1
+    },
+    {
+      "value": "regular fit/ comfort fit",
+      "count": 1
+    },
+    {
+      "value": "peplum defines the waist",
+      "count": 1
+    },
+    {
+      "value": "needle fit with mid rise",
+      "count": 1
+    },
+    {
+      "value": "neat straight fit on top",
+      "count": 1
+    },
+    {
+      "value": "naturally breathable fit",
+      "count": 1
+    },
+    {
+      "value": "ideal fit for every body",
+      "count": 1
+    },
+    {
+      "value": "high-waisted comfort fit",
+      "count": 1
+    },
+    {
+      "value": "free-size with harem cut",
+      "count": 1
+    },
+    {
+      "value": "flatters all waist types",
+      "count": 1
+    },
+    {
+      "value": "flattering fit-and-flare",
+      "count": 1
+    },
+    {
+      "value": "fitted, slightly waisted",
+      "count": 1
+    },
+    {
+      "value": "fit-to-volume silhouette",
+      "count": 1
+    },
+    {
+      "value": "fit & flare/straight fit",
+      "count": 1
+    },
+    {
+      "value": "easy and comfortable fit",
+      "count": 1
+    },
+    {
+      "value": "eases gently for comfort",
+      "count": 1
+    },
+    {
+      "value": "dynamic body enhancement",
+      "count": 1
+    },
+    {
+      "value": "comfortable wide leg fit",
+      "count": 1
+    },
+    {
+      "value": "comfortable gathered fit",
+      "count": 1
+    },
+    {
+      "value": "comfort fit double pleat",
+      "count": 1
+    },
+    {
+      "value": "updated vintage style fit",
+      "count": 1
+    },
+    {
+      "value": "structured, slightly long",
+      "count": 1
+    },
+    {
+      "value": "straight-to-slight a-line",
+      "count": 1
+    },
+    {
+      "value": "straight, slightly a-line",
+      "count": 1
+    },
+    {
+      "value": "straight, easy silhouette",
+      "count": 1
+    },
+    {
+      "value": "slim through seat and leg",
+      "count": 1
+    },
+    {
+      "value": "secret slimming™ panels",
+      "count": 1
+    },
+    {
+      "value": "queen and king-sized beds",
+      "count": 1
+    },
+    {
+      "value": "oversized boxy silhouette",
+      "count": 1
+    },
+    {
+      "value": "flattering all body types",
+      "count": 1
+    },
+    {
+      "value": "fitted bustier silhouette",
+      "count": 1
+    },
+    {
+      "value": "every body type perfectly",
+      "count": 1
+    },
+    {
+      "value": "cosmo classic (india fit)",
+      "count": 1
+    },
+    {
+      "value": "comfortable and loose fit",
+      "count": 1
+    },
+    {
+      "value": "comfortable and easygoing",
+      "count": 1
+    },
+    {
+      "value": "true to size, high-waisted",
+      "count": 1
+    },
+    {
+      "value": "super comfortable anti-fit",
+      "count": 1
+    },
+    {
+      "value": "streamlined and structured",
+      "count": 1
+    },
+    {
+      "value": "straight with relaxed room",
+      "count": 1
+    },
+    {
+      "value": "soft fit through the waist",
+      "count": 1
+    },
+    {
+      "value": "slim at top, relaxed flare",
+      "count": 1
+    },
+    {
+      "value": "slightly cinched waistline",
+      "count": 1
+    },
+    {
+      "value": "skin tight stretchable top",
+      "count": 1
+    },
+    {
+      "value": "relaxed straight or a line",
+      "count": 1
+    },
+    {
+      "value": "relaxed room at the elbows",
+      "count": 1
+    },
+    {
+      "value": "regular fit with high rise",
+      "count": 1
+    },
+    {
+      "value": "perfect for all body types",
+      "count": 1
+    },
+    {
+      "value": "modern fit-blocking design",
+      "count": 1
+    },
+    {
+      "value": "high-coverage boyshort fit",
+      "count": 1
+    },
+    {
+      "value": "high support (held-in fit)",
+      "count": 1
+    },
+    {
+      "value": "flattering fit on the bust",
+      "count": 1
+    },
+    {
+      "value": "flattering and comfortable",
+      "count": 1
+    },
+    {
+      "value": "feminine fit-and-flare cut",
+      "count": 1
+    },
+    {
+      "value": "comfortable yet flattering",
+      "count": 1
+    },
+    {
+      "value": "comfortable midsection fit",
+      "count": 1
+    },
+    {
+      "value": "baggy dad barrel loose fit",
+      "count": 1
+    },
+    {
+      "value": "any body shape comfortably",
+      "count": 1
+    },
+    {
+      "value": "straight or slightly flared",
+      "count": 1
+    },
+    {
+      "value": "straight or slightly a line",
+      "count": 1
+    },
+    {
+      "value": "slim fit, close-fitting cut",
+      "count": 1
+    },
+    {
+      "value": "slightly loose straight fit",
+      "count": 1
+    },
+    {
+      "value": "slightly fitted silhouettes",
+      "count": 1
+    },
+    {
+      "value": "relaxed, comfortable flared",
+      "count": 1
+    },
+    {
+      "value": "relaxed gathered silhouette",
+      "count": 1
+    },
+    {
+      "value": "regular fit dress with cape",
+      "count": 1
+    },
+    {
+      "value": "fitted at waist, flared hem",
+      "count": 1
+    },
+    {
+      "value": "comfortable & baby friendly",
+      "count": 1
+    },
+    {
+      "value": "close, confident silhouette",
+      "count": 1
+    },
+    {
+      "value": "best suited for lean frames",
+      "count": 1
+    },
+    {
+      "value": "baggy fit with slight taper",
+      "count": 1
+    },
+    {
+      "value": "adjustable fit at the waist",
+      "count": 1
+    },
+    {
+      "value": "yoga pant style flexible fit",
+      "count": 1
+    },
+    {
+      "value": "straight or lightly tailored",
+      "count": 1
+    },
+    {
+      "value": "snug top and circular bottom",
+      "count": 1
+    },
+    {
+      "value": "relaxed gathered overlay fit",
+      "count": 1
+    },
+    {
+      "value": "regular, slightly fitted cut",
+      "count": 1
+    },
+    {
+      "value": "lean and straight body types",
+      "count": 1
+    },
+    {
+      "value": "flattering peplum silhouette",
+      "count": 1
+    },
+    {
+      "value": "figure flattering silhouette",
+      "count": 1
+    },
+    {
+      "value": "comfortable fit for movement",
+      "count": 1
+    },
+    {
+      "value": "body-hugging yet comfortable",
+      "count": 1
+    },
+    {
+      "value": "tapered fit through shoulders",
+      "count": 1
+    },
+    {
+      "value": "slimming and youthful shaping",
+      "count": 1
+    },
+    {
+      "value": "size down for a more snug fit",
+      "count": 1
+    },
+    {
+      "value": "relaxed room through the body",
+      "count": 1
+    },
+    {
+      "value": "relaxed fit with slight taper",
+      "count": 1
+    },
+    {
+      "value": "relaxed ease through the body",
+      "count": 1
+    },
+    {
+      "value": "flattering sharpness and ease",
+      "count": 1
+    },
+    {
+      "value": "fitted bust and defined waist",
+      "count": 1
+    },
+    {
+      "value": "body-fitted with belted waist",
+      "count": 1
+    },
+    {
+      "value": "top - fitted / pants - comfort",
+      "count": 1
+    },
+    {
+      "value": "structured yet soft silhouette",
+      "count": 1
+    },
+    {
+      "value": "straight through hip and thigh",
+      "count": 1
+    },
+    {
+      "value": "straight fit top, flared skirt",
+      "count": 1
+    },
+    {
+      "value": "relaxed, flattering silhouette",
+      "count": 1
+    },
+    {
+      "value": "regular fit through the bodice",
+      "count": 1
+    },
+    {
+      "value": "flattering for most body types",
+      "count": 1
+    },
+    {
+      "value": "flattering fit-and-flare shape",
+      "count": 1
+    },
+    {
+      "value": "fitted over the waist and hips",
+      "count": 1
+    },
+    {
+      "value": "easy but structured at the top",
+      "count": 1
+    },
+    {
+      "value": "comfortable, baby-friendly cut",
+      "count": 1
+    },
+    {
+      "value": "body-fit overlapped long dress",
+      "count": 1
+    },
+    {
+      "value": "tailored to flatter your figure",
+      "count": 1
+    },
+    {
+      "value": "structured straight or panelled",
+      "count": 1
+    },
+    {
+      "value": "structured fit across shoulders",
+      "count": 1
+    },
+    {
+      "value": "slim and structured silhouettes",
+      "count": 1
+    },
+    {
+      "value": "sleek and flattering silhouette",
+      "count": 1
+    },
+    {
+      "value": "right from ethnic to modern fit",
+      "count": 1
+    },
+    {
+      "value": "relaxed fit throughout the body",
+      "count": 1
+    },
+    {
+      "value": "relaxed contemporary silhouette",
+      "count": 1
+    },
+    {
+      "value": "relaxed asymmetrical silhouette",
+      "count": 1
+    },
+    {
+      "value": "relaxed and naturally contoured",
+      "count": 1
+    },
+    {
+      "value": "regular to slightly relaxed fit",
+      "count": 1
+    },
+    {
+      "value": "fitted crop top and flowy skirt",
+      "count": 1
+    },
+    {
+      "value": "fitted choli with lehenga flare",
+      "count": 1
+    },
+    {
+      "value": "fitted bodice with a flared hem",
+      "count": 1
+    },
+    {
+      "value": "fit-and-flare with belted waist",
+      "count": 1
+    },
+    {
+      "value": "defined shoulder and easy chest",
+      "count": 1
+    },
+    {
+      "value": "comfortable fit up to 44 inches",
+      "count": 1
+    },
+    {
+      "value": "snug fit through hips and thighs",
+      "count": 1
+    },
+    {
+      "value": "relaxed asymmetrical overlay fit",
+      "count": 1
+    },
+    {
+      "value": "oversized fit with drop shoulder",
+      "count": 1
+    },
+    {
+      "value": "flattering yet comfortable drape",
+      "count": 1
+    },
+    {
+      "value": "drop shoulder, slightly oversize",
+      "count": 1
+    },
+    {
+      "value": "comfortable everyday trouser fit",
+      "count": 1
+    },
+    {
+      "value": "body-contouring curved side seam",
+      "count": 1
+    },
+    {
+      "value": "structured fit through the bodice",
+      "count": 1
+    },
+    {
+      "value": "standard festive nehru jacket fit",
+      "count": 1
+    },
+    {
+      "value": "slim through the waist and thighs",
+      "count": 1
+    },
+    {
+      "value": "relaxed fit with elasticated back",
+      "count": 1
+    },
+    {
+      "value": "flattering cropped top blouse fit",
+      "count": 1
+    },
+    {
+      "value": "flattering and refined silhouette",
+      "count": 1
+    },
+    {
+      "value": "flatter neither tight nor billowy",
+      "count": 1
+    },
+    {
+      "value": "fitted with smocked back for ease",
+      "count": 1
+    },
+    {
+      "value": "fitted bodice and a flowing skirt",
+      "count": 1
+    },
+    {
+      "value": "defined draping through the waist",
+      "count": 1
+    },
+    {
+      "value": "comfortable fit for everyday wear",
+      "count": 1
+    },
+    {
+      "value": "comfortable (slightly over-sized)",
+      "count": 1
+    },
+    {
+      "value": "body-flattering fusion silhouette",
+      "count": 1
+    },
+    {
+      "value": "uniquely fit to flatter every size",
+      "count": 1
+    },
+    {
+      "value": "structured shoulder and neat waist",
+      "count": 1
+    },
+    {
+      "value": "skims the body without gripping it",
+      "count": 1
+    },
+    {
+      "value": "semi fitted kurta and airy palazzo",
+      "count": 1
+    },
+    {
+      "value": "relaxed tailored jacket silhouette",
+      "count": 1
+    },
+    {
+      "value": "relaxed fit with tapered structure",
+      "count": 1
+    },
+    {
+      "value": "relaxed a-line gathered silhouette",
+      "count": 1
+    },
+    {
+      "value": "fitted front with elasticated back",
+      "count": 1
+    },
+    {
+      "value": "fitted bodice, flared a-line skirt",
+      "count": 1
+    },
+    {
+      "value": "fitted bodice with a flowing skirt",
+      "count": 1
+    },
+    {
+      "value": "comfortable and stylish silhouette",
+      "count": 1
+    },
+    {
+      "value": "wrap style that shapes and flatters",
+      "count": 1
+    },
+    {
+      "value": "true to size with a comfortable fit",
+      "count": 1
+    },
+    {
+      "value": "tailored strapless bodice; wide-leg",
+      "count": 1
+    },
+    {
+      "value": "streamlines and flatters your frame",
+      "count": 1
+    },
+    {
+      "value": "relaxed fit, slightly oversized cut",
+      "count": 1
+    },
+    {
+      "value": "regular on chest with flared bottom",
+      "count": 1
+    },
+    {
+      "value": "perfect fit during & post pregnancy",
+      "count": 1
+    },
+    {
+      "value": "full sleeve hoodie(kangaroo pocket)",
+      "count": 1
+    },
+    {
+      "value": "fits true to size with room to grow",
+      "count": 1
+    },
+    {
+      "value": "drops straight from a neat shoulder",
+      "count": 1
+    },
+    {
+      "value": "defined shoulder with a clean waist",
+      "count": 1
+    },
+    {
+      "value": "bikini fit with 3/4th back coverage",
+      "count": 1
+    },
+    {
+      "value": "true to size (size up for baggy fit)",
+      "count": 1
+    },
+    {
+      "value": "relaxed fit with an easy, fluid fall",
+      "count": 1
+    },
+    {
+      "value": "structured yet comfortable silhouette",
+      "count": 1
+    },
+    {
+      "value": "structured fit that contours the body",
+      "count": 1
+    },
+    {
+      "value": "snug stretch hip with circular bottom",
+      "count": 1
+    },
+    {
+      "value": "slightly structured through the torso",
+      "count": 1
+    },
+    {
+      "value": "relaxed sleeveless dress/straight fit",
+      "count": 1
+    },
+    {
+      "value": "fitted chest with flared bottom tunic",
+      "count": 1
+    },
+    {
+      "value": "true to size with stretch at the waist",
+      "count": 1
+    },
+    {
+      "value": "true to size pants and a relaxed kurta",
+      "count": 1
+    },
+    {
+      "value": "top - fitted / pant & blazer - comfort",
+      "count": 1
+    },
+    {
+      "value": "structured yet comfortable festive fit",
+      "count": 1
+    },
+    {
+      "value": "relaxed tailored fit with belted waist",
+      "count": 1
+    },
+    {
+      "value": "full sleeve hoodie(front side pockets)",
+      "count": 1
+    },
+    {
+      "value": "flowy with subtle shaping at the waist",
+      "count": 1
+    },
+    {
+      "value": "fitted bodice with flared a-line skirt",
+      "count": 1
+    },
+    {
+      "value": "fitted at the bodice with a flared hem",
+      "count": 1
+    },
+    {
+      "value": "drops straight with room at the elbows",
+      "count": 1
+    },
+    {
+      "value": "clean shoulder line with an easy drape",
+      "count": 1
+    },
+    {
+      "value": "structured bodice with a relaxed bottom",
+      "count": 1
+    },
+    {
+      "value": "structured blouse ensures a perfect fit",
+      "count": 1
+    },
+    {
+      "value": "straight kurta and softly tapered pants",
+      "count": 1
+    },
+    {
+      "value": "straight fit with a gentle a-line flare",
+      "count": 1
+    },
+    {
+      "value": "shirt (anti-fit), trouser (relaxed fit)",
+      "count": 1
+    },
+    {
+      "value": "relaxed tailored fit with defined waist",
+      "count": 1
+    },
+    {
+      "value": "relaxed fit with a softly defined waist",
+      "count": 1
+    },
+    {
+      "value": "relaxed fit top with true to size pants",
+      "count": 1
+    },
+    {
+      "value": "fitted jacket atop a flowing kurta base",
+      "count": 1
+    },
+    {
+      "value": "fitted at the bust and flares out gently",
+      "count": 1
+    },
+    {
+      "value": "comfortably on the body without clinging",
+      "count": 1
+    },
+    {
+      "value": "true to size with an adjustable waist tie",
+      "count": 1
+    },
+    {
+      "value": "tailored bodice provides a flattering fit",
+      "count": 1
+    },
+    {
+      "value": "tailored at the top with a relaxed bottom",
+      "count": 1
+    },
+    {
+      "value": "super comfortable with stretchable fabric",
+      "count": 1
+    },
+    {
+      "value": "slightly structured fit through the chest",
+      "count": 1
+    },
+    {
+      "value": "fitted bodice with a flared kalidar skirt",
+      "count": 1
+    },
+    {
+      "value": "customised according to your measurements",
+      "count": 1
+    },
+    {
+      "value": "comfort fit with a closer fit at the bust",
+      "count": 1
+    },
+    {
+      "value": "tailored top offers a neat, flattering fit",
+      "count": 1
+    },
+    {
+      "value": "streamlined silhouette with a fitted shape",
+      "count": 1
+    },
+    {
+      "value": "straight body fit dress with a-line bottom",
+      "count": 1
+    },
+    {
+      "value": "soft jacket fit with a crisp kurta profile",
+      "count": 1
+    },
+    {
+      "value": "slim fit that flares slightly at the knees",
+      "count": 1
+    },
+    {
+      "value": "regular fit, slightly tapered straight cut",
+      "count": 1
+    },
+    {
+      "value": "comfortable, roomy shape for easy movement",
+      "count": 1
+    },
+    {
+      "value": "close at the top with a gentle flare below",
+      "count": 1
+    },
+    {
+      "value": "snug fitting kurta with voluminous palazzos",
+      "count": 1
+    },
+    {
+      "value": "slim fit through thigh and hip, tapered leg",
+      "count": 1
+    },
+    {
+      "value": "relaxed fit top, tailored high-waist shorts",
+      "count": 1
+    },
+    {
+      "value": "adjustable fit ranging from 40 to 44 inches",
+      "count": 1
+    },
+    {
+      "value": "a little snug due to the hand-dying process",
+      "count": 1
+    },
+    {
+      "value": "snug fit at the waist and a flowy silhouette",
+      "count": 1
+    },
+    {
+      "value": "relaxed, longline shirt / straight fit dress",
+      "count": 1
+    },
+    {
+      "value": "relaxed fit shirt, tailored fit at the waist",
+      "count": 1
+    },
+    {
+      "value": "tailored fit around the shoulders and sleeves",
+      "count": 1
+    },
+    {
+      "value": "regular fit on chest with extra flared bottom",
+      "count": 1
+    },
+    {
+      "value": "fitted through the bodice with a flared skirt",
+      "count": 1
+    },
+    {
+      "value": "comfortable churidar fit tapered at the ankle",
+      "count": 1
+    },
+    {
+      "value": "structured shoulders with a gentle waist shape",
+      "count": 1
+    },
+    {
+      "value": "relaxed wide-leg fit through the hip and thigh",
+      "count": 1
+    },
+    {
+      "value": "relaxed fit with an easy fall through the body",
+      "count": 1
+    },
+    {
+      "value": "narrower version of the otherwise roomy patiala",
+      "count": 1
+    },
+    {
+      "value": "gentle taper through the torso for a sleek read",
+      "count": 1
+    },
+    {
+      "value": "flattering and comfortable with a defined waist",
+      "count": 1
+    },
+    {
+      "value": "fitted at the bust and had flared at the bottom",
+      "count": 1
+    },
+    {
+      "value": "fitted at the bodice, flares out from the waist",
+      "count": 1
+    },
+    {
+      "value": "fitted at the waist and hips, loose over the leg",
+      "count": 1
+    },
+    {
+      "value": "comfort fit with a slightly oversized silhouette",
+      "count": 1
+    },
+    {
+      "value": "snug for definition while the torso stays relaxed",
+      "count": 1
+    },
+    {
+      "value": "cinched at the waist and relaxed through the legs",
+      "count": 1
+    },
+    {
+      "value": "perfect fit design fits any body shape comfortably",
+      "count": 1
+    },
+    {
+      "value": "fitted through chest and waist with a flarey skirt",
+      "count": 1
+    },
+    {
+      "value": "comfortable straight kurta with elastic-fit pyjama",
+      "count": 1
+    },
+    {
+      "value": "classic fit with a structured yet comfortable fall",
+      "count": 1
+    },
+    {
+      "value": "fitted through chest with some flounce in the skirt",
+      "count": 1
+    },
+    {
+      "value": "flattering fall that’s not too slim, not too loose",
+      "count": 1
+    },
+    {
+      "value": "comfortable, easy wear with a balanced, everyday fit",
+      "count": 1
+    },
+    {
+      "value": "light padded, wire free bralette offers high coverage",
+      "count": 1
+    },
+    {
+      "value": "classic shirt fit with a structured, comfortable fall",
+      "count": 1
+    },
+    {
+      "value": "slim above knees which gradually relaxes to the bottom",
+      "count": 1
+    },
+    {
+      "value": "long straight fit through the kurta; palazzo is breezy",
+      "count": 1
+    },
+    {
+      "value": "heritage sherwani — longer cut, structured shoulders",
+      "count": 1
+    },
+    {
+      "value": "snug (crop top), breezy, effortless (cape and palazzos)",
+      "count": 1
+    },
+    {
+      "value": "slim fitting in the waist with a relaxed fit in the leg",
+      "count": 1
+    },
+    {
+      "value": "close fit at the chest while allowing ease for movement",
+      "count": 1
+    },
+    {
+      "value": "fitted at the waist with a tie up strap around the waist",
+      "count": 1
+    },
+    {
+      "value": "sporty silhouette that contours without feeling too tight",
+      "count": 1
+    },
+    {
+      "value": "smooth on the shoulders with flexible room at the underarm",
+      "count": 1
+    },
+    {
+      "value": "relaxed at the shoulders with gentle ease through the hips",
+      "count": 1
+    },
+    {
+      "value": "gilet (anti fit), shirt (anti fit), trousers (relaxed fit)",
+      "count": 1
+    },
+    {
+      "value": "snug at the shoulders with a gentle taper through the torso",
+      "count": 1
+    },
+    {
+      "value": "oversized fit (shirt), fitted at the waist and hips (skirt)",
+      "count": 1
+    },
+    {
+      "value": "neat shoulder set with easy room through the chest and arms",
+      "count": 1
+    },
+    {
+      "value": "hugs your body with minimal compression and maximum comfort",
+      "count": 1
+    },
+    {
+      "value": "slim through the bodice with fluid movement through the legs",
+      "count": 1
+    },
+    {
+      "value": "gilet (anti fit), shirt (relaxed fit), trouser (relaxed fit)",
+      "count": 1
+    },
+    {
+      "value": "close sit at the shoulders with relaxed ease through the torso",
+      "count": 1
+    },
+    {
+      "value": "relaxed fit through the bust, slightly more fitted at the waist",
+      "count": 1
+    },
+    {
+      "value": "comfortable fit that sits snug at the bust and flares gradually",
+      "count": 1
+    },
+    {
+      "value": "structured through the bodice with a relaxed fall from the waist",
+      "count": 1
+    },
+    {
+      "value": "straight fit from the top, fixed at the waist with an a-line fall",
+      "count": 1
+    },
+    {
+      "value": "structured fit through the shoulders and chest with a relaxed drape",
+      "count": 1
+    },
+    {
+      "value": "structured fit through the shoulders and a tapered cut in the trousers",
+      "count": 1
+    },
+    {
+      "value": "traditional drape length for self-draping, or our ready-to-wear service",
+      "count": 1
+    },
+    {
+      "value": "bandhgala jacket, mandarin (band) collar, full sleeves; with matching trouser",
+      "count": 1
+    },
+    {
+      "value": "fashion-forward, cropped/exposed midriff fit on the top; relaxed fit on the shorts",
+      "count": 1
+    },
+    {
+      "value": "straight kurta silhouette with wide palazzos go with your usual size for a clean fall",
+      "count": 1
+    },
+    {
+      "value": "easy through the hips and thigh, narrows through the leg with ribbed cuff at the ankle",
+      "count": 1
+    },
+    {
+      "value": "comfortable fit?that sits snug at the bust and flares gradually to provide roomy allowance between the fabric and wearer",
+      "count": 1
+    }
+  ]
+}

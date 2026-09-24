@@ -1,0 +1,1776 @@
+{
+  "field": "category",
+  "multiValued": false,
+  "distinctValues": 441,
+  "reportedTotalValues": 441,
+  "truncated": false,
+  "valuesWithCountBelow5": 30,
+  "coverage": 1,
+  "sumOfCounts": 551334,
+  "values": [
+    {
+      "value": "silk sarees",
+      "count": 52142
+    },
+    {
+      "value": "printed sarees",
+      "count": 23248
+    },
+    {
+      "value": "kurta-palazzo sets",
+      "count": 23135
+    },
+    {
+      "value": "straight kurta",
+      "count": 18082
+    },
+    {
+      "value": "polo t-shirts",
+      "count": 17893
+    },
+    {
+      "value": "round neck t-shirts",
+      "count": 17759
+    },
+    {
+      "value": "printed shirts",
+      "count": 16248
+    },
+    {
+      "value": "other",
+      "count": 15689
+    },
+    {
+      "value": "festive lehenga",
+      "count": 12329
+    },
+    {
+      "value": "solid shirts",
+      "count": 11319
+    },
+    {
+      "value": "fashion jewellery",
+      "count": 9291
+    },
+    {
+      "value": "shirts",
+      "count": 9000
+    },
+    {
+      "value": "trousers",
+      "count": 7813
+    },
+    {
+      "value": "kurtis",
+      "count": 6753
+    },
+    {
+      "value": "slim fit jeans",
+      "count": 6589
+    },
+    {
+      "value": "solid formal shirts",
+      "count": 6579
+    },
+    {
+      "value": "graphic/printed t-shirts",
+      "count": 5962
+    },
+    {
+      "value": "midi dress",
+      "count": 5750
+    },
+    {
+      "value": "maxi dress",
+      "count": 4990
+    },
+    {
+      "value": "handbags",
+      "count": 4983
+    },
+    {
+      "value": "anarkali",
+      "count": 4934
+    },
+    {
+      "value": "unstitched suit sets",
+      "count": 4873
+    },
+    {
+      "value": "sweatshirts",
+      "count": 4613
+    },
+    {
+      "value": "sharara & gharara sets",
+      "count": 4389
+    },
+    {
+      "value": "blouses (western)",
+      "count": 4286
+    },
+    {
+      "value": "pullover sweatshirts",
+      "count": 4198
+    },
+    {
+      "value": "kurta-pyjama sets",
+      "count": 4050
+    },
+    {
+      "value": "dupattas",
+      "count": 3978
+    },
+    {
+      "value": "pendant sets",
+      "count": 3905
+    },
+    {
+      "value": "tunics",
+      "count": 3761
+    },
+    {
+      "value": "indo-western / fusion gowns",
+      "count": 3596
+    },
+    {
+      "value": "oversized t-shirts",
+      "count": 3559
+    },
+    {
+      "value": "danglers",
+      "count": 3394
+    },
+    {
+      "value": "shift dress",
+      "count": 3304
+    },
+    {
+      "value": "jhumkas",
+      "count": 3294
+    },
+    {
+      "value": "v-neck sweaters",
+      "count": 3272
+    },
+    {
+      "value": "low-top sneakers",
+      "count": 3238
+    },
+    {
+      "value": "designer blouses",
+      "count": 3225
+    },
+    {
+      "value": "fashion rings",
+      "count": 3220
+    },
+    {
+      "value": "blazer-style jackets",
+      "count": 3109
+    },
+    {
+      "value": "graphic t-shirts",
+      "count": 3104
+    },
+    {
+      "value": "running shoes",
+      "count": 2962
+    },
+    {
+      "value": "matching sets",
+      "count": 2945
+    },
+    {
+      "value": "bomber jackets",
+      "count": 2919
+    },
+    {
+      "value": "two-piece co-ord sets",
+      "count": 2895
+    },
+    {
+      "value": "cardigans",
+      "count": 2865
+    },
+    {
+      "value": "slim fit casual trousers",
+      "count": 2816
+    },
+    {
+      "value": "designer sarees",
+      "count": 2674
+    },
+    {
+      "value": "relaxed fit casual trousers",
+      "count": 2599
+    },
+    {
+      "value": "studs",
+      "count": 2584
+    },
+    {
+      "value": "crew neck sweaters",
+      "count": 2571
+    },
+    {
+      "value": "bracelets",
+      "count": 2549
+    },
+    {
+      "value": "linen shirts",
+      "count": 2476
+    },
+    {
+      "value": "sweaters",
+      "count": 2462
+    },
+    {
+      "value": "straight jeans",
+      "count": 2366
+    },
+    {
+      "value": "flat sandals",
+      "count": 2318
+    },
+    {
+      "value": "a-line kurta",
+      "count": 2294
+    },
+    {
+      "value": "kurta sets",
+      "count": 2167
+    },
+    {
+      "value": "earrings",
+      "count": 2071
+    },
+    {
+      "value": "casual shirts",
+      "count": 2029
+    },
+    {
+      "value": "totes",
+      "count": 1959
+    },
+    {
+      "value": "sandals",
+      "count": 1916
+    },
+    {
+      "value": "slim fit formal trousers",
+      "count": 1916
+    },
+    {
+      "value": "skinny jeans",
+      "count": 1906
+    },
+    {
+      "value": "tops",
+      "count": 1897
+    },
+    {
+      "value": "straight fit jeans",
+      "count": 1893
+    },
+    {
+      "value": "bootcut jeans",
+      "count": 1819
+    },
+    {
+      "value": "block heel sandals",
+      "count": 1811
+    },
+    {
+      "value": "track pants",
+      "count": 1787
+    },
+    {
+      "value": "shorts",
+      "count": 1771
+    },
+    {
+      "value": "blazers",
+      "count": 1737
+    },
+    {
+      "value": "ethnic tops",
+      "count": 1732
+    },
+    {
+      "value": "casual frocks",
+      "count": 1728
+    },
+    {
+      "value": "kurta-pyjama-nehru jacket sets",
+      "count": 1718
+    },
+    {
+      "value": "briefs",
+      "count": 1707
+    },
+    {
+      "value": "palazzos",
+      "count": 1696
+    },
+    {
+      "value": "chino shorts",
+      "count": 1647
+    },
+    {
+      "value": "cargo pants",
+      "count": 1637
+    },
+    {
+      "value": "t-shirts",
+      "count": 1636
+    },
+    {
+      "value": "wrap dress",
+      "count": 1608
+    },
+    {
+      "value": "scarves & stoles",
+      "count": 1606
+    },
+    {
+      "value": "a-line dress",
+      "count": 1592
+    },
+    {
+      "value": "pullover hoodies",
+      "count": 1589
+    },
+    {
+      "value": "floaters",
+      "count": 1571
+    },
+    {
+      "value": "ethnic skirts",
+      "count": 1550
+    },
+    {
+      "value": "trunks",
+      "count": 1518
+    },
+    {
+      "value": "relaxed fit jeans",
+      "count": 1516
+    },
+    {
+      "value": "baseball caps",
+      "count": 1480
+    },
+    {
+      "value": "clothing sets",
+      "count": 1446
+    },
+    {
+      "value": "skinny fit jeans",
+      "count": 1431
+    },
+    {
+      "value": "joggers",
+      "count": 1367
+    },
+    {
+      "value": "cargo shorts",
+      "count": 1353
+    },
+    {
+      "value": "camisole tops",
+      "count": 1323
+    },
+    {
+      "value": "pyjama sets",
+      "count": 1307
+    },
+    {
+      "value": "penny loafers",
+      "count": 1283
+    },
+    {
+      "value": "jumpsuits",
+      "count": 1249
+    },
+    {
+      "value": "clutches",
+      "count": 1245
+    },
+    {
+      "value": "chinos",
+      "count": 1237
+    },
+    {
+      "value": "midi skirts",
+      "count": 1207
+    },
+    {
+      "value": "puffer/padded jackets",
+      "count": 1189
+    },
+    {
+      "value": "wristbands",
+      "count": 1132
+    },
+    {
+      "value": "jeans",
+      "count": 1111
+    },
+    {
+      "value": "jackets",
+      "count": 1107
+    },
+    {
+      "value": "indian & fusion wear",
+      "count": 1067
+    },
+    {
+      "value": "regular active t-shirts",
+      "count": 1053
+    },
+    {
+      "value": "ties",
+      "count": 1011
+    },
+    {
+      "value": "leggings",
+      "count": 1010
+    },
+    {
+      "value": "jacket, sweater & sweatshirts",
+      "count": 999
+    },
+    {
+      "value": "loafers (women)",
+      "count": 949
+    },
+    {
+      "value": "ethnic waistcoats",
+      "count": 939
+    },
+    {
+      "value": "wallets",
+      "count": 912
+    },
+    {
+      "value": "everyday bra",
+      "count": 910
+    },
+    {
+      "value": "sports shoes",
+      "count": 900
+    },
+    {
+      "value": "classic sherwani",
+      "count": 889
+    },
+    {
+      "value": "crew socks",
+      "count": 874
+    },
+    {
+      "value": "bangles",
+      "count": 867
+    },
+    {
+      "value": "tracksuits",
+      "count": 863
+    },
+    {
+      "value": "full sleeve t-shirts",
+      "count": 843
+    },
+    {
+      "value": "denim jackets",
+      "count": 833
+    },
+    {
+      "value": "windcheaters",
+      "count": 831
+    },
+    {
+      "value": "nehru jackets",
+      "count": 828
+    },
+    {
+      "value": "belts",
+      "count": 825
+    },
+    {
+      "value": "bridal lehenga",
+      "count": 816
+    },
+    {
+      "value": "leather belts",
+      "count": 813
+    },
+    {
+      "value": "jeans, trousers & capris",
+      "count": 801
+    },
+    {
+      "value": "casual trousers",
+      "count": 769
+    },
+    {
+      "value": "capris",
+      "count": 761
+    },
+    {
+      "value": "skirts & shorts",
+      "count": 744
+    },
+    {
+      "value": "shawls",
+      "count": 736
+    },
+    {
+      "value": "t-shirt-trouser sets",
+      "count": 720
+    },
+    {
+      "value": "slip-ons",
+      "count": 711
+    },
+    {
+      "value": "ankle socks",
+      "count": 711
+    },
+    {
+      "value": "sleeveless vests",
+      "count": 711
+    },
+    {
+      "value": "hipster briefs",
+      "count": 707
+    },
+    {
+      "value": "headbands",
+      "count": 698
+    },
+    {
+      "value": "handloom sarees",
+      "count": 696
+    },
+    {
+      "value": "traditional dhoti",
+      "count": 688
+    },
+    {
+      "value": "ballet flats",
+      "count": 682
+    },
+    {
+      "value": "block heels",
+      "count": 670
+    },
+    {
+      "value": "shrugs",
+      "count": 667
+    },
+    {
+      "value": "hoops",
+      "count": 663
+    },
+    {
+      "value": "rompers & sleepsuits",
+      "count": 662
+    },
+    {
+      "value": "bifold wallets",
+      "count": 658
+    },
+    {
+      "value": "sling/crossbody bags",
+      "count": 648
+    },
+    {
+      "value": "sports & active wear",
+      "count": 642
+    },
+    {
+      "value": "tights",
+      "count": 634
+    },
+    {
+      "value": "woven boxers",
+      "count": 633
+    },
+    {
+      "value": "salwars",
+      "count": 618
+    },
+    {
+      "value": "baby care essentials",
+      "count": 605
+    },
+    {
+      "value": "t-shirt bra",
+      "count": 599
+    },
+    {
+      "value": "flats",
+      "count": 597
+    },
+    {
+      "value": "chokers",
+      "count": 589
+    },
+    {
+      "value": "nightdresses",
+      "count": 588
+    },
+    {
+      "value": "shirt-shorts sets",
+      "count": 587
+    },
+    {
+      "value": "flip flops",
+      "count": 581
+    },
+    {
+      "value": "nightwear & loungewear",
+      "count": 565
+    },
+    {
+      "value": "travel backpacks",
+      "count": 562
+    },
+    {
+      "value": "jewellery & hair accessory",
+      "count": 557
+    },
+    {
+      "value": "co-ord sets",
+      "count": 544
+    },
+    {
+      "value": "potlis",
+      "count": 543
+    },
+    {
+      "value": "derbies",
+      "count": 530
+    },
+    {
+      "value": "short kurta",
+      "count": 524
+    },
+    {
+      "value": "sneakers (women)",
+      "count": 513
+    },
+    {
+      "value": "turtleneck sweaters",
+      "count": 499
+    },
+    {
+      "value": "sports accessories",
+      "count": 498
+    },
+    {
+      "value": "nose pins & face jewellery",
+      "count": 484
+    },
+    {
+      "value": "long necklaces",
+      "count": 470
+    },
+    {
+      "value": "nose pins",
+      "count": 468
+    },
+    {
+      "value": "track pants & pyjamas",
+      "count": 468
+    },
+    {
+      "value": "pocket squares",
+      "count": 465
+    },
+    {
+      "value": "wedges",
+      "count": 456
+    },
+    {
+      "value": "lehenga choli",
+      "count": 454
+    },
+    {
+      "value": "juttis",
+      "count": 452
+    },
+    {
+      "value": "regular fit formal trousers",
+      "count": 444
+    },
+    {
+      "value": "2-piece suits",
+      "count": 440
+    },
+    {
+      "value": "zipper sweatshirts",
+      "count": 433
+    },
+    {
+      "value": "cocktail rings",
+      "count": 430
+    },
+    {
+      "value": "sleeveless t-shirts",
+      "count": 425
+    },
+    {
+      "value": "western tops",
+      "count": 423
+    },
+    {
+      "value": "dungarees & jumpsuits",
+      "count": 423
+    },
+    {
+      "value": "crop tops",
+      "count": 416
+    },
+    {
+      "value": "anklets",
+      "count": 411
+    },
+    {
+      "value": "infants",
+      "count": 406
+    },
+    {
+      "value": "wayfarers",
+      "count": 405
+    },
+    {
+      "value": "angrakha kurta",
+      "count": 405
+    },
+    {
+      "value": "nose rings",
+      "count": 402
+    },
+    {
+      "value": "oxfords",
+      "count": 395
+    },
+    {
+      "value": "casual shoes",
+      "count": 392
+    },
+    {
+      "value": "bikini briefs",
+      "count": 368
+    },
+    {
+      "value": "kurta-churidar sets",
+      "count": 368
+    },
+    {
+      "value": "bodycon dress",
+      "count": 360
+    },
+    {
+      "value": "t-shirts & tops",
+      "count": 360
+    },
+    {
+      "value": "bikini",
+      "count": 359
+    },
+    {
+      "value": "beanies",
+      "count": 348
+    },
+    {
+      "value": "chelsea boots",
+      "count": 341
+    },
+    {
+      "value": "denim shorts",
+      "count": 339
+    },
+    {
+      "value": "stoles",
+      "count": 336
+    },
+    {
+      "value": "active shorts",
+      "count": 334
+    },
+    {
+      "value": "bags & backpacks",
+      "count": 332
+    },
+    {
+      "value": "card holders",
+      "count": 324
+    },
+    {
+      "value": "checked shirts",
+      "count": 324
+    },
+    {
+      "value": "bandhgala / jodhpuri sets",
+      "count": 324
+    },
+    {
+      "value": "v-neck t-shirts",
+      "count": 321
+    },
+    {
+      "value": "jackets & sweatshirts",
+      "count": 307
+    },
+    {
+      "value": "boyfriend jeans",
+      "count": 305
+    },
+    {
+      "value": "sports bra",
+      "count": 298
+    },
+    {
+      "value": "3-piece suits",
+      "count": 296
+    },
+    {
+      "value": "formal shirts",
+      "count": 295
+    },
+    {
+      "value": "corduroy shirts",
+      "count": 295
+    },
+    {
+      "value": "kolhapuris",
+      "count": 294
+    },
+    {
+      "value": "mojaris",
+      "count": 289
+    },
+    {
+      "value": "tights & leggings",
+      "count": 288
+    },
+    {
+      "value": "mini skirts",
+      "count": 285
+    },
+    {
+      "value": "round sunglasses",
+      "count": 270
+    },
+    {
+      "value": "henley t-shirts",
+      "count": 260
+    },
+    {
+      "value": "one-piece swimwear",
+      "count": 256
+    },
+    {
+      "value": "leggings, salwars & churidars",
+      "count": 256
+    },
+    {
+      "value": "kada",
+      "count": 250
+    },
+    {
+      "value": "swim trunks",
+      "count": 246
+    },
+    {
+      "value": "denim shirts",
+      "count": 245
+    },
+    {
+      "value": "ankle boots",
+      "count": 244
+    },
+    {
+      "value": "party dresses",
+      "count": 238
+    },
+    {
+      "value": "nehru-style jackets (women)",
+      "count": 237
+    },
+    {
+      "value": "zip-up hoodies",
+      "count": 236
+    },
+    {
+      "value": "overcoats",
+      "count": 233
+    },
+    {
+      "value": "kitten heels",
+      "count": 225
+    },
+    {
+      "value": "laptop bags",
+      "count": 221
+    },
+    {
+      "value": "thermal tops",
+      "count": 221
+    },
+    {
+      "value": "innerwear & thermals",
+      "count": 221
+    },
+    {
+      "value": "shirt-shorts co-ord sets",
+      "count": 217
+    },
+    {
+      "value": "indo-western sherwani",
+      "count": 216
+    },
+    {
+      "value": "socks",
+      "count": 214
+    },
+    {
+      "value": "waistcoats",
+      "count": 211
+    },
+    {
+      "value": "bodysuits",
+      "count": 207
+    },
+    {
+      "value": "casual belts",
+      "count": 206
+    },
+    {
+      "value": "dresses",
+      "count": 204
+    },
+    {
+      "value": "formal shoes",
+      "count": 203
+    },
+    {
+      "value": "full body shapewear",
+      "count": 203
+    },
+    {
+      "value": "bralette",
+      "count": 199
+    },
+    {
+      "value": "mom fit jeans",
+      "count": 197
+    },
+    {
+      "value": "blouses",
+      "count": 196
+    },
+    {
+      "value": "fragrances",
+      "count": 195
+    },
+    {
+      "value": "lace-up casual shoes",
+      "count": 194
+    },
+    {
+      "value": "oversized sunglasses",
+      "count": 193
+    },
+    {
+      "value": "track pants & shorts",
+      "count": 190
+    },
+    {
+      "value": "vests",
+      "count": 184
+    },
+    {
+      "value": "scarves",
+      "count": 182
+    },
+    {
+      "value": "cotton sarees",
+      "count": 180
+    },
+    {
+      "value": "soft-sided luggage",
+      "count": 180
+    },
+    {
+      "value": "gym gloves",
+      "count": 179
+    },
+    {
+      "value": "mufflers",
+      "count": 175
+    },
+    {
+      "value": "bottomwear",
+      "count": 175
+    },
+    {
+      "value": "caps & hats",
+      "count": 174
+    },
+    {
+      "value": "casual watches",
+      "count": 168
+    },
+    {
+      "value": "school shoes",
+      "count": 167
+    },
+    {
+      "value": "camisoles",
+      "count": 165
+    },
+    {
+      "value": "churidars",
+      "count": 157
+    },
+    {
+      "value": "nehru jacket sets",
+      "count": 155
+    },
+    {
+      "value": "chukka boots",
+      "count": 149
+    },
+    {
+      "value": "dress materials",
+      "count": 147
+    },
+    {
+      "value": "backpacks",
+      "count": 146
+    },
+    {
+      "value": "boxer briefs",
+      "count": 144
+    },
+    {
+      "value": "scrunchies",
+      "count": 139
+    },
+    {
+      "value": "keychains & small leather goods",
+      "count": 138
+    },
+    {
+      "value": "kurtas & suits",
+      "count": 136
+    },
+    {
+      "value": "duffel/gym bags",
+      "count": 131
+    },
+    {
+      "value": "laptop backpacks",
+      "count": 128
+    },
+    {
+      "value": "petticoats & saree shapewear",
+      "count": 128
+    },
+    {
+      "value": "leather jackets",
+      "count": 126
+    },
+    {
+      "value": "sunglasses",
+      "count": 124
+    },
+    {
+      "value": "t-shirt-trouser co-ord sets",
+      "count": 124
+    },
+    {
+      "value": "boys clothing",
+      "count": 123
+    },
+    {
+      "value": "aviators",
+      "count": 121
+    },
+    {
+      "value": "hair clips",
+      "count": 120
+    },
+    {
+      "value": "maternity dresses",
+      "count": 117
+    },
+    {
+      "value": "luggages & trolleys",
+      "count": 117
+    },
+    {
+      "value": "gift cards",
+      "count": 114
+    },
+    {
+      "value": "knit boxer shorts",
+      "count": 112
+    },
+    {
+      "value": "pathani suits",
+      "count": 110
+    },
+    {
+      "value": "thermal bottoms",
+      "count": 110
+    },
+    {
+      "value": "bucket hats",
+      "count": 104
+    },
+    {
+      "value": "swaddles & sleeping bags",
+      "count": 104
+    },
+    {
+      "value": "tuxedos",
+      "count": 101
+    },
+    {
+      "value": "cat-eye sunglasses",
+      "count": 100
+    },
+    {
+      "value": "mojari flats",
+      "count": 95
+    },
+    {
+      "value": "stilettos",
+      "count": 94
+    },
+    {
+      "value": "bags & luggage",
+      "count": 94
+    },
+    {
+      "value": "ties, cufflinks & pocket squares",
+      "count": 92
+    },
+    {
+      "value": "compression t-shirts",
+      "count": 91
+    },
+    {
+      "value": "tassel loafers",
+      "count": 90
+    },
+    {
+      "value": "varsity jackets",
+      "count": 90
+    },
+    {
+      "value": "ethnic wear",
+      "count": 89
+    },
+    {
+      "value": "robes",
+      "count": 87
+    },
+    {
+      "value": "playsuits",
+      "count": 87
+    },
+    {
+      "value": "high-top sneakers",
+      "count": 87
+    },
+    {
+      "value": "handbags, bags & wallets",
+      "count": 87
+    },
+    {
+      "value": "shorts sets",
+      "count": 86
+    },
+    {
+      "value": "reversible belts",
+      "count": 85
+    },
+    {
+      "value": "necklaces & pendants",
+      "count": 83
+    },
+    {
+      "value": "loafers",
+      "count": 82
+    },
+    {
+      "value": "brogues",
+      "count": 82
+    },
+    {
+      "value": "active track pants",
+      "count": 81
+    },
+    {
+      "value": "maang tikka / bridal hair jewellery",
+      "count": 80
+    },
+    {
+      "value": "yoga mats",
+      "count": 79
+    },
+    {
+      "value": "striped formal shirts",
+      "count": 79
+    },
+    {
+      "value": "maternity innerwear / nursing bras",
+      "count": 78
+    },
+    {
+      "value": "bibs",
+      "count": 76
+    },
+    {
+      "value": "cufflinks",
+      "count": 76
+    },
+    {
+      "value": "sleepwear & loungewear",
+      "count": 76
+    },
+    {
+      "value": "hairbands",
+      "count": 74
+    },
+    {
+      "value": "analog watches",
+      "count": 74
+    },
+    {
+      "value": "maxi dresses",
+      "count": 71
+    },
+    {
+      "value": "gold jewellery",
+      "count": 71
+    },
+    {
+      "value": "trousers & capris",
+      "count": 71
+    },
+    {
+      "value": "combat boots",
+      "count": 69
+    },
+    {
+      "value": "booties / first-walker shoes",
+      "count": 67
+    },
+    {
+      "value": "push-up bra",
+      "count": 66
+    },
+    {
+      "value": "jogger jeans",
+      "count": 66
+    },
+    {
+      "value": "premium beauty",
+      "count": 63
+    },
+    {
+      "value": "hard-sided luggage",
+      "count": 60
+    },
+    {
+      "value": "kurtas & kurta sets",
+      "count": 60
+    },
+    {
+      "value": "monk straps",
+      "count": 58
+    },
+    {
+      "value": "smartwatches",
+      "count": 58
+    },
+    {
+      "value": "training shoes",
+      "count": 57
+    },
+    {
+      "value": "accessory gift sets",
+      "count": 57
+    },
+    {
+      "value": "soft toys",
+      "count": 56
+    },
+    {
+      "value": "footwear",
+      "count": 55
+    },
+    {
+      "value": "flipflops",
+      "count": 54
+    },
+    {
+      "value": "western wear",
+      "count": 52
+    },
+    {
+      "value": "lipsticks",
+      "count": 51
+    },
+    {
+      "value": "maternity bottoms",
+      "count": 51
+    },
+    {
+      "value": "fashion accessories",
+      "count": 51
+    },
+    {
+      "value": "hair accessories",
+      "count": 50
+    },
+    {
+      "value": "bow ties",
+      "count": 47
+    },
+    {
+      "value": "indian jackets",
+      "count": 46
+    },
+    {
+      "value": "western jackets & coats",
+      "count": 46
+    },
+    {
+      "value": "ready-to-wear dhoti pants",
+      "count": 46
+    },
+    {
+      "value": "masks & protective gear",
+      "count": 45
+    },
+    {
+      "value": "activity toys",
+      "count": 44
+    },
+    {
+      "value": "knee-high boots",
+      "count": 42
+    },
+    {
+      "value": "thermals",
+      "count": 40
+    },
+    {
+      "value": "cabin trolleys",
+      "count": 40
+    },
+    {
+      "value": "fine jewellery",
+      "count": 38
+    },
+    {
+      "value": "rings & wristwear",
+      "count": 37
+    },
+    {
+      "value": "precious stone jewellery",
+      "count": 37
+    },
+    {
+      "value": "gadgets",
+      "count": 36
+    },
+    {
+      "value": "formal socks",
+      "count": 36
+    },
+    {
+      "value": "brooches & pins",
+      "count": 34
+    },
+    {
+      "value": "sports sunglasses",
+      "count": 32
+    },
+    {
+      "value": "pleated formal trousers",
+      "count": 32
+    },
+    {
+      "value": "gloves",
+      "count": 31
+    },
+    {
+      "value": "tankini",
+      "count": 31
+    },
+    {
+      "value": "briefcases",
+      "count": 31
+    },
+    {
+      "value": "formal watches",
+      "count": 31
+    },
+    {
+      "value": "kids accessories",
+      "count": 31
+    },
+    {
+      "value": "horsebit loafers",
+      "count": 30
+    },
+    {
+      "value": "fitness gadgets",
+      "count": 29
+    },
+    {
+      "value": "jewellery",
+      "count": 26
+    },
+    {
+      "value": "saree blouses",
+      "count": 25
+    },
+    {
+      "value": "full-rim eyeglasses",
+      "count": 25
+    },
+    {
+      "value": "trifold wallets",
+      "count": 24
+    },
+    {
+      "value": "padded blouses",
+      "count": 23
+    },
+    {
+      "value": "sneakers",
+      "count": 22
+    },
+    {
+      "value": "girls clothing",
+      "count": 22
+    },
+    {
+      "value": "makeup",
+      "count": 19
+    },
+    {
+      "value": "metal strap watches",
+      "count": 19
+    },
+    {
+      "value": "plus size trousers",
+      "count": 18
+    },
+    {
+      "value": "rain jackets",
+      "count": 17
+    },
+    {
+      "value": "lingerie & sleepwear",
+      "count": 17
+    },
+    {
+      "value": "skincare",
+      "count": 16
+    },
+    {
+      "value": "winter wear",
+      "count": 16
+    },
+    {
+      "value": "sarees",
+      "count": 15
+    },
+    {
+      "value": "diamond jewellery",
+      "count": 15
+    },
+    {
+      "value": "women",
+      "count": 14
+    },
+    {
+      "value": "party lehenga",
+      "count": 14
+    },
+    {
+      "value": "maternity tops",
+      "count": 14
+    },
+    {
+      "value": "resistance bands",
+      "count": 14
+    },
+    {
+      "value": "french cuff shirts",
+      "count": 14
+    },
+    {
+      "value": "suits",
+      "count": 13
+    },
+    {
+      "value": "smart wearables",
+      "count": 13
+    },
+    {
+      "value": "plus size dresses",
+      "count": 13
+    },
+    {
+      "value": "shorts & skirts",
+      "count": 12
+    },
+    {
+      "value": "maternity nightwear",
+      "count": 12
+    },
+    {
+      "value": "track pants & joggers",
+      "count": 12
+    },
+    {
+      "value": "infant care",
+      "count": 11
+    },
+    {
+      "value": "thermal sets",
+      "count": 11
+    },
+    {
+      "value": "lehenga cholis",
+      "count": 11
+    },
+    {
+      "value": "bags & briefcases",
+      "count": 11
+    },
+    {
+      "value": "eyeglasses",
+      "count": 10
+    },
+    {
+      "value": "innerwear & sleepwear",
+      "count": 10
+    },
+    {
+      "value": "topwear",
+      "count": 9
+    },
+    {
+      "value": "party wear",
+      "count": 9
+    },
+    {
+      "value": "canvas shoes",
+      "count": 9
+    },
+    {
+      "value": "thermal vests",
+      "count": 9
+    },
+    {
+      "value": "patiala pants",
+      "count": 9
+    },
+    {
+      "value": "heels",
+      "count": 8
+    },
+    {
+      "value": "waist shapers",
+      "count": 8
+    },
+    {
+      "value": "ethnic footwear",
+      "count": 8
+    },
+    {
+      "value": "beauty & personal care",
+      "count": 8
+    },
+    {
+      "value": "action figure / play sets",
+      "count": 8
+    },
+    {
+      "value": "sweaters & sweatshirts",
+      "count": 7
+    },
+    {
+      "value": "bindis",
+      "count": 6
+    },
+    {
+      "value": "bath & body",
+      "count": 6
+    },
+    {
+      "value": "plus size tops",
+      "count": 6
+    },
+    {
+      "value": "nightsuit sets",
+      "count": 6
+    },
+    {
+      "value": "skirts & palazzos",
+      "count": 6
+    },
+    {
+      "value": "indian & festive wear",
+      "count": 6
+    },
+    {
+      "value": "boots",
+      "count": 5
+    },
+    {
+      "value": "stockings",
+      "count": 5
+    },
+    {
+      "value": "shapewear",
+      "count": 5
+    },
+    {
+      "value": "blazers & waistcoats",
+      "count": 5
+    },
+    {
+      "value": "men",
+      "count": 4
+    },
+    {
+      "value": "bra",
+      "count": 4
+    },
+    {
+      "value": "plus size jeans",
+      "count": 4
+    },
+    {
+      "value": "briefs & trunks",
+      "count": 4
+    },
+    {
+      "value": "kurtis, tunics & tops",
+      "count": 4
+    },
+    {
+      "value": "learning & development",
+      "count": 4
+    },
+    {
+      "value": "rings",
+      "count": 3
+    },
+    {
+      "value": "formal trousers",
+      "count": 3
+    },
+    {
+      "value": "plus size kurtas",
+      "count": 3
+    },
+    {
+      "value": "sandals & floaters",
+      "count": 3
+    },
+    {
+      "value": "rimless eyeglasses",
+      "count": 3
+    },
+    {
+      "value": "leather strap watches",
+      "count": 3
+    },
+    {
+      "value": "belts, scarves & more",
+      "count": 3
+    },
+    {
+      "value": "watches",
+      "count": 2
+    },
+    {
+      "value": "hoodies",
+      "count": 2
+    },
+    {
+      "value": "fedoras",
+      "count": 2
+    },
+    {
+      "value": "speakers",
+      "count": 2
+    },
+    {
+      "value": "hair care",
+      "count": 2
+    },
+    {
+      "value": "trench coats",
+      "count": 2
+    },
+    {
+      "value": "active t-shirts",
+      "count": 2
+    },
+    {
+      "value": "school backpacks",
+      "count": 2
+    },
+    {
+      "value": "half-rim eyeglasses",
+      "count": 2
+    },
+    {
+      "value": "mufflers, scarves & gloves",
+      "count": 2
+    },
+    {
+      "value": "kids",
+      "count": 1
+    },
+    {
+      "value": "swimwear",
+      "count": 1
+    },
+    {
+      "value": "headphones",
+      "count": 1
+    },
+    {
+      "value": "swim briefs",
+      "count": 1
+    },
+    {
+      "value": "sports equipment",
+      "count": 1
+    },
+    {
+      "value": "plus size t-shirts",
+      "count": 1
+    },
+    {
+      "value": "sunglasses & frames",
+      "count": 1
+    }
+  ]
+}

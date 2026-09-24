@@ -1,0 +1,44 @@
+{
+  "field": "gender",
+  "multiValued": false,
+  "distinctValues": 8,
+  "reportedTotalValues": 8,
+  "truncated": false,
+  "valuesWithCountBelow5": 0,
+  "coverage": 1,
+  "sumOfCounts": 551334,
+  "values": [
+    {
+      "value": "female",
+      "count": 304066
+    },
+    {
+      "value": "male",
+      "count": 154110
+    },
+    {
+      "value": "unisex",
+      "count": 50359
+    },
+    {
+      "value": "boy",
+      "count": 18871
+    },
+    {
+      "value": "girl",
+      "count": 12096
+    },
+    {
+      "value": "other",
+      "count": 9613
+    },
+    {
+      "value": "infant",
+      "count": 2137
+    },
+    {
+      "value": "unidentified",
+      "count": 82
+    }
+  ]
+}

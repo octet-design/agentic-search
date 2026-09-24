@@ -1,0 +1,1260 @@
+{
+  "field": "brand",
+  "multiValued": false,
+  "distinctValues": 312,
+  "reportedTotalValues": 312,
+  "truncated": false,
+  "valuesWithCountBelow5": 11,
+  "coverage": 1,
+  "sumOfCounts": 551334,
+  "values": [
+    {
+      "value": "Monte Carlo",
+      "count": 37450
+    },
+    {
+      "value": "Nalli",
+      "count": 25357
+    },
+    {
+      "value": "Jackjones",
+      "count": 21263
+    },
+    {
+      "value": "Houseofdesigners",
+      "count": 15136
+    },
+    {
+      "value": "Kalki",
+      "count": 13879
+    },
+    {
+      "value": "Libas",
+      "count": 13468
+    },
+    {
+      "value": "Koskii",
+      "count": 13206
+    },
+    {
+      "value": "Karagiri",
+      "count": 13107
+    },
+    {
+      "value": "WeaverStory",
+      "count": 12626
+    },
+    {
+      "value": "U.S. Polo Assn.",
+      "count": 12214
+    },
+    {
+      "value": "Ethnic Plus",
+      "count": 11128
+    },
+    {
+      "value": "Levi's",
+      "count": 11052
+    },
+    {
+      "value": "Voylla",
+      "count": 10285
+    },
+    {
+      "value": "The House Of Rare",
+      "count": 9938
+    },
+    {
+      "value": "Louisphilippe",
+      "count": 9457
+    },
+    {
+      "value": "VERO MODA",
+      "count": 9411
+    },
+    {
+      "value": "Neeru's",
+      "count": 7881
+    },
+    {
+      "value": "Styleunion",
+      "count": 7593
+    },
+    {
+      "value": "Zeel Clothing",
+      "count": 7405
+    },
+    {
+      "value": "Aurelia",
+      "count": 5803
+    },
+    {
+      "value": "Myraymond",
+      "count": 5707
+    },
+    {
+      "value": "Suta",
+      "count": 5693
+    },
+    {
+      "value": "Being Human Clothing",
+      "count": 5668
+    },
+    {
+      "value": "Shopcapsul",
+      "count": 5534
+    },
+    {
+      "value": "MiniKlub",
+      "count": 5509
+    },
+    {
+      "value": "Duke India",
+      "count": 5499
+    },
+    {
+      "value": "Marks & Spencer",
+      "count": 5215
+    },
+    {
+      "value": "Technosport",
+      "count": 5172
+    },
+    {
+      "value": "Dash and Dot",
+      "count": 5154
+    },
+    {
+      "value": "Carlton London",
+      "count": 4848
+    },
+    {
+      "value": "Blackberrys",
+      "count": 4799
+    },
+    {
+      "value": "Kraus Jeans",
+      "count": 4756
+    },
+    {
+      "value": "Kazo",
+      "count": 4635
+    },
+    {
+      "value": "Okhai",
+      "count": 4616
+    },
+    {
+      "value": "Kilol",
+      "count": 4480
+    },
+    {
+      "value": "Chhabra555",
+      "count": 4417
+    },
+    {
+      "value": "Benetton",
+      "count": 4337
+    },
+    {
+      "value": "Zink London",
+      "count": 4119
+    },
+    {
+      "value": "Spykar",
+      "count": 4083
+    },
+    {
+      "value": "Liberty Shoes",
+      "count": 3826
+    },
+    {
+      "value": "Mulmul",
+      "count": 3628
+    },
+    {
+      "value": "Kusvaa",
+      "count": 3486
+    },
+    {
+      "value": "Fashor",
+      "count": 3416
+    },
+    {
+      "value": "Zodiac Online",
+      "count": 3397
+    },
+    {
+      "value": "Wrogn",
+      "count": 3390
+    },
+    {
+      "value": "Shyle",
+      "count": 3360
+    },
+    {
+      "value": "Campus Shoes",
+      "count": 3344
+    },
+    {
+      "value": "Kisah",
+      "count": 3082
+    },
+    {
+      "value": "Nicobar",
+      "count": 2921
+    },
+    {
+      "value": "Jockey",
+      "count": 2872
+    },
+    {
+      "value": "Aadyaa",
+      "count": 2848
+    },
+    {
+      "value": "Maati Crafts",
+      "count": 2836
+    },
+    {
+      "value": "Sassafras",
+      "count": 2823
+    },
+    {
+      "value": "Khadims",
+      "count": 2658
+    },
+    {
+      "value": "Latin Quarters",
+      "count": 2589
+    },
+    {
+      "value": "True Browns",
+      "count": 2470
+    },
+    {
+      "value": "TIGC",
+      "count": 2442
+    },
+    {
+      "value": "Cult Store",
+      "count": 2428
+    },
+    {
+      "value": "Tresmode",
+      "count": 2345
+    },
+    {
+      "value": "Neofaa",
+      "count": 2304
+    },
+    {
+      "value": "Tjori",
+      "count": 2283
+    },
+    {
+      "value": "Inc.5",
+      "count": 2250
+    },
+    {
+      "value": "Lavie World",
+      "count": 2229
+    },
+    {
+      "value": "Bonkers Corner",
+      "count": 2189
+    },
+    {
+      "value": "Lilliput World",
+      "count": 2081
+    },
+    {
+      "value": "Inddus",
+      "count": 2019
+    },
+    {
+      "value": "Bombaim",
+      "count": 1995
+    },
+    {
+      "value": "Cantabil",
+      "count": 1981
+    },
+    {
+      "value": "Vastrado",
+      "count": 1897
+    },
+    {
+      "value": "Dennis Lingo",
+      "count": 1853
+    },
+    {
+      "value": "Vastramay",
+      "count": 1822
+    },
+    {
+      "value": "The Bear House",
+      "count": 1819
+    },
+    {
+      "value": "Da Milano",
+      "count": 1803
+    },
+    {
+      "value": "Ornatejewels",
+      "count": 1792
+    },
+    {
+      "value": "Zouk",
+      "count": 1766
+    },
+    {
+      "value": "Idaho-O",
+      "count": 1736
+    },
+    {
+      "value": "Banana Club",
+      "count": 1714
+    },
+    {
+      "value": "Ministerwhite",
+      "count": 1708
+    },
+    {
+      "value": "Alcis Sports",
+      "count": 1669
+    },
+    {
+      "value": "Estele",
+      "count": 1645
+    },
+    {
+      "value": "ONLY",
+      "count": 1538
+    },
+    {
+      "value": "Khara Kapas",
+      "count": 1517
+    },
+    {
+      "value": "SHREE",
+      "count": 1475
+    },
+    {
+      "value": "Lacoste",
+      "count": 1423
+    },
+    {
+      "value": "Eka Design Studio",
+      "count": 1422
+    },
+    {
+      "value": "Curio Cottage",
+      "count": 1412
+    },
+    {
+      "value": "Urban Monkey",
+      "count": 1354
+    },
+    {
+      "value": "Varanga",
+      "count": 1331
+    },
+    {
+      "value": "Anitadongre",
+      "count": 1302
+    },
+    {
+      "value": "Killer Jeans",
+      "count": 1291
+    },
+    {
+      "value": "Indian Terrain",
+      "count": 1278
+    },
+    {
+      "value": "Bombayshirts",
+      "count": 1246
+    },
+    {
+      "value": "Cobb Italy",
+      "count": 1237
+    },
+    {
+      "value": "Lakshita",
+      "count": 1209
+    },
+    {
+      "value": "Tarinika",
+      "count": 1208
+    },
+    {
+      "value": "Bhama Designs",
+      "count": 1184
+    },
+    {
+      "value": "Miraggio",
+      "count": 1152
+    },
+    {
+      "value": "Kuchipoo",
+      "count": 1149
+    },
+    {
+      "value": "Swashaa",
+      "count": 1115
+    },
+    {
+      "value": "Ka-sha",
+      "count": 1098
+    },
+    {
+      "value": "Crystal Heal Shop",
+      "count": 1086
+    },
+    {
+      "value": "Monrow",
+      "count": 1061
+    },
+    {
+      "value": "Ayesha Accessories",
+      "count": 1061
+    },
+    {
+      "value": "XYXX",
+      "count": 1042
+    },
+    {
+      "value": "De Moza",
+      "count": 1027
+    },
+    {
+      "value": "Janasya",
+      "count": 1009
+    },
+    {
+      "value": "The Kaftan Company",
+      "count": 1006
+    },
+    {
+      "value": "HUEMN",
+      "count": 994
+    },
+    {
+      "value": "Chique",
+      "count": 971
+    },
+    {
+      "value": "Enamor",
+      "count": 968
+    },
+    {
+      "value": "Mufti Jeans",
+      "count": 906
+    },
+    {
+      "value": "Vedikam",
+      "count": 865
+    },
+    {
+      "value": "Necesera",
+      "count": 858
+    },
+    {
+      "value": "Clovia",
+      "count": 839
+    },
+    {
+      "value": "Lashkaraa",
+      "count": 835
+    },
+    {
+      "value": "Fausto",
+      "count": 806
+    },
+    {
+      "value": "Cottonworld",
+      "count": 790
+    },
+    {
+      "value": "Lea Clothing",
+      "count": 785
+    },
+    {
+      "value": "Fuaark",
+      "count": 777
+    },
+    {
+      "value": "Pace Active",
+      "count": 776
+    },
+    {
+      "value": "Fail",
+      "count": 768
+    },
+    {
+      "value": "House Of Chikankari",
+      "count": 765
+    },
+    {
+      "value": "Vrajbhoomi",
+      "count": 752
+    },
+    {
+      "value": "The Jodi Life",
+      "count": 747
+    },
+    {
+      "value": "Elleven",
+      "count": 722
+    },
+    {
+      "value": "Juniper Fashion",
+      "count": 715
+    },
+    {
+      "value": "Genes Lecoanet Hemant",
+      "count": 713
+    },
+    {
+      "value": "Chidiyaa",
+      "count": 665
+    },
+    {
+      "value": "Tiber Taber",
+      "count": 660
+    },
+    {
+      "value": "Cavaathleisure",
+      "count": 660
+    },
+    {
+      "value": "Vasansi",
+      "count": 659
+    },
+    {
+      "value": "Shreeman",
+      "count": 658
+    },
+    {
+      "value": "Walkaroo",
+      "count": 652
+    },
+    {
+      "value": "I AM Salt",
+      "count": 635
+    },
+    {
+      "value": "Uppercase",
+      "count": 626
+    },
+    {
+      "value": "Swasti Clothing",
+      "count": 622
+    },
+    {
+      "value": "Gopikanya",
+      "count": 619
+    },
+    {
+      "value": "Lyra",
+      "count": 593
+    },
+    {
+      "value": "Bluorng",
+      "count": 577
+    },
+    {
+      "value": "Lovebirds Studio",
+      "count": 563
+    },
+    {
+      "value": "Dmodot",
+      "count": 549
+    },
+    {
+      "value": "Label Flavia",
+      "count": 532
+    },
+    {
+      "value": "Saundh",
+      "count": 530
+    },
+    {
+      "value": "Varq Jewels",
+      "count": 530
+    },
+    {
+      "value": "Zariin",
+      "count": 526
+    },
+    {
+      "value": "Studio Rigu",
+      "count": 526
+    },
+    {
+      "value": "Wishful By W",
+      "count": 512
+    },
+    {
+      "value": "Yogue-activewear",
+      "count": 474
+    },
+    {
+      "value": "Charkhee",
+      "count": 473
+    },
+    {
+      "value": "Bombay Trooper",
+      "count": 472
+    },
+    {
+      "value": "Kidbea",
+      "count": 467
+    },
+    {
+      "value": "Littleens",
+      "count": 462
+    },
+    {
+      "value": "Pashaindia",
+      "count": 452
+    },
+    {
+      "value": "Chapter 2 Drip",
+      "count": 450
+    },
+    {
+      "value": "Hummel",
+      "count": 445
+    },
+    {
+      "value": "Hamptons",
+      "count": 437
+    },
+    {
+      "value": "Celio",
+      "count": 434
+    },
+    {
+      "value": "Snugkins",
+      "count": 431
+    },
+    {
+      "value": "KAPRAÃHA",
+      "count": 421
+    },
+    {
+      "value": "Studiomedium",
+      "count": 411
+    },
+    {
+      "value": "Dulaar",
+      "count": 394
+    },
+    {
+      "value": "The Far Store",
+      "count": 390
+    },
+    {
+      "value": "Verb by Pallavi Singhee",
+      "count": 384
+    },
+    {
+      "value": "Navdhaara",
+      "count": 381
+    },
+    {
+      "value": "Kica Active",
+      "count": 381
+    },
+    {
+      "value": "Calling June",
+      "count": 379
+    },
+    {
+      "value": "Fizzy Goblet",
+      "count": 372
+    },
+    {
+      "value": "SilverTraq",
+      "count": 370
+    },
+    {
+      "value": "Morph Maternity",
+      "count": 370
+    },
+    {
+      "value": "Shop Scarlet Sage",
+      "count": 358
+    },
+    {
+      "value": "Spiritanimal",
+      "count": 344
+    },
+    {
+      "value": "Eridani",
+      "count": 342
+    },
+    {
+      "value": "Surma",
+      "count": 332
+    },
+    {
+      "value": "Nappa Dori",
+      "count": 331
+    },
+    {
+      "value": "Saphed",
+      "count": 325
+    },
+    {
+      "value": "Scakhi",
+      "count": 324
+    },
+    {
+      "value": "Chola The Label",
+      "count": 323
+    },
+    {
+      "value": "Sunoh Studio",
+      "count": 320
+    },
+    {
+      "value": "Shaurya Sanadhya",
+      "count": 313
+    },
+    {
+      "value": "Hilo Design",
+      "count": 311
+    },
+    {
+      "value": "Sureena Chowdhri",
+      "count": 293
+    },
+    {
+      "value": "Baby Jalebi",
+      "count": 280
+    },
+    {
+      "value": "Everdion",
+      "count": 270
+    },
+    {
+      "value": "Suman Nathwani",
+      "count": 270
+    },
+    {
+      "value": "Neemans",
+      "count": 262
+    },
+    {
+      "value": "WTFlex",
+      "count": 257
+    },
+    {
+      "value": "Shopdorabi",
+      "count": 250
+    },
+    {
+      "value": "Shop Nirvanaa",
+      "count": 248
+    },
+    {
+      "value": "Maisoli",
+      "count": 244
+    },
+    {
+      "value": "House of Malabaar",
+      "count": 235
+    },
+    {
+      "value": "Chkokko",
+      "count": 225
+    },
+    {
+      "value": "Columbiasportswear",
+      "count": 222
+    },
+    {
+      "value": "Mangalam Designer",
+      "count": 220
+    },
+    {
+      "value": "Aachho",
+      "count": 208
+    },
+    {
+      "value": "Lemon Lords",
+      "count": 208
+    },
+    {
+      "value": "Ebodycare",
+      "count": 204
+    },
+    {
+      "value": "The Burnt Soul",
+      "count": 204
+    },
+    {
+      "value": "Seedstore",
+      "count": 203
+    },
+    {
+      "value": "Shop Amoh",
+      "count": 195
+    },
+    {
+      "value": "Soft Sleep",
+      "count": 193
+    },
+    {
+      "value": "Aykaa",
+      "count": 190
+    },
+    {
+      "value": "The Terra Tribe",
+      "count": 190
+    },
+    {
+      "value": "Nitinbalchauhan",
+      "count": 189
+    },
+    {
+      "value": "Label Naariti",
+      "count": 186
+    },
+    {
+      "value": "Comet",
+      "count": 182
+    },
+    {
+      "value": "Mysthelle",
+      "count": 181
+    },
+    {
+      "value": "Days For Clothing",
+      "count": 180
+    },
+    {
+      "value": "Four Buttons",
+      "count": 178
+    },
+    {
+      "value": "Vahro",
+      "count": 177
+    },
+    {
+      "value": "House of Moxa",
+      "count": 177
+    },
+    {
+      "value": "Steellifestyle",
+      "count": 176
+    },
+    {
+      "value": "Bummer",
+      "count": 173
+    },
+    {
+      "value": "Barahmasi",
+      "count": 171
+    },
+    {
+      "value": "Cove and Lane",
+      "count": 171
+    },
+    {
+      "value": "Maison Shefali",
+      "count": 171
+    },
+    {
+      "value": "Terra Luna India",
+      "count": 170
+    },
+    {
+      "value": "Anekaant",
+      "count": 165
+    },
+    {
+      "value": "Soch",
+      "count": 162
+    },
+    {
+      "value": "11.11",
+      "count": 154
+    },
+    {
+      "value": "Bunaai",
+      "count": 151
+    },
+    {
+      "value": "Overlaysnow",
+      "count": 151
+    },
+    {
+      "value": "Nanki",
+      "count": 149
+    },
+    {
+      "value": "Senses India",
+      "count": 148
+    },
+    {
+      "value": "And Circus",
+      "count": 147
+    },
+    {
+      "value": "Global Desi",
+      "count": 146
+    },
+    {
+      "value": "The Label Life",
+      "count": 142
+    },
+    {
+      "value": "Olavi",
+      "count": 140
+    },
+    {
+      "value": "Minny Sandhu",
+      "count": 139
+    },
+    {
+      "value": "Nobero",
+      "count": 136
+    },
+    {
+      "value": "Angrakhaa",
+      "count": 136
+    },
+    {
+      "value": "Heniis",
+      "count": 134
+    },
+    {
+      "value": "Shop Unrush",
+      "count": 134
+    },
+    {
+      "value": "House of Namah",
+      "count": 132
+    },
+    {
+      "value": "Andamen",
+      "count": 131
+    },
+    {
+      "value": "Doodlage",
+      "count": 131
+    },
+    {
+      "value": "Love Kiki",
+      "count": 127
+    },
+    {
+      "value": "Kisakshi Jaipur",
+      "count": 127
+    },
+    {
+      "value": "Kingdom of White",
+      "count": 125
+    },
+    {
+      "value": "Bluebrew",
+      "count": 123
+    },
+    {
+      "value": "Uptownie",
+      "count": 122
+    },
+    {
+      "value": "Doodle Dry",
+      "count": 122
+    },
+    {
+      "value": "Label by Mohita",
+      "count": 117
+    },
+    {
+      "value": "Mokobara",
+      "count": 115
+    },
+    {
+      "value": "Goathlos",
+      "count": 112
+    },
+    {
+      "value": "COSSET CLOTHING",
+      "count": 111
+    },
+    {
+      "value": "House of Niav",
+      "count": 106
+    },
+    {
+      "value": "Femmella",
+      "count": 105
+    },
+    {
+      "value": "BCPH",
+      "count": 102
+    },
+    {
+      "value": "NorBlack NorWhite",
+      "count": 101
+    },
+    {
+      "value": "Almost Gods",
+      "count": 99
+    },
+    {
+      "value": "Deepika Nagpal",
+      "count": 93
+    },
+    {
+      "value": "Ethnicity",
+      "count": 92
+    },
+    {
+      "value": "Amante Lingerie",
+      "count": 92
+    },
+    {
+      "value": "In Your Dreams",
+      "count": 91
+    },
+    {
+      "value": "Bomaachi",
+      "count": 89
+    },
+    {
+      "value": "The Active Story",
+      "count": 85
+    },
+    {
+      "value": "Banithni",
+      "count": 83
+    },
+    {
+      "value": "Scarters",
+      "count": 82
+    },
+    {
+      "value": "UrTurms",
+      "count": 81
+    },
+    {
+      "value": "Spacebiskit",
+      "count": 81
+    },
+    {
+      "value": "September Spring",
+      "count": 80
+    },
+    {
+      "value": "Amydus",
+      "count": 72
+    },
+    {
+      "value": "Banjaaran",
+      "count": 72
+    },
+    {
+      "value": "Stalk To Buy",
+      "count": 72
+    },
+    {
+      "value": "Shop Agape",
+      "count": 58
+    },
+    {
+      "value": "Fine Legends",
+      "count": 58
+    },
+    {
+      "value": "AMPM",
+      "count": 56
+    },
+    {
+      "value": "Synonym Clothing",
+      "count": 56
+    },
+    {
+      "value": "Sole and Threads",
+      "count": 55
+    },
+    {
+      "value": "Monk Blu",
+      "count": 53
+    },
+    {
+      "value": "Studio Beej",
+      "count": 53
+    },
+    {
+      "value": "Aseem Shakti",
+      "count": 53
+    },
+    {
+      "value": "Lildivafashion",
+      "count": 51
+    },
+    {
+      "value": "Gmorn",
+      "count": 50
+    },
+    {
+      "value": "Scentra",
+      "count": 50
+    },
+    {
+      "value": "ONE.O",
+      "count": 46
+    },
+    {
+      "value": "Wellbi",
+      "count": 45
+    },
+    {
+      "value": "Tahiliya",
+      "count": 42
+    },
+    {
+      "value": "Underneat",
+      "count": 40
+    },
+    {
+      "value": "Urban Socks",
+      "count": 39
+    },
+    {
+      "value": "Athflex",
+      "count": 35
+    },
+    {
+      "value": "One Mile",
+      "count": 30
+    },
+    {
+      "value": "Zero by Z",
+      "count": 30
+    },
+    {
+      "value": "AOBA",
+      "count": 28
+    },
+    {
+      "value": "NBYO",
+      "count": 27
+    },
+    {
+      "value": "Asopalav",
+      "count": 27
+    },
+    {
+      "value": "Sawsee",
+      "count": 25
+    },
+    {
+      "value": "FabStreet",
+      "count": 25
+    },
+    {
+      "value": "Insaneful",
+      "count": 23
+    },
+    {
+      "value": "Dalchinii",
+      "count": 20
+    },
+    {
+      "value": "YUR",
+      "count": 17
+    },
+    {
+      "value": "Shavet",
+      "count": 17
+    },
+    {
+      "value": "Cosa Nostraa",
+      "count": 15
+    },
+    {
+      "value": "Beaumondeaccessories",
+      "count": 10
+    },
+    {
+      "value": "WeDesh",
+      "count": 9
+    },
+    {
+      "value": "Juggerknot Originals",
+      "count": 9
+    },
+    {
+      "value": "Isharya",
+      "count": 8
+    },
+    {
+      "value": "Outhouse Jewellery",
+      "count": 8
+    },
+    {
+      "value": "Pothys",
+      "count": 7
+    },
+    {
+      "value": "Asmishop",
+      "count": 7
+    },
+    {
+      "value": "Ashin",
+      "count": 5
+    },
+    {
+      "value": "Rubans",
+      "count": 3
+    },
+    {
+      "value": "Aristobrat",
+      "count": 3
+    },
+    {
+      "value": "Pashtush",
+      "count": 2
+    },
+    {
+      "value": "Regal Shoes",
+      "count": 2
+    },
+    {
+      "value": "House of Kiyaara",
+      "count": 2
+    },
+    {
+      "value": "Sabhyata Clothing",
+      "count": 2
+    },
+    {
+      "value": "Voi Jeans",
+      "count": 1
+    },
+    {
+      "value": "Raw Mango",
+      "count": 1
+    },
+    {
+      "value": "5 Feet 11",
+      "count": 1
+    },
+    {
+      "value": "Albert Tusk",
+      "count": 1
+    },
+    {
+      "value": "Choras Store",
+      "count": 1
+    }
+  ]
+}

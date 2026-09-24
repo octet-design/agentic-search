@@ -1,0 +1,852 @@
+[
+  {
+    "brand": "Label Flavia",
+    "category": "matching sets",
+    "color": "black",
+    "description": "A black matching sets for women in cotton with floral detailing. Suited for party, festive, by Label Flavia.",
+    "fabric": "cotton",
+    "fit": "regular",
+    "gender": "female",
+    "id": "bb30f3fb-ad58-4041-9473-b1e1b88407f5",
+    "image_url": "https://labelflavia.com/cdn/shop/files/LF71_S_3_1024x1024.png?v=1784285842",
+    "in_stock": true,
+    "is_active": true,
+    "pattern": "floral",
+    "price": 3196,
+    "product_url": "https://labelflavia.com/products/cotton-printed-cord-set-3",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL",
+      "3XL",
+      "4XL"
+    ],
+    "title": "Black Floral Party Cotton Coord Set",
+    "use_case": [
+      "party",
+      "festive"
+    ]
+  },
+  {
+    "brand": "Libas",
+    "category": "silk sarees",
+    "color": "mustard",
+    "description": "A mustard flowy silk saree for women in satin with embellished detailing. Suited for festive, party, by Libas.",
+    "fabric": "satin",
+    "fit": "flowy",
+    "gender": "female",
+    "id": "4dd4d26d-470c-4082-a54d-abce75f5d4d6",
+    "image_url": "https://cdn.shopify.com/s/files/1/0341/4805/7228/files/mustard-embellished-satin-saree-with-unstitched-blouse-piece-45574p_704b2ab8-acf5-4cac-9ada-9f8580907657.jpg?v=1776228215",
+    "in_stock": true,
+    "is_active": true,
+    "pattern": "embellished",
+    "price": 1609,
+    "product_url": "https://www.libas.in/products/mustard-embellished-satin-saree-with-unstitched-blouse-piece-45574p",
+    "sizes": [
+      "Onesize"
+    ],
+    "title": "Libas Mustard Embellished Satin Saree With Unstitched Blouse Piece",
+    "use_case": [
+      "festive",
+      "party"
+    ]
+  },
+  {
+    "brand": "Monte Carlo",
+    "category": "pullover sweatshirts",
+    "color": "blue",
+    "description": "A blue regular pullover sweatshirt for men in cotton blend with checked detailing. Suited for casual, daily wear, lounge wear, by Monte Carlo.",
+    "fabric": "cotton blend",
+    "fit": "regular",
+    "gender": "male",
+    "id": "7e6caced-423c-4a0d-ab62-2132a9682fd6",
+    "image_url": "https://www.montecarlo.in/cdn/shop/products/223061284-1-38_5.jpg?v=1697895644&width=1024",
+    "in_stock": false,
+    "is_active": true,
+    "pattern": "checked",
+    "price": 1752,
+    "product_url": "https://www.montecarlo.in/products/men-blue-check-hooded-full-sleeve-sweatshirts-223061284-1",
+    "sizes": [
+      "36/S",
+      "38/M",
+      "40/L",
+      "42/XL",
+      "44/XXL",
+      "46/3XL"
+    ],
+    "title": "Men Blue Check Hooded Full Sleeve Sweatshirts",
+    "use_case": [
+      "casual",
+      "daily wear",
+      "lounge wear"
+    ]
+  },
+  {
+    "brand": "Libas",
+    "category": "straight kurta",
+    "color": "navy blue",
+    "description": "A Navy Blue regular straight kurta for women in Chinon with floral detailing. Suited for festive, party, wedding, by Libas.",
+    "fabric": "chinon",
+    "fit": "regular",
+    "gender": "female",
+    "id": "39fd653d-5713-4f98-a654-6c20971a6c91",
+    "image_url": "https://cdn.shopify.com/s/files/1/0341/4805/7228/files/libas-art-navy-blue-printed-chinon-straight-suit-set-with-dupatta-49918a.jpg?v=1764567430",
+    "in_stock": true,
+    "is_active": true,
+    "pattern": "floral",
+    "price": 1699,
+    "product_url": "https://www.libas.in/products/libas-art-navy-blue-printed-chinon-straight-suit-set-with-dupatta-49918a",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "title": "Libas Navy Blue Printed Chinon Straight Suit Set With Dupatta",
+    "use_case": [
+      "festive",
+      "party",
+      "wedding"
+    ]
+  },
+  {
+    "brand": "Lakshita",
+    "category": "capris",
+    "color": "ivory",
+    "description": "A ivory relaxed capris for women in solid detailing. Suited for casual, daily wear, semi-formal, by Lakshita.",
+    "fabric": "",
+    "fit": "relaxed",
+    "gender": "female",
+    "id": "60a98e74-8233-425f-b9f6-f3a78719c6b3",
+    "image_url": "https://www.lakshita.com/cdn/shop/files/LakshitaSept4145.jpg?v=1756972515&width=1920",
+    "in_stock": true,
+    "is_active": true,
+    "pattern": "solid",
+    "price": 1795,
+    "product_url": "https://www.lakshita.com/products/ivory-comfort-fit-capri-21spt0244a-s-12",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "1X",
+      "2X",
+      "3X"
+    ],
+    "title": "Mia Ivory Relaxed Fit Pants for Women",
+    "use_case": [
+      "casual",
+      "daily wear",
+      "semi-formal"
+    ]
+  },
+  {
+    "brand": "The House Of Rare",
+    "category": "midi dress",
+    "color": "off white",
+    "description": "A OFF WHITE flowy midi dress for women in Cotton with solid detailing. Suited for casual, daily wear, by The House Of Rare.",
+    "fabric": "cotton",
+    "fit": "flowy",
+    "gender": "female",
+    "id": "2663f87a-ff5b-4685-9b7e-82774ab40b86",
+    "image_url": "https://thehouseofrare.com/cdn/shop/files/JANPLAOFFWHITE_1_-hm.webp?v=1756369146",
+    "in_stock": true,
+    "is_active": true,
+    "pattern": "solid",
+    "price": 3749,
+    "product_url": "https://thehouseofrare.com/products/janpla-womens-dress-off-white",
+    "sizes": [
+      "XXS",
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "title": "Rareism Women&#39;s Janpla Off White Cotton Tube Neck Plain Sleeveless Midi Fit And Flare Dress",
+    "use_case": [
+      "casual",
+      "daily wear"
+    ]
+  },
+  {
+    "brand": "Neeru's",
+    "category": "silk sarees",
+    "color": "coral red",
+    "description": "A Coral Red silk saree for women in Silk with Floral Gold Zari Weaving detailing. Suited for wedding, festive, celebration, by Neeru's.",
+    "fabric": "silk",
+    "fit": "regular",
+    "gender": "female",
+    "id": "15f655d5-83b8-4a32-8e3f-015c1516c1fb",
+    "image_url": "https://www.neerus.com/cdn/shop/files/hf_20260518_130026_15c52ab3-51d3-498e-ae5a-fc86330eddb2_1024x1024.png?v=1779187235",
+    "in_stock": true,
+    "is_active": true,
+    "pattern": "floral gold zari weaving",
+    "price": 3822.75,
+    "product_url": "https://www.neerus.com/products/coral-red-silk-saree-with-floral-gold-zari-weaving",
+    "sizes": [
+      "Saree Length: 6.2 m",
+      "Blouse piece Length: 1.1 m",
+      "Width: 1.06 m (approx.)"
+    ],
+    "title": "Coral Red Silk Saree with Floral Gold Zari Weaving",
+    "use_case": [
+      "wedding",
+      "festive",
+      "celebration"
+    ]
+  },
+  {
+    "brand": "Liberty Shoes",
+    "category": "derbies",
+    "color": "black",
+    "description": "A black solid derbies for men in buff with casual, formal detailing, by Liberty Shoes.",
+    "fabric": "buff",
+    "fit": "regular",
+    "gender": "male",
+    "id": "515f987f-c682-4732-b37f-516b8a21ae57",
+    "image_url": "https://www.libertyshoesonline.com/cdn/shop/files/5238022100_1.jpg?v=1721779407&width=1000",
+    "in_stock": true,
+    "is_active": true,
+    "pattern": "solid",
+    "price": 1699,
+    "product_url": "https://www.libertyshoesonline.com/products/prefect-formal-lace-up-shoes-men-black-5238-219b-by-liberty-5238022100",
+    "sizes": [
+      "2/34 / Black",
+      "3/36 / Black",
+      "4/37 / Black",
+      "5/38 / Black",
+      "6/40 / Black",
+      "7/41 / Black",
+      "8/42 / Black",
+      "9/43 / Black",
+      "10/44 / Black",
+      "11/45 / Black",
+      "12/46 / Black"
+    ],
+    "title": "Prefect Formal Lace Up Shoes Men (BLACK) 5238-219B By Liberty",
+    "use_case": [
+      "casual",
+      "formal"
+    ]
+  },
+  {
+    "brand": "Styleunion",
+    "category": "graphic t-shirts",
+    "color": "cationic olive",
+    "description": "A Cationic Olive regular graphic t-shirt for boys in 100% Cotton with Graphic detailing. Suited for casual, daily wear, school, by Styleunion.",
+    "fabric": "100% cotton",
+    "fit": "regular",
+    "gender": "boy",
+    "id": "a88025bb-3778-40fb-9fc8-5ff82b536c10",
+    "image_url": "https://cdn.shopify.com/s/files/1/0623/4754/2777/files/BGT00206HAWTHORN_1.jpg?v=1752218085",
+    "in_stock": true,
+    "is_active": true,
+    "pattern": "graphic",
+    "price": 129,
+    "product_url": "https://styleunion.in/products/boys-crew-neck-graphic-t-shirt-bgt00206",
+    "sizes": [
+      "1 YRS",
+      "2 YRS",
+      "4 YRS",
+      "6 YRS",
+      "8 YRS",
+      "10 YRS",
+      "12 YRS",
+      "14 YRS"
+    ],
+    "title": "Boys Crew Neck Graphitee",
+    "use_case": [
+      "casual",
+      "daily wear",
+      "school"
+    ]
+  },
+  {
+    "brand": "Khadims",
+    "category": "school shoes",
+    "color": "white",
+    "description": "A white solid school shoe for girls in PVC. Suited for school, daily wear, by Khadims.",
+    "fabric": "pvc",
+    "fit": "regular",
+    "gender": "girl",
+    "id": "f97cce3f-c2e2-4118-bcd2-689a6b2c3b2e",
+    "image_url": "https://www.khadims.com/cdn/shop/files/2100831.jpg?v=1784370203&width=1080",
+    "in_stock": true,
+    "is_active": true,
+    "pattern": "solid",
+    "price": 479,
+    "product_url": "https://www.khadims.com/products/khadim-mary-jane-school-shoe-for-baby-girls-2-5-3-5-yrs-210083",
+    "sizes": [
+      "6",
+      "7",
+      "8"
+    ],
+    "title": "KHADIM Mary Jane School Shoe for Girls (2.5-4 yrs)",
+    "use_case": [
+      "school",
+      "daily wear"
+    ]
+  },
+  {
+    "brand": "The House Of Rare",
+    "category": "shift dress",
+    "color": "grey",
+    "description": "A grey straight shift dress for women in Cotton Blend with solid detailing. Suited for casual, daily wear, by The House Of Rare.",
+    "fabric": "cotton blend",
+    "fit": "straight",
+    "gender": "female",
+    "id": "744e0cd0-f72c-4ce3-a029-732b82ccf850",
+    "image_url": "https://thehouseofrare.com/cdn/shop/files/8909196012274_2__HM.webp?v=1783576866",
+    "in_stock": true,
+    "is_active": true,
+    "pattern": "solid",
+    "price": 2624,
+    "product_url": "https://thehouseofrare.com/products/canakkale-womens-dress-grey",
+    "sizes": [
+      "XXS",
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "title": "Rareism Women&#39;s Canakkale Grey Cotton Blend Sweetheart Neck Plain Sleeveless Mini Straight Fit Dress",
+    "use_case": [
+      "casual",
+      "daily wear"
+    ]
+  },
+  {
+    "brand": "Koskii",
+    "category": "unstitched suit sets",
+    "color": "pink",
+    "description": "A pink flowy unstitched suit set for women in semi crepe with embroidered detailing. Suited for festive, party, wedding, by Koskii.",
+    "fabric": "semi crepe",
+    "fit": "flowy",
+    "gender": "female",
+    "id": "91bf9278-7e4e-442c-a00f-0da73edbbf46",
+    "image_url": "https://cdn.shopify.com/s/files/1/0049/3649/9315/files/koskii-pink-stonework-semicrepe-designer-salwar-suit-ssus0040463_pink_1_1_800x800.jpg?v=1733402825",
+    "in_stock": false,
+    "is_active": true,
+    "pattern": "embroidered",
+    "price": 3992,
+    "product_url": "https://www.koskii.com/products/koskii-pink-stonework-semi-crepe-designer-salwar-suit-ssus0040463_pink",
+    "sizes": [],
+    "title": "Pink Stonework Semi Crepe Unstitched Salwar Suit",
+    "use_case": [
+      "festive",
+      "party",
+      "wedding"
+    ]
+  },
+  {
+    "brand": "Nalli",
+    "category": "silk sarees",
+    "color": "red",
+    "description": "A red silk saree for women in Silk with embellished detailing. Suited for festive, wedding, by Nalli.",
+    "fabric": "silk",
+    "fit": "regular",
+    "gender": "female",
+    "id": "72aa2d79-31b7-45d5-aa95-e3485462b557",
+    "image_url": "https://www.nalli.com/cdn/shop/files/SG0090788.jpg?v=1779552627&width=2048",
+    "in_stock": false,
+    "is_active": true,
+    "pattern": "embellished",
+    "price": 478,
+    "product_url": "https://www.nalli.com/products/red-dual-tone-kanchipuram-silk-saree-219",
+    "sizes": [],
+    "title": "Red Dual Tone Kanchipuram Silk Saree",
+    "use_case": [
+      "festive",
+      "wedding"
+    ]
+  },
+  {
+    "brand": "Koskii",
+    "category": "silk sarees",
+    "color": "wine",
+    "description": "A wine silk saree for women in silk with embroidered detailing. Suited for wedding, festive, party, by Koskii.",
+    "fabric": "silk",
+    "fit": "regular",
+    "gender": "female",
+    "id": "fd75e85e-dad7-44a2-9644-28c785eb792a",
+    "image_url": "https://cdn.shopify.com/s/files/1/0049/3649/9315/files/koskii-wine-zariwork-silk-designer-saree-saus0034122_wine_1_1_800x800.jpg?v=1712341138",
+    "in_stock": false,
+    "is_active": true,
+    "pattern": "embroidered",
+    "price": 2094,
+    "product_url": "https://www.koskii.com/products/koskii-wine-zariwork-silk-designer-saree-saus0034122_wine",
+    "sizes": [],
+    "title": "Wine Zariwork Silk Saree",
+    "use_case": [
+      "wedding",
+      "festive",
+      "party"
+    ]
+  },
+  {
+    "brand": "Levi's",
+    "category": "slim fit jeans",
+    "color": "navy blue",
+    "description": "A navy blue slim fit jeans for men in cotton/elastane with solid detailing. Suited for casual, daily wear, by Levi's.",
+    "fabric": "cotton/elastane",
+    "fit": "slim",
+    "gender": "male",
+    "id": "12e24cde-b483-47c5-b298-4318acea48e3",
+    "image_url": "https://levi.in/cdn/shop/files/182981578_01_Elevated.jpg?v=1767769823&width=1920",
+    "in_stock": false,
+    "is_active": true,
+    "pattern": "solid",
+    "price": 4083,
+    "product_url": "https://levi.in/products/mens-511-slim-fit-navy-jeans-182981578",
+    "sizes": [
+      "26",
+      "27",
+      "28",
+      "29",
+      "30",
+      "31",
+      "32",
+      "33",
+      "34",
+      "35",
+      "36",
+      "38",
+      "40",
+      "42",
+      "44"
+    ],
+    "title": "Men's 511 Navy Blue Slim Fit Mid Rise Jeans",
+    "use_case": [
+      "casual",
+      "daily wear"
+    ]
+  },
+  {
+    "brand": "Nicobar",
+    "category": "a-line kurta",
+    "color": "chartreuse & purple",
+    "description": "A Chartreuse & Purple a-line kurta for women in 85% Cotton 15% Silk with printed detailing. Suited for festive, party, daily wear, by Nicobar.",
+    "fabric": "85% cotton 15% silk",
+    "fit": "a-line",
+    "gender": "female",
+    "id": "be50fef2-bc6a-4d51-96b8-25fa78fde301",
+    "image_url": "https://global.nicobar.com/cdn/shop/files/NBI052817_1_1024x.jpg?v=1786443839",
+    "in_stock": true,
+    "is_active": true,
+    "pattern": "printed",
+    "price": 150,
+    "product_url": "https://global.nicobar.com/collections/godavari/products/boat-neck-kurta-cotton-silk-a-line-fit",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "title": "Boat Neck Kurta - Cotton Silk A-Line Fit",
+    "use_case": [
+      "festive",
+      "party",
+      "daily wear"
+    ]
+  },
+  {
+    "brand": "Okhai",
+    "category": "scarves & stoles",
+    "color": "black & yellow",
+    "description": "A black and yellow unisex scarf for party wear, festive, winter wear in pure wool with herringbone detailing, by Okhai.",
+    "fabric": "pure wool",
+    "fit": "regular",
+    "gender": "unisex",
+    "id": "6caa8cd7-68b6-44b4-a010-bfbd44636910",
+    "image_url": "https://okhai.org/cdn/shop/products/SF009774_1.jpg?v=1754302625&width=1920",
+    "in_stock": true,
+    "is_active": true,
+    "pattern": "herringbone",
+    "price": 1550,
+    "product_url": "https://okhai.org/products/pure-woolen-scarf-black-with-yellow-border-striped-pallu",
+    "sizes": [],
+    "title": "Avani Kumaon Pure Woolen Scarf | Black With Yellow Border & Striped Pallu",
+    "use_case": [
+      "party wear",
+      "festive",
+      "winter wear"
+    ]
+  },
+  {
+    "brand": "Lilliput World",
+    "category": "clothing sets",
+    "color": "dusty pink, dark wash",
+    "description": "A dusty pink solid clothing set for girls in denim with frill detailing. Suited for casual, party, daily wear, by Lilliput World.",
+    "fabric": "",
+    "fit": "regular",
+    "gender": "girl",
+    "id": "250e7887-2b41-4635-b9dd-546fd061a009",
+    "image_url": "http://www.lilliputworld.com/cdn/shop/files/SET21_1.webp?v=1778606979",
+    "in_stock": true,
+    "is_active": true,
+    "pattern": "solid",
+    "price": 2290,
+    "product_url": "https://www.lilliputworld.com/products/girls-smocked-top-with-frill-and-denim-tiered-skirt-2-piece-outfit-set",
+    "sizes": [
+      "3 - 4 Years",
+      "4 - 5 Years",
+      "5 - 6 Years",
+      "6 - 7 Years",
+      "7 - 8 Years",
+      "8 - 9 Years",
+      "9 - 10 Years"
+    ],
+    "title": "Girls Smocked Top with Frill and Denim Tiered Skirt 2-Piece Outfit Set",
+    "use_case": [
+      "casual",
+      "party",
+      "daily wear"
+    ]
+  },
+  {
+    "brand": "Nalli",
+    "category": "cotton sarees",
+    "color": "off white",
+    "description": "A Off White saree for women in Cotton with embellished detailing. Suited for festive, wedding, by Nalli.",
+    "fabric": "cotton",
+    "fit": "regular",
+    "gender": "female",
+    "id": "fc0d0b4b-b49c-41e7-9bc6-d861dfb9570c",
+    "image_url": "https://www.nalli.com/cdn/shop/files/co2609909_m.jpg?v=1756368181",
+    "in_stock": true,
+    "is_active": true,
+    "pattern": "embellished",
+    "price": 8335,
+    "product_url": "https://www.nalli.com/products/off-white-kerala-cotton-saree-co2609909",
+    "sizes": [],
+    "title": "Off White Kerala Cotton Saree",
+    "use_case": [
+      "festive",
+      "wedding"
+    ]
+  },
+  {
+    "brand": "Ethnic Plus",
+    "category": "printed sarees",
+    "color": "green",
+    "description": "A green printed saree for women in Organza with printed detailing. Suited for festive, wedding, cultural functions, by Ethnic Plus.",
+    "fabric": "organza",
+    "fit": "regular",
+    "gender": "female",
+    "id": "52357d4b-8593-437b-9bcc-3d6a1b394bd2",
+    "image_url": "https://www.ethnicplus.in/cdn/shop/files/7026-sare_1.jpg?v=1780889476",
+    "in_stock": true,
+    "is_active": true,
+    "pattern": "printed",
+    "price": 2338.8,
+    "product_url": "https://www.ethnicplus.in/products/stunning-green-floral-printed-organza-festival-wear-saree-with-blouse",
+    "sizes": [
+      "Unstitched",
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "Custom Size"
+    ],
+    "title": "Unstitched Stunning Green Floral Printed Organza Festival Wear Saree With Blouse",
+    "use_case": [
+      "festive",
+      "wedding",
+      "cultural functions"
+    ]
+  },
+  {
+    "brand": "Monte Carlo",
+    "category": "polo t-shirts",
+    "color": "blue",
+    "description": "A blue regular polo t-shirt for men in cotton blend with printed detailing. Suited for casual, daily wear, by Monte Carlo.",
+    "fabric": "cotton blend",
+    "fit": "regular",
+    "gender": "male",
+    "id": "f8cc78c7-8628-41e6-a109-e94ecf36272d",
+    "image_url": "https://www.montecarlo.in/cdn/shop/files/224064277-1-38_1.jpg?v=1719560979&width=1024",
+    "in_stock": false,
+    "is_active": true,
+    "pattern": "printed",
+    "price": 969,
+    "product_url": "https://www.montecarlo.in/products/men-blue-printed-polo-collar-half-sleeve-t-shirt-224064277-1",
+    "sizes": [
+      "36/S",
+      "38/M",
+      "40/L",
+      "42/XL",
+      "44/XXL",
+      "46/3XL"
+    ],
+    "title": "Men Blue Printed Polo Collar Half Sleeve T-Shirt",
+    "use_case": [
+      "casual",
+      "daily wear"
+    ]
+  },
+  {
+    "brand": "Jackjones",
+    "category": "casual shirts",
+    "color": "beige",
+    "description": "A beige regular casual shirt for boys in 100% cotton with striped detailing. Suited for casual, daily wear, by Jackjones.",
+    "fabric": "100% cotton",
+    "fit": "regular",
+    "gender": "boy",
+    "id": "792b7e8c-7b3f-4530-a74a-22a9afc3d301",
+    "image_url": "http://www.jackjones.in/cdn/shop/files/900359101_g0.jpg?v=1745338873&width=2048",
+    "in_stock": true,
+    "is_active": true,
+    "pattern": "striped",
+    "price": 1099,
+    "product_url": "https://www.jackjones.in/products/900359101-beige",
+    "sizes": [
+      "4/5Y",
+      "5/6Y",
+      "6/7Y",
+      "7/8Y",
+      "9/10Y",
+      "11/12Y",
+      "13/14Y"
+    ],
+    "title": "Beige Striped Full Sleeves Shirt",
+    "use_case": [
+      "casual",
+      "daily wear"
+    ]
+  },
+  {
+    "brand": "VERO MODA",
+    "category": "shirts",
+    "color": "pink",
+    "description": "A pink regular shirt for women in 100% Polyester with solid detailing. Suited for casual, daily wear, office wear, by VERO MODA.",
+    "fabric": "100% polyester",
+    "fit": "regular",
+    "gender": "female",
+    "id": "55196f49-8fbe-4f56-be1f-ae68eaebb345",
+    "image_url": "http://www.veromoda.in/cdn/shop/files/901414702_g0.jpg?v=1745716451&width=2048",
+    "in_stock": true,
+    "is_active": true,
+    "pattern": "solid",
+    "price": 1319,
+    "product_url": "https://www.veromoda.in/products/901414702-pearled-ivory",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "title": "Pink Full Sleeves Shirt",
+    "use_case": [
+      "casual",
+      "daily wear",
+      "office wear"
+    ]
+  },
+  {
+    "brand": "Houseofdesigners",
+    "category": "jhumkas",
+    "color": "white and green",
+    "description": "A white and green embellished jhumkas for women in 92.5 Sterling Silver. Suited for party, festive, by Houseofdesigners.",
+    "fabric": "92.5 sterling silver",
+    "fit": "regular",
+    "gender": "female",
+    "id": "046941b5-d42c-47e5-8b92-fb03daad61ed",
+    "image_url": "https://www.houseofdesigners.in/cdn/shop/files/PRATA-ERS-122-GR_92.5_Silver_The_Spotlight_Earrings_1_1024x1024.jpg?v=1750954604",
+    "in_stock": true,
+    "is_active": true,
+    "pattern": "embellished",
+    "price": 11500,
+    "product_url": "https://www.houseofdesigners.in/products/prata-ers-122-gr",
+    "sizes": [
+      "Free Size"
+    ],
+    "title": "92.5 Sterling Silver The Spotlight Earrings",
+    "use_case": [
+      "party",
+      "festive"
+    ]
+  },
+  {
+    "brand": "Monte Carlo",
+    "category": "sweatshirts",
+    "color": "red",
+    "description": "A red regular sweatshirt for boys in 100% cotton with printed detailing. Suited for casual, daily wear, by Monte Carlo.",
+    "fabric": "100% cotton",
+    "fit": "regular",
+    "gender": "boy",
+    "id": "01991812-e4c5-458c-857d-69c068572c9a",
+    "image_url": "https://www.montecarlo.in/cdn/shop/products/523063225-5-32_5.jpg?v=1697900568&width=1024",
+    "in_stock": false,
+    "is_active": true,
+    "pattern": "printed",
+    "price": 609,
+    "product_url": "https://www.montecarlo.in/products/boys-red-printed-round-neck-full-sleeve-sweatshirt-523063225-5",
+    "sizes": [
+      "26/4-5Y",
+      "28/5-6Y",
+      "30/7-8Y",
+      "32/9-10Y",
+      "34/11-12Y",
+      "36/13-14Y"
+    ],
+    "title": "Boys Red Printed Round Neck Full Sleeve Sweatshirt",
+    "use_case": [
+      "casual",
+      "daily wear"
+    ]
+  },
+  {
+    "brand": "True Browns",
+    "category": "kurta-palazzo sets",
+    "color": "pink",
+    "description": "A pink relaxed kurta-palazzo set for women in natural cotton with embroidered detailing. Suited for festive, party, casual, by True Browns.",
+    "fabric": "natural cotton",
+    "fit": "relaxed",
+    "gender": "female",
+    "id": "5e8d7592-93a3-450b-9ec3-2d02ac606810",
+    "image_url": "http://www.truebrowns.com/cdn/shop/files/1_7dbb9f5e-baf1-4ea7-8e02-d2083732f37b.jpg?v=1756901563&width=2048",
+    "in_stock": true,
+    "is_active": true,
+    "pattern": "embroidered",
+    "price": 7200,
+    "product_url": "https://www.truebrowns.com/en-us/products/truebrowns-dalia-pink-embroidered-natural-cotton-kurta-pant-set",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL"
+    ],
+    "title": "trueBrowns Dalia Pink Embroidered Natural Cotton Kurta Pant Set",
+    "use_case": [
+      "festive",
+      "party",
+      "casual"
+    ]
+  },
+  {
+    "brand": "Fuaark",
+    "category": "oversized t-shirts",
+    "color": "black",
+    "description": "A black oversized T-shirt for men in 100% Premium Cotton with printed detailing. Suited for casual, daily wear, streetwear, by Fuaark.",
+    "fabric": "100% premium cotton",
+    "fit": "oversized",
+    "gender": "male",
+    "id": "e8d5fcee-7af6-4a62-9033-93f8550eed2e",
+    "image_url": "https://fuaark.com/cdn/shop/files/twin-sword-t-black-_5.jpg?v=1780726906&width=1038",
+    "in_stock": true,
+    "is_active": true,
+    "pattern": "printed",
+    "price": 1099,
+    "product_url": "https://fuaark.com/products/twin-sword-oversized-t-shirt-black",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "title": "Twin Sword Oversized T-shirt Black",
+    "use_case": [
+      "casual",
+      "daily wear",
+      "streetwear"
+    ]
+  },
+  {
+    "brand": "Inc.5",
+    "category": "block heel sandals",
+    "color": "green",
+    "description": "A green casual block heel sandal for women in synthetic with solid detailing. Suited for casual, daily wear, by Inc.5.",
+    "fabric": "synthetic",
+    "fit": "regular",
+    "gender": "female",
+    "id": "565c15a9-a6be-4a89-abdc-52e304b6c8a5",
+    "image_url": "http://inc5shop.com/cdn/shop/files/700037_GREEN_78503db0-c8d7-4699-9c31-c01305a29945.jpg?v=1764151720",
+    "in_stock": true,
+    "is_active": true,
+    "pattern": "solid",
+    "price": 2590,
+    "product_url": "https://inc5shop.com/products/womens-green-casual-solid-round-toe-wedge-heels-700060-green",
+    "sizes": [
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41"
+    ],
+    "title": "Buy Now Womens Green Casual Solid Round Toe Wedge Heels",
+    "use_case": [
+      "casual",
+      "daily wear"
+    ]
+  },
+  {
+    "brand": "Eka Design Studio",
+    "category": "sharara & gharara sets",
+    "color": "multi",
+    "description": "A linen relaxed sharara & gharara set for women in solid detailing. Suited for casual, festive, daily wear, by Eka Design Studio.",
+    "fabric": "linen",
+    "fit": "relaxed",
+    "gender": "female",
+    "id": "bd80d7a7-9ea5-4242-a287-fda5cc9951be",
+    "image_url": "http://ekadesignstudio.in/cdn/shop/files/UntitledSession0089.jpg?v=1779356214",
+    "in_stock": true,
+    "is_active": true,
+    "pattern": "solid",
+    "price": 20500,
+    "product_url": "https://ekadesignstudio.in/products/nia-set-2026-1",
+    "sizes": [
+      "OS",
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "title": "NIA SET",
+    "use_case": [
+      "casual",
+      "festive",
+      "daily wear"
+    ]
+  },
+  {
+    "brand": "Voylla",
+    "category": "pendant sets",
+    "color": "gold",
+    "description": "A Gold unisex pendant set in Brass with embellished detailing. Suited for party, festive, casual, by Voylla.",
+    "fabric": "brass",
+    "fit": "regular",
+    "gender": "unisex",
+    "id": "7eda5319-e959-4677-b771-c757139138d7",
+    "image_url": "https://www.voylla.com/cdn/shop/products/BCJAI20113_CS_grande.jpg?v=1676960799",
+    "in_stock": false,
+    "is_active": true,
+    "pattern": "embellished",
+    "price": 869,
+    "product_url": "https://www.voylla.com/products/trendy-essentials-contemporary-lightly-embellished-brass-gold-plated-layered-necklace-bcjai20113",
+    "sizes": [],
+    "title": "Trendy Essentials Contemporary Lightly Embellished Brass Gold Plated Layered Necklace",
+    "use_case": [
+      "party",
+      "festive",
+      "casual"
+    ]
+  }
+]

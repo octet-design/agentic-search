@@ -1,0 +1,2657 @@
+{
+  "generatedAt": "2026-09-24T12:22:13.823Z",
+  "collection": "products",
+  "server": {
+    "health": {
+      "ok": true
+    },
+    "debug": {
+      "state": 1,
+      "version": "30.2"
+    },
+    "schema": {
+      "num_documents": 551334,
+      "fields": [
+        {
+          "facet": false,
+          "index": true,
+          "infix": true,
+          "locale": "",
+          "name": "title",
+          "optional": false,
+          "sort": false,
+          "stem": false,
+          "stem_dictionary": "",
+          "store": true,
+          "truncate_len": 100,
+          "type": "string"
+        },
+        {
+          "facet": true,
+          "index": true,
+          "infix": false,
+          "locale": "",
+          "name": "brand",
+          "optional": false,
+          "sort": false,
+          "stem": false,
+          "stem_dictionary": "",
+          "store": true,
+          "truncate_len": 100,
+          "type": "string"
+        },
+        {
+          "facet": true,
+          "index": true,
+          "infix": false,
+          "locale": "",
+          "name": "category",
+          "optional": false,
+          "sort": false,
+          "stem": false,
+          "stem_dictionary": "",
+          "store": true,
+          "truncate_len": 100,
+          "type": "string"
+        },
+        {
+          "facet": true,
+          "index": true,
+          "infix": false,
+          "locale": "",
+          "name": "gender",
+          "optional": false,
+          "sort": false,
+          "stem": false,
+          "stem_dictionary": "",
+          "store": true,
+          "truncate_len": 100,
+          "type": "string"
+        },
+        {
+          "facet": true,
+          "index": true,
+          "infix": false,
+          "locale": "",
+          "name": "color",
+          "optional": false,
+          "sort": false,
+          "stem": false,
+          "stem_dictionary": "",
+          "store": true,
+          "truncate_len": 100,
+          "type": "string"
+        },
+        {
+          "facet": true,
+          "index": true,
+          "infix": false,
+          "locale": "",
+          "name": "fabric",
+          "optional": true,
+          "sort": false,
+          "stem": false,
+          "stem_dictionary": "",
+          "store": true,
+          "truncate_len": 100,
+          "type": "string"
+        },
+        {
+          "facet": true,
+          "index": true,
+          "infix": false,
+          "locale": "",
+          "name": "fit",
+          "optional": true,
+          "sort": false,
+          "stem": false,
+          "stem_dictionary": "",
+          "store": true,
+          "truncate_len": 100,
+          "type": "string"
+        },
+        {
+          "facet": false,
+          "index": true,
+          "infix": false,
+          "locale": "",
+          "name": "description",
+          "optional": false,
+          "sort": false,
+          "stem": false,
+          "stem_dictionary": "",
+          "store": true,
+          "truncate_len": 100,
+          "type": "string"
+        },
+        {
+          "facet": true,
+          "index": true,
+          "infix": false,
+          "locale": "",
+          "name": "use_case",
+          "optional": true,
+          "sort": false,
+          "stem": false,
+          "stem_dictionary": "",
+          "store": true,
+          "truncate_len": 100,
+          "type": "string[]"
+        },
+        {
+          "facet": true,
+          "index": true,
+          "infix": false,
+          "locale": "",
+          "name": "sizes",
+          "optional": false,
+          "sort": false,
+          "stem": false,
+          "stem_dictionary": "",
+          "store": true,
+          "truncate_len": 100,
+          "type": "string[]"
+        },
+        {
+          "facet": true,
+          "index": true,
+          "infix": false,
+          "locale": "",
+          "name": "price",
+          "optional": false,
+          "sort": true,
+          "stem": false,
+          "stem_dictionary": "",
+          "store": true,
+          "truncate_len": 100,
+          "type": "float"
+        },
+        {
+          "facet": true,
+          "index": true,
+          "infix": false,
+          "locale": "",
+          "name": "in_stock",
+          "optional": false,
+          "sort": true,
+          "stem": false,
+          "stem_dictionary": "",
+          "store": true,
+          "truncate_len": 100,
+          "type": "bool"
+        },
+        {
+          "facet": true,
+          "index": true,
+          "infix": false,
+          "locale": "",
+          "name": "pattern",
+          "optional": true,
+          "sort": false,
+          "stem": false,
+          "stem_dictionary": "",
+          "store": true,
+          "truncate_len": 100,
+          "type": "string"
+        },
+        {
+          "facet": false,
+          "index": false,
+          "infix": false,
+          "locale": "",
+          "name": "image_url",
+          "optional": true,
+          "sort": false,
+          "stem": false,
+          "stem_dictionary": "",
+          "store": true,
+          "truncate_len": 100,
+          "type": "string"
+        },
+        {
+          "facet": false,
+          "index": false,
+          "infix": false,
+          "locale": "",
+          "name": "product_url",
+          "optional": false,
+          "sort": false,
+          "stem": false,
+          "stem_dictionary": "",
+          "store": true,
+          "truncate_len": 100,
+          "type": "string"
+        },
+        {
+          "embed": {
+            "from": [
+              "title",
+              "category",
+              "gender",
+              "color",
+              "fabric",
+              "fit",
+              "use_case",
+              "description"
+            ],
+            "model_config": {
+              "model_name": "ts/all-MiniLM-L12-v2"
+            }
+          },
+          "facet": false,
+          "hnsw_params": {
+            "M": 16,
+            "ef_construction": 200
+          },
+          "index": true,
+          "infix": false,
+          "locale": "",
+          "name": "embedding",
+          "num_dim": 384,
+          "optional": false,
+          "sort": false,
+          "stem": false,
+          "stem_dictionary": "",
+          "store": true,
+          "truncate_len": 100,
+          "type": "float[]",
+          "vec_dist": "cosine"
+        },
+        {
+          "facet": false,
+          "index": true,
+          "infix": false,
+          "locale": "",
+          "name": "is_active",
+          "optional": true,
+          "sort": true,
+          "stem": false,
+          "stem_dictionary": "",
+          "store": true,
+          "truncate_len": 100,
+          "type": "bool"
+        }
+      ]
+    }
+  },
+  "counts": {
+    "total": 551334,
+    "in_stock_true": 348974,
+    "in_stock_false": 202360,
+    "is_active_true": 551162,
+    "is_active_false": 0,
+    "is_active_missing": 172,
+    "in_stock_and_active_true": 348948,
+    "in_stock_and_active_not_false": 348974
+  },
+  "facets": {
+    "gender": {
+      "distinctValues": 8,
+      "truncated": false,
+      "valuesWithCountBelow5": 0,
+      "coverage": 1,
+      "top15": [
+        {
+          "value": "female",
+          "count": 304066
+        },
+        {
+          "value": "male",
+          "count": 154110
+        },
+        {
+          "value": "unisex",
+          "count": 50359
+        },
+        {
+          "value": "boy",
+          "count": 18871
+        },
+        {
+          "value": "girl",
+          "count": 12096
+        },
+        {
+          "value": "other",
+          "count": 9613
+        },
+        {
+          "value": "infant",
+          "count": 2137
+        },
+        {
+          "value": "unidentified",
+          "count": 82
+        }
+      ]
+    },
+    "category": {
+      "distinctValues": 441,
+      "truncated": false,
+      "valuesWithCountBelow5": 30,
+      "coverage": 1,
+      "top15": [
+        {
+          "value": "silk sarees",
+          "count": 52142
+        },
+        {
+          "value": "printed sarees",
+          "count": 23248
+        },
+        {
+          "value": "kurta-palazzo sets",
+          "count": 23135
+        },
+        {
+          "value": "straight kurta",
+          "count": 18082
+        },
+        {
+          "value": "polo t-shirts",
+          "count": 17893
+        },
+        {
+          "value": "round neck t-shirts",
+          "count": 17759
+        },
+        {
+          "value": "printed shirts",
+          "count": 16248
+        },
+        {
+          "value": "other",
+          "count": 15689
+        },
+        {
+          "value": "festive lehenga",
+          "count": 12329
+        },
+        {
+          "value": "solid shirts",
+          "count": 11319
+        },
+        {
+          "value": "fashion jewellery",
+          "count": 9291
+        },
+        {
+          "value": "shirts",
+          "count": 9000
+        },
+        {
+          "value": "trousers",
+          "count": 7813
+        },
+        {
+          "value": "kurtis",
+          "count": 6753
+        },
+        {
+          "value": "slim fit jeans",
+          "count": 6589
+        }
+      ]
+    },
+    "color": {
+      "distinctValues": 18188,
+      "truncated": false,
+      "valuesWithCountBelow5": 15444,
+      "coverage": 1,
+      "top15": [
+        {
+          "value": "black",
+          "count": 54387
+        },
+        {
+          "value": "blue",
+          "count": 41493
+        },
+        {
+          "value": "multi",
+          "count": 35733
+        },
+        {
+          "value": "green",
+          "count": 27317
+        },
+        {
+          "value": "white",
+          "count": 26566
+        },
+        {
+          "value": "pink",
+          "count": 25034
+        },
+        {
+          "value": "grey",
+          "count": 17780
+        },
+        {
+          "value": "red",
+          "count": 17479
+        },
+        {
+          "value": "beige",
+          "count": 14794
+        },
+        {
+          "value": "brown",
+          "count": 14432
+        },
+        {
+          "value": "yellow",
+          "count": 13493
+        },
+        {
+          "value": "gold",
+          "count": 12883
+        },
+        {
+          "value": "navy blue",
+          "count": 12793
+        },
+        {
+          "value": "purple",
+          "count": 11098
+        },
+        {
+          "value": "maroon",
+          "count": 10558
+        }
+      ]
+    },
+    "fabric": {
+      "distinctValues": 23147,
+      "truncated": false,
+      "valuesWithCountBelow5": 18248,
+      "coverage": 0.9341,
+      "top15": [
+        {
+          "value": "cotton",
+          "count": 49068
+        },
+        {
+          "value": "100% cotton",
+          "count": 36788
+        },
+        {
+          "value": "silk",
+          "count": 29791
+        },
+        {
+          "value": "cotton blend",
+          "count": 25053
+        },
+        {
+          "value": "100% polyester",
+          "count": 12945
+        },
+        {
+          "value": "polyester",
+          "count": 11490
+        },
+        {
+          "value": "brass",
+          "count": 11352
+        },
+        {
+          "value": "georgette",
+          "count": 10665
+        },
+        {
+          "value": "silk blend",
+          "count": 8619
+        },
+        {
+          "value": "organza",
+          "count": 5447
+        },
+        {
+          "value": "katan silk",
+          "count": 5273
+        },
+        {
+          "value": "cotton 100%",
+          "count": 5239
+        },
+        {
+          "value": "polyester blend",
+          "count": 5030
+        },
+        {
+          "value": "pure cotton",
+          "count": 4760
+        },
+        {
+          "value": "pure silk",
+          "count": 4507
+        }
+      ]
+    },
+    "fit": {
+      "distinctValues": 1606,
+      "truncated": false,
+      "valuesWithCountBelow5": 1242,
+      "coverage": 1,
+      "top15": [
+        {
+          "value": "regular",
+          "count": 341363
+        },
+        {
+          "value": "flowy",
+          "count": 52136
+        },
+        {
+          "value": "slim",
+          "count": 43316
+        },
+        {
+          "value": "straight",
+          "count": 18967
+        },
+        {
+          "value": "relaxed",
+          "count": 17812
+        },
+        {
+          "value": "tailored",
+          "count": 13982
+        },
+        {
+          "value": "oversized",
+          "count": 7554
+        },
+        {
+          "value": "a-line",
+          "count": 5685
+        },
+        {
+          "value": "slim fit",
+          "count": 3299
+        },
+        {
+          "value": "fitted",
+          "count": 3239
+        },
+        {
+          "value": "boxy",
+          "count": 2702
+        },
+        {
+          "value": "comfort fit",
+          "count": 2485
+        },
+        {
+          "value": "loose",
+          "count": 2407
+        },
+        {
+          "value": "flared",
+          "count": 2385
+        },
+        {
+          "value": "classic fit",
+          "count": 2115
+        }
+      ]
+    },
+    "pattern": {
+      "distinctValues": 10659,
+      "truncated": false,
+      "valuesWithCountBelow5": 9268,
+      "coverage": 0.9982,
+      "top15": [
+        {
+          "value": "solid",
+          "count": 161684
+        },
+        {
+          "value": "printed",
+          "count": 79252
+        },
+        {
+          "value": "embroidered",
+          "count": 65156
+        },
+        {
+          "value": "embellished",
+          "count": 58707
+        },
+        {
+          "value": "striped",
+          "count": 21182
+        },
+        {
+          "value": "textured",
+          "count": 20236
+        },
+        {
+          "value": "checked",
+          "count": 14242
+        },
+        {
+          "value": "colorblock",
+          "count": 10746
+        },
+        {
+          "value": "floral",
+          "count": 8923
+        },
+        {
+          "value": "floral print",
+          "count": 5298
+        },
+        {
+          "value": "self design",
+          "count": 5270
+        },
+        {
+          "value": "graphic",
+          "count": 3231
+        },
+        {
+          "value": "zari brocade",
+          "count": 3190
+        },
+        {
+          "value": "graphic print",
+          "count": 2818
+        },
+        {
+          "value": "digital print",
+          "count": 2487
+        }
+      ]
+    },
+    "use_case": {
+      "distinctValues": 4400,
+      "truncated": false,
+      "valuesWithCountBelow5": 3341,
+      "coverage": null,
+      "top15": [
+        {
+          "value": "casual",
+          "count": 283926
+        },
+        {
+          "value": "daily wear",
+          "count": 264521
+        },
+        {
+          "value": "festive",
+          "count": 244679
+        },
+        {
+          "value": "party",
+          "count": 195283
+        },
+        {
+          "value": "wedding",
+          "count": 134248
+        },
+        {
+          "value": "office wear",
+          "count": 68102
+        },
+        {
+          "value": "lounge wear",
+          "count": 28972
+        },
+        {
+          "value": "formal",
+          "count": 26598
+        },
+        {
+          "value": "sports",
+          "count": 25245
+        },
+        {
+          "value": "winter wear",
+          "count": 23940
+        },
+        {
+          "value": "evening",
+          "count": 14168
+        },
+        {
+          "value": "travel",
+          "count": 11919
+        },
+        {
+          "value": "sport",
+          "count": 9841
+        },
+        {
+          "value": "vacation",
+          "count": 8485
+        },
+        {
+          "value": "reception",
+          "count": 4965
+        }
+      ]
+    },
+    "sizes": {
+      "distinctValues": 6685,
+      "truncated": false,
+      "valuesWithCountBelow5": 4066,
+      "coverage": null,
+      "top15": [
+        {
+          "value": "M",
+          "count": 206805
+        },
+        {
+          "value": "L",
+          "count": 206125
+        },
+        {
+          "value": "XL",
+          "count": 203222
+        },
+        {
+          "value": "S",
+          "count": 190702
+        },
+        {
+          "value": "XXL",
+          "count": 114568
+        },
+        {
+          "value": "XS",
+          "count": 114130
+        },
+        {
+          "value": "2XL",
+          "count": 41328
+        },
+        {
+          "value": "3XL",
+          "count": 39783
+        },
+        {
+          "value": "38",
+          "count": 37505
+        },
+        {
+          "value": "36",
+          "count": 33716
+        },
+        {
+          "value": "40",
+          "count": 32890
+        },
+        {
+          "value": "42",
+          "count": 24793
+        },
+        {
+          "value": "34",
+          "count": 23575
+        },
+        {
+          "value": "30",
+          "count": 23257
+        },
+        {
+          "value": "32",
+          "count": 23136
+        }
+      ]
+    },
+    "brand": {
+      "distinctValues": 312,
+      "truncated": false,
+      "valuesWithCountBelow5": 11,
+      "coverage": 1,
+      "top15": [
+        {
+          "value": "Monte Carlo",
+          "count": 37450
+        },
+        {
+          "value": "Nalli",
+          "count": 25357
+        },
+        {
+          "value": "Jackjones",
+          "count": 21263
+        },
+        {
+          "value": "Houseofdesigners",
+          "count": 15136
+        },
+        {
+          "value": "Kalki",
+          "count": 13879
+        },
+        {
+          "value": "Libas",
+          "count": 13468
+        },
+        {
+          "value": "Koskii",
+          "count": 13206
+        },
+        {
+          "value": "Karagiri",
+          "count": 13107
+        },
+        {
+          "value": "WeaverStory",
+          "count": 12626
+        },
+        {
+          "value": "U.S. Polo Assn.",
+          "count": 12214
+        },
+        {
+          "value": "Ethnic Plus",
+          "count": 11128
+        },
+        {
+          "value": "Levi's",
+          "count": 11052
+        },
+        {
+          "value": "Voylla",
+          "count": 10285
+        },
+        {
+          "value": "The House Of Rare",
+          "count": 9938
+        },
+        {
+          "value": "Louisphilippe",
+          "count": 9457
+        }
+      ]
+    }
+  },
+  "price": [
+    {
+      "name": "all",
+      "count": 551334,
+      "min": 0.009999999776482582,
+      "p10": 599,
+      "p25": 1043,
+      "median": 1999,
+      "p75": 4995,
+      "p90": 15800,
+      "max": 9599592
+    },
+    {
+      "name": "all · in_stock",
+      "count": 348974,
+      "min": 0.009999999776482582,
+      "p10": 580,
+      "p25": 999,
+      "median": 1870,
+      "p75": 4639,
+      "p90": 14982,
+      "max": 1562500
+    },
+    {
+      "name": "gender=female",
+      "count": 304066,
+      "min": 0.07999999821186066,
+      "p10": 749,
+      "p25": 1350,
+      "median": 2975,
+      "p75": 8950,
+      "p90": 22500,
+      "max": 9599592
+    },
+    {
+      "name": "gender=male",
+      "count": 154110,
+      "min": 36,
+      "p10": 598,
+      "p25": 939,
+      "median": 1499,
+      "p75": 2480,
+      "p90": 4599,
+      "max": 694995
+    },
+    {
+      "name": "gender=unisex",
+      "count": 50359,
+      "min": 0.009999999776482582,
+      "p10": 481,
+      "p25": 960,
+      "median": 2031,
+      "p75": 5000,
+      "p90": 10501,
+      "max": 801125
+    },
+    {
+      "name": "gender=boy",
+      "count": 18871,
+      "min": 44,
+      "p10": 400,
+      "p25": 576,
+      "median": 865,
+      "p75": 1295,
+      "p90": 1998,
+      "max": 25000
+    },
+    {
+      "name": "gender=girl",
+      "count": 12096,
+      "min": 44,
+      "p10": 381,
+      "p25": 583,
+      "median": 923,
+      "p75": 1496,
+      "p90": 2195,
+      "max": 68040
+    },
+    {
+      "name": "gender=other",
+      "count": 9613,
+      "min": 0.009999999776482582,
+      "p10": 570,
+      "p25": 1000,
+      "median": 1863,
+      "p75": 3674,
+      "p90": 5834,
+      "max": 508300
+    },
+    {
+      "name": "gender=infant",
+      "count": 2137,
+      "min": 80,
+      "p10": 224,
+      "p25": 359,
+      "median": 584,
+      "p75": 1252,
+      "p90": 2400,
+      "max": 33708
+    },
+    {
+      "name": "gender=unidentified",
+      "count": 82,
+      "min": 10,
+      "p10": 11,
+      "p25": 11,
+      "median": 309,
+      "p75": 1970,
+      "p90": 3299,
+      "max": 46950
+    }
+  ],
+  "sample": {
+    "sampleSize": 30,
+    "wideSampleSize": 1000,
+    "imageUrlCoverage": {
+      "sample": 1,
+      "wide": 1
+    },
+    "imageDomains": [
+      {
+        "value": "montecarlo.in",
+        "count": 104
+      },
+      {
+        "value": "levi.in",
+        "count": 104
+      },
+      {
+        "value": "idaho-o.com",
+        "count": 65
+      },
+      {
+        "value": "nicobar.com",
+        "count": 64
+      },
+      {
+        "value": "okhai.org",
+        "count": 51
+      },
+      {
+        "value": "cdn.shopify.com",
+        "count": 46
+      },
+      {
+        "value": "shopmulmul.com",
+        "count": 45
+      },
+      {
+        "value": "curiocottage.in",
+        "count": 43
+      },
+      {
+        "value": "imagescdn.louisphilippe.com",
+        "count": 41
+      },
+      {
+        "value": "kazo.com",
+        "count": 35
+      },
+      {
+        "value": "swasticlothing.com",
+        "count": 31
+      },
+      {
+        "value": "huemn.in",
+        "count": 30
+      },
+      {
+        "value": "shopforaurelia.com",
+        "count": 25
+      },
+      {
+        "value": "swashaa.com",
+        "count": 25
+      },
+      {
+        "value": "chiqueofficial.com",
+        "count": 22
+      },
+      {
+        "value": "ekadesignstudio.in",
+        "count": 21
+      },
+      {
+        "value": "libertyshoesonline.com",
+        "count": 21
+      },
+      {
+        "value": "assets.digitalcontent.marksandspencer.app",
+        "count": 20
+      },
+      {
+        "value": "miniklub.in",
+        "count": 16
+      },
+      {
+        "value": "beinghumanclothing.com",
+        "count": 15
+      },
+      {
+        "value": "dukeindia.com",
+        "count": 14
+      },
+      {
+        "value": "lakshita.com",
+        "count": 11
+      },
+      {
+        "value": "kilol.in",
+        "count": 11
+      },
+      {
+        "value": "iamsaltpetre.com",
+        "count": 10
+      },
+      {
+        "value": "charkhee.com",
+        "count": 10
+      },
+      {
+        "value": "voylla.com",
+        "count": 9
+      },
+      {
+        "value": "thebearhouse.com",
+        "count": 9
+      },
+      {
+        "value": "cottonworld.net",
+        "count": 8
+      },
+      {
+        "value": "d2gjhibw48zr01.cloudfront.net",
+        "count": 8
+      },
+      {
+        "value": "ministerwhite.com",
+        "count": 6
+      },
+      {
+        "value": "lilliputworld.com",
+        "count": 6
+      },
+      {
+        "value": "carltonlondon.co.in",
+        "count": 6
+      },
+      {
+        "value": "sunohstudio.com",
+        "count": 6
+      },
+      {
+        "value": "tarinika.in",
+        "count": 5
+      },
+      {
+        "value": "chhabra555.com",
+        "count": 5
+      },
+      {
+        "value": "nalli.com",
+        "count": 5
+      },
+      {
+        "value": "spykar.com",
+        "count": 5
+      },
+      {
+        "value": "tjori.com",
+        "count": 5
+      },
+      {
+        "value": "estele.co",
+        "count": 4
+      },
+      {
+        "value": "houseofchikankari.in",
+        "count": 3
+      },
+      {
+        "value": "tigc.in",
+        "count": 3
+      },
+      {
+        "value": "necesera.com",
+        "count": 2
+      },
+      {
+        "value": "khadims.com",
+        "count": 2
+      },
+      {
+        "value": "kuchipoo.in",
+        "count": 2
+      },
+      {
+        "value": "suta.in",
+        "count": 2
+      },
+      {
+        "value": "houseofdesigners.in",
+        "count": 2
+      },
+      {
+        "value": "myraymond.com",
+        "count": 2
+      },
+      {
+        "value": "bluorng.com",
+        "count": 2
+      },
+      {
+        "value": "enamor.co.in",
+        "count": 2
+      },
+      {
+        "value": "maaticrafts.com",
+        "count": 1
+      },
+      {
+        "value": "juniperfashion.com",
+        "count": 1
+      },
+      {
+        "value": "inddus.in",
+        "count": 1
+      },
+      {
+        "value": "neerus.com",
+        "count": 1
+      },
+      {
+        "value": "wishfulbyw.com",
+        "count": 1
+      },
+      {
+        "value": "coveandlane.in",
+        "count": 1
+      },
+      {
+        "value": "campusshoes.com",
+        "count": 1
+      },
+      {
+        "value": "veromoda.in",
+        "count": 1
+      },
+      {
+        "value": "(invalid)",
+        "count": 1
+      },
+      {
+        "value": "bluebrew.in",
+        "count": 1
+      },
+      {
+        "value": "doodlage.in",
+        "count": 1
+      }
+    ],
+    "productUrlDomains": [
+      {
+        "value": "montecarlo.in",
+        "count": 104
+      },
+      {
+        "value": "levi.in",
+        "count": 104
+      },
+      {
+        "value": "idaho-o.com",
+        "count": 65
+      },
+      {
+        "value": "nicobar.com",
+        "count": 64
+      },
+      {
+        "value": "okhai.org",
+        "count": 51
+      },
+      {
+        "value": "shopmulmul.com",
+        "count": 45
+      },
+      {
+        "value": "curiocottage.in",
+        "count": 43
+      },
+      {
+        "value": "louisphilippe.abfrl.in",
+        "count": 41
+      },
+      {
+        "value": "kazo.com",
+        "count": 35
+      },
+      {
+        "value": "swasticlothing.com",
+        "count": 31
+      },
+      {
+        "value": "huemn.in",
+        "count": 30
+      },
+      {
+        "value": "shopforaurelia.com",
+        "count": 25
+      },
+      {
+        "value": "swashaa.com",
+        "count": 25
+      },
+      {
+        "value": "koskii.com",
+        "count": 23
+      },
+      {
+        "value": "chiqueofficial.com",
+        "count": 22
+      },
+      {
+        "value": "libas.in",
+        "count": 21
+      },
+      {
+        "value": "ekadesignstudio.in",
+        "count": 21
+      },
+      {
+        "value": "libertyshoesonline.com",
+        "count": 21
+      },
+      {
+        "value": "marksandspencer.in",
+        "count": 20
+      },
+      {
+        "value": "miniklub.in",
+        "count": 17
+      },
+      {
+        "value": "beinghumanclothing.com",
+        "count": 15
+      },
+      {
+        "value": "dukeindia.com",
+        "count": 14
+      },
+      {
+        "value": "lakshita.com",
+        "count": 11
+      },
+      {
+        "value": "kilol.in",
+        "count": 11
+      },
+      {
+        "value": "iamsaltpetre.com",
+        "count": 10
+      },
+      {
+        "value": "charkhee.com",
+        "count": 10
+      },
+      {
+        "value": "voylla.com",
+        "count": 9
+      },
+      {
+        "value": "thebearhouse.com",
+        "count": 9
+      },
+      {
+        "value": "cottonworld.net",
+        "count": 8
+      },
+      {
+        "value": "kusvaa.com",
+        "count": 8
+      },
+      {
+        "value": "ministerwhite.com",
+        "count": 6
+      },
+      {
+        "value": "lilliputworld.com",
+        "count": 6
+      },
+      {
+        "value": "carltonlondon.co.in",
+        "count": 6
+      },
+      {
+        "value": "sunohstudio.com",
+        "count": 6
+      },
+      {
+        "value": "tarinika.in",
+        "count": 5
+      },
+      {
+        "value": "chhabra555.com",
+        "count": 5
+      },
+      {
+        "value": "nalli.com",
+        "count": 5
+      },
+      {
+        "value": "spykar.com",
+        "count": 5
+      },
+      {
+        "value": "tjori.com",
+        "count": 5
+      },
+      {
+        "value": "estele.co",
+        "count": 4
+      },
+      {
+        "value": "houseofchikankari.in",
+        "count": 3
+      },
+      {
+        "value": "tigc.in",
+        "count": 3
+      },
+      {
+        "value": "necesera.com",
+        "count": 2
+      },
+      {
+        "value": "khadims.com",
+        "count": 2
+      },
+      {
+        "value": "kuchipoo.in",
+        "count": 2
+      },
+      {
+        "value": "suta.in",
+        "count": 2
+      },
+      {
+        "value": "houseofdesigners.in",
+        "count": 2
+      },
+      {
+        "value": "myraymond.com",
+        "count": 2
+      },
+      {
+        "value": "bluorng.com",
+        "count": 2
+      },
+      {
+        "value": "enamor.co.in",
+        "count": 2
+      },
+      {
+        "value": "maaticrafts.com",
+        "count": 1
+      },
+      {
+        "value": "juniperfashion.com",
+        "count": 1
+      },
+      {
+        "value": "inddus.in",
+        "count": 1
+      },
+      {
+        "value": "neerus.com",
+        "count": 1
+      },
+      {
+        "value": "wishfulbyw.com",
+        "count": 1
+      },
+      {
+        "value": "coveandlane.in",
+        "count": 1
+      },
+      {
+        "value": "campusshoes.com",
+        "count": 1
+      },
+      {
+        "value": "veromoda.in",
+        "count": 1
+      },
+      {
+        "value": "crystalhealshop.com",
+        "count": 1
+      },
+      {
+        "value": "dashanddot.com",
+        "count": 1
+      },
+      {
+        "value": "bluebrew.in",
+        "count": 1
+      },
+      {
+        "value": "doodlage.in",
+        "count": 1
+      }
+    ],
+    "fieldPresenceInWideSample": {
+      "brand": 1,
+      "category": 1,
+      "gender": 1,
+      "color": 1,
+      "fabric": 0.941,
+      "fit": 1,
+      "pattern": 0.998,
+      "use_case": 0.999,
+      "sizes": 0.696,
+      "price": 1,
+      "in_stock": 1,
+      "is_active": 1,
+      "image_url": 1,
+      "product_url": 1
+    },
+    "description": {
+      "minLength": 86,
+      "medianLength": 122,
+      "maxLength": 142,
+      "empty": 0,
+      "withDevanagari": 0,
+      "withHtml": 0,
+      "identicalToTitle": 0
+    }
+  },
+  "imageHotlinking": [
+    {
+      "domain": "labelflavia.com",
+      "noReferer": "200 image/png",
+      "localhostReferer": "200 image/png"
+    },
+    {
+      "domain": "cdn.shopify.com",
+      "noReferer": "200 image/jpeg",
+      "localhostReferer": "200 image/jpeg"
+    },
+    {
+      "domain": "montecarlo.in",
+      "noReferer": "200 image/jpeg",
+      "localhostReferer": "200 image/jpeg"
+    },
+    {
+      "domain": "lakshita.com",
+      "noReferer": "200 image/jpeg",
+      "localhostReferer": "200 image/jpeg"
+    },
+    {
+      "domain": "thehouseofrare.com",
+      "noReferer": "200 image/jpeg",
+      "localhostReferer": "200 image/jpeg"
+    },
+    {
+      "domain": "neerus.com",
+      "noReferer": "200 image/png",
+      "localhostReferer": "200 image/png"
+    },
+    {
+      "domain": "libertyshoesonline.com",
+      "noReferer": "200 image/jpeg",
+      "localhostReferer": "200 image/jpeg"
+    },
+    {
+      "domain": "khadims.com",
+      "noReferer": "200 image/jpeg",
+      "localhostReferer": "200 image/jpeg"
+    },
+    {
+      "domain": "nalli.com",
+      "noReferer": "200 image/jpeg",
+      "localhostReferer": "200 image/jpeg"
+    },
+    {
+      "domain": "levi.in",
+      "noReferer": "200 image/jpeg",
+      "localhostReferer": "200 image/jpeg"
+    }
+  ],
+  "hybrid": [
+    {
+      "query": "black cotton kurta set for office",
+      "variant": "keyword title",
+      "ok": true,
+      "found": 3,
+      "serverMs": 8,
+      "roundTripMs": 36,
+      "hitsHaveVectorDistance": false,
+      "hitsHaveHybridInfo": false,
+      "top5": [
+        {
+          "title": "Buy Black And White Lucknowi Cotton Kurta Set For Men",
+          "brand": "Kalki",
+          "gender": "male",
+          "price": 4999,
+          "vector_distance": null
+        },
+        {
+          "title": "Buy Black Geometric Printed Cotton kurta Set @ 3299 | Shop for Aurelia",
+          "brand": "Aurelia",
+          "gender": "female",
+          "price": 1260,
+          "vector_distance": null
+        },
+        {
+          "title": "Buy Black Cotton kurta and Green Trousers Set @ 1999 | Shop for Aurelia",
+          "brand": "Aurelia",
+          "gender": "female",
+          "price": 860,
+          "vector_distance": null
+        }
+      ]
+    },
+    {
+      "query": "black cotton kurta set for office",
+      "variant": "hybrid title,embedding α0.5 rerank",
+      "ok": true,
+      "found": 250,
+      "serverMs": 23,
+      "roundTripMs": 46,
+      "hitsHaveVectorDistance": true,
+      "hitsHaveHybridInfo": true,
+      "top5": [
+        {
+          "title": "Boardroom Kurta Set - Black",
+          "brand": "Saundh",
+          "gender": "female",
+          "price": 10995,
+          "vector_distance": 0.210277259349823
+        },
+        {
+          "title": "Buy Black And White Lucknowi Cotton Kurta Set For Men",
+          "brand": "Kalki",
+          "gender": "male",
+          "price": 4999,
+          "vector_distance": 0.28222525119781494
+        },
+        {
+          "title": "Buy Black Geometric Printed Cotton kurta Set @ 3299 | Shop for Aurelia",
+          "brand": "Aurelia",
+          "gender": "female",
+          "price": 1260,
+          "vector_distance": 0.21423286199569702
+        },
+        {
+          "title": "Black and White Abstract Print Cotton Kurta Set",
+          "brand": "The Kaftan Company",
+          "gender": "female",
+          "price": 3695,
+          "vector_distance": 0.21379965543746948
+        },
+        {
+          "title": "Black Cotton Kurta Set",
+          "brand": "In Your Dreams",
+          "gender": "female",
+          "price": 2999,
+          "vector_distance": 0.22407764196395874
+        }
+      ]
+    },
+    {
+      "query": "black cotton kurta set for office",
+      "variant": "hybrid title,brand,embedding α0.5",
+      "ok": true,
+      "found": 250,
+      "serverMs": 23,
+      "roundTripMs": 46,
+      "hitsHaveVectorDistance": true,
+      "hitsHaveHybridInfo": true,
+      "top5": [
+        {
+          "title": "Buy Black And White Lucknowi Cotton Kurta Set For Men",
+          "brand": "Kalki",
+          "gender": "male",
+          "price": 4999,
+          "vector_distance": 0.28222525119781494
+        },
+        {
+          "title": "Boardroom Kurta Set - Black",
+          "brand": "Saundh",
+          "gender": "female",
+          "price": 10995,
+          "vector_distance": 0.210277259349823
+        },
+        {
+          "title": "Buy Black Geometric Printed Cotton kurta Set @ 3299 | Shop for Aurelia",
+          "brand": "Aurelia",
+          "gender": "female",
+          "price": 1260,
+          "vector_distance": 0.21423286199569702
+        },
+        {
+          "title": "Black and White Abstract Print Cotton Kurta Set",
+          "brand": "The Kaftan Company",
+          "gender": "female",
+          "price": 3695,
+          "vector_distance": 0.21379965543746948
+        },
+        {
+          "title": "Buy Black Cotton kurta and Green Trousers Set @ 1999 | Shop for Aurelia",
+          "brand": "Aurelia",
+          "gender": "female",
+          "price": 860,
+          "vector_distance": 0.2492181658744812
+        }
+      ]
+    },
+    {
+      "query": "floral maxi dress",
+      "variant": "keyword title",
+      "ok": true,
+      "found": 362,
+      "serverMs": 5,
+      "roundTripMs": 29,
+      "hitsHaveVectorDistance": false,
+      "hitsHaveHybridInfo": false,
+      "top5": [
+        {
+          "title": "Pink Floral Maxi Dress",
+          "brand": "KAPRAÃHA",
+          "gender": "female",
+          "price": 4830,
+          "vector_distance": null
+        },
+        {
+          "title": "Black Floral Maxi Dress",
+          "brand": "Zink London",
+          "gender": "female",
+          "price": 3499,
+          "vector_distance": null
+        },
+        {
+          "title": "Mint Blossom Floral Maxi Dress",
+          "brand": "Idaho-O",
+          "gender": "female",
+          "price": 3000,
+          "vector_distance": null
+        },
+        {
+          "title": "Multi Floral Maxi Dress",
+          "brand": "Zink London",
+          "gender": "female",
+          "price": 2999,
+          "vector_distance": null
+        },
+        {
+          "title": "Women Blue and White Floral Maxi Dress â‚¬€œ The Kaftan Company",
+          "brand": "The Kaftan Company",
+          "gender": "female",
+          "price": 1949.5,
+          "vector_distance": null
+        }
+      ]
+    },
+    {
+      "query": "floral maxi dress",
+      "variant": "hybrid title,embedding α0.5 rerank",
+      "ok": true,
+      "found": 512,
+      "serverMs": 14,
+      "roundTripMs": 36,
+      "hitsHaveVectorDistance": true,
+      "hitsHaveHybridInfo": true,
+      "top5": [
+        {
+          "title": "Black Botanical Floral Maxi Dress with Vintage Charm",
+          "brand": "Label Flavia",
+          "gender": "female",
+          "price": 999,
+          "vector_distance": 0.18633484840393066
+        },
+        {
+          "title": "Zink London Women's Multi Floral Maxi Dress",
+          "brand": "Zink London",
+          "gender": "female",
+          "price": 599,
+          "vector_distance": 0.3399989604949951
+        },
+        {
+          "title": "Multi Floral Maxi Dress",
+          "brand": "Zink London",
+          "gender": "female",
+          "price": 2999,
+          "vector_distance": 0.25757336616516113
+        },
+        {
+          "title": "Floral Relaxed Maxi Waisted Dress",
+          "brand": "Marks & Spencer",
+          "gender": "female",
+          "price": 5499,
+          "vector_distance": 0.24052053689956665
+        },
+        {
+          "title": "Red Floral Maxi Dress",
+          "brand": "VERO MODA",
+          "gender": "female",
+          "price": 1519,
+          "vector_distance": 0.2500050663948059
+        }
+      ]
+    },
+    {
+      "query": "floral maxi dress",
+      "variant": "hybrid title,brand,embedding α0.5",
+      "ok": true,
+      "found": 512,
+      "serverMs": 15,
+      "roundTripMs": 61,
+      "hitsHaveVectorDistance": true,
+      "hitsHaveHybridInfo": true,
+      "top5": [
+        {
+          "title": "Black Botanical Floral Maxi Dress with Vintage Charm",
+          "brand": "Label Flavia",
+          "gender": "female",
+          "price": 999,
+          "vector_distance": 0.18633484840393066
+        },
+        {
+          "title": "Pink Floral Maxi Dress",
+          "brand": "VERO MODA",
+          "gender": "female",
+          "price": 1599,
+          "vector_distance": 0.24485445022583008
+        },
+        {
+          "title": "Red Floral Maxi Dress",
+          "brand": "VERO MODA",
+          "gender": "female",
+          "price": 1519,
+          "vector_distance": 0.2500050663948059
+        },
+        {
+          "title": "Yellow Floral Maxi Dress",
+          "brand": "VERO MODA",
+          "gender": "female",
+          "price": 1399,
+          "vector_distance": 0.2541801333427429
+        },
+        {
+          "title": "Pink Floral Maxi Dress",
+          "brand": "KAPRAÃHA",
+          "gender": "female",
+          "price": 4830,
+          "vector_distance": 0.25471818447113037
+        }
+      ]
+    },
+    {
+      "query": "white sneakers for men",
+      "variant": "keyword title",
+      "ok": true,
+      "found": 48,
+      "serverMs": 5,
+      "roundTripMs": 36,
+      "hitsHaveVectorDistance": false,
+      "hitsHaveHybridInfo": false,
+      "top5": [
+        {
+          "title": "Hexa Move Sneakers for Men : White Neon",
+          "brand": "Neemans",
+          "gender": "male",
+          "price": 3699,
+          "vector_distance": null
+        },
+        {
+          "title": "Classic Elite White Sneakers for Men | Hummel India",
+          "brand": "Hummel",
+          "gender": "male",
+          "price": 1899,
+          "vector_distance": null
+        },
+        {
+          "title": "Firefly White Sneakers for Men | Hummel India",
+          "brand": "Hummel",
+          "gender": "male",
+          "price": 1599,
+          "vector_distance": null
+        },
+        {
+          "title": "Leap7x Casual White Sneakers For Men TORONTO By Liberty",
+          "brand": "Liberty Shoes",
+          "gender": "male",
+          "price": 1199,
+          "vector_distance": null
+        },
+        {
+          "title": "Leap7x Casual White Lacing Sneakers For Men SPORTSTAR5 By Liberty",
+          "brand": "Liberty Shoes",
+          "gender": "male",
+          "price": 2999,
+          "vector_distance": null
+        }
+      ]
+    },
+    {
+      "query": "white sneakers for men",
+      "variant": "hybrid title,embedding α0.5 rerank",
+      "ok": true,
+      "found": 298,
+      "serverMs": 14,
+      "roundTripMs": 40,
+      "hitsHaveVectorDistance": true,
+      "hitsHaveHybridInfo": true,
+      "top5": [
+        {
+          "title": "White Sneakers",
+          "brand": "Jackjones",
+          "gender": "male",
+          "price": 1749,
+          "vector_distance": 0.17771577835083008
+        },
+        {
+          "title": "Hexa Move Sneakers for Men : White Neon",
+          "brand": "Neemans",
+          "gender": "male",
+          "price": 3699,
+          "vector_distance": 0.3210969567298889
+        },
+        {
+          "title": "White Sneakers",
+          "brand": "Jackjones",
+          "gender": "male",
+          "price": 1749,
+          "vector_distance": 0.17832458019256592
+        },
+        {
+          "title": "Leap7x Casual White Sneakers For Men TORONTO By Liberty",
+          "brand": "Liberty Shoes",
+          "gender": "male",
+          "price": 1199,
+          "vector_distance": 0.3249472975730896
+        },
+        {
+          "title": "White Lace Up Sneakers",
+          "brand": "Jackjones",
+          "gender": "male",
+          "price": 1749,
+          "vector_distance": 0.1786881685256958
+        }
+      ]
+    },
+    {
+      "query": "white sneakers for men",
+      "variant": "hybrid title,brand,embedding α0.5",
+      "ok": true,
+      "found": 298,
+      "serverMs": 13,
+      "roundTripMs": 70,
+      "hitsHaveVectorDistance": true,
+      "hitsHaveHybridInfo": true,
+      "top5": [
+        {
+          "title": "Hexa Move Sneakers for Men : White Neon",
+          "brand": "Neemans",
+          "gender": "male",
+          "price": 3699,
+          "vector_distance": null
+        },
+        {
+          "title": "Classic Elite White Sneakers for Men | Hummel India",
+          "brand": "Hummel",
+          "gender": "male",
+          "price": 1899,
+          "vector_distance": null
+        },
+        {
+          "title": "Firefly White Sneakers for Men | Hummel India",
+          "brand": "Hummel",
+          "gender": "male",
+          "price": 1599,
+          "vector_distance": null
+        },
+        {
+          "title": "Leap7x Casual White Sneakers For Men TORONTO By Liberty",
+          "brand": "Liberty Shoes",
+          "gender": "male",
+          "price": 1199,
+          "vector_distance": null
+        },
+        {
+          "title": "White Sneakers",
+          "brand": "Jackjones",
+          "gender": "male",
+          "price": 1749,
+          "vector_distance": 0.17771577835083008
+        }
+      ]
+    },
+    {
+      "query": "party dress for a little girl",
+      "variant": "keyword title",
+      "ok": true,
+      "found": 7,
+      "serverMs": 8,
+      "roundTripMs": 95,
+      "hitsHaveVectorDistance": false,
+      "hitsHaveHybridInfo": false,
+      "top5": [
+        {
+          "title": "Latin Quarter Women Black V-Neck Sleeveless Solid A-Line Dress For Party Wear",
+          "brand": "Latin Quarters",
+          "gender": "female",
+          "price": 1750,
+          "vector_distance": null
+        },
+        {
+          "title": "Latin Quarters Women Green V-Neck Half Sleeves Printed A-Line Dress For Party Wear",
+          "brand": "Latin Quarters",
+          "gender": "female",
+          "price": 1650,
+          "vector_distance": null
+        },
+        {
+          "title": "Latin Quarters Women Black V-Neck Sleeveless Solid A-Line Dress For Party Wear",
+          "brand": "Latin Quarters",
+          "gender": "female",
+          "price": 1650,
+          "vector_distance": null
+        },
+        {
+          "title": "Black V-Neck Short Sleeves Solid A-Line Dress For Party Wear",
+          "brand": "Latin Quarters",
+          "gender": "female",
+          "price": 1299,
+          "vector_distance": null
+        },
+        {
+          "title": "Rust V-Neck Cap Sleeve Solid A-Line Dress For Party Wear",
+          "brand": "Latin Quarters",
+          "gender": "female",
+          "price": 1000,
+          "vector_distance": null
+        }
+      ]
+    },
+    {
+      "query": "party dress for a little girl",
+      "variant": "hybrid title,embedding α0.5 rerank",
+      "ok": true,
+      "found": 257,
+      "serverMs": 18,
+      "roundTripMs": 70,
+      "hitsHaveVectorDistance": true,
+      "hitsHaveHybridInfo": true,
+      "top5": [
+        {
+          "title": "Baby Girls Floral Applique Party Dress, Blue",
+          "brand": "MiniKlub",
+          "gender": "girl",
+          "price": 1328,
+          "vector_distance": 0.26493823528289795
+        },
+        {
+          "title": "Latin Quarters Women Green V-Neck Half Sleeves Printed A-Line Dress For Party Wear",
+          "brand": "Latin Quarters",
+          "gender": "female",
+          "price": 1650,
+          "vector_distance": 0.5159947872161865
+        },
+        {
+          "title": "Baby Girls Shimmer Mesh Layered Dress, Light Pink",
+          "brand": "MiniKlub",
+          "gender": "girl",
+          "price": 1468,
+          "vector_distance": 0.26649928092956543
+        },
+        {
+          "title": "Latin Quarters Women Black V-Neck Sleeveless Solid A-Line Dress For Party Wear",
+          "brand": "Latin Quarters",
+          "gender": "female",
+          "price": 1650,
+          "vector_distance": 0.4765828251838684
+        },
+        {
+          "title": "Baby Girl Black Ruffle Sleeve Frock",
+          "brand": "Kidbea",
+          "gender": "girl",
+          "price": 1399,
+          "vector_distance": 0.2684088349342346
+        }
+      ]
+    },
+    {
+      "query": "party dress for a little girl",
+      "variant": "hybrid title,brand,embedding α0.5",
+      "ok": true,
+      "found": 257,
+      "serverMs": 19,
+      "roundTripMs": 42,
+      "hitsHaveVectorDistance": true,
+      "hitsHaveHybridInfo": true,
+      "top5": [
+        {
+          "title": "Latin Quarter Women Black V-Neck Sleeveless Solid A-Line Dress For Party Wear",
+          "brand": "Latin Quarters",
+          "gender": "female",
+          "price": 1750,
+          "vector_distance": null
+        },
+        {
+          "title": "Latin Quarters Women Green V-Neck Half Sleeves Printed A-Line Dress For Party Wear",
+          "brand": "Latin Quarters",
+          "gender": "female",
+          "price": 1650,
+          "vector_distance": null
+        },
+        {
+          "title": "Latin Quarters Women Black V-Neck Sleeveless Solid A-Line Dress For Party Wear",
+          "brand": "Latin Quarters",
+          "gender": "female",
+          "price": 1650,
+          "vector_distance": null
+        },
+        {
+          "title": "Black V-Neck Short Sleeves Solid A-Line Dress For Party Wear",
+          "brand": "Latin Quarters",
+          "gender": "female",
+          "price": 1299,
+          "vector_distance": null
+        },
+        {
+          "title": "Rust V-Neck Cap Sleeve Solid A-Line Dress For Party Wear",
+          "brand": "Latin Quarters",
+          "gender": "female",
+          "price": 1000,
+          "vector_distance": null
+        }
+      ]
+    },
+    {
+      "query": "warm winter jacket for women",
+      "variant": "keyword title",
+      "ok": true,
+      "found": 3,
+      "serverMs": 7,
+      "roundTripMs": 29,
+      "hitsHaveVectorDistance": false,
+      "hitsHaveHybridInfo": false,
+      "top5": [
+        {
+          "title": "Buy Men’s Nordic Winter Jacket Olive | Warm Winter Outerwear",
+          "brand": "Vahro",
+          "gender": "male",
+          "price": 3499,
+          "vector_distance": null
+        },
+        {
+          "title": "Find Men’s Nordic Houndstooth Winter Jacket Brown | Patterned Warm Jacket",
+          "brand": "Vahro",
+          "gender": "male",
+          "price": 3999,
+          "vector_distance": null
+        },
+        {
+          "title": "Rose Solid Hoodie Winter Wear Casual Warm Zipper Jacket Hooded Neck Hoody",
+          "brand": "Latin Quarters",
+          "gender": "female",
+          "price": 699,
+          "vector_distance": null
+        }
+      ]
+    },
+    {
+      "query": "warm winter jacket for women",
+      "variant": "hybrid title,embedding α0.5 rerank",
+      "ok": true,
+      "found": 253,
+      "serverMs": 19,
+      "roundTripMs": 41,
+      "hitsHaveVectorDistance": true,
+      "hitsHaveHybridInfo": true,
+      "top5": [
+        {
+          "title": "Jacket for Women | Premium Casual Jacket Regular Fit Mock Neck Hairy Fabric Solid Pattern",
+          "brand": "Cantabil",
+          "gender": "female",
+          "price": 1574,
+          "vector_distance": 0.3327714800834656
+        },
+        {
+          "title": "Women Black Solid High Neck Full Sleeve Heating Jacket",
+          "brand": "Monte Carlo",
+          "gender": "female",
+          "price": 3597,
+          "vector_distance": 0.3121098279953003
+        },
+        {
+          "title": "Buy Men’s Nordic Winter Jacket Olive | Warm Winter Outerwear",
+          "brand": "Vahro",
+          "gender": "male",
+          "price": 3499,
+          "vector_distance": 0.35797518491744995
+        },
+        {
+          "title": "Women Cream Solid High Neck Full Sleeve Jacket",
+          "brand": "Monte Carlo",
+          "gender": "female",
+          "price": 3297,
+          "vector_distance": 0.3196982145309448
+        },
+        {
+          "title": "Women Winter Sports Oversized Windcheater Hooded Jacket",
+          "brand": "Chkokko",
+          "gender": "female",
+          "price": 1499,
+          "vector_distance": 0.3204994797706604
+        }
+      ]
+    },
+    {
+      "query": "warm winter jacket for women",
+      "variant": "hybrid title,brand,embedding α0.5",
+      "ok": true,
+      "found": 253,
+      "serverMs": 20,
+      "roundTripMs": 47,
+      "hitsHaveVectorDistance": true,
+      "hitsHaveHybridInfo": true,
+      "top5": [
+        {
+          "title": "Buy Men’s Nordic Winter Jacket Olive | Warm Winter Outerwear",
+          "brand": "Vahro",
+          "gender": "male",
+          "price": 3499,
+          "vector_distance": null
+        },
+        {
+          "title": "Women Black Solid High Neck Full Sleeve Heating Jacket",
+          "brand": "Monte Carlo",
+          "gender": "female",
+          "price": 3597,
+          "vector_distance": 0.3121098279953003
+        },
+        {
+          "title": "Find Men’s Nordic Houndstooth Winter Jacket Brown | Patterned Warm Jacket",
+          "brand": "Vahro",
+          "gender": "male",
+          "price": 3999,
+          "vector_distance": null
+        },
+        {
+          "title": "Women Cream Solid High Neck Full Sleeve Jacket",
+          "brand": "Monte Carlo",
+          "gender": "female",
+          "price": 3297,
+          "vector_distance": 0.3196982145309448
+        },
+        {
+          "title": "Rose Solid Hoodie Winter Wear Casual Warm Zipper Jacket Hooded Neck Hoody",
+          "brand": "Latin Quarters",
+          "gender": "female",
+          "price": 699,
+          "vector_distance": null
+        }
+      ]
+    }
+  ],
+  "quality": {
+    "categoriesByGender": {
+      "female": [
+        {
+          "value": "silk sarees",
+          "count": 52124
+        },
+        {
+          "value": "printed sarees",
+          "count": 23027
+        },
+        {
+          "value": "kurta-palazzo sets",
+          "count": 22835
+        },
+        {
+          "value": "straight kurta",
+          "count": 16071
+        },
+        {
+          "value": "festive lehenga",
+          "count": 12310
+        },
+        {
+          "value": "shirts",
+          "count": 8483
+        },
+        {
+          "value": "kurtis",
+          "count": 6450
+        },
+        {
+          "value": "fashion jewellery",
+          "count": 6029
+        },
+        {
+          "value": "midi dress",
+          "count": 5736
+        },
+        {
+          "value": "trousers",
+          "count": 5674
+        },
+        {
+          "value": "maxi dress",
+          "count": 4973
+        },
+        {
+          "value": "anarkali",
+          "count": 4927
+        },
+        {
+          "value": "round neck t-shirts",
+          "count": 4587
+        },
+        {
+          "value": "blouses (western)",
+          "count": 4176
+        },
+        {
+          "value": "sharara & gharara sets",
+          "count": 4142
+        }
+      ],
+      "male": [
+        {
+          "value": "polo t-shirts",
+          "count": 15979
+        },
+        {
+          "value": "printed shirts",
+          "count": 15449
+        },
+        {
+          "value": "solid shirts",
+          "count": 10571
+        },
+        {
+          "value": "round neck t-shirts",
+          "count": 9386
+        },
+        {
+          "value": "slim fit jeans",
+          "count": 6582
+        },
+        {
+          "value": "solid formal shirts",
+          "count": 6557
+        },
+        {
+          "value": "graphic/printed t-shirts",
+          "count": 4458
+        },
+        {
+          "value": "pullover sweatshirts",
+          "count": 3955
+        },
+        {
+          "value": "kurta-pyjama sets",
+          "count": 3909
+        },
+        {
+          "value": "v-neck sweaters",
+          "count": 3266
+        },
+        {
+          "value": "slim fit casual trousers",
+          "count": 2800
+        },
+        {
+          "value": "bomber jackets",
+          "count": 2683
+        },
+        {
+          "value": "low-top sneakers",
+          "count": 2628
+        },
+        {
+          "value": "crew neck sweaters",
+          "count": 2550
+        },
+        {
+          "value": "running shoes",
+          "count": 2380
+        }
+      ],
+      "unisex": [
+        {
+          "value": "other",
+          "count": 5513
+        },
+        {
+          "value": "fashion jewellery",
+          "count": 3262
+        },
+        {
+          "value": "fashion rings",
+          "count": 1707
+        },
+        {
+          "value": "pendant sets",
+          "count": 1600
+        },
+        {
+          "value": "graphic/printed t-shirts",
+          "count": 1506
+        },
+        {
+          "value": "trousers",
+          "count": 1482
+        },
+        {
+          "value": "handbags",
+          "count": 1431
+        },
+        {
+          "value": "totes",
+          "count": 1204
+        },
+        {
+          "value": "round neck t-shirts",
+          "count": 1079
+        },
+        {
+          "value": "bracelets",
+          "count": 1069
+        },
+        {
+          "value": "baseball caps",
+          "count": 1028
+        },
+        {
+          "value": "unstitched suit sets",
+          "count": 976
+        },
+        {
+          "value": "oversized t-shirts",
+          "count": 937
+        },
+        {
+          "value": "earrings",
+          "count": 930
+        },
+        {
+          "value": "scarves & stoles",
+          "count": 867
+        }
+      ],
+      "boy": [
+        {
+          "value": "round neck t-shirts",
+          "count": 2707
+        },
+        {
+          "value": "sweatshirts",
+          "count": 1925
+        },
+        {
+          "value": "casual shirts",
+          "count": 1893
+        },
+        {
+          "value": "polo t-shirts",
+          "count": 1691
+        },
+        {
+          "value": "graphic t-shirts",
+          "count": 1416
+        },
+        {
+          "value": "kurta sets",
+          "count": 1307
+        },
+        {
+          "value": "cargo shorts",
+          "count": 997
+        },
+        {
+          "value": "jackets",
+          "count": 827
+        },
+        {
+          "value": "jeans",
+          "count": 809
+        },
+        {
+          "value": "trousers",
+          "count": 657
+        },
+        {
+          "value": "t-shirt-trouser sets",
+          "count": 598
+        },
+        {
+          "value": "sweaters",
+          "count": 568
+        },
+        {
+          "value": "shirt-shorts sets",
+          "count": 560
+        },
+        {
+          "value": "track pants & pyjamas",
+          "count": 437
+        },
+        {
+          "value": "sports shoes",
+          "count": 287
+        }
+      ],
+      "girl": [
+        {
+          "value": "tops",
+          "count": 1855
+        },
+        {
+          "value": "casual frocks",
+          "count": 1724
+        },
+        {
+          "value": "t-shirts",
+          "count": 1234
+        },
+        {
+          "value": "jacket, sweater & sweatshirts",
+          "count": 963
+        },
+        {
+          "value": "clothing sets",
+          "count": 951
+        },
+        {
+          "value": "kurta sets",
+          "count": 813
+        },
+        {
+          "value": "jeans, trousers & capris",
+          "count": 788
+        },
+        {
+          "value": "skirts & shorts",
+          "count": 725
+        },
+        {
+          "value": "lehenga choli",
+          "count": 454
+        },
+        {
+          "value": "co-ord sets",
+          "count": 409
+        },
+        {
+          "value": "dungarees & jumpsuits",
+          "count": 391
+        },
+        {
+          "value": "nightwear & loungewear",
+          "count": 296
+        },
+        {
+          "value": "tights & leggings",
+          "count": 252
+        },
+        {
+          "value": "party dresses",
+          "count": 237
+        },
+        {
+          "value": "jewellery & hair accessory",
+          "count": 236
+        }
+      ],
+      "other": [
+        {
+          "value": "other",
+          "count": 9613
+        }
+      ],
+      "infant": [
+        {
+          "value": "baby care essentials",
+          "count": 577
+        },
+        {
+          "value": "infants",
+          "count": 333
+        },
+        {
+          "value": "rompers & sleepsuits",
+          "count": 317
+        },
+        {
+          "value": "t-shirts & tops",
+          "count": 257
+        },
+        {
+          "value": "clothing sets",
+          "count": 124
+        },
+        {
+          "value": "bottomwear",
+          "count": 107
+        },
+        {
+          "value": "swaddles & sleeping bags",
+          "count": 99
+        },
+        {
+          "value": "bodysuits",
+          "count": 67
+        },
+        {
+          "value": "bibs",
+          "count": 66
+        },
+        {
+          "value": "other",
+          "count": 59
+        },
+        {
+          "value": "dresses",
+          "count": 26
+        },
+        {
+          "value": "jewellery & hair accessory",
+          "count": 26
+        },
+        {
+          "value": "activity toys",
+          "count": 15
+        },
+        {
+          "value": "bags & backpacks",
+          "count": 13
+        },
+        {
+          "value": "booties / first-walker shoes",
+          "count": 12
+        }
+      ],
+      "unidentified": [
+        {
+          "value": "other",
+          "count": 82
+        }
+      ]
+    },
+    "priceOutliers": {
+      "price:<50": 369,
+      "price:<100": 658,
+      "price:>200000": 812,
+      "price:>500000": 170
+    },
+    "cheapestExamples": [
+      "boy | Styleunion | ₹99 | Boys Ankle Length Printed Socks (Pack of 2)",
+      "female | Styleunion | ₹99 | Style Union White Printed Ladies Shopping Bag",
+      "female | Styleunion | ₹99 | Striped Crop T-Shirt",
+      "male | Styleunion | ₹99 | Crew Neck Half Sleeve Graphitee T-Shirt",
+      "male | Styleunion | ₹99 | Graphitee Crew Neck Half Sleeve T-Shirt",
+      "male | Styleunion | ₹99 | Graphitee Crew Neck Half Sleeve T-Shirt",
+      "male | Styleunion | ₹99 | Graphitee Crew Neck Half Sleeve T-Shirt",
+      "male | Styleunion | ₹99 | Graphitee Crew Neck Half Sleeve T-Shirt"
+    ],
+    "categoryOtherExamples": [
+      "other | Shyle | ₹508300 | Shaahi Rajwada Dinner Set",
+      "unisex | Studiomedium | ₹455000 | Dawn",
+      "other | Cult Store | ₹399999 | Cult Tranquil Massage Chair | Adaptive AI Body Detection | Zero Gravit",
+      "other | Shyle | ₹281200 | Rajwada Thali",
+      "other | The Jodi Life | ₹174000 | Ravah teak wood sofa",
+      "other | The Jodi Life | ₹168750 | Oslo Teakwood Storage Cabinet",
+      "other | Nappa Dori | ₹153157 | TIME TRAVEL - WATCH WINDER MULTI",
+      "other | The Jodi Life | ₹130950 | Takhat Teak Wood Day Bed",
+      "other | The Jodi Life | ₹128250 | Bella Couch",
+      "other | The Jodi Life | ₹127600 | Navira Console Table"
+    ]
+  }
+}

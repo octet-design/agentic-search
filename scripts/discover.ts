@@ -20,7 +20,7 @@ const REPORT_DIR = path.join(ROOT, "data", "discovery");
 
 const FACET_FIELDS = ["gender", "category", "color", "fabric", "fit", "pattern", "use_case", "sizes", "brand"];
 const MULTI_VALUED = new Set(["use_case", "sizes"]);
-const MAX_FACET_VALUES = 10_000;
+const MAX_FACET_VALUES = 100_000;
 const SAMPLE_SIZE = 30;
 const COVERAGE_PAGES = 8;
 const COVERAGE_PER_PAGE = 125;
@@ -72,6 +72,21 @@ async function multiSearch(searches: Params[]): Promise<SearchResult[]> {
       out.push(r);
     }
   }
+  return out;
+}
+
+/** Runs searches individually with limited concurrency (deep pages are too slow to batch). */
+async function searchMany(searches: Params[], concurrency = 5): Promise<SearchResult[]> {
+  const out: SearchResult[] = new Array(searches.length);
+  let next = 0;
+  await Promise.all(
+    Array.from({ length: Math.min(concurrency, searches.length) }, async () => {
+      while (next < searches.length) {
+        const i = next++;
+        out[i] = await search(searches[i]);
+      }
+    }),
+  );
   return out;
 }
 
@@ -172,7 +187,8 @@ async function priceStats(groups: PriceGroup[]) {
         states.push({ group: g, p, target: Math.max(1, Math.ceil(p * n)), lo: s.min, hi: s.max });
       }
     }
-    return { name: g.name, count: n, min: s.min ?? null, max: s.max ?? null, avg: s.avg !== undefined ? round(s.avg, 0) : null };
+    // Facet-stats `avg` is not a per-document mean on this server version, so it is not reported.
+    return { name: g.name, count: n, min: s.min ?? null, max: s.max ?? null };
   });
 
   // Smallest x with count(price <= x) >= target, to ~₹1 precision. All groups bisect in parallel.
@@ -197,7 +213,7 @@ async function priceStats(groups: PriceGroup[]) {
     }
     return {
       name: row.name, count: row.count, min: row.min, p10: row.p10, p25: row.p25,
-      median: row.median, p75: row.p75, p90: row.p90, max: row.max, avg: row.avg,
+      median: row.median, p75: row.p75, p90: row.p90, max: row.max,
     };
   });
 }
@@ -236,14 +252,14 @@ function describeText(s: unknown) {
 }
 
 async function sampleDocs(total: number) {
-  // Random single-doc pages give a genuinely random sample on any server version (no _rand() needed).
+  // Random single-doc pages give a genuinely random sample; `sort_by: _rand(seed)` was rejected by this server.
   const pages = randomInts(SAMPLE_SIZE, total);
-  const res = await multiSearch(pages.map((page) => ({ per_page: 1, page, exclude_fields: "embedding" })));
+  const res = await searchMany(pages.map((page) => ({ per_page: 1, page, exclude_fields: "embedding" })));
   const docs = res.map((r) => r.hits?.[0]?.document).filter((d): d is Record<string, unknown> => !!d);
 
   // A wider (clustered) sample for coverage/domain statistics.
   const covPages = randomInts(COVERAGE_PAGES, Math.max(1, Math.floor(total / COVERAGE_PER_PAGE)));
-  const cov = await multiSearch(
+  const cov = await searchMany(
     covPages.map((page) => ({ per_page: COVERAGE_PER_PAGE, page, exclude_fields: "embedding,description" })),
   );
   const wide = cov.flatMap((r) => (r.hits ?? []).map((h) => h.document));
@@ -362,6 +378,29 @@ async function hybridChecks() {
   return rows;
 }
 
+// ---------- data-quality probes ----------
+
+async function qualityProbes(genderValues: string[]) {
+  // Which categories sit behind each gender value (reveals non-fashion "other" buckets).
+  const byGender = await multiSearch(
+    genderValues.map((g) => ({ per_page: 0, filter_by: `gender:=${esc(g)}`, facet_by: "category", max_facet_values: 15 })),
+  );
+  const priceFilters = ["price:<50", "price:<100", "price:>200000", "price:>500000"];
+  const prices = await multiSearch(priceFilters.map((f) => ({ per_page: 0, filter_by: f })));
+  const cheapest = await search({ per_page: 8, filter_by: "price:<100", exclude_fields: "embedding,description" });
+  const otherCategory = await search({ per_page: 10, filter_by: "category:=`other`", exclude_fields: "embedding,description" });
+  const pick = (r: SearchResult) =>
+    (r.hits ?? []).map((h) => `${h.document.gender} | ${h.document.brand} | ₹${h.document.price} | ${String(h.document.title).slice(0, 70)}`);
+  return {
+    categoriesByGender: Object.fromEntries(
+      genderValues.map((g, i) => [g, (byGender[i].facet_counts?.[0]?.counts ?? []).map((c) => ({ value: c.value, count: c.count }))]),
+    ),
+    priceOutliers: Object.fromEntries(priceFilters.map((f, i) => [f, prices[i].found])),
+    cheapestExamples: pick(cheapest),
+    categoryOtherExamples: pick(otherCategory),
+  };
+}
+
 // ---------- server info (best effort; the search key may be forbidden from these) ----------
 
 async function serverInfo() {
@@ -426,6 +465,7 @@ async function main() {
 
   console.log("5/5 hybrid queries");
   const hybrid = await hybridChecks();
+  const quality = await qualityProbes(genderValues);
   for (const h of hybrid) {
     console.log(`  ${h.ok ? "ok " : "ERR"} ${String(h.roundTripMs).padStart(5)}ms  ${h.variant.padEnd(34)} ${h.query}${h.ok ? "" : ` → ${"error" in h ? h.error : ""}`}`);
   }
@@ -441,6 +481,7 @@ async function main() {
     sample: sample.stats,
     imageHotlinking: hotlinking,
     hybrid,
+    quality,
   });
   console.log(`Done in ${((Date.now() - started) / 1000).toFixed(1)}s → data/raw-facets/, data/discovery/`);
 }

@@ -37,7 +37,7 @@ async function main() {
     console.error(`openai FAILED: ${err instanceof Error ? err.message : err}`);
   }
 
-  process.exit(ok ? 0 : 1);
+  process.exitCode = ok ? 0 : 1;
 }
 
 main().catch((err) => {
