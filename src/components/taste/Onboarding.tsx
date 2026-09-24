@@ -3,6 +3,8 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+import { useHydrated } from "@/hooks/useHydrated";
 import { ProductImage } from "@/components/product/ProductImage";
 import { cn } from "@/lib/format";
 import { useSession, type AudienceKey } from "@/store/session";
@@ -50,7 +52,10 @@ export function Onboarding() {
 
   const toggle = <T,>(arr: T[], v: T) => (arr.includes(v) ? arr.filter((x) => x !== v) : [...arr, v]);
 
-  return (
+  const hydrated = useHydrated();
+  if (!hydrated) return null;
+  // Portalled: it's mounted inside the sticky header, whose backdrop-filter would trap `fixed`.
+  return createPortal(
     <AnimatePresence>
       {open && (
         <motion.div className="fixed inset-0 z-50 flex items-end justify-center bg-ink/40 p-0 md:items-center md:p-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
@@ -169,6 +174,7 @@ export function Onboarding() {
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   );
 }

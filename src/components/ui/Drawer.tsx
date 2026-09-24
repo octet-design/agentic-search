@@ -3,8 +3,13 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import { useEffect, type ReactNode } from "react";
+import { createPortal } from "react-dom";
+import { useHydrated } from "@/hooks/useHydrated";
 
-/** Right-side drawer on desktop, bottom sheet under md (brief §10). */
+/**
+ * Right-side drawer on desktop, bottom sheet under md (brief §10). Portalled to <body>: an ancestor
+ * with backdrop-filter (the sticky header) would otherwise become the containing block for `fixed`.
+ */
 export function Drawer({
   open,
   onClose,
@@ -30,7 +35,9 @@ export function Drawer({
     };
   }, [open, onClose]);
 
-  return (
+  const hydrated = useHydrated();
+  if (!hydrated) return null;
+  return createPortal(
     <AnimatePresence>
       {open && (
         <>
@@ -60,6 +67,7 @@ export function Drawer({
           </motion.aside>
         </>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   );
 }

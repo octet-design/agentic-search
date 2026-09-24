@@ -39,7 +39,10 @@ export function RefineDrawer({
   const [status, setStatus] = useState<string | null>(null);
   const endRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => endRef.current?.scrollIntoView({ behavior: "smooth" }), [messages, status]);
+  useEffect(() => {
+    // Block body: scroll methods return a Promise in current Chromium, which React would treat as a cleanup.
+    endRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, status]);
 
   const send = async (text: string) => {
     const t = text.trim();
