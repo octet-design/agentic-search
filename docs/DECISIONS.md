@@ -68,3 +68,8 @@ These were built together because the results page references all of them (refin
 - **Image search:** the client resizes to ≤768px JPEG and keeps the photo in `sessionStorage` (not in the URL). The vision model returns the same Intent schema (`kind: "similar"`), then the standard pipeline runs. The UI says "Matched by description, not pixels."
 - **Style tiles** for onboarding are fetched at runtime (cached 12h) rather than at build time. Build-time fetching would make `next build` depend on Typesense.
 - **Not verified in a real browser.** The pages were checked via server rendering (200s, content present), the build, lint, and the API smoke test. Interactive behaviour (drawers, chips, mobile bottom sheet) hasn't been clicked through in a browser in this session.
+
+## M8 — Polish + budgets
+
+- **Budgets are documented as gaps, not met.** The measured table and the levers are in the README. From this dev network, LLM round trips (~1.3s each) and the Typesense server's elevated baseline dominate. Tokens per search are ~13.8k in / 2.5k out against the ~8k / 1.5k target. The biggest contributors are the rerank prompt repeated across parallel chunks and the 5k-token intent prompt (vocabulary + price bands + few-shots), mostly prompt-cached.
+- **README** covers setup, env, scripts, architecture (including the two-leg retrieval), measured budgets and known limits.
