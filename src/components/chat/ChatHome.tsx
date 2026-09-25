@@ -7,6 +7,7 @@ import { ProductCard } from "@/components/product/ProductCard";
 import { ProductDetails } from "@/components/product/ProductDetails";
 import { Drawer } from "@/components/ui/Drawer";
 import { useHydrated } from "@/hooks/useHydrated";
+import { useTaste, useTasteSeeds } from "@/hooks/useTaste";
 import type { ProductCard as Card } from "@/lib/agent/types";
 import { sendChatMessage } from "@/lib/chatClient";
 import { useChats } from "@/store/chats";
@@ -28,18 +29,19 @@ export function ChatHome() {
   const router = useRouter();
   const hydrated = useHydrated();
   const newChat = useChats((s) => s.newChat);
-  const liked = useSession((s) => s.signals.liked);
+  const seeds = useTasteSeeds();
+  const taste = useTaste();
   const disliked = useSession((s) => s.signals.disliked);
   const [forYou, setForYou] = useState<{ key: string; products: Card[] } | null>(null);
   const [quick, setQuick] = useState<Card | null>(null);
-  const likedKey = liked.map((p) => p.id).join(",");
+  const likedKey = seeds.join(",");
 
   useEffect(() => {
-    if (!hydrated || liked.length < 2) return;
+    if (!hydrated || seeds.length < 2) return;
     fetch("/api/for-you", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ likedIds: liked.slice(-10).map((p) => p.id), excludeIds: disliked.map((d) => d.p.id), k: 12 }),
+      body: JSON.stringify({ likedIds: seeds, excludeIds: disliked.map((d) => d.p.id), k: 12 }),
     })
       .then((r) => (r.ok ? r.json() : { products: [] }))
       .then((j: { products: Card[] }) => setForYou({ key: likedKey, products: j.products }))
@@ -53,7 +55,9 @@ export function ChatHome() {
     router.push(`/chat/${id}`);
   };
 
-  const picks = liked.length >= 2 && forYou?.key === likedKey ? forYou.products : [];
+  const picks = seeds.length >= 2 && forYou?.key === likedKey ? forYou.products : [];
+  // Proactive starters from learned taste ("More navy straight kurtas…").
+  const personal = hydrated && !taste.empty ? personalStarters(taste) : [];
 
   return (
     <ChatLayout>
@@ -67,6 +71,11 @@ export function ChatHome() {
             <Composer onSend={start} autoFocus large placeholder="e.g. office casual wear that's comfortable, no polyester" />
           </div>
           <div className="mt-4 flex flex-wrap gap-2">
+            {personal.map((s) => (
+              <button key={s} onClick={() => start(s)} className="rounded-full border border-accent/40 bg-accent-soft px-3 py-1.5 text-sm text-accent hover:border-accent">
+                ✦ {s}
+              </button>
+            ))}
             {STARTERS.map((s) => (
               <button key={s} onClick={() => start(s)} className="rounded-full border border-line bg-paper px-3 py-1.5 text-sm hover:border-ink">
                 {s}
@@ -91,4 +100,13 @@ export function ChatHome() {
       </Drawer>
     </ChatLayout>
   );
+}
+
+function personalStarters(t: ReturnType<typeof useTaste>): string[] {
+  const out: string[] = [];
+  const cat = t.categories[0];
+  const color = t.colors[0];
+  if (cat) out.push(`More ${color ? `${color} ` : ""}${cat} like the ones I looked at`);
+  if (t.brands[0]) out.push(`Something new from ${t.brands[0].replace(/\b\w/g, (c) => c.toUpperCase())}`);
+  return out.slice(0, 2);
 }

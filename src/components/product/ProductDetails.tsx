@@ -25,7 +25,15 @@ export function ProductDetails({
   onAsk?: (p: Card) => void;
 }) {
   const saved = useSession((s) => s.saved.includes(p.id));
-  const { toggleLike, click } = useSession.getState();
+  const { toggleLike, click, track } = useSession.getState();
+
+  // Opening the quick view is a light signal; staying on it 5s+ is a stronger one.
+  useEffect(() => {
+    track("view", p);
+    const t = setTimeout(() => track("dwell", p), 5000);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [p.id]);
   const [similarState, setSimilar] = useState<{ id: string; products: Card[] } | null>(null);
   const similar = similarState?.id === p.id ? similarState.products : null;
 

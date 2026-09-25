@@ -104,6 +104,7 @@ export function ResultsView({
   };
 
   const moreLike = async (p: Card) => {
+    useSession.getState().track("more_like", p);
     window.scrollTo({ top: 0, behavior: "smooth" });
     apply({ type: "step", id: "search", label: `Finding looks like “${p.title}”`, status: "running" });
     const res = await fetch("/api/similar", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: p.id, k: 36 }) });

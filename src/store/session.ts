@@ -4,6 +4,7 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import type { ProductCard, ProductLite } from "@/lib/agent/types";
+import type { Interaction, InteractionKind } from "@/lib/taste";
 
 export type AudienceKey = "women" | "men" | "girls" | "boys";
 export type DislikeReason = "price" | "style" | "color" | "fabric" | "other";
@@ -24,6 +25,8 @@ export type Signals = {
   disliked: { p: ProductLite; reason: DislikeReason }[];
   clicked: ProductLite[];
   searches: string[];
+  /** Weighted, time-decayed engagement: quick views, dwell, outbound clicks, compare, more-like. */
+  interactions: Interaction[];
 };
 
 export type MemoryFact = { id: string; text: string; at: number };
@@ -45,10 +48,11 @@ type Actions = {
   toggleLike: (card: ProductCard) => void;
   dislike: (card: ProductCard, reason: DislikeReason) => void;
   click: (card: ProductCard) => void;
+  track: (kind: InteractionKind, card: ProductCard) => void;
   addSearch: (q: string) => void;
   toggleCompare: (card: ProductCard) => void;
   clearCompare: () => void;
-  removeSignal: (kind: "liked" | "disliked" | "clicked", id: string) => void;
+  removeSignal: (kind: "liked" | "disliked" | "clicked" | "interactions", id: string) => void;
   setOnboardingOpen: (open: boolean) => void;
   addMemory: (facts: string[]) => void;
   removeMemory: (id: string) => void;
@@ -70,7 +74,7 @@ export const toLite = (c: ProductCard): ProductLite => ({
 
 const initial: State = {
   profile: { audiences: [], sizes: {}, budget: null, styles: [], avoidColors: [], avoidFabrics: [], onlyMySize: false, onboarded: false },
-  signals: { liked: [], disliked: [], clicked: [], searches: [] },
+  signals: { liked: [], disliked: [], clicked: [], searches: [], interactions: [] },
   memory: [],
   saved: [],
   compare: [],
@@ -109,7 +113,16 @@ export const useSession = create<State & Actions>()(
             disliked: cap([...s.signals.disliked.filter((d) => d.p.id !== card.id), { p: toLite(card), reason }], 60),
           },
         })),
-      click: (card) => set((s) => ({ signals: { ...s.signals, clicked: cap([...s.signals.clicked.filter((p) => p.id !== card.id), toLite(card)], 40) } })),
+      click: (card) =>
+        set((s) => ({
+          signals: {
+            ...s.signals,
+            clicked: cap([...s.signals.clicked.filter((p) => p.id !== card.id), toLite(card)], 40),
+            interactions: cap([...(s.signals.interactions ?? []), { kind: "click", p: toLite(card), at: Date.now() }], 200),
+          },
+        })),
+      track: (kind, card) =>
+        set((s) => ({ signals: { ...s.signals, interactions: cap([...(s.signals.interactions ?? []), { kind, p: toLite(card), at: Date.now() }], 200) } })),
       addSearch: (q) =>
         set((s) => {
           const t = q.trim();
@@ -120,14 +133,23 @@ export const useSession = create<State & Actions>()(
         set((s) => {
           if (s.compare.includes(card.id)) return { compare: s.compare.filter((id) => id !== card.id) };
           if (s.compare.length >= 3) return s;
-          return { compare: [...s.compare, card.id], cards: { ...s.cards, [card.id]: card } };
+          return {
+            compare: [...s.compare, card.id],
+            cards: { ...s.cards, [card.id]: card },
+            signals: { ...s.signals, interactions: cap([...(s.signals.interactions ?? []), { kind: "compare", p: toLite(card), at: Date.now() }], 200) },
+          };
         }),
       clearCompare: () => set({ compare: [] }),
       removeSignal: (kind, id) =>
         set((s) => ({
           signals: {
             ...s.signals,
-            [kind]: kind === "disliked" ? s.signals.disliked.filter((d) => d.p.id !== id) : s.signals[kind].filter((p) => p.id !== id),
+            [kind]:
+              kind === "disliked"
+                ? s.signals.disliked.filter((d) => d.p.id !== id)
+                : kind === "interactions"
+                  ? (s.signals.interactions ?? []).filter((i) => i.p.id !== id)
+                  : s.signals[kind].filter((p) => p.id !== id),
           },
           saved: kind === "liked" ? s.saved.filter((x) => x !== id) : s.saved,
         })),

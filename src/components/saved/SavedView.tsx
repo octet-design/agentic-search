@@ -6,6 +6,7 @@ import { ProductCard } from "@/components/product/ProductCard";
 import { ProductDetails } from "@/components/product/ProductDetails";
 import { Drawer } from "@/components/ui/Drawer";
 import { useHydrated } from "@/hooks/useHydrated";
+import { useTasteSeeds } from "@/hooks/useTaste";
 import type { ProductCard as Card } from "@/lib/agent/types";
 import { useSession } from "@/store/session";
 
@@ -14,6 +15,7 @@ export function SavedView() {
   const saved = useSession((s) => s.saved);
   const disliked = useSession((s) => s.signals.disliked);
   const mounted = useHydrated();
+  const seeds = useTasteSeeds();
   const [loaded, setItems] = useState<{ key: string; items: Card[] } | null>(null);
   const [forYou, setForYou] = useState<Card[] | null>(null);
   const [quick, setQuick] = useState<Card | null>(null);
@@ -39,7 +41,7 @@ export function SavedView() {
     fetch("/api/for-you", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ likedIds: saved.slice(-10), excludeIds: disliked.map((d) => d.p.id), k: 24 }),
+      body: JSON.stringify({ likedIds: [...new Set([...saved.slice(-6), ...seeds])].slice(0, 10), excludeIds: disliked.map((d) => d.p.id), k: 24 }),
     })
       .then((r) => (r.ok ? r.json() : { products: [] }))
       .then((j: { products: Card[] }) => setForYou(j.products))

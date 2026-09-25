@@ -1,8 +1,18 @@
 /**
- * Derived session taste (brief §8.2). Pure; runs client-side and is sent with every request.
- * Weights: like +3, click +2, dislike −3.
+ * Derived session taste. Pure; runs client-side and is sent with every request.
+ * Weights: like +3, dislike −3, and interactions with a 14-day half-life:
+ * quick-view open +1, reading it 5s+ +1, outbound "Shop" click +2, add to compare +1, "More like this" +2.
  */
 import type { ProductLite } from "./agent/types";
+
+export type InteractionKind = "view" | "dwell" | "click" | "compare" | "more_like";
+export type Interaction = { kind: InteractionKind; p: ProductLite; at: number };
+
+export const INTERACTION_WEIGHTS: Record<InteractionKind, number> = { view: 1, dwell: 1, click: 2, compare: 1, more_like: 2 };
+const HALF_LIFE_MS = 14 * 24 * 60 * 60 * 1000;
+
+/** 1 now, 0.5 after 14 days, 0.25 after 28… */
+export const decay = (at: number, now = Date.now()) => Math.pow(0.5, Math.max(0, now - at) / HALF_LIFE_MS);
 
 export type TasteInputs = {
   profile: {
@@ -18,6 +28,7 @@ export type TasteInputs = {
     liked: ProductLite[];
     disliked: { p: ProductLite; reason: "price" | "style" | "color" | "fabric" | "other" }[];
     clicked: ProductLite[];
+    interactions?: Interaction[];
   };
 };
 
@@ -36,6 +47,12 @@ export type Taste = {
 };
 
 const norm = (s: string | null | undefined) => (s ?? "").trim().toLowerCase();
+/** "100% cotton", "pure cotton", "Cotton 100%" → "cotton" so learned fabrics don't show near-duplicates. */
+const normFabric = (s: string | null | undefined) =>
+  norm(s)
+    .replace(/\b(100\s?%|100 per ?cent|pure|premium|super combed|combed|organic)\s*/g, "")
+    .replace(/\s*100\s?%$/, "")
+    .trim();
 
 function top(scores: Map<string, number>, n = 5): string[] {
   return [...scores.entries()]
@@ -54,15 +71,19 @@ export function deriveTaste({ profile, signals }: TasteInputs): Taste {
   const scores = Object.fromEntries(fields.map((f) => [f, new Map<string, number>()])) as Record<(typeof fields)[number], Map<string, number>>;
   const add = (p: ProductLite, w: number) => {
     for (const f of fields) {
-      const v = norm(p[f]);
+      const v = f === "fabric" ? normFabric(p[f]) : norm(p[f]);
       if (v) scores[f].set(v, (scores[f].get(v) ?? 0) + w);
     }
   };
+  const interactions = signals.interactions ?? [];
   for (const p of signals.liked) add(p, 3);
-  for (const p of signals.clicked) add(p, 2);
+  // Older sessions only have the plain click list; newer ones log weighted, decaying interactions.
+  if (!interactions.length) for (const p of signals.clicked) add(p, 2);
+  for (const it of interactions) add(it.p, INTERACTION_WEIGHTS[it.kind] * decay(it.at));
   for (const d of signals.disliked) add(d.p, -3);
 
-  const prices = [...signals.liked, ...signals.clicked].map((p) => p.price).filter((x) => x > 0).sort((a, b) => a - b);
+  const engaged = [...signals.liked, ...(interactions.length ? interactions.filter((i) => i.kind !== "view").map((i) => i.p) : signals.clicked)];
+  const prices = engaged.map((p) => p.price).filter((x) => x > 0).sort((a, b) => a - b);
   const priceBand = prices.length >= 2 ? { min: Math.round(pct(prices, 0.25)), max: Math.round(pct(prices, 0.75)) } : null;
 
   const brandDislikes = new Map<string, number>();
@@ -131,4 +152,24 @@ function hash(s: string): string {
   let h = 5381;
   for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0;
   return (h >>> 0).toString(36);
+}
+
+/**
+ * Products that best represent the user's taste (likes + weighted interactions − dislikes), used to seed
+ * the "For you" vector search. Only products with real engagement count: score ≥ 1.5 (a click, a save, or a
+ * view + a 5s read; decay makes view + dwell slightly under 2).
+ */
+export function seedIds(inputs: TasteInputs, n = 10): string[] {
+  const score = new Map<string, number>();
+  const bump = (id: string, w: number) => score.set(id, (score.get(id) ?? 0) + w);
+  for (const p of inputs.signals.liked) bump(p.id, 3);
+  const interactions = inputs.signals.interactions ?? [];
+  if (!interactions.length) for (const p of inputs.signals.clicked) bump(p.id, 2);
+  for (const it of interactions) bump(it.p.id, INTERACTION_WEIGHTS[it.kind] * decay(it.at));
+  const disliked = new Set(inputs.signals.disliked.map((d) => d.p.id));
+  return [...score.entries()]
+    .filter(([id, s]) => s >= 1.5 && !disliked.has(id))
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, n)
+    .map(([id]) => id);
 }

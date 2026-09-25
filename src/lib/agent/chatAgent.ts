@@ -313,6 +313,10 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
   if (prev && base.audience.segment === "unknown" && prev.audience.segment !== "unknown") base = { ...base, audience: prev.audience };
   const personalized = applyTaste(base, input.taste, tax);
   base = personalized.intent;
+  const likes = input.taste?.likes;
+  const liked = [...(likes?.colors ?? []), ...(likes?.fabrics ?? []), ...(likes?.brands ?? [])].slice(0, 3);
+  if (liked.length) personalized.notes.push(`Close calls ranked by your taste (${liked.join(", ")})`);
+  if (input.memory.length) personalized.notes.push("Used what Drape remembers about you");
 
   const specs: ChatSectionSpec[] =
     plan.turnType === "refine" && !plan.sections.length

@@ -105,7 +105,10 @@ export function ChatView({ id, debug = false }: { id: string; debug?: boolean })
                   if (p) setQuick(p);
                 }}
                 onOpen={setQuick}
-                onMoreLike={(p) => send(p.ref != null ? `More like #${p.ref}` : `More like ${p.title}`)}
+                onMoreLike={(p) => {
+                  useSession.getState().track("more_like", p);
+                  send(p.ref != null ? `More like #${p.ref}` : `More like ${p.title}`);
+                }}
                 onSend={send}
                 onRetry={() => lastUser && send(lastUser.text)}
               />

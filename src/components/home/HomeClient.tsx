@@ -11,7 +11,7 @@ import { ProductImage } from "@/components/product/ProductImage";
 import { SearchBox } from "@/components/search/SearchBox";
 import { Drawer } from "@/components/ui/Drawer";
 import { useHydrated } from "@/hooks/useHydrated";
-import { useTastePayload } from "@/hooks/useTaste";
+import { useTastePayload, useTasteSeeds } from "@/hooks/useTaste";
 import type { ProductCard as Card } from "@/lib/agent/types";
 import type { Example } from "@/lib/examples";
 import { cn, editHref } from "@/lib/format";
@@ -29,7 +29,7 @@ export function HomeClient({ examples }: { examples: Example[] }) {
   const mounted = useHydrated();
   const audiences = useSession((s) => s.profile.audiences);
   const searches = useSession((s) => s.signals.searches);
-  const liked = useSession((s) => s.signals.liked);
+  const seeds = useTasteSeeds();
   const disliked = useSession((s) => s.signals.disliked);
   const setProfile = useSession((s) => s.setProfile);
   const taste = useTastePayload();
@@ -37,14 +37,14 @@ export function HomeClient({ examples }: { examples: Example[] }) {
   const [forYouState, setForYou] = useState<{ key: string; products: Card[] } | null>(null);
   const [quick, setQuick] = useState<Card | null>(null);
 
-  const likedKey = liked.map((p) => p.id).join(",");
-  const forYou = liked.length >= 2 && forYouState?.key === likedKey ? forYouState.products : null;
+  const likedKey = seeds.join(",");
+  const forYou = seeds.length >= 2 && forYouState?.key === likedKey ? forYouState.products : null;
   useEffect(() => {
-    if (!mounted || liked.length < 2) return;
+    if (!mounted || seeds.length < 2) return;
     fetch("/api/for-you", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ likedIds: liked.slice(-10).map((p) => p.id), excludeIds: disliked.map((d) => d.p.id) }),
+      body: JSON.stringify({ likedIds: seeds, excludeIds: disliked.map((d) => d.p.id) }),
     })
       .then((r) => (r.ok ? r.json() : { products: [] }))
       .then((j: { products: Card[] }) => setForYou({ key: likedKey, products: j.products }))

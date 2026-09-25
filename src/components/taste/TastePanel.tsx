@@ -13,17 +13,19 @@ export function TastePanel({ open, onClose }: { open: boolean; onClose: () => vo
   const taste = useTaste();
   const profile = useSession((s) => s.profile);
   const signals = useSession((s) => s.signals);
-  const { setProfile, removeSignal, reset, setOnboardingOpen } = useSession.getState();
+  const memory = useSession((s) => s.memory);
+  const { setProfile, removeSignal, reset, setOnboardingOpen, removeMemory } = useSession.getState();
 
   const toggleAud = (a: AudienceKey) =>
     setProfile({ audiences: profile.audiences.includes(a) ? profile.audiences.filter((x) => x !== a) : [...profile.audiences, a] });
 
   // Removing a learned value drops the signals that taught it.
   const forget = (field: LearnedField, value: string) => {
-    for (const p of [...signals.liked, ...signals.clicked]) {
+    for (const p of [...signals.liked, ...signals.clicked, ...(signals.interactions ?? []).map((i) => i.p)]) {
       if ((p[field] ?? "").toLowerCase() === value) {
         removeSignal("liked", p.id);
         removeSignal("clicked", p.id);
+        removeSignal("interactions", p.id);
       }
     }
   };
@@ -40,7 +42,24 @@ export function TastePanel({ open, onClose }: { open: boolean; onClose: () => vo
         </div>
       </Section>
 
-      <Section title="Learned from your likes and clicks">
+      <Section title="Drape remembers">
+        {memory.length === 0 ? (
+          <p className="text-sm text-ink-soft">Nothing yet. Tell Drape things like “I wear size M” or “I avoid polyester” in a chat.</p>
+        ) : (
+          <ul className="space-y-1.5">
+            {memory.map((m) => (
+              <li key={m.id} className="flex items-start gap-2 text-sm">
+                <span className="flex-1">{m.text}</span>
+                <button onClick={() => removeMemory(m.id)} aria-label={`Forget: ${m.text}`} className="rounded-full p-0.5 text-ink-faint hover:bg-sand hover:text-ink">
+                  <X size={13} />
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </Section>
+
+      <Section title="Learned from your likes, views and clicks">
         {taste.empty ? (
           <p className="text-sm text-ink-soft">Nothing yet. Tap ♥ on things you like and I&apos;ll learn.</p>
         ) : (
