@@ -16,6 +16,8 @@ export function CompareTray() {
   const pathname = usePathname();
   const mounted = useHydrated();
   const show = mounted && ids.length > 0 && pathname !== "/compare";
+  // Chat pages have a composer at the bottom; sit above it.
+  const inChat = pathname === "/" || pathname.startsWith("/chat/");
 
   return (
     <AnimatePresence>
@@ -24,7 +26,7 @@ export function CompareTray() {
           initial={{ y: 80 }}
           animate={{ y: 0 }}
           exit={{ y: 80 }}
-          className="fixed bottom-4 left-1/2 z-30 flex -translate-x-1/2 items-center gap-3 rounded-2xl border border-line bg-paper p-2 pr-3 shadow-xl"
+          className={`fixed ${inChat ? "bottom-36" : "bottom-4"} left-1/2 z-30 flex -translate-x-1/2 items-center gap-3 rounded-2xl border border-line bg-paper p-2 pr-3 shadow-xl`}
         >
           {ids.map((id) => (
             <div key={id} className="relative">
@@ -42,6 +44,11 @@ export function CompareTray() {
             <Link
               href={`/compare?ids=${ids.join(",")}`}
               aria-disabled={ids.length < 2}
+              onClick={(e) => {
+                // In a chat, compare inside the conversation (the chat view handles it if the items have #refs there).
+                const ev = new CustomEvent("drape:compare", { detail: ids, cancelable: true });
+                if (!window.dispatchEvent(ev)) e.preventDefault();
+              }}
               className={ids.length < 2 ? "pointer-events-none rounded-full bg-ink/30 px-4 py-1.5 text-sm text-canvas" : "rounded-full bg-ink px-4 py-1.5 text-sm text-canvas"}
             >
               Compare {ids.length}/3

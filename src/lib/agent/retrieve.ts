@@ -186,7 +186,9 @@ export async function retrieveRails(specs: RailSpec[], tax: TaxonomyApi, opts: R
       semantic: buildQuery(s.intent, tax, { perPage: Math.max(s.spec.perPage, 100), mode: "semantic", alpha: opts.alpha }),
     }));
     const t0 = performance.now();
-    const responses = await multiSearch(built.flatMap((b) => [b.exact.params, b.semantic.params]));
+    // One request per leg, in parallel: a single multi_search runs its searches one after another
+    // server-side (~0.5s each here), while separate requests are served concurrently.
+    const responses = await Promise.all(built.flatMap((b) => [b.exact.params, b.semantic.params]).map(async (p) => (await multiSearch([p]))[0]));
     const ms = Math.round(performance.now() - t0);
 
     active.forEach((s, i) => {

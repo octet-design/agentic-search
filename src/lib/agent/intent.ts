@@ -19,7 +19,7 @@ const EXAMPLES = `Examples (only the notable fields; everything else empty/null)
 11. "denim jacket like levis but cheaper" → categories must [denim-jacket]; brands prefer [] (don't include levis — they want alternatives); softPreferences ["levi's-style classic denim"]; price max ≈ the category's p25–median, prefer; semanticQuery "classic blue denim jacket".
 12. "diwali ethnic wear for a 2 year old boy" → kind occasion; audience kids, boy, ageYears 2; useCases prefer [festive]; occasion {name "Diwali"}; semanticQuery "boys festive ethnic kurta set for toddlers".`;
 
-function priceBandsText(tax: TaxonomyApi): string {
+export function priceBandsText(tax: TaxonomyApi): string {
   const lines: string[] = [];
   for (const [aud, byDept] of Object.entries(tax.data.priceStats)) {
     const parts = Object.entries(byDept)

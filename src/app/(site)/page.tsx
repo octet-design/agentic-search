@@ -1,6 +1,5 @@
-import { redirect } from "next/navigation";
+import { ChatHome } from "@/components/chat/ChatHome";
 
-// Temporary until the chat home lands (C1).
 export default function Home() {
-  redirect("/search");
+  return <ChatHome />;
 }

@@ -143,6 +143,8 @@ export type ProductCard = {
   reason: string;
   matched: string[];
   score: number;
+  /** Stable "#n" reference within a chat (conversational mode). */
+  ref?: number;
 };
 
 /** Minimal product data kept client-side for taste signals (no embeddings). */
@@ -211,7 +213,43 @@ export type AgentEvent =
       costUsd: number;
       cacheHit: boolean;
     }
-  | { type: "error"; message: string; retryable: boolean };
+  | { type: "error"; message: string; retryable: boolean }
+  // Conversational mode
+  | { type: "chat_text"; block: "intro" | "outro" | "answer"; delta: string }
+  | { type: "sections_plan"; sections: { id: string; title: string; why: string }[] }
+  | {
+      type: "section";
+      id: string;
+      title: string;
+      why: string;
+      query: string;
+      products: ProductCard[];
+      more: ProductCard[];
+      relaxedNote?: string;
+    }
+  | { type: "compare"; data: CompareBlockData }
+  | { type: "memory"; facts: string[] }
+  | { type: "chat_state"; intent: Intent; chips: Chip[]; lastSections: ChatSectionSpec[]; personalized: string[] };
+
+export type CompareBlockData = {
+  products: ProductCard[];
+  occasions: { occasion: string; best: number | null; fits: { fit: "great" | "ok" | "poor"; note: string }[] }[];
+  verdict: string[];
+  summary: string;
+};
+
+/** What a chat section searched for; sent back each turn so "cheaper" can re-run the same sections. */
+export type ChatSectionSpec = {
+  title: string;
+  categories: string[];
+  colors: string[];
+  fabrics: string[];
+  patterns: string[];
+  useCases: string[];
+  softPreferences: string[];
+  semanticQuery: string;
+  budgetMax: number | null;
+};
 
 export type Emit = (e: AgentEvent) => void;
 

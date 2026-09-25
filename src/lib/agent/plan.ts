@@ -55,29 +55,49 @@ export async function planRails(opts: {
     signal: opts.signal,
     timeoutMs: 12_000,
   });
-  const rails = res.rails.slice(0, 5).map((r, idx) => {
-    const totalMax = intent.price?.max ?? null;
-    const railMax = r.budgetMax && totalMax ? Math.min(r.budgetMax, totalMax) : (r.budgetMax ?? null);
-    const patched = mergeIntent(intent, {
-      kind: "product",
-      semanticQuery: r.semanticQuery || r.title,
-      categories: { include: r.categories, exclude: intent.categories.exclude, strength: "must" },
-      colors: { ...intent.colors, include: intent.colors.strength === "must" ? intent.colors.include : r.colors, strength: intent.colors.strength },
-      fabrics: { ...intent.fabrics, include: intent.fabrics.strength === "must" ? intent.fabrics.include : r.fabrics, strength: intent.fabrics.strength },
-      patterns: { ...intent.patterns, include: r.patterns.length ? r.patterns : intent.patterns.include, strength: "prefer" },
-      useCases: { ...intent.useCases, include: [...new Set([...intent.useCases.include, ...r.useCases])], strength: "prefer" },
-      softPreferences: [...new Set([...intent.softPreferences, ...r.softPreferences])],
-      price: railMax ? { min: null, max: railMax, strength: "must" } : intent.price,
-      needsClarification: null,
-    });
-    return {
-      id: `rail-${idx + 1}`,
-      title: r.title,
-      why: r.why,
-      intent: sanitizeIntent(patched, tax),
-    };
-  });
+  const rails = res.rails.slice(0, 5).map((r, idx) => ({
+    id: `rail-${idx + 1}`,
+    title: r.title,
+    why: r.why,
+    intent: sectionIntent(intent, r, tax),
+  }));
   return { stylistNote: res.stylistNote, rails: rails.filter((r) => r.intent.categories.include.length) };
+}
+
+/** A planned rail/section: what to search for, layered on the shared intent. */
+export type SectionSpec = {
+  title: string;
+  categories: string[];
+  colors: string[];
+  fabrics: string[];
+  patterns: string[];
+  useCases: string[];
+  softPreferences: string[];
+  semanticQuery: string;
+  budgetMax: number | null;
+};
+
+/**
+ * Section intent = the shared (sticky) intent + the section's category and style hints.
+ * Hard constraints from the shared intent (audience, exclusions, must colours/fabrics, budget) always carry over;
+ * a section budget can only tighten the shared one.
+ */
+export function sectionIntent(intent: Intent, r: SectionSpec, tax: TaxonomyApi): Intent {
+  const totalMax = intent.price?.max ?? null;
+  const railMax = r.budgetMax && totalMax ? Math.min(r.budgetMax, totalMax) : (r.budgetMax ?? null);
+  const patched = mergeIntent(intent, {
+    kind: "product",
+    semanticQuery: r.semanticQuery || r.title,
+    categories: { include: r.categories, exclude: intent.categories.exclude, strength: "must" },
+    colors: { ...intent.colors, include: intent.colors.strength === "must" ? intent.colors.include : r.colors, strength: intent.colors.strength },
+    fabrics: { ...intent.fabrics, include: intent.fabrics.strength === "must" ? intent.fabrics.include : r.fabrics, strength: intent.fabrics.strength },
+    patterns: { ...intent.patterns, include: r.patterns.length ? r.patterns : intent.patterns.include, strength: "prefer" },
+    useCases: { ...intent.useCases, include: [...new Set([...intent.useCases.include, ...r.useCases])], strength: "prefer" },
+    softPreferences: [...new Set([...intent.softPreferences, ...r.softPreferences])],
+    price: railMax ? { min: intent.price?.min ?? null, max: railMax, strength: "must" } : intent.price,
+    needsClarification: null,
+  });
+  return sanitizeIntent(patched, tax);
 }
 
 const RewriteSchema = z.object({ semanticQuery: z.string() });

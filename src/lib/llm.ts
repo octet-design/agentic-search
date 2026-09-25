@@ -86,3 +86,94 @@ export async function withTimeout<T>(p: Promise<T>, ms: number): Promise<T | nul
     clearTimeout(timer);
   }
 }
+
+/**
+ * Structured output, streamed: `onPartial` receives the partially parsed object as tokens arrive,
+ * so a leading text field (e.g. the chat intro) can be shown before the rest of the plan is done.
+ */
+export async function llmStructuredStream<S extends z.ZodType>(opts: {
+  name: string;
+  model: string;
+  schema: S;
+  system: string;
+  user: LlmMessageContent;
+  usage?: Usage;
+  timeoutMs?: number;
+  signal?: AbortSignal;
+  temperature?: number;
+  onPartial?: (partial: Partial<z.infer<S>>) => void;
+}): Promise<z.infer<S>> {
+  const t0 = performance.now();
+  const reasoning = isReasoningModel(opts.model);
+  const stream = getOpenAI().chat.completions.stream(
+    {
+      model: opts.model,
+      messages: [
+        { role: "system", content: opts.system },
+        { role: "user", content: opts.user } as ChatCompletionMessageParam,
+      ],
+      response_format: zodResponseFormat(opts.schema, opts.name),
+      stream_options: { include_usage: true },
+      ...(reasoning
+        ? { reasoning_effort: /^gpt-5/i.test(opts.model) ? ("minimal" as const) : ("low" as const) }
+        : { temperature: opts.temperature ?? 0.3 }),
+    },
+    { timeout: opts.timeoutMs ?? 30_000, maxRetries: 1, signal: opts.signal },
+  );
+  if (opts.onPartial) {
+    stream.on("content.delta", ({ parsed }) => {
+      if (parsed && typeof parsed === "object") opts.onPartial!(parsed as Partial<z.infer<S>>);
+    });
+  }
+  const final = await stream.finalChatCompletion();
+  opts.usage?.add(opts.name, opts.model, performance.now() - t0, final.usage);
+  const msg = final.choices[0]?.message;
+  if (msg?.refusal) throw new Error(`${opts.name}: model refused`);
+  if (!msg?.parsed) throw new Error(`${opts.name}: no structured output (${final.choices[0]?.finish_reason})`);
+  return msg.parsed as z.infer<S>;
+}
+
+/** Plain text, streamed token by token to `onDelta`. Returns the full text. */
+export async function llmTextStream(opts: {
+  name: string;
+  model: string;
+  system: string;
+  user: LlmMessageContent;
+  usage?: Usage;
+  timeoutMs?: number;
+  signal?: AbortSignal;
+  maxTokens?: number;
+  temperature?: number;
+  onDelta: (delta: string) => void;
+}): Promise<string> {
+  const t0 = performance.now();
+  const reasoning = isReasoningModel(opts.model);
+  const stream = await getOpenAI().chat.completions.create(
+    {
+      model: opts.model,
+      stream: true,
+      stream_options: { include_usage: true },
+      messages: [
+        { role: "system", content: opts.system },
+        { role: "user", content: opts.user } as ChatCompletionMessageParam,
+      ],
+      ...(opts.maxTokens ? { max_completion_tokens: opts.maxTokens } : {}),
+      ...(reasoning
+        ? { reasoning_effort: /^gpt-5/i.test(opts.model) ? ("minimal" as const) : ("low" as const) }
+        : { temperature: opts.temperature ?? 0.5 }),
+    },
+    { timeout: opts.timeoutMs ?? 30_000, maxRetries: 1, signal: opts.signal },
+  );
+  let text = "";
+  let usage: Parameters<Usage["add"]>[3] = null;
+  for await (const chunk of stream) {
+    const delta = chunk.choices[0]?.delta?.content;
+    if (delta) {
+      text += delta;
+      opts.onDelta(delta);
+    }
+    if (chunk.usage) usage = chunk.usage;
+  }
+  opts.usage?.add(opts.name, opts.model, performance.now() - t0, usage);
+  return text;
+}

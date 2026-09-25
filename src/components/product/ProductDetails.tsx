@@ -12,7 +12,18 @@ import { ProductImage } from "./ProductImage";
 const titleCase = (s: string | null) => (s ? s.replace(/\b\w/g, (c) => c.toUpperCase()) : "—");
 
 /** Shared by the quick-view drawer and /p/[id]. */
-export function ProductDetails({ p, onOpen, showSimilar = true }: { p: Card; onOpen?: (p: Card) => void; showSimilar?: boolean }) {
+export function ProductDetails({
+  p,
+  onOpen,
+  showSimilar = true,
+  onAsk,
+}: {
+  p: Card;
+  onOpen?: (p: Card) => void;
+  showSimilar?: boolean;
+  /** Chat mode: "Ask about this" inserts the product's #ref into the composer. */
+  onAsk?: (p: Card) => void;
+}) {
   const saved = useSession((s) => s.saved.includes(p.id));
   const { toggleLike, click } = useSession.getState();
   const [similarState, setSimilar] = useState<{ id: string; products: Card[] } | null>(null);
@@ -49,6 +60,16 @@ export function ProductDetails({ p, onOpen, showSimilar = true }: { p: Card; onO
         <div className="mt-2 text-lg font-semibold">{inr(p.price)}</div>
         {FEATURES.productReasons && p.reason && <p className="mt-3 rounded-lg bg-accent-soft px-3 py-2 text-sm text-ink">{p.reason}</p>}
       </div>
+
+      {onAsk && (
+        <button
+          type="button"
+          onClick={() => onAsk(p)}
+          className="inline-flex items-center justify-center gap-2 rounded-full border border-ink px-5 py-2.5 text-sm font-medium hover:bg-ink hover:text-canvas"
+        >
+          Ask Drape about this{p.ref != null ? ` (#${p.ref})` : ""}
+        </button>
+      )}
 
       <div className="flex gap-2">
         <a

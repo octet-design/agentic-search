@@ -26,8 +26,12 @@ export type Signals = {
   searches: string[];
 };
 
+export type MemoryFact = { id: string; text: string; at: number };
+
 type State = {
   profile: Profile;
+  /** Durable facts the user told Drape in chat ("wears size M", "avoids polyester"). Editable. */
+  memory: MemoryFact[];
   signals: Signals;
   saved: string[];
   compare: string[];
@@ -46,6 +50,8 @@ type Actions = {
   clearCompare: () => void;
   removeSignal: (kind: "liked" | "disliked" | "clicked", id: string) => void;
   setOnboardingOpen: (open: boolean) => void;
+  addMemory: (facts: string[]) => void;
+  removeMemory: (id: string) => void;
   reset: () => void;
 };
 
@@ -65,11 +71,14 @@ export const toLite = (c: ProductCard): ProductLite => ({
 const initial: State = {
   profile: { audiences: [], sizes: {}, budget: null, styles: [], avoidColors: [], avoidFabrics: [], onlyMySize: false, onboarded: false },
   signals: { liked: [], disliked: [], clicked: [], searches: [] },
+  memory: [],
   saved: [],
   compare: [],
   cards: {},
   onboardingOpen: false,
 };
+
+const normFact = (s: string) => s.toLowerCase().replace(/[^a-z0-9₹]+/g, " ").trim();
 
 const cap = <T>(arr: T[], n: number) => arr.slice(Math.max(0, arr.length - n));
 
@@ -123,13 +132,23 @@ export const useSession = create<State & Actions>()(
           saved: kind === "liked" ? s.saved.filter((x) => x !== id) : s.saved,
         })),
       setOnboardingOpen: (open) => set({ onboardingOpen: open }),
+      addMemory: (facts) =>
+        set((s) => {
+          const seen = new Set(s.memory.map((m) => normFact(m.text)));
+          const fresh = facts
+            .map((t) => t.trim())
+            .filter((t) => t && !seen.has(normFact(t)))
+            .map((text) => ({ id: `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`, text, at: Date.now() }));
+          return fresh.length ? { memory: cap([...s.memory, ...fresh], 30) } : s;
+        }),
+      removeMemory: (id) => set((s) => ({ memory: s.memory.filter((m) => m.id !== id) })),
       reset: () => set({ ...initial }),
     }),
     {
       name: "drape.session.v1",
       version: 1,
       storage: createJSONStorage(() => localStorage),
-      partialize: (s) => ({ profile: s.profile, signals: s.signals, saved: s.saved, compare: s.compare, cards: pruneCards(s) }),
+      partialize: (s) => ({ profile: s.profile, signals: s.signals, memory: s.memory, saved: s.saved, compare: s.compare, cards: pruneCards(s) }),
       migrate: (persisted, version) => {
         // v0 → v1: no shape changes yet; merge onto defaults so new fields always exist.
         const p = (persisted ?? {}) as Partial<State>;
@@ -143,6 +162,7 @@ export const useSession = create<State & Actions>()(
           ...p,
           profile: { ...initial.profile, ...p.profile },
           signals: { ...initial.signals, ...p.signals },
+          memory: p.memory ?? [],
         };
       },
     },

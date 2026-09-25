@@ -23,12 +23,15 @@ export function ProductCard({
   onMoreLike,
   index = 0,
   compact = false,
+  refNo,
 }: {
   p: Card;
   onOpen: (p: Card) => void;
   onMoreLike?: (p: Card) => void;
   index?: number;
   compact?: boolean;
+  /** Chat reference number, shown as a "#n" badge so users can say "compare #2 and #5". */
+  refNo?: number;
 }) {
   const saved = useSession((s) => s.saved.includes(p.id));
   const inCompare = useSession((s) => s.compare.includes(p.id));
@@ -54,6 +57,9 @@ export function ProductCard({
         aria-label={`${p.brand} ${p.title}, ${inr(p.price)}`}
       >
         <ProductImage src={p.image} alt={p.title} className="h-full w-full" />
+        {refNo != null && (
+          <span className="absolute left-2 top-2 rounded-full bg-ink/85 px-2 py-0.5 text-xs font-semibold text-canvas backdrop-blur">#{refNo}</span>
+        )}
       </button>
 
       <div className="absolute right-2 top-2 flex flex-col gap-1.5">
