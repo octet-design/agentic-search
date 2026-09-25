@@ -44,3 +44,4 @@ next-env.d.ts
 # LLM response cache for offline scripts
 /.cache/
 /docs/eval-report.partial.md
+/docs/eval-chat-report.partial.md

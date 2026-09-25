@@ -285,3 +285,18 @@ describe("taste derivation", () => {
     expect(s.length / 4).toBeLessThan(400);
   });
 });
+
+describe("kids-title guard", () => {
+  it("drops kids' items from adult audiences even when the catalog tags them female/male", async () => {
+    const { makeChecker: mk, KIDS_TITLE } = await import("./postFilter");
+    const women = intentWith({ audience: { segment: "women", kidGender: null, ageYears: null, source: "explicit" } });
+    const c = mk(women, tax);
+    expect(c.violations(product({ title: "Cotton Linen Blend Striped Shirt (0-5 Yrs)" }))).toContain("audience:kids-title");
+    expect(c.violations(product({ title: "Rare Ones Kids Light Purple Cotton Jacket" }))).toContain("audience:kids-title");
+    expect(c.violations(product({ title: "Women's Striped Cotton Shirt" }))).toEqual([]);
+    expect(KIDS_TITLE.test("Girls Party Dress")).toBe(true);
+    expect(KIDS_TITLE.test("Kurta set with 3/4 sleeves")).toBe(false);
+    const kids = mk(intentWith({ audience: { segment: "kids", kidGender: "girl", ageYears: 6, source: "explicit" } }), tax);
+    expect(kids.violations(product({ title: "Girls Party Dress (5-6 Yrs)", gender: "girl" }))).toEqual([]);
+  });
+});

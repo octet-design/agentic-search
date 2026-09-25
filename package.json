@@ -12,7 +12,8 @@
     "check": "node --env-file-if-exists=.env.local --import tsx scripts/check-env.ts",
     "discover": "node --env-file-if-exists=.env.local --import tsx scripts/discover.ts",
     "build:taxonomy": "node --env-file-if-exists=.env.local --import tsx scripts/build-taxonomy.ts",
-    "eval": "node --env-file-if-exists=.env.local --import tsx scripts/eval.ts"
+    "eval": "node --env-file-if-exists=.env.local --import tsx scripts/eval.ts",
+    "eval:chat": "node --env-file-if-exists=.env.local --import tsx scripts/eval-chat.ts"
   },
   "dependencies": {
     "clsx": "^2.1.1",

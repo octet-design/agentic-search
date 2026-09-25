@@ -73,3 +73,28 @@ These were built together because the results page references all of them (refin
 
 - **Budgets are documented as gaps, not met.** The measured table and the levers are in the README. From this dev network, LLM round trips (~1.3s each) and the Typesense server's elevated baseline dominate. Tokens per search are ~13.8k in / 2.5k out against the ~8k / 1.5k target. The biggest contributors are the rerank prompt repeated across parallel chunks and the 5k-token intent prompt (vocabulary + price bands + few-shots), mostly prompt-cached.
 - **README** covers setup, env, scripts, architecture (including the two-leg retrieval), measured budgets and known limits.
+
+## Conversational Drape (branch `feat/conversational`)
+
+Leadership compared the POC with ChatGPT, Perplexity and Google AI Mode. They liked the recommendation quality, For you, More like this and Compare. They asked for a **conversational** experience with recommendations and personalization (including from clicks), new chat / chat history, no per-product reason lines, image search hidden, and compare as table + text by occasion. The approved plan is summarised below.
+
+- **One streamed planner call per turn** replaces intent + planner. It returns turn type, intro, sections, the chat's running constraints ("base"), refs, compare criterion, clarify, follow-ups and memory. The intro streams as it's generated, through the SDK's partial-JSON `content.delta` events, so the first words appear in about **0.8s median**.
+- **Slim "chat base" schema** instead of a full Intent (≈490 vs ≈630 output tokens; planning ~4s → faster). `toIntent()` converts it.
+- **Retrieval reuses the classic pipeline** (`retrieveRails`, relaxation, post-filter, dedupe, diversity) through a shared `sectionIntent()` extracted from `plan.ts`. There's **no per-product LLM rerank** (it cost ~4s and per-product reasons were dropped by request). Ranking is fused order + taste tie-breaks. A short streamed write-up names 2–3 concrete picks after retrieval.
+- **Guards added after testing:**
+  - The planner put department ids in `categories`; `resolveCategories()` expands them.
+  - It put "comfortable/office" in `mustKeywords`, emptying results; chat never uses mustKeywords.
+  - It promoted its own fabric suggestions to must-filters; `keepUserStatedMusts()` keeps a must colour/fabric only if the user named it.
+  - Typed `#n` refs are parsed deterministically.
+  - Chat sections show 8 products with no hidden "more", so `#n` numbers stay small and meaningful.
+- **Search legs run as parallel requests.** A single `multi_search` executes its searches sequentially on the server (~0.5s each), so 3 sections × 2 legs took ~4s; parallel requests take ~2s. This also sped up classic search (p50 8.7s → ~6s).
+- **Answer style:** per stakeholder request, answers use general fashion knowledge and inference like ChatGPT (fabric behaviour, fit, occasion, weather, body shape). The hard line is listing facts: no invented stock, delivery, discounts, ratings or unlisted sizes.
+- **Chats are stored in the browser** (`drape.chats.v1`, max 25 chats × 40 messages, slimmed cards, quota-safe writes that drop the oldest chats). Each chat's context (running constraints, shown products with refs, last sections) stays inside that chat.
+- **Personalization v2:**
+  - An interaction log with weights and a 14-day half-life: view +1, 5s read +1, outbound click +2, compare +1, more-like +2, plus saves +3 and dislikes −3.
+  - For you is seeded by the strongest engagement (score ≥ 1.5, so a single glance doesn't count; decay makes view + read land just under 2).
+  - "Drape remembers" holds durable facts from chat, global and deletable; one-off asks stay in their chat.
+  - Personalized starter chips on the chat home.
+- **Kids'-title guard:** some kids' products carry an adult gender in the catalog ("Striped Shirt (0-5 Yrs)"). For women/men audiences, titles with kids/baby/age ranges are dropped in the post-filter, on both search legs.
+- **Compare v2:** `src/lib/compare.ts` returns table data + a 4–6 occasion matrix (Great/OK/Not ideal, best pick per occasion) + verdict. It's used inline in chat and on `/compare`, and it fails gracefully in chat.
+- **Classic search kept** at `/search`; `main` is untouched.

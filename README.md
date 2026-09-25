@@ -8,6 +8,19 @@ An AI shopping stylist for the Indian fashion market. You describe what you want
 
 Buying redirects to the brand's own product page. The spec is [docs/BRIEF.md](docs/BRIEF.md); every deviation from it is logged in [docs/DECISIONS.md](docs/DECISIONS.md).
 
+## Two experiences (branch `feat/conversational`)
+
+| | Where | What it is |
+|---|---|---|
+| **Conversational Drape** (default) | `/`, `/chat/[id]` | ChatGPT-style stylist. It explains what to wear and why, shows 2–5 category sections of real products with `#n` numbers, then names its top picks. Follow-ups use the chat's context ("cheaper", "is #2 good for monsoon?", "compare #1 and #4", "more like #3 in blue", "show men's instead"). Each chat keeps its own context; you can start a new chat or continue an old one from the sidebar. |
+| **Classic search** | `/search`, `/edits/[slug]` | The original results page: editable intent chips, smart filters, rails and the refine drawer. |
+
+Shared across both:
+- **Personalization:** learns from saves, quick-view opens, reading time, outbound clicks, compare and "More like this", with recent activity weighted more. It powers For you and taste tie-breaks. **"Drape remembers"** stores durable facts you tell it (size, fabrics you avoid), which you can view and delete under *Your taste*.
+- **Compare:** a table + "best for which occasion" matrix + verdict.
+
+Image search and per-product AI reason lines are switched off by flags in `src/lib/config.ts` (`FEATURES`).
+
 ## Setup
 
 Requirements: Node 20+ (developed on Node 24), npm, and network access to the Typesense server and to OpenAI.
@@ -46,6 +59,7 @@ In dev, the server checks at boot that the configured models exist, and warns wi
 | `npm run discover` | M0 catalog discovery → `data/raw-facets/`, `data/discovery/` (summary in `docs/catalog-notes.md`) |
 | `npm run build:taxonomy [-- --repropose]` | M1 taxonomy → `data/taxonomy.json` + `data/taxonomy.review.md`. LLM calls are cached in `.cache/llm`. |
 | `npm run eval [-- --only 1,4] [-- --no-rerank]` | Runs the 25 brief queries headless → `docs/eval-report.md`, with automatic FAIL checks |
+| `npm run eval:chat [-- --only 1,3]` | 10 scripted multi-turn conversations → `docs/eval-chat-report.md`; checks exclusions (also across turns), audience, budgets, answers, compare, latency |
 
 ## Architecture
 

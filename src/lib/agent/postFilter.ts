@@ -47,6 +47,9 @@ export function phraseRegex(phrase: string): RegExp | null {
   return new RegExp(`\\b${words.join("[\\s-]*")}\\b`, "i");
 }
 
+/** Kids' products by title: "Kids", "Baby", "Girls'/Boys' …", age ranges like "(0-5 Yrs)", "6-7Y". */
+export const KIDS_TITLE = /\b(kids?|baby|babies|infants?|toddlers?|new ?born|girls'?|boys'?)\b|\b\d{1,2}\s*-\s*\d{1,2}\s*(yrs?|years?|y|m|months?)\b/i;
+
 export type Checker = {
   /** Reasons this product violates the intent (exclusions, text rules); empty = OK. */
   violations(p: RawProduct): string[];
@@ -77,6 +80,7 @@ export function makeChecker(intent: Intent, tax: TaxonomyApi): Checker {
   const genders = new Set(
     tax.audienceGenders({ segment: intent.audience.segment, kidGender: intent.audience.kidGender, ageYears: intent.audience.ageYears }),
   );
+  const adult = intent.audience.segment === "women" || intent.audience.segment === "men";
   const price = intent.price?.strength === "must" ? intent.price : null;
   const sizes = intent.sizes?.strength === "must" ? new Set(intent.sizes.values.map((v) => v.toLowerCase())) : null;
 
@@ -95,6 +99,8 @@ export function makeChecker(intent: Intent, tax: TaxonomyApi): Checker {
         }
       }
       for (const w of titleWords) if (w.re.test(p.title)) out.push(`title:${w.label}`);
+      // Some kids' items carry an adult gender in the catalog; their titles give them away (both search legs).
+      if (adult && KIDS_TITLE.test(p.title)) out.push("audience:kids-title");
       const text = `${p.title} ${p.description ?? ""}`;
       for (const { t, re } of textRes) if (re!.test(text)) out.push(`text:${t}`);
       for (const { k, re } of mustRes) if (!re!.test(text)) out.push(`missing:${k}`);
