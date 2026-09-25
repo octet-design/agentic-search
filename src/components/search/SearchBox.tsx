@@ -3,6 +3,7 @@
 import { ArrowUp, Camera } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { FEATURES } from "@/lib/config";
 import { cn, editHref } from "@/lib/format";
 import { resizeImage, stashImage } from "@/lib/image";
 
@@ -55,11 +56,13 @@ export function SearchBox({ initial = "", compact = false }: { initial?: string;
           submit();
         }}
         onDragOver={(e) => {
+          if (!FEATURES.imageSearch) return;
           e.preventDefault();
           setDragging(true);
         }}
         onDragLeave={() => setDragging(false)}
         onDrop={(e) => {
+          if (!FEATURES.imageSearch) return;
           e.preventDefault();
           setDragging(false);
           onImage(e.dataTransfer.files?.[0]);
@@ -83,10 +86,14 @@ export function SearchBox({ initial = "", compact = false }: { initial?: string;
           aria-label="Describe what you're looking for"
           className={cn("min-h-0 flex-1 resize-none bg-transparent px-3 py-2 outline-none placeholder:text-ink-faint", compact ? "text-base" : "text-lg")}
         />
-        <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={(e) => onImage(e.target.files?.[0])} />
-        <button type="button" onClick={() => fileRef.current?.click()} className="rounded-full p-2.5 text-ink-soft hover:bg-sand hover:text-ink" aria-label="Search with a photo">
-          <Camera size={19} />
-        </button>
+        {FEATURES.imageSearch && (
+          <>
+            <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={(e) => onImage(e.target.files?.[0])} />
+            <button type="button" onClick={() => fileRef.current?.click()} className="rounded-full p-2.5 text-ink-soft hover:bg-sand hover:text-ink" aria-label="Search with a photo">
+              <Camera size={19} />
+            </button>
+          </>
+        )}
         <button type="submit" disabled={!value.trim()} className="rounded-full bg-ink p-2.5 text-canvas disabled:opacity-30" aria-label="Search">
           <ArrowUp size={19} />
         </button>

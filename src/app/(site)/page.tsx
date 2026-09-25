@@ -1,9 +1,6 @@
-import { HomeClient } from "@/components/home/HomeClient";
-import { getExamples } from "@/lib/examples";
+import { redirect } from "next/navigation";
 
-export const dynamic = "force-dynamic";
-
-export default async function Home() {
-  const examples = await getExamples();
-  return <HomeClient examples={examples} />;
+// Temporary until the chat home lands (C1).
+export default function Home() {
+  redirect("/search");
 }

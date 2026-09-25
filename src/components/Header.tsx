@@ -23,6 +23,9 @@ export function Header() {
           {APP_NAME}
         </Link>
         <nav className="ml-auto flex items-center gap-1 text-sm">
+          <Link href="/search" className="hidden rounded-full px-3 py-1.5 text-ink-soft hover:bg-sand hover:text-ink sm:inline-flex">
+            Classic search
+          </Link>
           <Link href="/saved" className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 hover:bg-sand">
             <Heart size={16} /> <span className="hidden sm:inline">Saved</span>
             {mounted && saved > 0 && <span className="rounded-full bg-accent px-1.5 text-xs text-white">{saved}</span>}

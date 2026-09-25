@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Check, Heart, Layers, ThumbsDown } from "lucide-react";
 import { useState } from "react";
 import type { ProductCard as Card } from "@/lib/agent/types";
+import { FEATURES } from "@/lib/config";
 import { cn, inr } from "@/lib/format";
 import { useSession, type DislikeReason } from "@/store/session";
 import { ProductImage } from "./ProductImage";
@@ -105,8 +106,12 @@ export function ProductCard({
         <button type="button" onClick={() => onOpen(p)} className="line-clamp-2 text-left text-sm leading-snug hover:underline">
           {p.title}
         </button>
-        {p.reason && <p className="line-clamp-2 text-xs leading-snug text-ink-soft">{p.reason}</p>}
-        {p.matched.length > 0 && (
+        {FEATURES.productReasons ? (
+          p.reason && <p className="line-clamp-2 text-xs leading-snug text-ink-soft">{p.reason}</p>
+        ) : (
+          <AttributeLine p={p} />
+        )}
+        {FEATURES.productReasons && p.matched.length > 0 && (
           <div className="flex flex-wrap gap-1">
             {p.matched.slice(0, 3).map((m) => (
               <span key={m} className="inline-flex items-center gap-0.5 rounded-full bg-accent-soft px-1.5 py-0.5 text-[11px] text-accent">
@@ -129,6 +134,15 @@ export function ProductCard({
       </div>
     </motion.article>
   );
+}
+
+const cap = (s: string) => s.replace(/\b\w/g, (c) => c.toUpperCase());
+
+/** Factual attributes only (no AI text): fabric · colour · fit. */
+function AttributeLine({ p }: { p: Card }) {
+  const bits = [p.fabric, p.color, p.fit && p.fit !== "regular" ? p.fit : null].filter((x): x is string => !!x).slice(0, 3);
+  if (!bits.length) return null;
+  return <p className="truncate text-xs text-ink-faint">{bits.map(cap).join(" · ")}</p>;
 }
 
 export function ProductSkeleton({ compact = false }: { compact?: boolean }) {

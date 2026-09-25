@@ -3,6 +3,7 @@
 import { ExternalLink, Heart } from "lucide-react";
 import { useEffect, useState } from "react";
 import type { ProductCard as Card } from "@/lib/agent/types";
+import { FEATURES } from "@/lib/config";
 import { cn, inr, outboundUrl } from "@/lib/format";
 import { useSession } from "@/store/session";
 import { ProductCard } from "./ProductCard";
@@ -46,7 +47,7 @@ export function ProductDetails({ p, onOpen, showSimilar = true }: { p: Card; onO
         <div className="text-xs font-medium uppercase tracking-wide text-ink-soft">{p.brand}</div>
         <h2 className="mt-1 font-display text-xl leading-snug">{p.title}</h2>
         <div className="mt-2 text-lg font-semibold">{inr(p.price)}</div>
-        {p.reason && <p className="mt-3 rounded-lg bg-accent-soft px-3 py-2 text-sm text-ink">{p.reason}</p>}
+        {FEATURES.productReasons && p.reason && <p className="mt-3 rounded-lg bg-accent-soft px-3 py-2 text-sm text-ink">{p.reason}</p>}
       </div>
 
       <div className="flex gap-2">
