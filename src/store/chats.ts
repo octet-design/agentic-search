@@ -31,7 +31,10 @@ export type AssistantMessage = {
   outro: string;
   answer: string;
   compare?: CompareBlockData;
+  /** Older chats: a clarify card. New turns close with `ask` instead. */
   clarify?: { question: string; options: string[] };
+  /** The one question that closes the answer, with tappable answers. */
+  ask?: { question: string; options: string[] };
   followups: string[];
   steps: StepState[];
   personalized: string[];
@@ -106,6 +109,8 @@ function reduce(chat: Chat, msgId: string, e: AgentEvent): Chat {
       return updateMsg(chat, msgId, (m) => ({ ...m, compare: { ...e.data, products: e.data.products.map(slim) } }));
     case "clarify":
       return updateMsg(chat, msgId, (m) => ({ ...m, clarify: { question: e.question, options: e.options } }));
+    case "ask":
+      return updateMsg(chat, msgId, (m) => ({ ...m, ask: { question: e.question, options: e.options } }));
     case "suggestions":
       return updateMsg(chat, msgId, (m) => ({ ...m, followups: e.items }));
     case "chat_state":
@@ -238,7 +243,8 @@ export function historyText(m: ChatMessage): string {
     .filter((s) => s.products.length)
     .map((s) => `${s.title} (#${s.products[0].ref}–#${s.products[s.products.length - 1].ref})`)
     .join(", ");
-  return [m.intro, m.answer, m.outro, shown ? `[Showed: ${shown}]` : "", m.compare ? `[Compared ${m.compare.products.map((p) => `#${p.ref}`).join(", ")}]` : ""]
+  const asked = m.ask ?? m.clarify;
+  return [m.intro, m.answer, m.outro, shown ? `[Showed: ${shown}]` : "", asked ? `I asked: ${asked.question}` : "", m.compare ? `[Compared ${m.compare.products.map((p) => `#${p.ref}`).join(", ")}]` : ""]
     .filter(Boolean)
     .join(" ")
     .slice(0, 1200);

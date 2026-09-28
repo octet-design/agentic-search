@@ -128,7 +128,8 @@ const PlanSchema = z.object({
     .object({ label: z.string(), colors: z.array(z.string()), fabrics: z.array(z.string()), patterns: z.array(z.string()), maxPrice: z.number().nullable() })
     .nullable(),
   compareCriterion: z.string().nullable(),
-  clarify: z.object({ question: z.string(), options: z.array(z.string()) }).nullable(),
+  /** The one question that closes the answer (ChatGPT-style), with tappable answers. */
+  ask: z.object({ question: z.string(), options: z.array(z.string()) }).nullable(),
   followups: z.array(z.string()),
   memory: z.array(z.string()),
 });
@@ -143,27 +144,36 @@ function plannerPrompt(tax: TaxonomyApi): string {
 For every user message return the plan JSON:
 
 turnType
-- recommend: a new need (product, occasion, vibe, gift, trip…). Plan 2–4 sections (1 for a very specific single product ask; up to 5 for full looks/trips).
+- recommend: a new need (product, occasion, vibe, gift, trip…). Plan 2–4 sections (up to 5 for full looks/trips). For a single-item ask ("a purse for my wedding dress", "a kurta for office"), split it into 2–3 sections by the style options you'd recommend (e.g. potli bags / embellished clutches / metallic box clutches), each a different right answer.
 - refine: change the current results ("cheaper", "more colourful", "no polyester", "show men's instead", "longer ones"). Re-issue the previous sections (given in the state) with the change applied, unless the user asks for different things.
 - product_question: a question about shown products ("is #3 good for monsoon?", "which is more formal?", "will this suit a pear shape?"). Put their numbers in refs. No sections.
 - compare: the user wants to compare 2–3 shown products. refs = those numbers; compareCriterion = what they care about (occasion, comfort…) or null.
 - more_like: "more like #3", "like #3 but in blue". refs = [3]; similar = the requested changes (colours/fabrics/patterns ids, maxPrice), label e.g. "in blue" or "".
-- clarify: only when you truly can't guess (e.g. "gift ideas" with no recipient). Also plan best-guess sections when possible.
+- clarify: only when you can't even guess a direction (e.g. "gift ideas" with no recipient). Still plan best-guess sections when possible; your question goes in ask.
 - chitchat: greetings, thanks, off-topic → short friendly reply, no sections.
 
-intro (shown first, streamed): speak like a stylist in 2–4 short sentences.
-- recommend/refine: explain WHAT you recommend and WHY for this person and context (occasion, weather/season/place, comfort, style), e.g. "For comfortable office-casual, I'd build around breathable cotton or linen-blend tops, relaxed straight trousers and easy loafers; they stay crisp through an 8-hour day and don't need much ironing." Don't name specific products yet (you haven't seen them). For refine, say what you changed.
+intro (shown first, streamed) is your GUIDANCE, the way a great stylist (or ChatGPT) answers before showing anything:
+- recommend: one sentence that answers directly, then a blank line, then 2–4 bullets ("- **Key idea**: why / how"), ≤ 110 words in all. Cover what actually works for this occasion, outfit and person: which styles, colours that pair, fabric, how much embellishment, proportions, what to avoid. Build on everything this chat already knows (the outfit they described, occasion, place, season, budget). Example for "purse for my wedding lehenga":
+"For a wedding lehenga, pick a small, embellished bag that echoes your outfit's work without competing with it.
+
+- **Potli bags** are the classic pick: zari or gota work sits naturally with traditional embroidery.
+- **Match the metal**: gold-toned hardware with gold jewellery, silver or oxidised with silver.
+- **Keep it compact**: a heavy lehenga needs a bag that carries only the essentials."
+- refine: 1–2 sentences on what you changed, plus one styling tip for the new direction.
+Don't name specific products yet (you haven't seen them).
 - product_question: leave intro "" (a detailed answer follows separately).
 - compare / more_like: one short lead-in sentence.
 - clarify / chitchat: the full reply.
 You may use general fashion knowledge freely (fabric behaviour, styling, pairing, occasion norms, climate, body-shape tips). Never invent stock, delivery, discounts, ratings or reviews.
 
-sections: each = a category the user should shop, with title (2–4 words), why (≤ 14 words, specific), categories (1–3 canonical CATEGORY ids from the lists below, e.g. "shirt", "trouser", "loafer", "kurta-set", never department names), optional colors/fabrics/patterns/useCases ids that suit, softPreferences, semanticQuery (clean English, 6–12 words, for embedding search), budgetMax (per-section ₹ cap only when the user gave a total budget; else null).
+sections: each = a category the user should shop, with title (2–4 words), why = a practical tip for choosing within it (≤ 20 words, e.g. "Pick zari or mirror work if your lehenga is heavily embroidered; plain silk if it's minimal"), categories (1–3 canonical CATEGORY ids from the lists below, e.g. "shirt", "trouser", "loafer", "kurta-set", never department names), optional colors/fabrics/patterns/useCases ids that suit, softPreferences, semanticQuery (clean English, 6–12 words, for embedding search), budgetMax (per-section ₹ cap only when the user gave a total budget; else null).
 
 base: the chat's running understanding, CARRIED FORWARD from the current state and updated with this message: audience; budgetMin/budgetMax (₹) with budgetStrict (true when the user stated a limit or said "cheaper"); mustColors/mustFabrics ONLY when the user explicitly requires them ("only cotton", "must be black"). Fabrics/colours YOU suggest go in section fabrics/colors, never in must; excludeColors/excludeFabrics/excludePatterns/excludeBrands (canonical ids) and textExclusions (other negatives: "cutouts", "sleeveless", "heavy embroidery"); preferences (soft style words: "breathable", "minimal", "not too heavy"); occasion; summary (short English description of the current need). Keep everything from the previous state unless the user changes or drops it ("polyester is fine now" removes that exclusion; a new unrelated need resets occasion/preferences but keeps audience and exclusions).
-Rules: canonical ids only (from the vocabulary). "k" = ×1000; "under 2k" → budgetMax 2000 strict; "around 2000" → 1600–2400 not strict; "cheaper" → budgetMax below most shown prices, strict. Audience: explicit words or gender-implicit items (saree → women, sherwani → men); "for my wife/daughter/dad" sets it; if unknown and the profile has exactly one audience use it. If it's still unknown and the need is gendered clothing or footwear, set clarify {"Who is this for?", ["Women","Men","Kids"]} and still plan best-guess sections.
+Rules: canonical ids only (from the vocabulary). "k" = ×1000; "under 2k" → budgetMax 2000 strict; "around 2000" → 1600–2400 not strict; "cheaper" → budgetMax below most shown prices, strict. Audience: explicit words or gender-implicit items (saree → women, sherwani → men); "for my wife/daughter/dad" sets it; if unknown and the profile has exactly one audience use it. If it's still unknown and the need is gendered clothing or footwear, set ask {"Who is this for?", ["Women","Men","Kids"]} and still plan best-guess sections.
 
-followups: exactly 3 short next steps the user might tap (≤ 5 words each), specific to this turn (e.g. "Under ₹1,500", "Show linen only", "Add a watch"). Never put product numbers in followups or the intro: users can't see them. The numbers below are internal; users point at products by name, colour, position ("the second one") or card buttons.
+ask: end every recommend/refine/clarify turn with ONE relevant question, as ChatGPT does: the detail that would most improve your next suggestion (outfit colour or work, budget, venue or time of day, formality, who it's for, style leaning) or a natural next step ("Want me to find jewellery to match?"). Short, friendly, specific to this chat. It must unlock NEW information or move the look forward: don't ask them to choose between the sections you just showed (the cards already do that), never repeat a question you asked earlier in this chat ("I asked: …" in the conversation), and never ask what they already told you. Once the main item is settled, suggest the next piece ("Should I find a belt and socks to match?"). options = 2–4 short tappable answers (e.g. "Red & gold", "Pastel", "Heavily embroidered"). product_question/compare/more_like: a question only if it genuinely helps, else null. chitchat: null.
+
+followups: exactly 3 short next steps (shown only when there is no ask) the user might tap (≤ 5 words each), specific to this turn (e.g. "Under ₹1,500", "Show linen only", "Add a watch"). Never put product numbers in followups or the intro: users can't see them. The numbers below are internal; users point at products by name, colour, position ("the second one") or card buttons.
 ${
     FEATURES.memory
       ? `memory: durable personal facts the user stated about themselves or people they shop for, worth remembering across chats (e.g. "Wears size M tops", "Avoids polyester", "Shops for wife (women's wear)", "Prefers minimal style"). One-off needs for this request ("under 2k for this wedding") are NOT memory. Usually [].`
@@ -389,7 +399,7 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
   });
   const memory = FEATURES.memory ? plan.memory.map((m) => m.trim()).filter(Boolean).slice(0, 5) : [];
   if (memory.length) emit({ type: "memory", facts: memory });
-  if (plan.clarify?.options.length) emit({ type: "clarify", question: plan.clarify.question, options: plan.clarify.options.slice(0, 4) });
+  const ask = plan.ask?.question.trim() ? { question: plan.ask.question.trim(), options: plan.ask.options.slice(0, 4) } : null;
 
   let nextRef = input.state.nextRef;
   const withRefs = (cards: ProductCard[]) => cards.map((c) => ({ ...c, ref: nextRef++ }));
@@ -430,8 +440,8 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
       await llmTextStream({
         name: "chat-picks",
         model,
-        system: `${STYLIST_RULES}\nYou just recommended some categories and the catalog returned options. Write 2–4 sentences (≤ 90 words) highlighting your top 2–3 picks (as [short name](#n) links) and why each works for this user (fabric, fit, colour, occasion, price vs budget), plus one quick styling tip. No headings, no lists.`,
-        user: `User asked: ${input.message}\nYour intro: ${plan.intro}\nWhat you know: ${intentSummary(base, tax)}\n\nOptions by section:\n${top
+        system: `${STYLIST_RULES}\nYou just gave styling guidance and the catalog returned options. Write 2–3 sentences (≤ 70 words) naming your top 2–3 picks (as [short name](#n) links) and why each fits the guidance you gave (work, colour, fabric, occasion, price vs budget). No headings, no lists, and don't end with a question (one is shown separately).`,
+        user: `User asked: ${input.message}\nYour guidance: ${plan.intro}\nWhat you know: ${intentSummary(base, tax)}\n\nOptions by section:\n${top
           .map((t) => `${t.title}:\n${t.products.map((p) => `#${p.ref} ${p.title} | ${p.brand} | ₹${Math.round(p.price)} | ${p.color}${p.fabric ? ` | ${p.fabric}` : ""}${p.fit ? ` | ${p.fit}` : ""}`).join("\n")}`)
           .join("\n\n")}`,
         usage,
@@ -510,6 +520,8 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
     }
   }
 
+  // The closing question comes last, after the products and picks.
+  if (ask) emit({ type: "ask", ...ask });
   emit({ type: "suggestions", items: plan.followups.slice(0, 3) });
   timings.total = Math.round(performance.now() - t0);
   if (input.debug) emit({ type: "debug", data: { ...debug, base, llmCalls: usage.calls } });

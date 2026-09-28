@@ -32,6 +32,8 @@ export function AssistantMessage({
   const running = msg.status === "streaming";
   const current = msg.steps.find((s) => s.status === "running");
   const nothingYet = running && !msg.intro && !msg.answer && !msg.sections.length;
+  // The closing question (older chats stored it as a clarify card).
+  const ask = msg.ask ?? msg.clarify;
 
   return (
     <div className="flex flex-col gap-4">
@@ -48,21 +50,6 @@ export function AssistantMessage({
       )}
 
       <RichText text={msg.intro} onRef={onRef} refLabel={refLabel} className="text-[15px]" />
-
-      {msg.clarify && (
-        <div className="rounded-2xl border border-line bg-paper p-3">
-          <p className="text-sm">
-            {msg.clarify.question} <span className="text-ink-faint">Best guess below.</span>
-          </p>
-          <div className="mt-2 flex flex-wrap gap-2">
-            {msg.clarify.options.map((o) => (
-              <button key={o} onClick={() => onSend(o)} className="rounded-full border border-line px-3 py-1 text-sm hover:border-ink">
-                {o}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
 
       {msg.sections.map((s) => (
         <section key={s.id}>
@@ -106,7 +93,22 @@ export function AssistantMessage({
         </div>
       )}
 
-      {isLast && !running && msg.followups.length > 0 && (
+      {ask && (
+        <div className="flex flex-col gap-2">
+          <p className="text-[15px] leading-relaxed">{ask.question}</p>
+          {isLast && !running && ask.options.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {ask.options.map((o) => (
+                <button key={o} onClick={() => onSend(o)} className="rounded-full border border-ink/30 bg-paper px-3 py-1.5 text-sm hover:border-ink">
+                  {o}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {isLast && !running && !ask && msg.followups.length > 0 && (
         <div className="flex flex-wrap gap-2">
           {msg.followups.map((f) => (
             <button key={f} onClick={() => onSend(f)} className="rounded-full border border-line bg-paper px-3 py-1.5 text-sm hover:border-ink">
