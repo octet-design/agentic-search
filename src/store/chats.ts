@@ -246,8 +246,10 @@ export function historyText(m: ChatMessage): string {
     .map((s) => `${s.title} (#${s.products[0].ref}–#${s.products[s.products.length - 1].ref})`)
     .join(", ");
   const asked = m.ask ?? m.clarify;
-  return [m.intro, m.answer, m.outro, shown ? `[Showed: ${shown}]` : "", asked ? `I asked: ${asked.question}` : "", m.compare ? `[Compared ${m.compare.products.map((p) => `#${p.ref}`).join(", ")}]` : ""]
+  // The closing question goes last and is never cut, so the next turn knows what "red" answers.
+  const tail = asked ? ` I asked: ${asked.question}` : "";
+  const body = [m.intro, m.answer, m.outro, shown ? `[Showed: ${shown}]` : "", m.compare ? `[Compared ${m.compare.products.map((p) => `#${p.ref}`).join(", ")}]` : ""]
     .filter(Boolean)
-    .join(" ")
-    .slice(0, 1200);
+    .join(" ");
+  return (body.slice(0, 1200 - tail.length) + tail).trim();
 }

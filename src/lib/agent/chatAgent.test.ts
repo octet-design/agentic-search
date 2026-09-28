@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { normalizeCompare } from "../compare";
-import { forSomeoneElse, keepUserStatedMusts, refsInText, resolveCategories, toIntent, wantsChange } from "./chatAgent";
+import { forSomeoneElse, keepUserStatedMusts, lastAsked, sameQuestion, refsInText, resolveCategories, toIntent, wantsChange } from "./chatAgent";
 import { fixtureTax as tax, intentWith } from "./testFixture";
 
 describe("refsInText", () => {
@@ -110,5 +110,22 @@ describe("wantsChange", () => {
   it("spots asks to move away from the usual", () => {
     for (const m of ["something bolder than usual", "I want a completely new look", "kuch alag chahiye", "try something different for Diwali"]) expect(wantsChange(m), m).toBe(true);
     for (const m of ["new tops for college", "bold red lipstick shade saree", "what to wear to brunch"]) expect(wantsChange(m), m).toBe(false);
+  });
+});
+
+describe("lastAsked / sameQuestion", () => {
+  it("reads the question the last assistant message closed with", () => {
+    const history = [
+      { role: "user" as const, content: "purse for my lehenga" },
+      { role: "assistant" as const, content: "Guidance… [Showed: Potli Bags (#1–#8)] I asked: What colour is your lehenga?" },
+      { role: "user" as const, content: "red" },
+    ];
+    expect(lastAsked(history)).toBe("What colour is your lehenga?");
+    expect(lastAsked([])).toBeUndefined();
+  });
+  it("matches questions ignoring case and punctuation", () => {
+    expect(sameQuestion("What colour is your lehenga?", "what colour is your lehenga")).toBe(true);
+    expect(sameQuestion("What's your budget?", "What colour is your lehenga?")).toBe(false);
+    expect(sameQuestion("Anything?", undefined)).toBe(false);
   });
 });

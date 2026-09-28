@@ -8,18 +8,18 @@ An AI shopping stylist for the Indian fashion market. You describe what you want
 
 Buying redirects to the brand's own product page. The spec is [docs/BRIEF.md](docs/BRIEF.md); every deviation from it is logged in [docs/DECISIONS.md](docs/DECISIONS.md).
 
-## Two experiences (branch `feat/conversational`)
+## Two experiences (branch `feat/guidence`, built on `feat/conversational`)
 
 | | Where | What it is |
 |---|---|---|
-| **Conversational Drape** (default) | `/`, `/chat/[id]` | ChatGPT-style stylist. It explains what to wear and why, shows 2–5 category sections of real products with `#n` numbers, then names its top picks. Follow-ups use the chat's context ("cheaper", "is #2 good for monsoon?", "compare #1 and #4", "more like #3 in blue", "show men's instead"). Each chat keeps its own context; you can start a new chat or continue an old one from the sidebar. |
+| **Conversational Drape** (default) | `/`, `/chat/[id]` | A guidance-first stylist, like ChatGPT. It first explains what works for the occasion or outfit and why (a direct answer plus a few bold-point tips), then shows 2–5 sections of real products, each with a tip for choosing, names its top picks as clickable product names, and ends with **one relevant question** you can answer with a tap. Follow-ups build on the chat ("cheaper", "it's red with gold zari", "is the second one breathable?", "show men's instead"). Card buttons (More like this, Compare) point at products directly. **See all** opens a panel with more products using that section's exact filters. |
 | **Classic search** | `/search`, `/edits/[slug]` | The original results page: editable intent chips, smart filters, rails and the refine drawer. |
 
 Shared across both:
-- **Personalization:** learns from saves, quick-view opens, reading time, outbound clicks, compare and "More like this", with recent activity weighted more. It powers For you and taste tie-breaks. **"Drape remembers"** stores durable facts you tell it (size, fabrics you avoid), which you can view and delete under *Your taste*.
+- **Personalization:** learns from saves, quick-view opens, reading time, outbound clicks, compare and "More like this", with recent activity weighted more. It powers For you. In chat, the planner decides per message whether your taste fits the *intent* (yes for "new tops for college"; no for a gift for dad, "bolder than usual" or a fully specified ask), and the "Personalized" badge shows exactly when it was used. Each chat's own context stays inside that chat; nothing else carries across chats.
 - **Compare:** a table + "best for which occasion" matrix + verdict.
 
-Image search and per-product AI reason lines are switched off by flags in `src/lib/config.ts` (`FEATURES`).
+Switched off by flags in `src/lib/config.ts` (`FEATURES`): image search, per-product AI reason lines, "Ask Drape about this", visible `#n` product numbers, and cross-chat "Drape remembers" memory.
 
 ## Setup
 
@@ -59,7 +59,7 @@ In dev, the server checks at boot that the configured models exist, and warns wi
 | `npm run discover` | M0 catalog discovery → `data/raw-facets/`, `data/discovery/` (summary in `docs/catalog-notes.md`) |
 | `npm run build:taxonomy [-- --repropose]` | M1 taxonomy → `data/taxonomy.json` + `data/taxonomy.review.md`. LLM calls are cached in `.cache/llm`. |
 | `npm run eval [-- --only 1,4] [-- --no-rerank]` | Runs the 25 brief queries headless → `docs/eval-report.md`, with automatic FAIL checks |
-| `npm run eval:chat [-- --only 1,3]` | 10 scripted multi-turn conversations → `docs/eval-chat-report.md`; checks exclusions (also across turns), audience, budgets, answers, compare, latency |
+| `npm run eval:chat [-- --only 1,3]` | 12 scripted multi-turn conversations → `docs/eval-chat-report.md`; checks exclusions (also across turns), audience, budgets, answers, compare, guidance + closing question, no repeated questions, no visible numbers, taste leaks, latency |
 
 ## Architecture
 

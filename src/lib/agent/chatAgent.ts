@@ -307,6 +307,17 @@ export function forSomeoneElse(message: string): boolean {
   );
 }
 
+/** The question the assistant closed its last message with ("I asked: …" in the history text). */
+export function lastAsked(history: ChatTurnInput["history"]): string | undefined {
+  const last = [...history].reverse().find((m) => m.role === "assistant");
+  return last?.content.match(/I asked: (.+?)(?:$|\n)/)?.[1];
+}
+
+export function sameQuestion(a: string, b: string | undefined): boolean {
+  const norm = (q: string) => q.toLowerCase().replace(/[^a-z0-9 ]/g, "").replace(/\s+/g, " ").trim();
+  return !!b && norm(a) === norm(b);
+}
+
 /** Safety net: asking for a change from the usual means past taste is what to move away from. */
 export function wantsChange(message: string): boolean {
   return /\b(?:than usual|new look|fresh look|different|bolder|experiment\w*|out of (?:my )?comfort zone|change (?:my|of) (?:style|look)|something new|kuch (?:naya|alag|hatke))\b/i.test(message);
@@ -366,6 +377,9 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
   );
   const prev = input.state.intent;
   if (prev && base.audience.segment === "unknown" && prev.audience.segment !== "unknown") base = { ...base, audience: prev.audience };
+  // What the user actually said in this chat. It's what the chat remembers; taste is layered on per turn,
+  // so a learned budget can't turn into "the user's budget" on a later "cheaper".
+  const userBase = base;
   // Taste is used only when the planner judged it useful for this request's intent (with a guard for gifts).
   const taste = plan.useTaste && !forSomeoneElse(input.message) && !wantsChange(input.message) ? input.taste : undefined;
   const personalized = applyTaste(base, taste, tax);
@@ -392,14 +406,16 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
 
   emit({
     type: "chat_state",
-    intent: base,
-    chips: deriveChips(base, tax),
+    intent: userBase,
+    chips: deriveChips(userBase, tax),
     lastSections: hasSections ? specs : input.state.lastSections,
     personalized: personalized.notes,
   });
   const memory = FEATURES.memory ? plan.memory.map((m) => m.trim()).filter(Boolean).slice(0, 5) : [];
   if (memory.length) emit({ type: "memory", facts: memory });
-  const ask = plan.ask?.question.trim() ? { question: plan.ask.question.trim(), options: plan.ask.options.slice(0, 4) } : null;
+  const asked = plan.ask?.question.trim() ?? "";
+  // The model sometimes repeats its last question; drop it then (the follow-up chips show instead).
+  const ask = asked && !sameQuestion(asked, lastAsked(input.history)) ? { question: asked, options: plan.ask!.options.slice(0, 4) } : null;
 
   let nextRef = input.state.nextRef;
   const withRefs = (cards: ProductCard[]) => cards.map((c) => ({ ...c, ref: nextRef++ }));
