@@ -58,6 +58,8 @@ export type ChatState = z.infer<typeof ChatStateSchema>;
 
 export type ChatTurnInput = {
   message: string;
+  /** Products the message points at (sent by card buttons; refs aren't visible to users). */
+  refs?: number[];
   history: { role: "user" | "assistant"; content: string }[];
   state: ChatState;
   memory: string[];
@@ -157,7 +159,7 @@ sections: each = a category the user should shop, with title (2–4 words), why 
 base: the chat's running understanding, CARRIED FORWARD from the current state and updated with this message: audience; budgetMin/budgetMax (₹) with budgetStrict (true when the user stated a limit or said "cheaper"); mustColors/mustFabrics ONLY when the user explicitly requires them ("only cotton", "must be black"). Fabrics/colours YOU suggest go in section fabrics/colors, never in must; excludeColors/excludeFabrics/excludePatterns/excludeBrands (canonical ids) and textExclusions (other negatives: "cutouts", "sleeveless", "heavy embroidery"); preferences (soft style words: "breathable", "minimal", "not too heavy"); occasion; summary (short English description of the current need). Keep everything from the previous state unless the user changes or drops it ("polyester is fine now" removes that exclusion; a new unrelated need resets occasion/preferences but keeps audience and exclusions).
 Rules: canonical ids only (from the vocabulary). "k" = ×1000; "under 2k" → budgetMax 2000 strict; "around 2000" → 1600–2400 not strict; "cheaper" → budgetMax below most shown prices, strict. Audience: explicit words or gender-implicit items (saree → women, sherwani → men); "for my wife/daughter/dad" sets it; if unknown and the profile has exactly one audience use it. If it's still unknown and the need is gendered clothing or footwear, set clarify {"Who is this for?", ["Women","Men","Kids"]} and still plan best-guess sections.
 
-followups: exactly 3 short next steps the user might tap (≤ 5 words each), specific to this turn (e.g. "Under ₹1,500", "Show linen only", "Compare #1 and #3", "Add a watch").
+followups: exactly 3 short next steps the user might tap (≤ 5 words each), specific to this turn (e.g. "Under ₹1,500", "Show linen only", "Add a watch"). Never put product numbers in followups or the intro: users can't see them. The numbers below are internal; users point at products by name, colour, position ("the second one") or card buttons.
 memory: durable personal facts the user stated about themselves or people they shop for, worth remembering across chats (e.g. "Wears size M tops", "Avoids polyester", "Shops for wife (women's wear)", "Prefers minimal style"). One-off needs for this request ("under 2k for this wedding") are NOT memory. Usually [].
 
 Vocabulary (canonical ids):
@@ -235,7 +237,12 @@ function compactIntent(i: Intent | null): string {
   return JSON.stringify(out);
 }
 
+const shortTitle = (t: string) => (t.length > 40 ? `${t.slice(0, 38).trimEnd()}…` : t);
+
 const productLine = (p: ShownProduct) => `#${p.ref} ${p.title} | ${p.brand} | ${p.color}${p.fabric ? ` | ${p.fabric}` : ""} | ₹${Math.round(p.price)}`;
+
+/** Refs sent with the message (card buttons) plus any typed "#n". */
+const messageRefs = (input: ChatTurnInput) => [...new Set([...(input.refs ?? []), ...refsInText(input.message)])];
 
 /** "#3", "# 12" → [3, 12] */
 export function refsInText(text: string): number[] {
@@ -244,7 +251,7 @@ export function refsInText(text: string): number[] {
 
 function plannerUser(input: ChatTurnInput): string {
   // Recent products plus any the user mentions by number (older refs would otherwise fall out of the window).
-  const mentioned = new Set(refsInText(input.message));
+  const mentioned = new Set(messageRefs(input));
   const recent = input.state.products.slice(-48);
   const shown = [...input.state.products.filter((p) => mentioned.has(p.ref) && !recent.includes(p)), ...recent];
   return [
@@ -256,6 +263,7 @@ function plannerUser(input: ChatTurnInput): string {
     input.state.lastSections.length ? `Previous sections: ${input.state.lastSections.map((s) => `${s.title} [${s.categories.join(", ")}] "${s.semanticQuery}"`).join(" | ")}` : "",
     shown.length ? `Products shown so far:\n${shown.map(productLine).join("\n")}` : "No products shown yet.",
     input.history.length ? `Conversation so far:\n${input.history.slice(-8).map((m) => `${m.role}: ${m.content.slice(0, 600)}`).join("\n")}` : "",
+    mentioned.size ? `The user is pointing at: ${[...mentioned].map((r) => `#${r}`).join(", ")}` : "",
     `User: ${input.message}`,
   ]
     .filter(Boolean)
@@ -267,7 +275,7 @@ function plannerUser(input: ChatTurnInput): string {
 // ---------------------------------------------------------------------------
 
 const STYLIST_RULES =
-  "You are Drape, a warm, knowledgeable stylist for Indian shoppers. Write in friendly, concise English. Use general fashion knowledge and reasonable inference freely (fabric behaviour, fit and feel, styling and pairing, occasion norms, weather, care). Refer to products by their #number. Never invent stock, delivery, discounts, ratings or reviews; for those, say the brand's page has the latest details.";
+  "You are Drape, a warm, knowledgeable stylist for Indian shoppers. Write in friendly, concise English. Use general fashion knowledge and reasonable inference freely (fabric behaviour, fit and feel, styling and pairing, occasion norms, weather, care). Users can't see product numbers: whenever you mention a product, write it as a markdown link with a short name (3–6 words) and its number, e.g. [Libas cotton straight kurta](#3); never write a bare #number. Never invent stock, delivery, discounts, ratings or reviews; for those, say the brand's page has the latest details.";
 
 export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<void> {
   const tax = getTaxonomy();
@@ -349,7 +357,7 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
   let nextRef = input.state.nextRef;
   const withRefs = (cards: ProductCard[]) => cards.map((c) => ({ ...c, ref: nextRef++ }));
   // Refs typed by the user win; the planner's refs fill in ("the second one", "that Libas kurta").
-  const typedRefs = refsInText(input.message);
+  const typedRefs = messageRefs(input);
   const refProducts = (refs: number[]) =>
     [...new Set([...typedRefs, ...refs])].map((r) => input.state.products.find((p) => p.ref === r)).filter((p): p is ShownProduct => !!p);
 
@@ -385,7 +393,7 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
       await llmTextStream({
         name: "chat-picks",
         model,
-        system: `${STYLIST_RULES}\nYou just recommended some categories and the catalog returned options. Write 2–4 sentences (≤ 90 words) highlighting your top 2–3 picks by #number and why each works for this user (fabric, fit, colour, occasion, price vs budget), plus one quick styling tip. No headings, no lists.`,
+        system: `${STYLIST_RULES}\nYou just recommended some categories and the catalog returned options. Write 2–4 sentences (≤ 90 words) highlighting your top 2–3 picks (as [short name](#n) links) and why each works for this user (fabric, fit, colour, occasion, price vs budget), plus one quick styling tip. No headings, no lists.`,
         user: `User asked: ${input.message}\nYour intro: ${plan.intro}\nWhat you know: ${intentSummary(base, tax)}\n\nOptions by section:\n${top
           .map((t) => `${t.title}:\n${t.products.map((p) => `#${p.ref} ${p.title} | ${p.brand} | ₹${Math.round(p.price)} | ${p.color}${p.fabric ? ` | ${p.fabric}` : ""}${p.fit ? ` | ${p.fit}` : ""}`).join("\n")}`)
           .join("\n\n")}`,
@@ -445,7 +453,7 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
   } else if (plan.turnType === "more_like") {
     const target = refProducts(plan.refs)[0];
     if (target) {
-      emit({ type: "step", id: "search", label: `Finding pieces like #${target.ref}`, status: "running" });
+      emit({ type: "step", id: "search", label: "Finding similar pieces", status: "running" });
       const emb = (await getEmbeddings([target.id])).get(target.id);
       const changes = sanitizeIntent(
         mergeIntent(emptyIntent(""), {
@@ -460,8 +468,8 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
       const found = emb ? await vectorNeighbours({ vector: emb.vec, genders: gendersLike(emb.doc.gender), excludeIds: [target.id], k: 16, intent: changes }) : [];
       const ranked = tasteBoost(found, input.taste, tax);
       const label = plan.similar?.label ? ` · ${plan.similar.label}` : "";
-      emit({ type: "step", id: "search", label: `Finding pieces like #${target.ref}`, status: "done" });
-      emit({ type: "section", id: `like-${target.ref}-${Date.now().toString(36)}`, title: `Like #${target.ref}${label}`, why: target.title, query: `${target.title}${label}`, products: withRefs(ranked.slice(0, 8)), more: [] });
+      emit({ type: "step", id: "search", label: "Finding similar pieces", status: "done" });
+      emit({ type: "section", id: `like-${target.ref}-${Date.now().toString(36)}`, title: `More like ${shortTitle(target.title)}${label}`, why: target.title, query: `${target.title}${label}`, products: withRefs(ranked.slice(0, 8)), more: [] });
     }
   }
 

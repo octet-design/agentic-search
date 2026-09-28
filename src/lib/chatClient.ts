@@ -5,6 +5,7 @@
  * turn keeps streaming while the page navigates, e.g. from the home composer to /chat/<id>.
  */
 import type { AgentEvent } from "./agent/types";
+import { FEATURES } from "./config";
 import { tastePayload } from "./taste";
 import { historyText, useChats } from "@/store/chats";
 import { useSession } from "@/store/session";
@@ -15,7 +16,8 @@ export function isChatRunning(chatId: string) {
   return running.has(chatId);
 }
 
-export async function sendChatMessage(chatId: string, text: string, opts: { debug?: boolean } = {}) {
+/** opts.refs: products the message is about (from card buttons); the server treats them like typed "#n". */
+export async function sendChatMessage(chatId: string, text: string, opts: { debug?: boolean; refs?: number[] } = {}) {
   const message = text.trim();
   if (!message) return;
   running.get(chatId)?.abort();
@@ -26,7 +28,7 @@ export async function sendChatMessage(chatId: string, text: string, opts: { debu
   const before = chats.chats[chatId];
   if (!before) return;
   const history = before.messages.slice(-10).map((m) => ({ role: m.role, content: historyText(m) })).filter((m) => m.content);
-  chats.addUser(chatId, message);
+  chats.addUser(chatId, message, opts.refs);
   const msgId = chats.addAssistant(chatId);
 
   const session = useSession.getState();
@@ -34,7 +36,8 @@ export async function sendChatMessage(chatId: string, text: string, opts: { debu
     message,
     history,
     state: { intent: before.intent, lastSections: before.lastSections, products: before.shown.slice(-120), nextRef: before.nextRef },
-    memory: session.memory.map((m) => m.text),
+    refs: opts.refs ?? [],
+    memory: FEATURES.memory ? session.memory.map((m) => m.text) : [],
     taste: tastePayload({ profile: session.profile, signals: session.signals }),
     debug: opts.debug,
   };
@@ -66,7 +69,7 @@ export async function sendChatMessage(chatId: string, text: string, opts: { debu
         } catch {
           continue;
         }
-        if (e.type === "memory") useSession.getState().addMemory(e.facts);
+        if (e.type === "memory" && FEATURES.memory) useSession.getState().addMemory(e.facts);
         useChats.getState().applyEvent(chatId, msgId, e);
       }
     }

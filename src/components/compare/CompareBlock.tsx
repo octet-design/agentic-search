@@ -3,6 +3,7 @@
 import { Check, CheckCheck, ExternalLink, Minus, Star } from "lucide-react";
 import { ProductImage } from "@/components/product/ProductImage";
 import type { CompareBlockData, ProductCard } from "@/lib/agent/types";
+import { FEATURES } from "@/lib/config";
 import { cn, inr, outboundUrl } from "@/lib/format";
 import { useSession } from "@/store/session";
 
@@ -20,7 +21,7 @@ export function CompareBlock({ data, onOpen }: { data: CompareBlockData; onOpen?
   const click = useSession((s) => s.click);
   const n = data.products.length;
   const cols = { gridTemplateColumns: `8rem repeat(${n}, minmax(9rem, 1fr))` };
-  const label = (i: number) => (data.products[i].ref != null ? `#${data.products[i].ref}` : LETTERS[i]);
+  const label = (i: number) => (FEATURES.refBadges && data.products[i].ref != null ? `#${data.products[i].ref}` : LETTERS[i]);
 
   const rows: [string, (p: ProductCard) => React.ReactNode][] = [
     ["Price", (p) => <span className="font-semibold">{inr(p.price)}</span>],

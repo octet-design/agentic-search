@@ -10,4 +10,10 @@ export const FEATURES = {
   imageSearch: false,
   /** Per-product AI "why this" line and ✓ badges on cards. The chat explains at section level instead. */
   productReasons: false,
+  /** "Ask Drape about this" in the product drawer. Hidden (management feedback, guidance branch). */
+  askDrape: false,
+  /** Visible "#n" badges on chat cards. Refs still exist internally so compare / "more like" / picks work. */
+  refBadges: false,
+  /** Cross-chat "Drape remembers" facts. Off: each chat's context stays inside that chat. */
+  memory: false,
 } as const;

@@ -19,7 +19,8 @@ export type ChatSection = {
   loaded: boolean;
 };
 
-export type UserMessage = { id: string; role: "user"; text: string; at: number };
+/** refs: products the message points at (card buttons), since ref numbers are no longer typed by users. */
+export type UserMessage = { id: string; role: "user"; text: string; at: number; refs?: number[] };
 export type AssistantMessage = {
   id: string;
   role: "assistant";
@@ -59,7 +60,7 @@ type Actions = {
   newChat: () => string;
   deleteChat: (id: string) => void;
   renameChat: (id: string, title: string) => void;
-  addUser: (chatId: string, text: string) => string;
+  addUser: (chatId: string, text: string, refs?: number[]) => string;
   addAssistant: (chatId: string) => string;
   applyEvent: (chatId: string, msgId: string, e: AgentEvent) => void;
   failAssistant: (chatId: string, msgId: string, error: string) => void;
@@ -183,13 +184,13 @@ export const useChats = create<State & Actions>()(
           return { chats, order: s.order.filter((x) => x !== id) };
         }),
       renameChat: (id, title) => set((s) => (s.chats[id] ? { chats: { ...s.chats, [id]: { ...s.chats[id], title: titleFrom(title) } } } : s)),
-      addUser: (chatId, text) => {
+      addUser: (chatId, text, refs) => {
         const id = uid();
         set((s) => {
           const chat = s.chats[chatId];
           if (!chat) return s;
           const first = !chat.messages.some((m) => m.role === "user");
-          const msg: UserMessage = { id, role: "user", text, at: Date.now() };
+          const msg: UserMessage = { id, role: "user", text, at: Date.now(), ...(refs?.length ? { refs } : {}) };
           return {
             chats: { ...s.chats, [chatId]: { ...chat, title: first ? titleFrom(text) : chat.title, messages: [...chat.messages, msg].slice(-MAX_MESSAGES), updatedAt: Date.now() } },
             order: [chatId, ...s.order.filter((x) => x !== chatId)],

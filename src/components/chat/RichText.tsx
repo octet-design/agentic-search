@@ -2,8 +2,14 @@
 
 import { Fragment, type ReactNode } from "react";
 
-/** Minimal markdown for chat replies: paragraphs, **bold**, "- " bullets, and clickable #n product refs. */
-export function RichText({ text, onRef, className = "" }: { text: string; onRef?: (ref: number) => void; className?: string }) {
+type RefLabel = (ref: number) => string | undefined;
+
+/**
+ * Minimal markdown for chat replies: paragraphs, **bold**, "- " bullets, and clickable product mentions.
+ * Products are written as [name](#n); a bare #n is shown as the product's name when refLabel knows it,
+ * so internal ref numbers never have to be visible.
+ */
+export function RichText({ text, onRef, refLabel, className = "" }: { text: string; onRef?: (ref: number) => void; refLabel?: RefLabel; className?: string }) {
   if (!text.trim()) return null;
   const blocks = text.trim().split(/\n{2,}/);
   return (
@@ -14,7 +20,7 @@ export function RichText({ text, onRef, className = "" }: { text: string; onRef?
           return (
             <ul key={bi} className="list-disc space-y-1 pl-5">
               {lines.map((l, li) => (
-                <li key={li}>{inline(l.replace(/^\s*[-•*]\s+/, ""), onRef)}</li>
+                <li key={li}>{inline(l.replace(/^\s*[-•*]\s+/, ""), onRef, refLabel)}</li>
               ))}
             </ul>
           );
@@ -24,7 +30,7 @@ export function RichText({ text, onRef, className = "" }: { text: string; onRef?
             {lines.map((l, li) => (
               <Fragment key={li}>
                 {li > 0 && <br />}
-                {inline(l, onRef)}
+                {inline(l, onRef, refLabel)}
               </Fragment>
             ))}
           </p>
@@ -34,9 +40,9 @@ export function RichText({ text, onRef, className = "" }: { text: string; onRef?
   );
 }
 
-function inline(text: string, onRef?: (ref: number) => void): ReactNode[] {
+function inline(text: string, onRef?: (ref: number) => void, refLabel?: RefLabel): ReactNode[] {
   const out: ReactNode[] = [];
-  const re = /(\*\*[^*]+\*\*|#\d{1,3}\b)/g;
+  const re = /(\*\*[^*]+\*\*|\[[^\]\n]+\]\(#\d{1,3}\)|#\d{1,3}\b)/g;
   let last = 0;
   let m: RegExpExecArray | null;
   let k = 0;
@@ -45,14 +51,16 @@ function inline(text: string, onRef?: (ref: number) => void): ReactNode[] {
     const tok = m[0];
     if (tok.startsWith("**")) out.push(<strong key={k++}>{tok.slice(2, -2)}</strong>);
     else {
-      const n = Number(tok.slice(1));
+      const link = /^\[([^\]]+)\]\(#(\d+)\)$/.exec(tok);
+      const n = Number(link ? link[2] : tok.slice(1));
+      const label = link ? link[1] : (refLabel?.(n) ?? tok);
       out.push(
         onRef ? (
-          <button key={k++} type="button" onClick={() => onRef(n)} className="rounded bg-sand px-1 font-semibold text-ink hover:bg-line">
-            {tok}
+          <button key={k++} type="button" onClick={() => onRef(n)} className="font-semibold text-ink underline decoration-line decoration-2 underline-offset-2 hover:decoration-ink">
+            {label}
           </button>
         ) : (
-          <strong key={k++}>{tok}</strong>
+          <strong key={k++}>{label}</strong>
         ),
       );
     }

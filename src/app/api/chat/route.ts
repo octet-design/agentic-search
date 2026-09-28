@@ -13,6 +13,7 @@ const BodySchema = z.object({
   message: z.string().trim().min(1).max(1000),
   history: z.array(z.object({ role: z.enum(["user", "assistant"]), content: z.string().max(4000) })).max(20),
   state: ChatStateSchema,
+  refs: z.array(z.number().int()).max(5).default([]),
   memory: z.array(z.string().max(200)).max(30).default([]),
   taste: TastePayloadSchema.optional(),
   debug: z.boolean().optional(),

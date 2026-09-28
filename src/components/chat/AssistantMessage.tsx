@@ -13,6 +13,7 @@ export function AssistantMessage({
   isLast,
   hidden,
   onRef,
+  refLabel,
   onOpen,
   onMoreLike,
   onSend,
@@ -22,6 +23,7 @@ export function AssistantMessage({
   isLast: boolean;
   hidden: Set<string>;
   onRef: (ref: number) => void;
+  refLabel?: (ref: number) => string | undefined;
   onOpen: (p: Card) => void;
   onMoreLike: (p: Card) => void;
   onSend: (text: string) => void;
@@ -45,7 +47,7 @@ export function AssistantMessage({
         </span>
       )}
 
-      <RichText text={msg.intro} onRef={onRef} className="text-[15px]" />
+      <RichText text={msg.intro} onRef={onRef} refLabel={refLabel} className="text-[15px]" />
 
       {msg.clarify && (
         <div className="rounded-2xl border border-line bg-paper p-3">
@@ -91,9 +93,9 @@ export function AssistantMessage({
         </section>
       ))}
 
-      <RichText text={msg.answer} onRef={onRef} className="text-[15px]" />
+      <RichText text={msg.answer} onRef={onRef} refLabel={refLabel} className="text-[15px]" />
       {msg.compare && <CompareBlock data={msg.compare} onOpen={onOpen} />}
-      <RichText text={msg.outro} onRef={onRef} className="text-[15px]" />
+      <RichText text={msg.outro} onRef={onRef} refLabel={refLabel} className="text-[15px]" />
 
       {msg.status === "error" && (
         <div className="flex items-center gap-3 rounded-xl border border-warn/30 bg-warn/5 px-3 py-2 text-sm text-warn">

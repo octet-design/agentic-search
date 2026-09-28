@@ -57,7 +57,7 @@ export function ProductCard({
         aria-label={`${p.brand} ${p.title}, ${inr(p.price)}`}
       >
         <ProductImage src={p.image} alt={p.title} className="h-full w-full" />
-        {refNo != null && (
+        {FEATURES.refBadges && refNo != null && (
           <span className="absolute left-2 top-2 rounded-full bg-ink/85 px-2 py-0.5 text-xs font-semibold text-canvas backdrop-blur">#{refNo}</span>
         )}
       </button>

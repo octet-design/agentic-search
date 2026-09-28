@@ -25,6 +25,12 @@ function cardsByRef(chat: Chat): Map<number, Card> {
   return out;
 }
 
+/** How a product is named in chat text and user bubbles now that #n badges are hidden. */
+export function shortName(p: Pick<Card, "title">): string {
+  const t = p.title.replace(/\s+/g, " ").trim();
+  return t.length > 42 ? `${t.slice(0, 40).trimEnd()}…` : t;
+}
+
 export function ChatView({ id, debug = false }: { id: string; debug?: boolean }) {
   const hydrated = useHydrated();
   const chat = useChats((s) => s.chats[id]);
@@ -37,7 +43,8 @@ export function ChatView({ id, debug = false }: { id: string; debug?: boolean })
 
   const refs = useMemo(() => (chat ? cardsByRef(chat) : new Map<number, Card>()), [chat]);
   const running = !!chat?.messages.some((m) => m.role === "assistant" && m.status === "streaming");
-  const send = useCallback((text: string) => sendChatMessage(id, text, { debug }), [id, debug]);
+  const send = useCallback((text: string, refs?: number[]) => sendChatMessage(id, text, { debug, refs }), [id, debug]);
+  const refLabel = useCallback((n: number) => { const p = refs.get(n); return p ? shortName(p) : undefined; }, [refs]);
 
   // Follow new content while the user is at the bottom; don't yank them back if they scrolled up.
   useEffect(() => {
@@ -49,11 +56,11 @@ export function ChatView({ id, debug = false }: { id: string; debug?: boolean })
   useEffect(() => {
     const onCompare = (ev: Event) => {
       const ids = (ev as CustomEvent<string[]>).detail;
-      const byId = new Map([...refs.values()].map((p) => [p.id, p.ref]));
-      const nums = ids.map((x) => byId.get(x)).filter((n): n is number => n != null);
-      if (nums.length >= 2) {
+      const byId = new Map([...refs.values()].map((p) => [p.id, p]));
+      const picked = ids.map((x) => byId.get(x)).filter((p): p is Card => p?.ref != null);
+      if (picked.length >= 2) {
         ev.preventDefault();
-        send(`Compare ${nums.map((n) => `#${n}`).join(" and ")}`);
+        send(`Compare ${picked.map(shortName).join(" and ")}`, picked.map((p) => p.ref!));
       }
     };
     window.addEventListener("drape:compare", onCompare);
@@ -100,6 +107,7 @@ export function ChatView({ id, debug = false }: { id: string; debug?: boolean })
                 msg={m}
                 isLast={m.id === lastAssistant?.id}
                 hidden={hidden}
+                refLabel={refLabel}
                 onRef={(n) => {
                   const p = refs.get(n);
                   if (p) setQuick(p);
@@ -107,10 +115,10 @@ export function ChatView({ id, debug = false }: { id: string; debug?: boolean })
                 onOpen={setQuick}
                 onMoreLike={(p) => {
                   useSession.getState().track("more_like", p);
-                  send(p.ref != null ? `More like #${p.ref}` : `More like ${p.title}`);
+                  send(`More like this: ${shortName(p)}`, p.ref != null ? [p.ref] : undefined);
                 }}
                 onSend={send}
-                onRetry={() => lastUser && send(lastUser.text)}
+                onRetry={() => lastUser && send(lastUser.text, lastUser.refs)}
               />
             ),
           )}
@@ -137,7 +145,7 @@ export function ChatView({ id, debug = false }: { id: string; debug?: boolean })
               ))}
             </div>
           )}
-          <Composer ref={composer} onSend={send} onStop={() => stopChat(id)} running={running} placeholder="Ask a follow-up, e.g. “cheaper” or “compare #1 and #4”" />
+          <Composer ref={composer} onSend={send} onStop={() => stopChat(id)} running={running} placeholder="Ask a follow-up, e.g. “cheaper” or “what goes with it?”" />
         </div>
       </div>
 

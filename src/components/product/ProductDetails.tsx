@@ -69,7 +69,7 @@ export function ProductDetails({
         {FEATURES.productReasons && p.reason && <p className="mt-3 rounded-lg bg-accent-soft px-3 py-2 text-sm text-ink">{p.reason}</p>}
       </div>
 
-      {onAsk && (
+      {FEATURES.askDrape && onAsk && (
         <button
           type="button"
           onClick={() => onAsk(p)}
