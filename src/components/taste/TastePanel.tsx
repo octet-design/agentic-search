@@ -3,6 +3,7 @@
 import { RotateCcw, X } from "lucide-react";
 import { Drawer } from "@/components/ui/Drawer";
 import { useTaste } from "@/hooks/useTaste";
+import { FEATURES } from "@/lib/config";
 import { cn } from "@/lib/format";
 import { useSession, type AudienceKey } from "@/store/session";
 
@@ -42,22 +43,24 @@ export function TastePanel({ open, onClose }: { open: boolean; onClose: () => vo
         </div>
       </Section>
 
-      <Section title="Drape remembers">
-        {memory.length === 0 ? (
-          <p className="text-sm text-ink-soft">Nothing yet. Tell Drape things like “I wear size M” or “I avoid polyester” in a chat.</p>
-        ) : (
-          <ul className="space-y-1.5">
-            {memory.map((m) => (
-              <li key={m.id} className="flex items-start gap-2 text-sm">
-                <span className="flex-1">{m.text}</span>
-                <button onClick={() => removeMemory(m.id)} aria-label={`Forget: ${m.text}`} className="rounded-full p-0.5 text-ink-faint hover:bg-sand hover:text-ink">
-                  <X size={13} />
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
-      </Section>
+      {FEATURES.memory && (
+        <Section title="Drape remembers">
+          {memory.length === 0 ? (
+            <p className="text-sm text-ink-soft">Nothing yet. Tell Drape things like “I wear size M” or “I avoid polyester” in a chat.</p>
+          ) : (
+            <ul className="space-y-1.5">
+              {memory.map((m) => (
+                <li key={m.id} className="flex items-start gap-2 text-sm">
+                  <span className="flex-1">{m.text}</span>
+                  <button onClick={() => removeMemory(m.id)} aria-label={`Forget: ${m.text}`} className="rounded-full p-0.5 text-ink-faint hover:bg-sand hover:text-ink">
+                    <X size={13} />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </Section>
+      )}
 
       <Section title="Learned from your likes, views and clicks">
         {taste.empty ? (

@@ -5,6 +5,7 @@
  */
 import { z } from "zod";
 import { compareProducts } from "../compare";
+import { FEATURES } from "../config";
 import { getEnv } from "../env";
 import { llmStructuredStream, llmTextStream, Usage } from "../llm";
 import { gendersLike, getEmbeddings, vectorNeighbours } from "../similar";
@@ -116,6 +117,9 @@ type ChatBase = z.infer<typeof ChatBaseSchema>;
 
 const PlanSchema = z.object({
   turnType: z.enum(TURN_TYPES),
+  // Decided first so the rest of the plan follows it.
+  tasteWhy: z.string(),
+  useTaste: z.boolean(),
   intro: z.string(),
   refs: z.array(z.number().int()),
   sections: z.array(SectionSchema),
@@ -160,7 +164,13 @@ base: the chat's running understanding, CARRIED FORWARD from the current state a
 Rules: canonical ids only (from the vocabulary). "k" = ×1000; "under 2k" → budgetMax 2000 strict; "around 2000" → 1600–2400 not strict; "cheaper" → budgetMax below most shown prices, strict. Audience: explicit words or gender-implicit items (saree → women, sherwani → men); "for my wife/daughter/dad" sets it; if unknown and the profile has exactly one audience use it. If it's still unknown and the need is gendered clothing or footwear, set clarify {"Who is this for?", ["Women","Men","Kids"]} and still plan best-guess sections.
 
 followups: exactly 3 short next steps the user might tap (≤ 5 words each), specific to this turn (e.g. "Under ₹1,500", "Show linen only", "Add a watch"). Never put product numbers in followups or the intro: users can't see them. The numbers below are internal; users point at products by name, colour, position ("the second one") or card buttons.
-memory: durable personal facts the user stated about themselves or people they shop for, worth remembering across chats (e.g. "Wears size M tops", "Avoids polyester", "Shops for wife (women's wear)", "Prefers minimal style"). One-off needs for this request ("under 2k for this wedding") are NOT memory. Usually [].
+${
+    FEATURES.memory
+      ? `memory: durable personal facts the user stated about themselves or people they shop for, worth remembering across chats (e.g. "Wears size M tops", "Avoids polyester", "Shops for wife (women's wear)", "Prefers minimal style"). One-off needs for this request ("under 2k for this wedding") are NOT memory. Usually [].`
+      : "memory: always []."
+  }
+
+tasteWhy + useTaste (decide these FIRST; tasteWhy ≤ 12 words): decide from the INTENT of this message whether the user's learned taste (colours, fabrics, brands and budget learned from their clicks and saves; you don't see it, the app applies it as gentle tie-breaks) would genuinely help. true when the ask is open-ended about the user's own style and they haven't specified those things ("new tops for college", "something for date night"). false when it would distort the ask: shopping for someone else (a gift for dad, clothes for a child), a specific or functional need that already states what matters, or a new direction the user asks for ("something different", "bolder than usual", "try a new style"). Rule: if the user asks for a change from their usual (new look, different, bolder, experiment, "than usual", out of comfort zone), useTaste is false: their past taste is exactly what they want to move away from. Examples: "saree for my mom" → false (her taste, not the user's); "gift for dad" → false; "bolder than usual for a party" → false (user wants a change); "office shirts, only white cotton" → false (fully specified); "new tops for college" → true; "what should I wear to brunch" → true. Context from THIS chat always applies; that is not taste.
 
 Vocabulary (canonical ids):
 ${tax.promptVocabulary()}
@@ -256,9 +266,8 @@ function plannerUser(input: ChatTurnInput): string {
   const shown = [...input.state.products.filter((p) => mentioned.has(p.ref) && !recent.includes(p)), ...recent];
   return [
     `Today: ${(input.today ?? new Date()).toISOString().slice(0, 10)}`,
-    input.memory.length ? `What Drape remembers about this user: ${input.memory.join("; ")}` : "",
+    FEATURES.memory && input.memory.length ? `What Drape remembers about this user: ${input.memory.join("; ")}` : "",
     input.taste?.audiences.length ? `Profile audiences: ${input.taste.audiences.join(", ")}` : "Profile audiences: none",
-    input.taste?.summary ? `Learned taste (tie-breaks only; the user's words win): ${input.taste.summary}` : "",
     `Current state (base intent): ${compactIntent(input.state.intent)}`,
     input.state.lastSections.length ? `Previous sections: ${input.state.lastSections.map((s) => `${s.title} [${s.categories.join(", ")}] "${s.semanticQuery}"`).join(" | ")}` : "",
     shown.length ? `Products shown so far:\n${shown.map(productLine).join("\n")}` : "No products shown yet.",
@@ -268,6 +277,34 @@ function plannerUser(input: ChatTurnInput): string {
   ]
     .filter(Boolean)
     .join("\n\n");
+}
+
+/**
+ * Safety net for the planner's useTaste call: a gift or a clearly named other wearer ("for my mom",
+ * "papa ke liye") means the user's own taste doesn't apply to this request.
+ */
+export function forSomeoneElse(message: string): boolean {
+  const who =
+    "(?:mom|mum|mother|maa|mummy|dad|papa|father|wife|husband|son|daughter|kid|kids|child|baby|brother|bro|sister|sis|friend|boyfriend|girlfriend|bf|gf|grand(?:ma|pa|mother|father)|nani|dadi|nana|dada|aunt|uncle|chacha|chachi|mama|mami|bhai|bhaiya|didi|bhabhi|niece|nephew|boss|colleague|in-?laws?|fianc[eé]e?|partner)";
+  // "my friend's wedding" is the user's occasion, not someone else wearing it: skip possessives.
+  const person = `${who}(?!['’]s)\\b`;
+  const m = message.toLowerCase();
+  return (
+    /\bgift(?:s|ing)?\b/.test(m) ||
+    new RegExp(`\\bfor\\s+(?:my|our|a|the)\\s+(?:\\w+\\s+)?${person}`).test(m) ||
+    new RegExp(`\\b${who}\\s+(?:ke|ki|ka)\\s+liye\\b`).test(m) ||
+    /\bfor\s+(?:him|her|them)\b/.test(m)
+  );
+}
+
+/** Safety net: asking for a change from the usual means past taste is what to move away from. */
+export function wantsChange(message: string): boolean {
+  return /\b(?:than usual|new look|fresh look|different|bolder|experiment\w*|out of (?:my )?comfort zone|change (?:my|of) (?:style|look)|something new|kuch (?:naya|alag|hatke))\b/i.test(message);
+}
+
+function tasteNote(taste: TastePayload): string {
+  const liked = [...taste.likes.colors, ...taste.likes.fabrics, ...taste.likes.brands].slice(0, 3);
+  return liked.length ? `Used your taste (${liked.join(", ")})` : "Used your taste";
 }
 
 // ---------------------------------------------------------------------------
@@ -309,7 +346,7 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
   }
   timings.understand = Math.round(performance.now() - t0);
   emit({ type: "step", id: "understand", label: "Thinking about what you need", status: "done", ms: timings.understand });
-  debug.plan = { turnType: plan.turnType, refs: plan.refs, sections: plan.sections.map((s) => s.title) };
+  debug.plan = { turnType: plan.turnType, useTaste: plan.useTaste, tasteWhy: plan.tasteWhy, refs: plan.refs, sections: plan.sections.map((s) => s.title) };
 
   // Sticky base intent: the planner carries it forward; guard against dropping a known audience by accident.
   let base = keepUserStatedMusts(
@@ -319,12 +356,12 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
   );
   const prev = input.state.intent;
   if (prev && base.audience.segment === "unknown" && prev.audience.segment !== "unknown") base = { ...base, audience: prev.audience };
-  const personalized = applyTaste(base, input.taste, tax);
+  // Taste is used only when the planner judged it useful for this request's intent (with a guard for gifts).
+  const taste = plan.useTaste && !forSomeoneElse(input.message) && !wantsChange(input.message) ? input.taste : undefined;
+  const personalized = applyTaste(base, taste, tax);
   base = personalized.intent;
-  const likes = input.taste?.likes;
-  const liked = [...(likes?.colors ?? []), ...(likes?.fabrics ?? []), ...(likes?.brands ?? [])].slice(0, 3);
-  if (liked.length) personalized.notes.push(`Close calls ranked by your taste (${liked.join(", ")})`);
-  if (input.memory.length) personalized.notes.push("Used what Drape remembers about you");
+  // The planner may also have used taste directly (colours, budget), so say so whenever it's on.
+  if (taste) personalized.notes.unshift(tasteNote(taste));
 
   const specs: ChatSectionSpec[] =
     plan.turnType === "refine" && !plan.sections.length
@@ -350,7 +387,7 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
     lastSections: hasSections ? specs : input.state.lastSections,
     personalized: personalized.notes,
   });
-  const memory = plan.memory.map((m) => m.trim()).filter(Boolean).slice(0, 5);
+  const memory = FEATURES.memory ? plan.memory.map((m) => m.trim()).filter(Boolean).slice(0, 5) : [];
   if (memory.length) emit({ type: "memory", facts: memory });
   if (plan.clarify?.options.length) emit({ type: "clarify", question: plan.clarify.question, options: plan.clarify.options.slice(0, 4) });
 
@@ -378,7 +415,7 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
     rails.forEach((rail, i) => {
       const s = sections[i];
       // 8 per section like a chat answer; the full grid is one tap away ("See all" → classic results).
-      const ranked = diversify(tasteBoost(rail.products, input.taste, tax), 8, 2);
+      const ranked = diversify(tasteBoost(rail.products, taste, tax), 8, 2);
       const shown = withRefs(ranked.slice(0, 8));
       const more: ProductCard[] = [];
       top.push({ title: s.spec.title, products: shown.slice(0, 3) });
@@ -466,7 +503,7 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
         tax,
       );
       const found = emb ? await vectorNeighbours({ vector: emb.vec, genders: gendersLike(emb.doc.gender), excludeIds: [target.id], k: 16, intent: changes }) : [];
-      const ranked = tasteBoost(found, input.taste, tax);
+      const ranked = tasteBoost(found, taste, tax);
       const label = plan.similar?.label ? ` · ${plan.similar.label}` : "";
       emit({ type: "step", id: "search", label: "Finding similar pieces", status: "done" });
       emit({ type: "section", id: `like-${target.ref}-${Date.now().toString(36)}`, title: `More like ${shortTitle(target.title)}${label}`, why: target.title, query: `${target.title}${label}`, products: withRefs(ranked.slice(0, 8)), more: [] });

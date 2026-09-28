@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { normalizeCompare } from "../compare";
-import { keepUserStatedMusts, refsInText, resolveCategories, toIntent } from "./chatAgent";
+import { forSomeoneElse, keepUserStatedMusts, refsInText, resolveCategories, toIntent, wantsChange } from "./chatAgent";
 import { fixtureTax as tax, intentWith } from "./testFixture";
 
 describe("refsInText", () => {
@@ -90,5 +90,25 @@ describe("normalizeCompare", () => {
     expect(res.occasions[1].best).toBeNull();
     expect(res.occasions[2].best).toBeNull();
     expect(res.verdict).toHaveLength(3);
+  });
+});
+
+describe("forSomeoneElse", () => {
+  it("spots gifts and other wearers in English and Hinglish", () => {
+    for (const m of ["Gift for my dad's 60th", "saree for my mom", "kurta for my little son", "papa ke liye kuch", "meri didi ki liye lehenga", "something for her birthday", "gifting ideas"]) {
+      expect(forSomeoneElse(m), m).toBe(true);
+    }
+  });
+  it("leaves the user's own asks alone", () => {
+    for (const m of ["new tops for college", "what should I wear to my friend's wedding", "outfit for my sister's sangeet", "shoes for my trip", "bolder than usual for a party"]) {
+      expect(forSomeoneElse(m), m).toBe(false);
+    }
+  });
+});
+
+describe("wantsChange", () => {
+  it("spots asks to move away from the usual", () => {
+    for (const m of ["something bolder than usual", "I want a completely new look", "kuch alag chahiye", "try something different for Diwali"]) expect(wantsChange(m), m).toBe(true);
+    for (const m of ["new tops for college", "bold red lipstick shade saree", "what to wear to brunch"]) expect(wantsChange(m), m).toBe(false);
   });
 });

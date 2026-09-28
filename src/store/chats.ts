@@ -2,7 +2,7 @@
 
 /**
  * Conversations (Drape v2), stored in this browser only. Each chat keeps its own context: running intent,
- * shown products with stable #refs, last sections. Nothing leaks between chats except global memory/taste.
+ * shown products with stable #refs, last sections. Nothing leaks between chats except learned taste, and only when the planner judges it useful.
  */
 import { create } from "zustand";
 import { createJSONStorage, persist, type StateStorage } from "zustand/middleware";
