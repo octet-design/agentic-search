@@ -16,6 +16,8 @@ export type ChatSection = {
   query: string;
   products: ProductCard[];
   relaxedNote?: string;
+  /** Filters the section used; "See all" re-runs them without the LLM. */
+  intent?: Intent;
   loaded: boolean;
 };
 
@@ -97,7 +99,7 @@ function reduce(chat: Chat, msgId: string, e: AgentEvent): Chat {
         sections: e.sections.map((s) => ({ id: s.id, title: s.title, why: s.why, query: "", products: [], loaded: false })),
       }));
     case "section": {
-      const section: ChatSection = { id: e.id, title: e.title, why: e.why, query: e.query, products: e.products.map(slim), relaxedNote: e.relaxedNote, loaded: true };
+      const section: ChatSection = { id: e.id, title: e.title, why: e.why, query: e.query, products: e.products.map(slim), relaxedNote: e.relaxedNote, intent: e.intent, loaded: true };
       const next = updateMsg(chat, msgId, (m) => ({
         ...m,
         sections: m.sections.some((s) => s.id === e.id) ? m.sections.map((s) => (s.id === e.id ? section : s)) : [...m.sections, section],

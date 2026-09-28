@@ -8,11 +8,12 @@ import { Drawer } from "@/components/ui/Drawer";
 import { useHydrated } from "@/hooks/useHydrated";
 import type { ProductCard as Card } from "@/lib/agent/types";
 import { sendChatMessage, stopChat } from "@/lib/chatClient";
-import { useChats, type Chat } from "@/store/chats";
+import { useChats, type Chat, type ChatSection } from "@/store/chats";
 import { useSession } from "@/store/session";
 import { AssistantMessage } from "./AssistantMessage";
 import { ChatLayout } from "./ChatLayout";
 import { Composer, type ComposerHandle } from "./Composer";
+import { SeeAllPanel } from "./SeeAllPanel";
 
 /** Every product card this chat has shown, by #ref (sections + compare blocks). */
 function cardsByRef(chat: Chat): Map<number, Card> {
@@ -37,6 +38,7 @@ export function ChatView({ id, debug = false }: { id: string; debug?: boolean })
   const disliked = useSession((s) => s.signals.disliked);
   const hidden = useMemo(() => new Set(disliked.map((d) => d.p.id)), [disliked]);
   const [quick, setQuick] = useState<Card | null>(null);
+  const [seeAll, setSeeAll] = useState<ChatSection | null>(null);
   const composer = useRef<ComposerHandle>(null);
   const scroller = useRef<HTMLDivElement>(null);
   const stick = useRef(true);
@@ -117,6 +119,7 @@ export function ChatView({ id, debug = false }: { id: string; debug?: boolean })
                   useSession.getState().track("more_like", p);
                   send(`More like this: ${shortName(p)}`, p.ref != null ? [p.ref] : undefined);
                 }}
+                onSeeAll={setSeeAll}
                 onSend={send}
                 onRetry={() => lastUser && send(lastUser.text, lastUser.refs)}
               />
@@ -148,6 +151,8 @@ export function ChatView({ id, debug = false }: { id: string; debug?: boolean })
           <Composer ref={composer} onSend={send} onStop={() => stopChat(id)} running={running} placeholder="Ask a follow-up, e.g. “cheaper” or “what goes with it?”" />
         </div>
       </div>
+
+      <SeeAllPanel section={seeAll} hidden={hidden} onClose={() => setSeeAll(null)} />
 
       <Drawer open={!!quick} onClose={() => setQuick(null)} title={quick?.brand}>
         {quick && (

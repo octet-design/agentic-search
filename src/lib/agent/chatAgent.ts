@@ -424,12 +424,12 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
     const top: { title: string; products: ProductCard[] }[] = [];
     rails.forEach((rail, i) => {
       const s = sections[i];
-      // 8 per section like a chat answer; the full grid is one tap away ("See all" → classic results).
+      // 8 per section like a chat answer; "See all" lists more with these same filters (/api/chat/section).
       const ranked = diversify(tasteBoost(rail.products, taste, tax), 8, 2);
       const shown = withRefs(ranked.slice(0, 8));
       const more: ProductCard[] = [];
       top.push({ title: s.spec.title, products: shown.slice(0, 3) });
-      emit({ type: "section", id: s.id, title: s.spec.title, why: s.why, query: s.intent.semanticQuery, products: shown, more, relaxedNote: rail.relaxedNote });
+      emit({ type: "section", id: s.id, title: s.spec.title, why: s.why, query: s.intent.semanticQuery, products: shown, more, relaxedNote: rail.relaxedNote, intent: rail.intent });
     });
     debug.rails = rails.map((r) => ({ id: r.id, title: r.title, q: r.debug.q, filter: r.debug.filter, rounds: r.debug.rounds, dropped: r.debug.dropped, relaxed: r.relaxed.map((x) => x.id) }));
 

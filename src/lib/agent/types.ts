@@ -226,6 +226,8 @@ export type AgentEvent =
       products: ProductCard[];
       more: ProductCard[];
       relaxedNote?: string;
+      /** The exact filters this section used (after relaxation), for "See all". */
+      intent?: Intent;
     }
   | { type: "compare"; data: CompareBlockData }
   | { type: "memory"; facts: string[] }

@@ -1,11 +1,10 @@
 "use client";
 
-import { ArrowUpRight, Info, Loader2, RotateCcw, Sparkles } from "lucide-react";
+import { ChevronRight, Info, Loader2, RotateCcw, Sparkles } from "lucide-react";
 import { CompareBlock } from "@/components/compare/CompareBlock";
 import { ProductCard, ProductSkeleton } from "@/components/product/ProductCard";
 import type { ProductCard as Card } from "@/lib/agent/types";
-import { editHref } from "@/lib/format";
-import type { AssistantMessage as Msg } from "@/store/chats";
+import type { ChatSection, AssistantMessage as Msg } from "@/store/chats";
 import { RichText } from "./RichText";
 
 export function AssistantMessage({
@@ -16,6 +15,7 @@ export function AssistantMessage({
   refLabel,
   onOpen,
   onMoreLike,
+  onSeeAll,
   onSend,
   onRetry,
 }: {
@@ -26,6 +26,7 @@ export function AssistantMessage({
   refLabel?: (ref: number) => string | undefined;
   onOpen: (p: Card) => void;
   onMoreLike: (p: Card) => void;
+  onSeeAll: (s: ChatSection) => void;
   onSend: (text: string) => void;
   onRetry: () => void;
 }) {
@@ -63,10 +64,10 @@ export function AssistantMessage({
                 </p>
               )}
             </div>
-            {s.loaded && s.query && (
-              <a href={editHref(s.query)} target="_blank" rel="noopener" className="inline-flex shrink-0 items-center gap-1 text-sm text-ink-soft hover:text-ink">
-                See all <ArrowUpRight size={14} />
-              </a>
+            {s.loaded && s.intent && s.products.length > 0 && (
+              <button type="button" onClick={() => onSeeAll(s)} className="inline-flex shrink-0 items-center gap-1 text-sm text-ink-soft hover:text-ink">
+                See all <ChevronRight size={14} />
+              </button>
             )}
           </div>
           <div className="no-scrollbar -mx-4 flex snap-x gap-3 overflow-x-auto px-4 pb-1">
