@@ -41,6 +41,8 @@ type State = {
   /** Full cards for compare/saved views, keyed by id (kept small). */
   cards: Record<string, ProductCard>;
   onboardingOpen: boolean;
+  /** Last choice in the "Shopping for" picker on a new chat (null = anyone). */
+  shopFor: AudienceKey | null;
 };
 
 type Actions = {
@@ -54,6 +56,7 @@ type Actions = {
   clearCompare: () => void;
   removeSignal: (kind: "liked" | "disliked" | "clicked" | "interactions", id: string) => void;
   setOnboardingOpen: (open: boolean) => void;
+  setShopFor: (a: AudienceKey | null) => void;
   addMemory: (facts: string[]) => void;
   removeMemory: (id: string) => void;
   reset: () => void;
@@ -80,6 +83,7 @@ const initial: State = {
   compare: [],
   cards: {},
   onboardingOpen: false,
+  shopFor: null,
 };
 
 const normFact = (s: string) => s.toLowerCase().replace(/[^a-z0-9₹]+/g, " ").trim();
@@ -154,6 +158,7 @@ export const useSession = create<State & Actions>()(
           saved: kind === "liked" ? s.saved.filter((x) => x !== id) : s.saved,
         })),
       setOnboardingOpen: (open) => set({ onboardingOpen: open }),
+      setShopFor: (a) => set({ shopFor: a }),
       addMemory: (facts) =>
         set((s) => {
           const seen = new Set(s.memory.map((m) => normFact(m.text)));
@@ -170,7 +175,7 @@ export const useSession = create<State & Actions>()(
       name: "drape.session.v1",
       version: 1,
       storage: createJSONStorage(() => localStorage),
-      partialize: (s) => ({ profile: s.profile, signals: s.signals, memory: s.memory, saved: s.saved, compare: s.compare, cards: pruneCards(s) }),
+      partialize: (s) => ({ profile: s.profile, signals: s.signals, memory: s.memory, shopFor: s.shopFor, saved: s.saved, compare: s.compare, cards: pruneCards(s) }),
       migrate: (persisted, version) => {
         // v0 → v1: no shape changes yet; merge onto defaults so new fields always exist.
         const p = (persisted ?? {}) as Partial<State>;

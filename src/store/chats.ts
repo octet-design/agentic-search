@@ -7,6 +7,7 @@
 import { create } from "zustand";
 import { createJSONStorage, persist, type StateStorage } from "zustand/middleware";
 import type { StepState } from "@/hooks/useAgentStream";
+import type { AudienceKey } from "@/store/session";
 import type { AgentEvent, ChatPick, ChatSectionSpec, Chip, CompareBlockData, Intent, ProductCard } from "@/lib/agent/types";
 
 export type ChatSection = {
@@ -60,11 +61,13 @@ export type Chat = {
   lastSections: ChatSectionSpec[];
   shown: ShownRef[];
   nextRef: number;
+  /** Picked in "Shopping for" when the chat started (null = anyone). */
+  audience?: AudienceKey | null;
 };
 
 type State = { chats: Record<string, Chat>; order: string[] };
 type Actions = {
-  newChat: () => string;
+  newChat: (audience?: AudienceKey | null) => string;
   deleteChat: (id: string) => void;
   renameChat: (id: string, title: string) => void;
   addUser: (chatId: string, text: string, refs?: number[]) => string;
@@ -176,11 +179,11 @@ export const useChats = create<State & Actions>()(
     (set) => ({
       chats: {},
       order: [],
-      newChat: () => {
+      newChat: (audience = null) => {
         const id = uid();
         const now = Date.now();
         set((s) => {
-          const chat: Chat = { id, title: "New chat", createdAt: now, updatedAt: now, messages: [], intent: null, chips: [], lastSections: [], shown: [], nextRef: 1 };
+          const chat: Chat = { id, title: "New chat", createdAt: now, updatedAt: now, messages: [], intent: null, chips: [], lastSections: [], shown: [], nextRef: 1, audience };
           const order = [id, ...s.order];
           const chats = { ...s.chats, [id]: chat };
           for (const old of order.slice(MAX_CHATS)) delete chats[old];

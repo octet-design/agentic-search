@@ -11,9 +11,17 @@ import { useTaste, useTasteSeeds } from "@/hooks/useTaste";
 import type { ProductCard as Card } from "@/lib/agent/types";
 import { sendChatMessage } from "@/lib/chatClient";
 import { useChats } from "@/store/chats";
-import { useSession } from "@/store/session";
+import { cn } from "@/lib/format";
+import { useSession, type AudienceKey } from "@/store/session";
 import { ChatLayout } from "./ChatLayout";
 import { Composer } from "./Composer";
+
+const AUDIENCES: { id: AudienceKey; label: string }[] = [
+  { id: "women", label: "Women" },
+  { id: "men", label: "Men" },
+  { id: "girls", label: "Girls" },
+  { id: "boys", label: "Boys" },
+];
 
 const STARTERS = [
   "Office casual wear that's comfortable",
@@ -34,6 +42,9 @@ export function ChatHome() {
   const disliked = useSession((s) => s.signals.disliked);
   const [forYou, setForYou] = useState<{ key: string; products: Card[] } | null>(null);
   const [quick, setQuick] = useState<Card | null>(null);
+  // "Shopping for": the last pick, else the profile's only audience, else anyone.
+  const shopFor = useSession((s) => s.shopFor ?? (s.profile.audiences.length === 1 ? s.profile.audiences[0] : null));
+  const setShopFor = useSession((s) => s.setShopFor);
   const likedKey = seeds.join(",");
 
   useEffect(() => {
@@ -50,7 +61,7 @@ export function ChatHome() {
   }, [hydrated, likedKey]);
 
   const start = (text: string) => {
-    const id = newChat();
+    const id = newChat(shopFor);
     void sendChatMessage(id, text);
     router.push(`/chat/${id}`);
   };
@@ -67,7 +78,26 @@ export function ChatHome() {
             What are you shopping for?
           </motion.h1>
           <p className="mt-3 text-ink-soft">Tell me the occasion, the vibe or the exact piece. I&apos;ll suggest what to wear, show real options and answer your questions.</p>
-          <div className="mt-8">
+          <div className="mt-8 flex flex-wrap items-center gap-2" role="radiogroup" aria-label="Shopping for">
+            <span className="mr-1 text-sm text-ink-soft">Shopping for</span>
+            {AUDIENCES.map((a) => {
+              const on = hydrated && shopFor === a.id;
+              return (
+                <button
+                  key={a.id}
+                  type="button"
+                  role="radio"
+                  aria-checked={on}
+                  onClick={() => setShopFor(on ? null : a.id)}
+                  className={cn("rounded-full border px-3.5 py-1.5 text-sm transition", on ? "border-ink bg-ink text-canvas" : "border-line bg-paper hover:border-ink")}
+                >
+                  {a.label}
+                </button>
+              );
+            })}
+            {hydrated && !shopFor && <span className="text-xs text-ink-faint">Anyone (I&apos;ll work it out from your message)</span>}
+          </div>
+          <div className="mt-3">
             <Composer onSend={start} autoFocus large placeholder="e.g. office casual wear that's comfortable, no polyester" />
           </div>
           <div className="mt-4 flex flex-wrap gap-2">

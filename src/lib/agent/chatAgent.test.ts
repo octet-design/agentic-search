@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { normalizeCompare } from "../compare";
-import { forSomeoneElse, keepUserStatedMusts, lastAsked, sameQuestion, refsInText, resolveCategories, toIntent, wantsChange } from "./chatAgent";
+import { forSomeoneElse, keepUserStatedMusts, lastAsked, pickedAudience, recipientAudience, sameQuestion, refsInText, resolveCategories, toIntent, wantsChange } from "./chatAgent";
 import { fixtureTax as tax, intentWith } from "./testFixture";
 
 describe("refsInText", () => {
@@ -127,5 +127,20 @@ describe("lastAsked / sameQuestion", () => {
     expect(sameQuestion("What colour is your lehenga?", "what colour is your lehenga")).toBe(true);
     expect(sameQuestion("What's your budget?", "What colour is your lehenga?")).toBe(false);
     expect(sameQuestion("Anything?", undefined)).toBe(false);
+  });
+});
+
+describe("recipientAudience / pickedAudience", () => {
+  it("reads the recipient's audience from the message", () => {
+    expect(recipientAudience("saree as a gift for my mom")).toBe("women");
+    expect(recipientAudience("kurta for my dad's 60th")).toBe(null); // possessive = an occasion, not the wearer
+    expect(recipientAudience("kurta for my dad")).toBe("men");
+    expect(recipientAudience("papa ke liye kurta")).toBe("men");
+    expect(recipientAudience("party dress for my 6 year old daughter")).toBe("girls");
+    expect(recipientAudience("shoes for my trip")).toBe(null);
+  });
+  it("maps picker values to an audience", () => {
+    expect(pickedAudience("boys")).toEqual({ segment: "kids", kidGender: "boy", ageYears: null, source: "explicit" });
+    expect(pickedAudience("women").segment).toBe("women");
   });
 });

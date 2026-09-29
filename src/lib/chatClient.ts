@@ -37,6 +37,7 @@ export async function sendChatMessage(chatId: string, text: string, opts: { debu
     history,
     state: { intent: before.intent, lastSections: before.lastSections, products: before.shown.slice(-120), nextRef: before.nextRef },
     refs: opts.refs ?? [],
+    audience: before.audience ?? null,
     memory: FEATURES.memory ? session.memory.map((m) => m.text) : [],
     taste: tastePayload({ profile: session.profile, signals: session.signals }),
     debug: opts.debug,

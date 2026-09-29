@@ -61,6 +61,8 @@ export type ChatTurnInput = {
   message: string;
   /** Products the message points at (sent by card buttons; refs aren't visible to users). */
   refs?: number[];
+  /** "Shopping for" picker choice for this chat (null = anyone). */
+  audience?: "women" | "men" | "girls" | "boys" | null;
   history: { role: "user" | "assistant"; content: string }[];
   state: ChatState;
   memory: string[];
@@ -277,7 +279,11 @@ function plannerUser(input: ChatTurnInput): string {
   return [
     `Today: ${(input.today ?? new Date()).toISOString().slice(0, 10)}`,
     FEATURES.memory && input.memory.length ? `What Drape remembers about this user: ${input.memory.join("; ")}` : "",
-    input.taste?.audiences.length ? `Profile audiences: ${input.taste.audiences.join(", ")}` : "Profile audiences: none",
+    input.audience
+      ? `Shopping for (picked in the chat's picker): ${input.audience}. This is only the DEFAULT audience: a recipient named in the conversation ("a gift for my mom" → women, "for my son" → kids boy) or a gendered item ("saree" → women, "sherwani" → men) overrides it.`
+      : input.taste?.audiences.length
+        ? `Profile audiences: ${input.taste.audiences.join(", ")}`
+        : "Profile audiences: none",
     `Current state (base intent): ${compactIntent(input.state.intent)}`,
     input.state.lastSections.length ? `Previous sections: ${input.state.lastSections.map((s) => `${s.title} [${s.categories.join(", ")}] "${s.semanticQuery}"`).join(" | ")}` : "",
     shown.length ? `Products shown so far:\n${shown.map(productLine).join("\n")}` : "No products shown yet.",
@@ -316,6 +322,36 @@ export function lastAsked(history: ChatTurnInput["history"]): string | undefined
 export function sameQuestion(a: string, b: string | undefined): boolean {
   const norm = (q: string) => q.toLowerCase().replace(/[^a-z0-9 ]/g, "").replace(/\s+/g, " ").trim();
   return !!b && norm(a) === norm(b);
+}
+
+/** "Shopping for" picker value → Intent audience. */
+export function pickedAudience(a: NonNullable<ChatTurnInput["audience"]>): Intent["audience"] {
+  return a === "girls" || a === "boys"
+    ? { segment: "kids", kidGender: a === "girls" ? "girl" : "boy", ageYears: null, source: "explicit" }
+    : { segment: a, kidGender: null, ageYears: null, source: "explicit" };
+}
+
+const RECIPIENTS: [RegExp, NonNullable<ChatTurnInput["audience"]>][] = [
+  [/(?:mom|mum|mother|maa|mummy|wife|sister|sis|didi|bhabhi|girlfriend|gf|fianc[eé]e|aunt|chachi|mami|nani|dadi|grandma|grandmother|mother-in-law)/, "women"],
+  [/(?:dad|papa|father|husband|brother|bro|bhai|bhaiya|boyfriend|bf|fianc[eé]|uncle|chacha|mama|nana|dada|grandpa|grandfather|father-in-law)/, "men"],
+  [/(?:daughter|niece|baby girl|little girl)/, "girls"],
+  [/(?:son|nephew|baby boy|little boy)/, "boys"],
+];
+
+/** The audience of a recipient named in the message ("gift for my mom", "papa ke liye"), if any. */
+export function recipientAudience(message: string): ChatTurnInput["audience"] {
+  const m = message.toLowerCase();
+  for (const [who, a] of RECIPIENTS) {
+    const w = who.source;
+    if (new RegExp(`\\bfor\\s+(?:my|our|a|the)\\s+(?:[\\w-]+\\s+){0,3}${w}(?!['’]s)\\b`).test(m) || new RegExp(`\\b${w}\\s+(?:ke|ki|ka)\\s+liye\\b`).test(m)) return a;
+  }
+  return null;
+}
+
+function audienceKey(a: Intent["audience"]): ChatTurnInput["audience"] {
+  if (a.segment === "women" || a.segment === "men") return a.segment;
+  if (a.segment === "kids" && a.kidGender !== "any" && a.kidGender) return a.kidGender === "girl" ? "girls" : "boys";
+  return null;
 }
 
 /** Safety net: asking for a change from the usual means past taste is what to move away from. */
@@ -381,6 +417,10 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
   );
   const prev = input.state.intent;
   if (prev && base.audience.segment === "unknown" && prev.audience.segment !== "unknown") base = { ...base, audience: prev.audience };
+  // A named recipient in this message beats the picker and a carried-over audience.
+  const recipient = recipientAudience(input.message);
+  if (recipient && recipient !== audienceKey(base.audience)) base = { ...base, audience: pickedAudience(recipient) };
+  if (base.audience.segment === "unknown" && input.audience) base = { ...base, audience: pickedAudience(input.audience) };
   // What the user actually said in this chat. It's what the chat remembers; taste is layered on per turn,
   // so a learned budget can't turn into "the user's budget" on a later "cheaper".
   const userBase = base;
