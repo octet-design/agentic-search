@@ -27,7 +27,12 @@ export const CONVERSATIONS: Turn[][] = [
   ["gift ideas", "for my wife", "under 2000"],
   ["i want a purse for my wedding lehenga", "it's red with heavy gold zari work", "under 2000"],
   ["need some new tops for college", "something bolder than usual"],
+  ["saree as a gift for my mom", "something in silk"],
+  ["a kurta for a puja", "under 2500"],
 ];
+
+/** "Shopping for" picker per conversation (1-based); the others start with "anyone". */
+const PICKED: Record<number, "women" | "men" | "girls" | "boys"> = { 13: "men", 14: "men" };
 
 /** Every turn carries the same learned taste, so the checks can see when it leaks where it shouldn't. */
 const TASTE: TastePayload = {
@@ -53,6 +58,7 @@ type TurnOut = {
   sections: { title: string; products: ProductCard[]; relaxedNote?: string }[];
   compare?: CompareBlockData;
   ask?: string;
+  picks: { ref: number; headline: string; why: string; tip: string }[];
   personalized: string[];
   followups: string[];
   firstTextMs?: number;
@@ -103,6 +109,12 @@ function checkTurn(t: TurnOut, prevBase: Intent | undefined, prevAsk: string | u
   if (!t.intro.trim() && !t.answer.trim() && !t.compare) fails.push("TEXT: no reply text");
   // Guidance branch
   if (t.turnType === "recommend" && !/^\s*[-•*]\s+/m.test(t.intro)) fails.push("GUIDANCE: recommend intro has no guidance bullets");
+  const shownRefs = new Set(t.sections.flatMap((s) => s.products.map((p) => p.ref)));
+  if (t.sections.some((s) => s.products.length) && t.turnType !== "more_like" && t.picks.length < 2) fails.push(`PICKS: only ${t.picks.length} explained picks`);
+  for (const x of t.picks) {
+    if (!shownRefs.has(x.ref)) fails.push(`PICKS: #${x.ref} isn't in this turn's sections`);
+    if (x.why.split(/\s+/).length < 15) fails.push(`PICKS: thin explanation for #${x.ref}`);
+  }
   if ((t.turnType === "recommend" || t.turnType === "refine" || t.turnType === "clarify") && !t.ask) fails.push("ASK: no closing question");
   const norm = (q?: string) => (q ?? "").toLowerCase().replace(/\s*\[.*$/, "").replace(/[^a-z ]/g, "").trim();
   if (t.ask && prevAsk && norm(t.ask) === norm(prevAsk)) fails.push(`ASK: repeated "${t.ask}"`);
@@ -114,7 +126,7 @@ function checkTurn(t: TurnOut, prevBase: Intent | undefined, prevAsk: string | u
   return fails;
 }
 
-async function runConversation(n: number, messages: Turn[]) {
+async function runConversation(n: number, messages: Turn[], audience: (typeof PICKED)[number] | null = PICKED[n] ?? null) {
   let state: ChatState = { intent: null, lastSections: [], products: [], nextRef: 1 };
   const history: { role: "user" | "assistant"; content: string }[] = [];
   const turns: TurnOut[] = [];
@@ -123,9 +135,9 @@ async function runConversation(n: number, messages: Turn[]) {
   for (const turn of messages) {
     const { text: message, refs } = typeof turn === "string" ? { text: turn, refs: [] } : turn;
     const t0 = performance.now();
-    const t: TurnOut = { message: refs.length ? `${message} [refs ${refs.join(", ")}]` : message, chips: [], intro: "", outro: "", answer: "", sections: [], personalized: [], followups: [], totalMs: 0, tokens: { in: 0, out: 0 }, costUsd: 0, fails: [] };
+    const t: TurnOut = { message: refs.length ? `${message} [refs ${refs.join(", ")}]` : message, chips: [], intro: "", outro: "", answer: "", sections: [], picks: [], personalized: [], followups: [], totalMs: 0, tokens: { in: 0, out: 0 }, costUsd: 0, fails: [] };
     try {
-      await runChatTurn({ message, refs, history, state, memory: [], taste: TASTE, debug: true }, (e: AgentEvent) => {
+      await runChatTurn({ message, refs, audience, history, state, memory: [], taste: TASTE, debug: true }, (e: AgentEvent) => {
         const ms = Math.round(performance.now() - t0);
         if (e.type === "chat_text") {
           t.firstTextMs ??= ms;
@@ -144,6 +156,7 @@ async function runConversation(n: number, messages: Turn[]) {
           t.personalized = e.personalized;
           state = { ...state, intent: e.intent, lastSections: e.lastSections };
         } else if (e.type === "compare") t.compare = e.data;
+        else if (e.type === "picks") t.picks = e.items;
         else if (e.type === "ask") t.ask = `${e.question} [${e.options.join(" / ")}]`;
         else if (e.type === "suggestions") t.followups = e.items;
         else if (e.type === "debug") t.turnType = (e.data as { plan?: { turnType?: string } }).plan?.turnType;
@@ -182,11 +195,11 @@ function report(convs: { n: number; turns: TurnOut[] }[]): string {
     "",
     `Generated ${new Date().toISOString()} · ${convs.length} conversations · ${turns.length} turns`,
     "",
-    `**${turns.length - failed.length}/${turns.length} turns passed** automatic checks (exclusions, audience, strict budget, sticky exclusions, section count, answers, compare, guidance bullets, closing question, no repeated question, no visible #numbers, taste only where the intent calls for it). Every turn is sent the same learned taste (green, purple, cotton blend, ₹1,500–2,100) to catch leaks. Median first text ${sec(med(firstText))}, first products ${sec(med(firstProducts))}, full turn ${sec(med(turns.map((t) => t.totalMs)))}. Avg tokens ${Math.round(turns.reduce((s, t) => s + t.tokens.in, 0) / turns.length)} in / ${Math.round(turns.reduce((s, t) => s + t.tokens.out, 0) / turns.length)} out; total cost $${turns.reduce((s, t) => s + t.costUsd, 0).toFixed(3)}.`,
+    `**${turns.length - failed.length}/${turns.length} turns passed** automatic checks (exclusions, audience, strict budget, sticky exclusions, section count, answers, compare, guidance bullets, 2+ explained picks from the shown products, closing question, no repeated question, no visible #numbers, taste only where the intent calls for it). Every turn is sent the same learned taste (green, purple, cotton blend, ₹1,500–2,100) to catch leaks. Median first text ${sec(med(firstText))}, first products ${sec(med(firstProducts))}, full turn ${sec(med(turns.map((t) => t.totalMs)))}. Avg tokens ${Math.round(turns.reduce((s, t) => s + t.tokens.in, 0) / turns.length)} in / ${Math.round(turns.reduce((s, t) => s + t.tokens.out, 0) / turns.length)} out; total cost $${turns.reduce((s, t) => s + t.costUsd, 0).toFixed(3)}.`,
     "",
   ];
   for (const c of convs) {
-    lines.push(`## Conversation ${c.n}`, "");
+    lines.push(`## Conversation ${c.n}${PICKED[c.n] ? ` (Shopping for: ${PICKED[c.n]})` : ""}`, "");
     for (const t of c.turns) {
       lines.push(`### 🧑 ${t.message}`, "", `*${t.turnType ?? "?"} · first text ${sec(t.firstTextMs)} · first products ${sec(t.firstProductsMs)} · total ${sec(t.totalMs)} · ${t.tokens.in}/${t.tokens.out} tokens* ${t.fails.length ? "**FAIL**" : "✅"}`, "");
       if (t.chips.length) lines.push(`Remembers: ${t.chips.map((x) => `\`${x}\``).join(" ")}`, "");
@@ -201,6 +214,7 @@ function report(convs: { n: number; turns: TurnOut[] }[]): string {
         lines.push(`Occasions: ${t.compare.occasions.map((o) => `${o.occasion} → ${o.best == null ? "tie" : `#${t.compare!.products[o.best].ref}`}`).join(", ")}`, "");
         lines.push(...t.compare.verdict.map((v) => `- ${md(v)}`), "");
       }
+      if (t.picks.length) lines.push("Picks:", ...t.picks.map((x) => `- **#${x.ref} ${md(x.headline)}**: ${md(x.why)} _Tip: ${md(x.tip)}_`), "");
       if (t.outro) lines.push(`> ${md(t.outro)}`, "");
       if (t.ask) lines.push(`Asks: ${md(t.ask)}`, "");
       if (t.followups.length) lines.push(`Follow-ups: ${t.followups.map((f) => `\`${f}\``).join(" ")}`, "");

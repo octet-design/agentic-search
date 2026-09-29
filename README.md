@@ -12,12 +12,13 @@ Buying redirects to the brand's own product page. The spec is [docs/BRIEF.md](do
 
 | | Where | What it is |
 |---|---|---|
-| **Conversational Drape** (default) | `/`, `/chat/[id]` | A guidance-first stylist, like ChatGPT. It first explains what works for the occasion or outfit and why (a direct answer plus a few bold-point tips), then shows 2–5 sections of real products, each with a tip for choosing, names its top picks as clickable product names, and ends with **one relevant question** you can answer with a tap. Follow-ups build on the chat ("cheaper", "it's red with gold zari", "is the second one breathable?", "show men's instead"). Card buttons (More like this, Compare) point at products directly. **See all** opens a panel with more products using that section's exact filters. |
+| **Conversational Drape** (default) | `/`, `/chat/[id]` | A guidance-first stylist, like ChatGPT. A **Shopping for** picker (Women / Men / Girls / Boys) above the box sets the chat's default audience; a recipient you name ("a gift for my mom") still wins. It first explains what works for the occasion or outfit and why (a direct answer plus bold-point tips), then shows 2–5 sections of real products, each with a tip for choosing, then **My picks for you**: 3–4 products explained like a stylist would (what the product is, why it suits you, how to style it). It ends with **one relevant question** you can answer with a tap. Follow-ups build on the chat ("cheaper", "it's red with gold zari", "is the second one breathable?", "show men's instead"). Card buttons (More like this, Compare) point at products directly. **See all** opens a panel with more products using that section's exact filters. |
 | **Classic search** | `/search`, `/edits/[slug]` | The original results page: editable intent chips, smart filters, rails and the refine drawer. |
 
 Shared across both:
 - **Personalization:** learns from saves, quick-view opens, reading time, outbound clicks, compare and "More like this", with recent activity weighted more. It powers For you. In chat, the planner decides per message whether your taste fits the *intent* (yes for "new tops for college"; no for a gift for dad, "bolder than usual" or a fully specified ask), and the "Personalized" badge shows exactly when it was used. Each chat's own context stays inside that chat; nothing else carries across chats.
 - **Compare:** a table + "best for which occasion" matrix + verdict.
+- **Style it** (product panel): pick an occasion and see the piece with real catalog items that complete the look (footwear, bag, jewellery…), each with a short why.
 
 Switched off by flags in `src/lib/config.ts` (`FEATURES`): image search, per-product AI reason lines, "Ask Drape about this", visible `#n` product numbers, and cross-chat "Drape remembers" memory.
 
