@@ -1,6 +1,6 @@
 "use client";
 
-import { Heart, Scale, UserRound } from "lucide-react";
+import { Heart, Scale, ShoppingBag, UserRound } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { TastePanel } from "@/components/taste/TastePanel";
@@ -25,6 +25,9 @@ export function Header() {
         <nav className="ml-auto flex items-center gap-1 text-sm">
           <Link href="/search" className="hidden rounded-full px-3 py-1.5 text-ink-soft hover:bg-sand hover:text-ink sm:inline-flex">
             Classic search
+          </Link>
+          <Link href="/shopify" className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-ink-soft hover:bg-sand hover:text-ink">
+            <ShoppingBag size={16} /> <span className="hidden sm:inline">Shopify</span>
           </Link>
           <Link href="/saved" className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 hover:bg-sand">
             <Heart size={16} /> <span className="hidden sm:inline">Saved</span>
