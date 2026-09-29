@@ -16,4 +16,6 @@ export const FEATURES = {
   refBadges: false,
   /** Cross-chat "Drape remembers" facts. Off: each chat's context stays inside that chat. */
   memory: false,
+  /** "Style it" in the product panel: occasions + real pieces that complete the look. Replaces "Ask Drape". */
+  styleIt: true,
 } as const;

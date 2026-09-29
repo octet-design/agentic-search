@@ -8,6 +8,7 @@ import { cn, inr, outboundUrl } from "@/lib/format";
 import { useSession } from "@/store/session";
 import { ProductCard } from "./ProductCard";
 import { ProductImage } from "./ProductImage";
+import { StyleIt } from "./StyleIt";
 
 const titleCase = (s: string | null) => (s ? s.replace(/\b\w/g, (c) => c.toUpperCase()) : "—");
 
@@ -99,6 +100,8 @@ export function ProductDetails({
           <Heart size={17} fill={saved ? "currentColor" : "none"} />
         </button>
       </div>
+
+      {FEATURES.styleIt && <StyleIt p={p} onOpen={onOpen} />}
 
       <dl className="grid grid-cols-[6rem_1fr] gap-y-2 text-sm">
         {rows.map(([k, v]) => (
