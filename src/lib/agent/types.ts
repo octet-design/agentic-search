@@ -231,7 +231,11 @@ export type AgentEvent =
     }
   | { type: "compare"; data: CompareBlockData }
   | { type: "memory"; facts: string[] }
+  /** Drape's picks: products (by ref) explained in detail. Sent again, longer, as picks complete. */
+  | { type: "picks"; items: ChatPick[] }
   | { type: "chat_state"; intent: Intent; chips: Chip[]; lastSections: ChatSectionSpec[]; personalized: string[] };
+
+export type ChatPick = { ref: number; headline: string; why: string; tip: string };
 
 export type CompareBlockData = {
   products: ProductCard[];

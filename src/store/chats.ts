@@ -7,7 +7,7 @@
 import { create } from "zustand";
 import { createJSONStorage, persist, type StateStorage } from "zustand/middleware";
 import type { StepState } from "@/hooks/useAgentStream";
-import type { AgentEvent, ChatSectionSpec, Chip, CompareBlockData, Intent, ProductCard } from "@/lib/agent/types";
+import type { AgentEvent, ChatPick, ChatSectionSpec, Chip, CompareBlockData, Intent, ProductCard } from "@/lib/agent/types";
 
 export type ChatSection = {
   id: string;
@@ -31,6 +31,8 @@ export type AssistantMessage = {
   intro: string;
   sections: ChatSection[];
   outro: string;
+  /** Drape's picks: products from this message's sections, explained. */
+  picks?: ChatPick[];
   answer: string;
   compare?: CompareBlockData;
   /** Older chats: a clarify card. New turns close with `ask` instead. */
@@ -111,6 +113,8 @@ function reduce(chat: Chat, msgId: string, e: AgentEvent): Chat {
       return updateMsg(chat, msgId, (m) => ({ ...m, compare: { ...e.data, products: e.data.products.map(slim) } }));
     case "clarify":
       return updateMsg(chat, msgId, (m) => ({ ...m, clarify: { question: e.question, options: e.options } }));
+    case "picks":
+      return updateMsg(chat, msgId, (m) => ({ ...m, picks: e.items }));
     case "ask":
       return updateMsg(chat, msgId, (m) => ({ ...m, ask: { question: e.question, options: e.options } }));
     case "suggestions":
@@ -248,7 +252,8 @@ export function historyText(m: ChatMessage): string {
   const asked = m.ask ?? m.clarify;
   // The closing question goes last and is never cut, so the next turn knows what "red" answers.
   const tail = asked ? ` I asked: ${asked.question}` : "";
-  const body = [m.intro, m.answer, m.outro, shown ? `[Showed: ${shown}]` : "", m.compare ? `[Compared ${m.compare.products.map((p) => `#${p.ref}`).join(", ")}]` : ""]
+  const picked = m.picks?.length ? `[Picked: ${m.picks.map((x) => `#${x.ref} (${x.headline})`).join(", ")}]` : "";
+  const body = [m.intro, m.answer, picked, m.outro, shown ? `[Showed: ${shown}]` : "", m.compare ? `[Compared ${m.compare.products.map((p) => `#${p.ref}`).join(", ")}]` : ""]
     .filter(Boolean)
     .join(" ");
   return (body.slice(0, 1200 - tail.length) + tail).trim();

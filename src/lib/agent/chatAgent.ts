@@ -153,7 +153,7 @@ turnType
 - chitchat: greetings, thanks, off-topic → short friendly reply, no sections.
 
 intro (shown first, streamed) is your GUIDANCE, the way a great stylist (or ChatGPT) answers before showing anything:
-- recommend: one sentence that answers directly, then a blank line, then 2–4 bullets ("- **Key idea**: why / how"), ≤ 110 words in all. Cover what actually works for this occasion, outfit and person: which styles, colours that pair, fabric, how much embellishment, proportions, what to avoid. Build on everything this chat already knows (the outfit they described, occasion, place, season, budget). Example for "purse for my wedding lehenga":
+- recommend: one or two sentences that answer directly, then a blank line, then 3–5 bullets ("- **Key idea**: why / how", one or two sentences each), ≤ 160 words in all. Cover what actually works for this occasion, outfit and person: which styles, colours that pair, fabric, how much embellishment, proportions, what to avoid. Build on everything this chat already knows (the outfit they described, occasion, place, season, budget). Example for "purse for my wedding lehenga":
 "For a wedding lehenga, pick a small, embellished bag that echoes your outfit's work without competing with it.
 
 - **Potli bags** are the classic pick: zari or gota work sits naturally with traditional embroidery.
@@ -166,7 +166,7 @@ Don't name specific products yet (you haven't seen them).
 - clarify / chitchat: the full reply.
 You may use general fashion knowledge freely (fabric behaviour, styling, pairing, occasion norms, climate, body-shape tips). Never invent stock, delivery, discounts, ratings or reviews.
 
-sections: each = a category the user should shop, with title (2–4 words), why = a practical tip for choosing within it (≤ 20 words, e.g. "Pick zari or mirror work if your lehenga is heavily embroidered; plain silk if it's minimal"), categories (1–3 canonical CATEGORY ids from the lists below, e.g. "shirt", "trouser", "loafer", "kurta-set", never department names), optional colors/fabrics/patterns/useCases ids that suit, softPreferences, semanticQuery (clean English, 6–12 words, for embedding search), budgetMax (per-section ₹ cap only when the user gave a total budget; else null).
+sections: each = a category the user should shop, with title (2–4 words), why = a practical tip for choosing within it (≤ 25 words, e.g. "Pick zari or mirror work if your lehenga is heavily embroidered; plain silk if it's minimal"), categories (1–3 canonical CATEGORY ids from the lists below, e.g. "shirt", "trouser", "loafer", "kurta-set", never department names), optional colors/fabrics/patterns/useCases ids that suit, softPreferences, semanticQuery (clean English, 6–12 words, for embedding search), budgetMax (per-section ₹ cap only when the user gave a total budget; else null).
 
 base: the chat's running understanding, CARRIED FORWARD from the current state and updated with this message: audience; budgetMin/budgetMax (₹) with budgetStrict (true when the user stated a limit or said "cheaper"); mustColors/mustFabrics ONLY when the user explicitly requires them ("only cotton", "must be black"). Fabrics/colours YOU suggest go in section fabrics/colors, never in must; excludeColors/excludeFabrics/excludePatterns/excludeBrands (canonical ids) and textExclusions (other negatives: "cutouts", "sleeveless", "heavy embroidery"); preferences (soft style words: "breathable", "minimal", "not too heavy"); occasion; summary (short English description of the current need). Keep everything from the previous state unless the user changes or drops it ("polyester is fine now" removes that exclusion; a new unrelated need resets occasion/preferences but keeps audience and exclusions).
 Rules: canonical ids only (from the vocabulary). "k" = ×1000; "under 2k" → budgetMax 2000 strict; "around 2000" → 1600–2400 not strict; "cheaper" → budgetMax below most shown prices, strict. Audience: explicit words or gender-implicit items (saree → women, sherwani → men); "for my wife/daughter/dad" sets it; if unknown and the profile has exactly one audience use it. If it's still unknown and the need is gendered clothing or footwear, set ask {"Who is this for?", ["Women","Men","Kids"]} and still plan best-guess sections.
@@ -332,6 +332,10 @@ function tasteNote(taste: TastePayload): string {
 // Turn
 // ---------------------------------------------------------------------------
 
+const PickSchema = z.object({ ref: z.number().int(), headline: z.string(), why: z.string(), tip: z.string() });
+type Pick = z.infer<typeof PickSchema>;
+const PicksSchema = z.object({ picks: z.array(PickSchema), wrap: z.string() });
+
 const STYLIST_RULES =
   "You are Drape, a warm, knowledgeable stylist for Indian shoppers. Write in friendly, concise English. Use general fashion knowledge and reasonable inference freely (fabric behaviour, fit and feel, styling and pairing, occasion norms, weather, care). Users can't see product numbers: whenever you mention a product, write it as a markdown link with a short name (3–6 words) and its number, e.g. [Libas cotton straight kurta](#3); never write a bare #number. Never invent stock, delivery, discounts, ratings or reviews; for those, say the brand's page has the latest details.";
 
@@ -444,29 +448,61 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
       const ranked = diversify(tasteBoost(rail.products, taste, tax), 8, 2);
       const shown = withRefs(ranked.slice(0, 8));
       const more: ProductCard[] = [];
-      top.push({ title: s.spec.title, products: shown.slice(0, 3) });
+      top.push({ title: s.spec.title, products: shown.slice(0, 4) });
       emit({ type: "section", id: s.id, title: s.spec.title, why: s.why, query: s.intent.semanticQuery, products: shown, more, relaxedNote: rail.relaxedNote, intent: rail.intent });
     });
     debug.rails = rails.map((r) => ({ id: r.id, title: r.title, q: r.debug.q, filter: r.debug.filter, rounds: r.debug.rounds, dropped: r.debug.dropped, relaxed: r.relaxed.map((x) => x.id) }));
 
-    // 3. Write-up naming concrete picks
+    // 3. Drape's picks: 3–4 products explained like a stylist would (what it is, why it suits, how to style it).
     if (top.some((t) => t.products.length)) {
-      emit({ type: "step", id: "curate", label: "Writing my top picks", status: "running" });
+      emit({ type: "step", id: "curate", label: "Picking my favourites", status: "running" });
       const w0 = performance.now();
-      await llmTextStream({
+      const candidates = top.flatMap((t) => t.products);
+      const raw = new Map((await getRawProducts(candidates.map((c) => c.id)).catch(() => [])).map((r) => [r.id, r]));
+      const valid = new Set(candidates.map((c) => c.ref));
+      let sent = 0;
+      const sendPicks = (items: Partial<Pick>[], final: boolean) => {
+        // A pick is complete once the next one starts (or the stream ends).
+        const done = (final ? items : items.slice(0, -1)).filter((x): x is Pick => !!x.ref && valid.has(x.ref) && !!x.why);
+        if (done.length > sent || (final && done.length !== sent)) {
+          sent = done.length;
+          emit({ type: "picks", items: done.map((x) => ({ ref: x.ref, headline: x.headline ?? "", why: x.why, tip: x.tip ?? "" })) });
+        }
+      };
+      const res = await llmStructuredStream({
         name: "chat-picks",
         model,
-        system: `${STYLIST_RULES}\nYou just gave styling guidance and the catalog returned options. Write 2–3 sentences (≤ 70 words) naming your top 2–3 picks (as [short name](#n) links) and why each fits the guidance you gave (work, colour, fabric, occasion, price vs budget). No headings, no lists, and don't end with a question (one is shown separately).`,
+        schema: PicksSchema,
+        system: `${STYLIST_RULES}
+You just gave styling guidance and the catalog returned options. Pick your 3–4 favourites across the sections (the strongest match first; cover different sections when they're all good) and explain each like a stylist in a store, so the user understands the product, not just its name:
+- ref: the product's number.
+- headline: ≤ 6 words on what it's best for ("Best with heavy zari", "Easiest all-day comfort", "Best value under ₹2k").
+- why: 2–3 sentences. Say what the product actually is (fabric, work or embellishment, cut and fit, colour) using the details given, and why that suits this user's occasion, outfit, weather or budget. Be specific; no generic praise.
+- tip: 1 sentence on how to wear or pair it.
+- wrap: 1 short sentence tying the picks together (≤ 25 words). No question.
+Don't write product numbers in the text.`,
         user: `User asked: ${input.message}\nYour guidance: ${plan.intro}\nWhat you know: ${intentSummary(base, tax)}\n\nOptions by section:\n${top
-          .map((t) => `${t.title}:\n${t.products.map((p) => `#${p.ref} ${p.title} | ${p.brand} | ₹${Math.round(p.price)} | ${p.color}${p.fabric ? ` | ${p.fabric}` : ""}${p.fit ? ` | ${p.fit}` : ""}`).join("\n")}`)
+          .map(
+            (t) =>
+              `${t.title}:\n${t.products
+                .map((p) => {
+                  const r = raw.get(p.id);
+                  return `#${p.ref} ${p.title} | ${p.brand} | ₹${Math.round(p.price)} | colour ${p.color}${p.fabric ? ` | fabric ${p.fabric}` : ""}${p.fit ? ` | fit ${p.fit}` : ""}${r?.pattern ? ` | pattern ${r.pattern}` : ""}${r?.use_case?.length ? ` | occasions ${r.use_case.slice(0, 3).join(", ")}` : ""}${r?.description ? ` | ${cleanText(r.description).slice(0, 180)}` : ""}`;
+                })
+                .join("\n")}`,
+          )
           .join("\n\n")}`,
         usage,
         signal: input.signal,
-        maxTokens: 220,
-        onDelta: (delta) => emit({ type: "chat_text", block: "outro", delta }),
-      });
+        timeoutMs: 25_000,
+        onPartial: (partial) => Array.isArray(partial.picks) && sendPicks(partial.picks as Partial<Pick>[], false),
+      }).catch(() => null);
+      if (res) {
+        sendPicks(res.picks, true);
+        if (res.wrap.trim()) emit({ type: "chat_text", block: "outro", delta: res.wrap.trim() });
+      }
       timings.write = Math.round(performance.now() - w0);
-      emit({ type: "step", id: "curate", label: "Writing my top picks", status: "done", ms: timings.write });
+      emit({ type: "step", id: "curate", label: "Picking my favourites", status: "done", ms: timings.write });
     }
   } else if (plan.turnType === "product_question") {
     let targets = refProducts(plan.refs);

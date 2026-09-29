@@ -5,6 +5,7 @@ import { CompareBlock } from "@/components/compare/CompareBlock";
 import { ProductCard, ProductSkeleton } from "@/components/product/ProductCard";
 import type { ProductCard as Card } from "@/lib/agent/types";
 import type { ChatSection, AssistantMessage as Msg } from "@/store/chats";
+import { PicksBlock } from "./PicksBlock";
 import { RichText } from "./RichText";
 
 export function AssistantMessage({
@@ -33,6 +34,7 @@ export function AssistantMessage({
   const running = msg.status === "streaming";
   const current = msg.steps.find((s) => s.status === "running");
   const nothingYet = running && !msg.intro && !msg.answer && !msg.sections.length;
+  const cards = new Map(msg.sections.flatMap((s) => s.products).flatMap((p) => (p.ref != null ? [[p.ref, p] as const] : [])));
   // The closing question (older chats stored it as a clarify card).
   const ask = msg.ask ?? msg.clarify;
 
@@ -80,6 +82,8 @@ export function AssistantMessage({
           </div>
         </section>
       ))}
+
+      {msg.picks && msg.picks.length > 0 && <PicksBlock picks={msg.picks} cards={cards} onOpen={onOpen} />}
 
       <RichText text={msg.answer} onRef={onRef} refLabel={refLabel} className="text-[15px]" />
       {msg.compare && <CompareBlock data={msg.compare} onOpen={onOpen} />}
