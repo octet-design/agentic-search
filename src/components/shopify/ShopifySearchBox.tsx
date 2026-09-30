@@ -9,7 +9,7 @@ export function ShopifySearchBox({ defaultValue = "" }: { defaultValue?: string 
         name="q"
         type="search"
         defaultValue={defaultValue}
-        placeholder="Search products across Shopify stores"
+        placeholder="Search fashion across Shopify stores"
         aria-label="Search Shopify products"
         maxLength={200}
         required

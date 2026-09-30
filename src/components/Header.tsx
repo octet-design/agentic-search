@@ -1,12 +1,13 @@
 "use client";
 
-import { Heart, Scale, ShoppingBag, UserRound } from "lucide-react";
+import { Heart, Scale, ShieldCheck, ShoppingBag, UserRound } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { TastePanel } from "@/components/taste/TastePanel";
 import { Onboarding } from "@/components/taste/Onboarding";
 import { useHydrated } from "@/hooks/useHydrated";
 import { APP_NAME } from "@/lib/config";
+import { AGENT_NAME } from "@/lib/shopify/config";
 import { useSession } from "@/store/session";
 
 export function Header() {
@@ -25,6 +26,9 @@ export function Header() {
         <nav className="ml-auto flex items-center gap-1 text-sm">
           <Link href="/search" className="hidden rounded-full px-3 py-1.5 text-ink-soft hover:bg-sand hover:text-ink sm:inline-flex">
             Classic search
+          </Link>
+          <Link href="/finds" className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-ink-soft hover:bg-sand hover:text-ink">
+            <ShieldCheck size={16} /> <span className="hidden sm:inline">{AGENT_NAME}</span>
           </Link>
           <Link href="/shopify" className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-ink-soft hover:bg-sand hover:text-ink">
             <ShoppingBag size={16} /> <span className="hidden sm:inline">Shopify</span>

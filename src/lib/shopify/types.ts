@@ -69,6 +69,15 @@ export type ShopifyCard = {
   priceFrom: boolean;
   seller: string | null;
   rating: { value: number; count: number | null } | null;
+  /** Up to 3 merchant-supplied highlights. */
+  features: string[];
+  /** Store product page and one-click checkout for the default variant. */
+  url: string | null;
+  checkoutUrl: string | null;
+  /** Default variant's options ("Slim Fit / White / S"); null when the product has no choices. */
+  defaultOptions: string | null;
+  /** Chat reference number, set by the Genuine Finds agent. */
+  ref?: number;
 };
 
 export type ShopifyPage = { products: ShopifyCard[]; cursor: string | null; hasNext: boolean; total: number | null };

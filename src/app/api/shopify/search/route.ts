@@ -1,16 +1,31 @@
-import { searchCatalog, ShopifyError } from "@/lib/shopify/client";
+import { ShopifyError } from "@/lib/shopify/client";
+import { getCountry, isCountryCode } from "@/lib/shopify/countries";
+import { getShopifyEnv } from "@/lib/shopify/env";
+import { searchFashion } from "@/lib/shopify/search";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-/** GET ?q=linen+shirt&cursor=… → next page of Shopify Global Catalog results (used by "Load more"). */
+const num = (v: string | null) => (v && Number.isFinite(Number(v)) && Number(v) >= 0 ? Number(v) : null);
+
+/**
+ * GET ?q=linen+shirt&cursor=…&country=IN&min=500&max=3000&local=1 → a page of fashion results.
+ * Used by "Load more" on /shopify and "See all" in Genuine Finds chats.
+ */
 export async function GET(req: Request) {
   const params = new URL(req.url).searchParams;
   const q = (params.get("q") ?? "").trim().slice(0, 200);
-  const cursor = params.get("cursor");
   if (!q) return Response.json({ message: "Pass ?q=" }, { status: 400 });
+  const c = params.get("country");
+  const country = getCountry(isCountryCode(c) ? c : getShopifyEnv().SHOPIFY_COUNTRY);
+  const exclude = new Set((params.get("exclude") ?? "").split(",").filter((s) => /^[\w-]{1,64}$/.test(s)).slice(0, 100));
   try {
-    return Response.json(await searchCatalog(q, cursor));
+    const page = await searchFashion(
+      { query: q, min: num(params.get("min")), max: num(params.get("max")), local: params.get("local") === "1" },
+      country,
+      { cursor: params.get("cursor"), limit: 24, exclude },
+    );
+    return Response.json(page);
   } catch (err) {
     console.error("[shopify] search failed:", err);
     const message = err instanceof ShopifyError ? err.message : "Shopify search failed. Please try again.";

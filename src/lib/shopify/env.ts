@@ -16,6 +16,9 @@ const ShopifyEnvSchema = z.object({
     .string()
     .regex(/^[A-Z]{2}$/, "SHOPIFY_COUNTRY must be a 2-letter country code, e.g. IN")
     .default("IN"),
+  /** Only the conversational agent (/finds) needs these; plain Shopify search works without them. */
+  OPENAI_API_KEY: z.string().optional(),
+  SHOPIFY_AGENT_MODEL: z.string().min(1).default("gpt-4.1-mini"),
 });
 
 export type ShopifyEnv = z.infer<typeof ShopifyEnvSchema>;

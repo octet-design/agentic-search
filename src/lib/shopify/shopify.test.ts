@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { shortId, toCard } from "./client";
-import { money, shopifyProductHref } from "./format";
+import { money, shopifyProductHref, similarQuery, toMinor } from "./format";
 import { SearchResult } from "./types";
 
 // Trimmed from a real search_catalog response.
@@ -41,6 +41,10 @@ describe("shopify catalog", () => {
       priceFrom: true,
       seller: "Kenny Flowers",
       rating: { value: 4.9, count: 526 },
+      features: [],
+      url: null,
+      checkoutUrl: "https://www.kennyflowers.com/cart/1:1",
+      defaultOptions: "S",
     });
     expect(parsed.pagination?.cursor).toBe("abc");
   });
@@ -54,5 +58,16 @@ describe("shopify catalog", () => {
   it("round-trips product ids and option picks in the URL", () => {
     expect(shortId("gid://shopify/p/abc123")).toBe("abc123");
     expect(shopifyProductHref("abc123", [{ name: "Size", label: "M" }])).toBe("/shopify/p/abc123?Size=M");
+    expect(shopifyProductHref("abc123", [{ name: "Size", label: "M" }], "GB")).toBe("/shopify/p/abc123?Size=M&country=GB");
+  });
+
+  it("converts whole prices to minor units per currency", () => {
+    expect(toMinor(3000, "INR")).toBe(300000);
+    expect(toMinor(1500, "JPY")).toBe(1500);
+  });
+
+  it("builds a look-alike query from a product title", () => {
+    expect(similarQuery("Women's Mul Shiffon Kurti - R1138")).toBe("women's mul shiffon kurti");
+    expect(similarQuery("The Casa Blanca - Short Sleeve White Linen Shirt")).toBe("the casa blanca short sleeve");
   });
 });
