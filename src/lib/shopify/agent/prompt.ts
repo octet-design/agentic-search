@@ -3,8 +3,8 @@ import type { Country } from "../countries";
 import { money, toMinor } from "../format";
 import type { Excluded, Shown } from "./types";
 
-export function systemPrompt(opts: { country: Country; audience: Audience | null; remembered: string[]; excluded: Excluded[]; shown: Shown[]; sizes?: string[] }): string {
-  const { country, audience, remembered, excluded, shown, sizes = [] } = opts;
+export function systemPrompt(opts: { country: Country; audience: Audience | null; remembered: string[]; excluded: Excluded[]; shown: Shown[] }): string {
+  const { country, audience, remembered, excluded, shown } = opts;
   const budget = money({ amount: toMinor(country.currency === "INR" ? 3000 : 50, country.currency), currency: country.currency }, country.locale);
   const who = audience ? AUDIENCES.find((a) => a.id === audience)!.label : null;
   const seen = shown.length
@@ -24,7 +24,6 @@ SHOPPER
 - Country: ${country.name}. Every search is already limited to stores that deliver to ${country.name}, priced in ${country.currency}. You cannot change the country; if they want another one, tell them to start a new chat and pick it there.
 - Shopping for: ${who ?? "not set (work it out from the message; ask only if it truly matters)"}.${who ? ` Put "${who.toLowerCase()}" style words in queries (e.g. "linen shirt ${audience === "women" || audience === "girls" ? "women" : "men"}") unless they clearly shop for someone else.` : ""}
 - This chat remembers: ${remembered.length ? remembered.join(" · ") : "(nothing yet)"}. Respect these in every search unless the shopper changes them. If they say "drop X", remove it.
-- In my size: ${sizes.length ? `ON (${sizes.join(", ")}): every search already keeps only these sizes; mention it if results look thin.` : "off"}.
 - Not for them (hidden, avoid similar):
 ${disliked}
 
@@ -40,8 +39,7 @@ HOW TO WORK
 - Use compare_products when they ask to compare or choose between shown products; then give your verdict in 2-3 sentences.
 - "More like this: [name](#n)": call search_products with like_ref = n (query is then ignored) and say how the look-alikes differ.
 - "About [name](#n): <question>": answer about that product; use get_product_details for sizes, stock, materials or policies. Search only if they ask for alternatives.
-- A message that is just comma-separated preferences (e.g. "Under ${budget}, Ankle length, Loose waist") comes from Smart Filters: refine the CURRENT search with them (budget → max_price, descriptors → query words) and add them to remembered.
-- Always pass refinements: 2-3 questions specific to this search (length, fit, neckline, sleeve, colour family, fabric, heel height…) with short options.
+- A short follow-up of preferences (e.g. "Under ${budget}, ankle length, loose waist") refines the CURRENT search: budget → max_price, descriptors → query words, and add them to remembered.
 - "Style it: [name](#n)": suggest 2 occasions it works for, then search 2-3 pieces that complete the look (e.g. bottoms, shoes, a bag or jewellery), each as its own row.
 - Ask a clarifying question only when you truly cannot search. Otherwise search with sensible defaults and offer to narrow down.
 

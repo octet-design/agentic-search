@@ -43,7 +43,7 @@ export function track(e: AuraEvent) {
     return [{ id: p.sellerId, name: p.seller, n: (hit?.n ?? 0) + 1 }, ...rest].slice(0, 12);
   };
   if (e.type === "search") {
-    // Feed seeds should be real searches, not product questions or Smart Filter strings.
+    // Feed seeds should be real searches, not product questions or preference lists.
     const q = e.query.trim();
     if (q.length < 3 || q.length > 80 || /\]\(#\d+\)|^(about|compare|more like this|style it|drop)\b/i.test(q) || q.includes(",")) return;
     useAuraTaste.setState({ queries: [{ q, at: now }, ...s.queries.filter((x) => x.q.toLowerCase() !== q.toLowerCase())].slice(0, 10) });

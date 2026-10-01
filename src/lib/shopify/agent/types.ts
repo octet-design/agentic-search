@@ -31,8 +31,6 @@ export const ChatRequestSchema = z.object({
   /** What this chat currently remembers (the chips above the composer). */
   remembered: z.array(z.string().max(60)).max(12).default([]),
   excluded: z.array(ExcludedSchema).max(60).default([]),
-  /** "In my size": every search keeps only these variant sizes. */
-  sizes: z.array(z.string().trim().min(1).max(12)).max(10).default([]),
   shown: z.array(ShownSchema).max(150).default([]),
   nextRef: z.number().int().min(1).max(100_000).default(1),
 });
@@ -63,8 +61,6 @@ export type FindsEvent =
   | { type: "section"; id: string; title: string; why: string; search: SearchSpec; products: ShopifyCard[]; hasMore: boolean; note?: string }
   | { type: "compare"; items: CompareItem[]; focus: string | null }
   | { type: "chips"; items: string[] }
-  /** Query-specific Smart Filter questions from the latest search. */
-  | { type: "refinements"; items: Refinement[] }
   | { type: "text"; delta: string }
   | { type: "followups"; items: string[] }
   | { type: "done"; ms: number }
@@ -72,4 +68,3 @@ export type FindsEvent =
 
 export type Emit = (e: FindsEvent) => void;
 
-export type Refinement = { question: string; options: string[] };

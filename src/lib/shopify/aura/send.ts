@@ -39,7 +39,6 @@ export async function sendAuraMessage(chatId: string, text: string) {
         audience: null,
         remembered: before.chips,
         excluded: before.hidden,
-        sizes: store.inMySize ? store.sizes : [],
         shown: useAura.getState().chats[chatId]?.shown ?? before.shown,
         nextRef: useAura.getState().chats[chatId]?.nextRef ?? before.nextRef,
       }),

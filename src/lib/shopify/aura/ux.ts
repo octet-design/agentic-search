@@ -11,25 +11,6 @@ export function loaderProgress(elapsedMs: number, stage: 0 | 1 | 2 | 3): number 
   return Math.min(99, Math.round(Math.max(clock, floor)));
 }
 
-/** Smart Filters picks → one chat message, in the order they were asked ("Under ₹3,000, Wedding, Ankle length"). */
-export function composeFilterMessage(groups: { question: string; picked: string[] }[]): string {
-  return groups
-    .flatMap((g) => g.picked)
-    .map((s) => s.trim())
-    .filter((s, i, all) => s && all.indexOf(s) === i)
-    .join(", ");
-}
-
-/** "Under X" budget steps in the buyer's currency (whole units). */
-export function budgetPresets(currency: string): number[] {
-  const steps: Record<string, number[]> = {
-    INR: [1000, 2000, 3000, 5000, 8000, 15000],
-    JPY: [5000, 10000, 20000, 40000],
-    AED: [200, 400, 800, 1500],
-  };
-  return steps[currency] ?? [50, 100, 200, 300, 500, 1000];
-}
-
 /** Masonry tile shapes (height / width) with their Tailwind aspect class. */
 const SHAPES = [
   { cls: "aspect-[3/4]", ratio: 4 / 3 },

@@ -15,7 +15,6 @@ function searchUrl(block: SectionBlock, country: Country, cursor: string | null)
   if (s.local) qs.set("local", "1");
   if (s.like) qs.set("like", s.like);
   if (s.shop) qs.set("shop", s.shop);
-  if (s.sizes?.length) qs.set("sizes", s.sizes.join(","));
   if (cursor) qs.set("cursor", cursor);
   return `/api/shopify/search?${qs}`;
 }

@@ -1,7 +1,7 @@
 /**
  * Aura launch check: runs scripted conversations against a running app (npm run dev) and scores what a demo
  * depends on — results come back, in the right currency, within budget, Plush-style replies that end with a
- * question, Smart Filter refinements, and polite refusals for non-fashion.
+ * question, and polite refusals for non-fashion.
  *
  * Usage: npm run eval:aura            (AURA_URL defaults to http://localhost:3000)
  */
@@ -14,7 +14,7 @@ type Case = { name: string; country?: string; turns: string[]; budget?: number; 
 
 const CASES: Case[] = [
   { name: "western wear", turns: ["western wear for women"], expect: "results" },
-  { name: "western wear + filters", turns: ["western wear for women", "Ankle length, Loose waist"], expect: "results" },
+  { name: "western wear + refine", turns: ["western wear for women", "ankle length, loose waist"], expect: "results" },
   { name: "wedding guest", turns: ["wedding guest outfit for women"], expect: "results" },
   { name: "kurta set budget", turns: ["cotton kurta set under 2000"], budget: 2000, expect: "results" },
   { name: "linen co-ord budget", turns: ["Linen co-ord set for a beach holiday, under ₹4,000"], budget: 4000, expect: "results" },
@@ -49,7 +49,7 @@ async function run(c: Case) {
   let ms = 0;
   for (const message of c.turns) {
     const t0 = Date.now();
-    const events = await turn({ message, history: state.history, country, audience: null, remembered: state.remembered, excluded: [], sizes: [], shown: state.shown, nextRef: state.nextRef });
+    const events = await turn({ message, history: state.history, country, audience: null, remembered: state.remembered, excluded: [], shown: state.shown, nextRef: state.nextRef });
     ms = Date.now() - t0;
     const text = events.filter((e) => e.type === "text").map((e) => e.delta as string).join("");
     const sections = events.filter((e) => e.type === "section") as unknown as { products: { ref: number; id: string; title: string; seller: string | null; price: { amount: number; currency: string } | null }[] }[];
@@ -68,7 +68,6 @@ async function run(c: Case) {
       checks.currency = products.every((p) => !p.price || p.price.currency === CURRENCY[country]);
       if (c.budget != null) checks.budget = products.every((p) => !p.price || p.price.amount <= toMinor(c.budget!, CURRENCY[country]));
       checks.endsWithQuestion = /\?\s*$/.test(text.trim());
-      checks.refinements = events.some((e) => e.type === "refinements");
       checks.noError = !events.some((e) => e.type === "error");
     }
   }

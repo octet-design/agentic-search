@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 const num = (v: string | null) => (v && Number.isFinite(Number(v)) && Number(v) >= 0 ? Number(v) : null);
 
 /**
- * GET ?q=linen+shirt&cursor=…&country=IN&min=500&max=3000&local=1&like=<id>&shop=<shop gid>&sizes=M,L → a page of fashion results.
+ * GET ?q=linen+shirt&cursor=…&country=IN&min=500&max=3000&local=1&like=<id>&shop=<shop gid> → a page of fashion results.
  * Used by "Load more" on /shopify, Aura's results grid, similar items and "More from this brand".
  */
 export async function GET(req: Request) {
@@ -28,7 +28,6 @@ export async function GET(req: Request) {
         local: params.get("local") === "1",
         like: /^[\w-]{1,64}$/.test(params.get("like") ?? "") ? params.get("like") : null,
         shop: /^gid:\/\/shopify\/Shop\/\d+$/.test(params.get("shop") ?? "") ? params.get("shop") : null,
-        sizes: (params.get("sizes") ?? "").split(",").map((s) => s.trim()).filter(Boolean).slice(0, 10),
       },
       country,
       { cursor: params.get("cursor"), limit: 24, exclude },

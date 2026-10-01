@@ -18,10 +18,10 @@ export async function runFindsTurn(req: ChatRequest, emit: Emit, signal: AbortSi
   const t0 = Date.now();
   const model = getShopifyEnv().SHOPIFY_AGENT_MODEL;
   const country = getCountry(req.country);
-  const ctx = new ToolContext(country, req.shown, req.excluded, req.nextRef, emit, signal, req.sizes);
+  const ctx = new ToolContext(country, req.shown, req.excluded, req.nextRef, emit, signal);
 
   const messages: ChatCompletionMessageParam[] = [
-    { role: "system", content: systemPrompt({ country, audience: req.audience, remembered: req.remembered, excluded: req.excluded, shown: req.shown, sizes: req.sizes }) },
+    { role: "system", content: systemPrompt({ country, audience: req.audience, remembered: req.remembered, excluded: req.excluded, shown: req.shown }) },
     ...req.history.map((h) => ({ role: h.role, content: h.content }) as ChatCompletionMessageParam),
     { role: "user", content: req.message },
   ];

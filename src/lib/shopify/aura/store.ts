@@ -6,7 +6,7 @@
  */
 import { create } from "zustand";
 import { createJSONStorage, persist, type StateStorage } from "zustand/middleware";
-import type { CompareItem, Excluded, FindsEvent, Refinement, Shown } from "../agent/types";
+import type { CompareItem, Excluded, FindsEvent, Shown } from "../agent/types";
 import { type CountryCode, getCountry } from "../countries";
 import { money } from "../format";
 import type { SearchSpec } from "../search";
@@ -54,8 +54,6 @@ export type AuraChat = {
   chips: string[];
   /** "Not for me": hidden here and excluded from later searches. */
   hidden: Excluded[];
-  /** Smart Filter questions from the latest search. */
-  refinements: Refinement[];
   /** Which result set the grid shows ("View Results"); the newest one by default. */
   activeSection: string | null;
   /** Products from outside the chat (feed, similar, brand) the shopper asked about, given refs here. */
@@ -69,14 +67,9 @@ type State = {
   order: string[];
   country: CountryCode;
   saved: SavedItem[];
-  /** "In my size": sizes and whether the toggle is on. */
-  sizes: string[];
-  inMySize: boolean;
 };
 type Actions = {
   setCountry: (c: CountryCode) => void;
-  setSizes: (s: string[]) => void;
-  setInMySize: (on: boolean) => void;
   newChat: (country: CountryCode) => string;
   deleteChat: (id: string) => void;
   addUser: (chatId: string, text: string) => void;
@@ -141,8 +134,6 @@ export function reduce(chat: AuraChat, msgId: string, e: FindsEvent): AuraChat {
       return patch(chat, msgId, (m) => ({ ...m, blocks: [...m.blocks, { kind: "compare", items: e.items, focus: e.focus }] }));
     case "chips":
       return { ...chat, chips: e.items.slice(0, 12) };
-    case "refinements":
-      return { ...chat, refinements: e.items.slice(0, 4) };
     case "followups":
       return patch(chat, msgId, (m) => ({ ...m, followups: e.items }));
     case "error":
@@ -193,15 +184,11 @@ export const useAura = create<State & Actions>()(
         order: [],
         country: "IN",
         saved: [],
-        sizes: [],
-        inMySize: false,
         setCountry: (country) => set({ country }),
-        setSizes: (sizes) => set({ sizes: sizes.slice(0, 10), inMySize: sizes.length ? get().inMySize : false }),
-        setInMySize: (inMySize) => set({ inMySize }),
         newChat: (country) => {
           const id = uid();
           const now = Date.now();
-          const chat: AuraChat = { id, title: "New chat", country, createdAt: now, updatedAt: now, messages: [], shown: [], nextRef: 1, chips: [], hidden: [], refinements: [], activeSection: null, pinned: [] };
+          const chat: AuraChat = { id, title: "New chat", country, createdAt: now, updatedAt: now, messages: [], shown: [], nextRef: 1, chips: [], hidden: [], activeSection: null, pinned: [] };
           const order = [id, ...get().order].slice(0, MAX_CHATS);
           const chats = Object.fromEntries(order.map((k) => [k, k === id ? chat : get().chats[k]]).filter(([, c]) => c));
           set({ chats, order, country });
@@ -265,11 +252,9 @@ export const useAura = create<State & Actions>()(
         const s = state as State & { audience?: unknown };
         if (version < 3) {
           for (const c of Object.values(s.chats ?? {})) {
-            Object.assign(c, { chips: c.chips ?? [], hidden: c.hidden ?? [], refinements: c.refinements ?? [], activeSection: c.activeSection ?? null, pinned: c.pinned ?? [] });
+            Object.assign(c, { chips: c.chips ?? [], hidden: c.hidden ?? [], activeSection: c.activeSection ?? null, pinned: c.pinned ?? [] });
           }
           s.saved ??= [];
-          s.sizes ??= [];
-          s.inMySize ??= false;
           delete s.audience;
         }
         return s;

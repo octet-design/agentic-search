@@ -25,7 +25,7 @@ export const TOOLS: ChatCompletionTool[] = [
       parameters: {
         type: "object",
         additionalProperties: false,
-        required: ["title", "why", "query", "like_ref", "min_price", "max_price", "local_brands_only", "remembered", "refinements"],
+        required: ["title", "why", "query", "like_ref", "min_price", "max_price", "local_brands_only", "remembered"],
         properties: {
           title: { type: "string", description: "Short row heading, e.g. 'Linen shirts under ₹3,000'." },
           why: { type: "string", description: "One short line under the heading on why this row fits, e.g. 'Breathable for a beach wedding'." },
@@ -38,16 +38,6 @@ export const TOOLS: ChatCompletionTool[] = [
             type: "array",
             items: { type: "string" },
             description: "The shopper's standing preferences for this chat so far, as short labels (e.g. 'Under ₹3,000', 'Size M', 'No polyester', 'Pastels'). Keep earlier ones unless the shopper dropped or changed them.",
-          },
-          refinements: {
-            type: "array",
-            description: "2-3 Smart Filter questions specific to THIS search that would narrow it down, each with 3-6 short tappable options. E.g. for western wear: {question:'What length?', options:['Cropped','Mini','Midi','Ankle length']}, {question:'Which fit?', options:['Fitted','Relaxed','Loose waist']}. Not budget or occasion (the app asks those).",
-            items: {
-              type: "object",
-              additionalProperties: false,
-              required: ["question", "options"],
-              properties: { question: { type: "string" }, options: { type: "array", items: { type: "string" } } },
-            },
           },
         },
       },
@@ -96,10 +86,6 @@ const SearchArgs = z.object({
   like_ref: z.number().int().nullable(),
   local_brands_only: z.boolean(),
   remembered: z.array(z.string().trim().min(1).max(60)).max(12),
-  refinements: z
-    .array(z.object({ question: z.string().trim().min(1).max(60), options: z.array(z.string().trim().min(1).max(30)).min(2).max(8) }))
-    .max(4)
-    .catch([]),
 });
 const DetailsArgs = z.object({
   ref: z.number().int(),
@@ -122,8 +108,6 @@ export class ToolContext {
     public nextRef: number,
     private emit: Emit,
     private signal: AbortSignal,
-    /** "In my size": applied to every search. */
-    private sizes: string[] = [],
   ) {
     for (const s of shown) this.byRef.set(s.ref, s);
     this.exclude = new Set(excluded.map((e) => e.id));
@@ -158,7 +142,6 @@ export class ToolContext {
     this.emit({ type: "section_start", id, title: a.title, why: a.why });
     this.emit({ type: "status", label: likeOf ? `Finding pieces like ${likeOf.title.slice(0, 40)}` : `Searching “${a.query}” in ${this.country.name}` });
     if (a.remembered.length) this.emit({ type: "chips", items: a.remembered });
-    if (a.refinements.length) this.emit({ type: "refinements", items: a.refinements.map((r) => ({ question: r.question, options: r.options.slice(0, 6) })) });
 
     const search = {
       query: likeOf ? "" : a.query,
@@ -166,7 +149,6 @@ export class ToolContext {
       max: a.max_price,
       local: a.local_brands_only,
       like: likeOf?.id ?? null,
-      sizes: this.sizes,
     };
     const page = await searchFashion(search, this.country, { limit: 20, exclude: this.exclude, signal: this.signal });
     const products = page.products.slice(0, 10).map((c) => ({ ...c, ref: this.nextRef++ }));

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Lightbulb, Search, SlidersHorizontal, X } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { ProductDetail } from "@/components/shopify/ProductDetail";
@@ -11,23 +11,9 @@ import { COUNTRIES, getCountry, isCountryCode } from "@/lib/shopify/countries";
 import type { ShopifyCard } from "@/lib/shopify/types";
 import { Feed } from "./Feed";
 import { TileActionsContext, type TileActions } from "./ProductTile";
-import { SmartFilters } from "./SmartFilters";
 import { Sheet, useHydrated } from "./ui";
 
 export type Example = { query: string; image: string | null };
-
-const SURPRISE = [
-  "Breezy linen co-ord set for a beach holiday",
-  "Statement earrings for a sangeet night",
-  "Old-money look for a weekend brunch",
-  "Comfortable block heels I can dance in",
-  "Pastel kurta set with mirror work",
-  "Minimal leather tote that fits a laptop",
-  "Western wear for women",
-  "Smart-casual outfit for a first day at work",
-  "Cosy oversized knit for winter evenings",
-  "White sneakers that go with everything",
-];
 
 const short = (t: string) => (t.length > 40 ? `${t.slice(0, 38).trimEnd()}…` : t).replace(/[[\]]/g, "");
 
@@ -40,7 +26,6 @@ export function AuraHome({ examples }: { examples: Example[] }) {
   const country = getCountry(hydrated ? stored : "IN");
   const [query, setQuery] = useState("");
   const [quick, setQuick] = useState<ShopifyCard | null>(null);
-  const [filters, setFilters] = useState(false);
 
   /** Starts a chat; `about` pins a product from the feed so the agent can look it up. */
   const start = (text: string | ((ref: (p: ShopifyCard) => string) => string)) => {
@@ -132,14 +117,6 @@ export function AuraHome({ examples }: { examples: Example[] }) {
             ))}
           </div>
 
-          <div className="mt-6 flex justify-center gap-3">
-            <button onClick={() => start(SURPRISE[Math.floor(Math.random() * SURPRISE.length)])} className="inline-flex items-center gap-2 border border-line bg-paper px-4 py-2.5 text-sm font-medium hover:border-ink">
-              <Lightbulb size={16} /> Surprise me
-            </button>
-            <button onClick={() => setFilters(true)} className="inline-flex items-center gap-2 border border-line bg-paper px-4 py-2.5 text-sm font-medium hover:border-ink">
-              <SlidersHorizontal size={16} /> Smart filters
-            </button>
-          </div>
 
           <div className="mt-16">{hydrated && <Feed key={country.code} country={country} />}</div>
         </div>
@@ -161,20 +138,6 @@ export function AuraHome({ examples }: { examples: Example[] }) {
         )}
       </Sheet>
 
-      <Sheet open={filters} onClose={() => setFilters(false)} title="Smart Filters">
-        {filters && (
-          <SmartFilters
-            country={country}
-            refinements={[]}
-            header={false}
-            onBack={() => setFilters(false)}
-            onApply={(m) => {
-              setFilters(false);
-              start(`Show me fashion for: ${m}`);
-            }}
-          />
-        )}
-      </Sheet>
     </TileActionsContext.Provider>
   );
 }

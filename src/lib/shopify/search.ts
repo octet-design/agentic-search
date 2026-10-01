@@ -21,8 +21,6 @@ export type SearchSpec = {
   like?: string | null;
   /** Only this shop (gid://shopify/Shop/…). */
   shop?: string | null;
-  /** "In my size": variant sizes, OR'd. */
-  sizes?: string[];
 };
 
 export const PRODUCT_GID = (id: string) => (id.startsWith("gid://") ? id : `gid://shopify/p/${id}`);
@@ -47,7 +45,6 @@ export async function searchFashion(
     price: { min, max },
     shipsFrom: spec.local ? [country.code] : undefined,
     categories: FASHION_CATEGORIES,
-    attributes: spec.sizes?.length ? [{ name: "Size", values: spec.sizes.slice(0, 10) }] : undefined,
     shops: spec.shop ? [spec.shop] : undefined,
     like: spec.like ? [PRODUCT_GID(spec.like)] : undefined,
     signal: opts.signal,
