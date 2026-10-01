@@ -50,7 +50,7 @@ export function PlusHome({ examples }: { examples: Example[] }) {
             <motion.h1 initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="font-display text-4xl leading-tight tracking-tight md:text-6xl">
               Style that speaks <em>your</em> language
             </motion.h1>
-            <p className="mx-auto mt-4 max-w-md text-ink-soft">Describe what you&rsquo;re looking for in English, Hinglish or Hindi, and let Aura++ curate tasteful results from our catalog.</p>
+            <p className="mx-auto mt-4 max-w-md text-ink-soft">Describe what you&rsquo;re looking for in English, Hinglish or Hindi, and we&rsquo;ll curate tasteful results from our catalog.</p>
           </div>
 
           <form

@@ -136,7 +136,7 @@ export function ChatPanel({
     <div className="flex h-full min-h-0 flex-col bg-paper">
       <div className="flex items-center gap-2.5 bg-ink px-4 py-3 text-canvas">
         <Sparkles size={17} />
-        <h2 className="flex-1 font-medium">Ask Aura</h2>
+        <h2 className="flex-1 font-medium">Shopify search</h2>
         <button onClick={onClose} className="rounded-full p-1 hover:bg-white/10" aria-label="Close chat">
           <X size={18} />
         </button>

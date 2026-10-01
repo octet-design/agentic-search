@@ -278,7 +278,7 @@ export function PlusSearch({ id }: { id: string }) {
         <aside className={`min-h-0 flex-1 flex-col bg-paper md:flex md:w-[420px] md:flex-none md:shadow-[0_8px_40px_rgba(0,0,0,0.08)] ${tab === "chat" ? "flex" : "hidden"}`}>
           <div className="flex items-center gap-2.5 bg-ink px-4 py-3 text-canvas">
             <Sparkles size={17} />
-            <h2 className="flex-1 font-medium">Ask Aura++</h2>
+            <h2 className="flex-1 font-medium">Typesense search</h2>
             <button onClick={() => router.push("/aura-plus")} className="rounded-full p-1 hover:bg-white/10" aria-label="Close chat">
               <X size={18} />
             </button>

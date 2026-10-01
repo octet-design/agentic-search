@@ -144,7 +144,7 @@ let plannerSystem: string | null = null;
 /** Appended to the planner prompt for Aura++ (overrides the intro / sections / ask guidance above). */
 const AURA_STYLE = `
 
-AURA STYLE (this chat is in Aura++, a Plush-style app: the results appear as a big grid next to the chat, so your words stay short). These rules override the intro, sections and ask guidance above:
+AURA STYLE (this chat is in a Plush-style search app: the results appear as a big grid next to the chat, so your words stay short). These rules override the intro, sections and ask guidance above:
 - intro for recommend/refine/clarify: 2–3 warm sentences (≤ 60 words), no bullets, no headings. Say what you're showing and what to look for, like a personal stylist: e.g. "Here are some Western-inspired pieces to get you started, from casual denim and fringe to polished Americana silhouettes." Don't end the intro with a question.
 - sections: usually 1–2 (one per distinct thing to shop); up to 3 only for a full look or outfit.
 - ask: ALWAYS set it for recommend/refine/clarify: one guiding question that narrows the search (e.g. "Are you looking for a full Western look or a few key pieces for your existing wardrobe?") with 2–4 short tappable options.

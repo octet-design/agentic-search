@@ -31,10 +31,10 @@ export function Header() {
             <Sparkles size={16} /> <span className="hidden sm:inline">{AGENT_NAME}</span>
           </Link>
           <Link href="/aura-plus" className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-ink-soft hover:bg-sand hover:text-ink">
-            <Wand2 size={16} /> <span className="hidden sm:inline">Aura++</span>
+            <Wand2 size={16} /> <span className="hidden sm:inline">Typesense search</span>
           </Link>
           <Link href="/shopify" className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-ink-soft hover:bg-sand hover:text-ink">
-            <ShoppingBag size={16} /> <span className="hidden sm:inline">Shopify</span>
+            <ShoppingBag size={16} /> <span className="hidden sm:inline">Shopify browse</span>
           </Link>
           <Link href="/saved" className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 hover:bg-sand">
             <Heart size={16} /> <span className="hidden sm:inline">Saved</span>

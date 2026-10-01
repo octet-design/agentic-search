@@ -27,7 +27,7 @@ export function AuraSaved() {
         <p className="mt-10 text-ink-soft">
           Nothing saved yet. Tap the heart on anything you like in{" "}
           <Link href="/aura" className="underline underline-offset-2">
-            Aura
+            Shopify search
           </Link>
           .
         </p>

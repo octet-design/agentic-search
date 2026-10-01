@@ -69,7 +69,7 @@ export function AuraHome({ examples }: { examples: Example[] }) {
             <motion.h1 initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="font-display text-4xl leading-tight tracking-tight md:text-6xl">
               Style that speaks <em>your</em> language
             </motion.h1>
-            <p className="mx-auto mt-4 max-w-md text-ink-soft">Describe what you&rsquo;re looking for, and let Aura curate tasteful results from stores across Shopify.</p>
+            <p className="mx-auto mt-4 max-w-md text-ink-soft">Describe what you&rsquo;re looking for, and we&rsquo;ll curate tasteful results from stores across Shopify.</p>
           </div>
 
           <form
@@ -128,7 +128,7 @@ export function AuraHome({ examples }: { examples: Example[] }) {
             <ProductDetail key={quick.id} id={quick.id} country={country} preview={quick} layout="sheet" onOpenSimilar={setQuick} />
             <div className="sticky bottom-0 flex gap-2 border-t border-line bg-paper px-5 py-3">
               <button onClick={() => actions.onAsk?.(quick, null)} className="flex-1 border border-line px-3 py-2 text-sm hover:border-ink">
-                Ask Aura about this
+                Ask about this
               </button>
               <button onClick={() => actions.onMoreLike?.(quick)} className="flex-1 bg-ink px-3 py-2 text-sm text-canvas">
                 More like this

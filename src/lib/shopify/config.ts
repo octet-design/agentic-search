@@ -1,6 +1,6 @@
-/** Name and promise of the conversational Shopify fashion experience (/aura). A rename is a one-line change. */
-export const AGENT_NAME = "Aura";
-export const AGENT_TAGLINE = "Describe what you're looking for, and Aura curates real fashion from stores across Shopify. You always check out on the store's own site.";
+/** Name and promise of the conversational Shopify fashion experience (/aura, formerly "Aura"). A rename is a one-line change. */
+export const AGENT_NAME = "Shopify search";
+export const AGENT_TAGLINE = "Describe what you're looking for, and we curate real fashion from stores across Shopify. You always check out on the store's own site.";
 
 /**
  * Both Shopify tabs are fashion-only for now: Shopify's "Apparel & Accessories" taxonomy branch
