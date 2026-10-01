@@ -73,6 +73,7 @@ export function PlusTile({ p, masonry = false, index = 0 }: { p: ProductCard; ma
         <button type="button" onClick={open} className="block w-full overflow-hidden rounded-xl bg-sand" aria-label={`${p.brand} ${p.title}, ${inr(p.price)}`}>
           <ProductImage src={p.image} alt={p.title} className={`${shape} w-full transition duration-300 group-hover:scale-[1.02]`} />
         </button>
+        <SourceChip p={p} />
         <div className="absolute right-2 top-2 flex flex-col gap-1.5">
           <button
             type="button"
@@ -150,6 +151,18 @@ export function PlusTile({ p, masonry = false, index = 0 }: { p: ProductCard; ma
         <span className={`mt-0.5 font-semibold ${masonry ? "text-sm" : "text-base"}`}>{inr(p.price)}</span>
       </div>
     </motion.article>
+  );
+}
+
+/** Where a product comes from: our Typesense catalog or Shopify's Global Catalog. */
+export function SourceChip({ p, className = "absolute left-2 top-2" }: { p: Pick<ProductCard, "source">; className?: string }) {
+  const shopify = p.source === "shopify";
+  return (
+    <span
+      className={`pointer-events-none rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide shadow-sm backdrop-blur ${shopify ? "bg-[#95BF47]/90 text-white" : "bg-ink/80 text-canvas"} ${className}`}
+    >
+      {shopify ? "Shopify" : "Typesense"}
+    </span>
   );
 }
 

@@ -145,6 +145,10 @@ export type ProductCard = {
   score: number;
   /** Stable "#n" reference within a chat (conversational mode). */
   ref?: number;
+  /** Where the product comes from: our Typesense catalog (default) or Shopify's Global Catalog (blended in Typesense search). */
+  source?: "typesense" | "shopify";
+  /** Shopify products: one-click checkout for the default variant. */
+  checkoutUrl?: string | null;
 };
 
 /** Minimal product data kept client-side for taste signals (no embeddings). */

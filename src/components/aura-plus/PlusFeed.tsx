@@ -3,6 +3,8 @@
 import { Loader2 } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { ProductCard } from "@/lib/agent/types";
+import { blend, fromShopify } from "@/lib/blend";
+import type { ShopifyCard } from "@/lib/shopify/types";
 import { placeInColumns, tileShape } from "@/lib/shopify/aura/ux";
 import { useSession } from "@/store/session";
 import { PlusSkeleton, PlusTile } from "./PlusTile";
@@ -30,6 +32,7 @@ const SKELETON_SHAPES = ["aspect-[3/4]", "aspect-[2/3]", "aspect-square", "aspec
 export function PlusFeed() {
   const [items, setItems] = useState<ProductCard[]>([]);
   const [cursor, setCursor] = useState<string | null>(null);
+  const [shopifyCursor, setShopifyCursor] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   // Read once: the feed shouldn't reshuffle while the shopper saves things on it.
@@ -50,14 +53,20 @@ export function PlusFeed() {
     busy.current = true;
     setLoading(true);
     try {
-      const res = await fetch("/api/aura-plus/feed", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ seedIds: seeds.seedIds, excludeIds: [...seeds.hidden, ...ids.current].slice(-300), cursor }),
-      });
+      const post = (url: string, body: unknown) => fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+      const exclude = [...seeds.hidden, ...ids.current].slice(-300);
+      // Our catalog is the backbone; Shopify's feed (India) is blended in and fails soft.
+      const [res, shop] = await Promise.all([
+        post("/api/aura-plus/feed", { seedIds: seeds.seedIds.filter((id) => !id.startsWith("shopify-")), excludeIds: exclude.filter((id) => !id.startsWith("shopify-")), cursor }),
+        post("/api/shopify/feed", { country: "IN", cursor: shopifyCursor, exclude: exclude.filter((id) => id.startsWith("shopify-")).map((id) => id.slice(8)) })
+          .then((r) => (r.ok ? (r.json() as Promise<{ items: ShopifyCard[]; cursor: string | null }>) : null))
+          .catch(() => null),
+      ]);
       if (!res.ok) throw new Error();
       const data = (await res.json()) as { items: ProductCard[]; cursor: string };
-      const fresh = data.items.filter((i) => !ids.current.has(i.id));
+      if (shop) setShopifyCursor(shop.cursor);
+      const mixed = blend(data.items, (shop?.items ?? []).slice(0, 10).map(fromShopify));
+      const fresh = mixed.filter((i) => !ids.current.has(i.id));
       fresh.forEach((i) => ids.current.add(i.id));
       setItems((prev) => [...prev, ...fresh]);
       setCursor(data.cursor);

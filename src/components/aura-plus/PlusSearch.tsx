@@ -11,6 +11,8 @@ import { ProductImage } from "@/components/product/ProductImage";
 import { Loader } from "@/components/shopify/aura/Loader";
 import { Composer, Sheet, useHydrated, type ComposerHandle } from "@/components/shopify/aura/ui";
 import type { ProductCard } from "@/lib/agent/types";
+import { blend, fromShopify, withAudience } from "@/lib/blend";
+import type { ShopifyCard } from "@/lib/shopify/types";
 import { sendChatMessage, stopChat } from "@/lib/chatClient";
 import { useChats, type AssistantMessage, type Chat, type ChatSection } from "@/store/chats";
 import { useSession } from "@/store/session";
@@ -63,6 +65,7 @@ function ResultCard({ s, active, onView }: { s: ChatSection; active: boolean; on
 /** The live grid for one result set: the chat's picks first, then the same filters' longer list as you scroll. */
 function ResultsGrid({ s, hidden }: { s: ChatSection; hidden: Set<string> }) {
   const [more, setMore] = useState<ProductCard[] | null>(null);
+  const [shopifyMore, setShopifyMore] = useState<ProductCard[]>([]);
   const [shown, setShown] = useState(16);
   const sentinel = useRef<HTMLDivElement>(null);
 
@@ -78,8 +81,24 @@ function ResultsGrid({ s, hidden }: { s: ChatSection; hidden: Set<string> }) {
     };
   }, [s.intent]);
 
+  // The same need from Shopify's Global Catalog, blended into the longer list.
+  useEffect(() => {
+    const q = s.intent ? withAudience(s.intent.semanticQuery || s.title, s.intent.audience) : s.query || s.title;
+    const qs = new URLSearchParams({ q, country: "IN" });
+    if (s.intent?.price?.min != null) qs.set("min", String(s.intent.price.min));
+    if (s.intent?.price?.max != null) qs.set("max", String(s.intent.price.max));
+    let live = true;
+    fetch(`/api/shopify/search?${qs}`)
+      .then((r) => (r.ok ? r.json() : { products: [] }))
+      .then((j: { products: ShopifyCard[] }) => live && setShopifyMore((j.products ?? []).map(fromShopify)))
+      .catch(() => undefined);
+    return () => {
+      live = false;
+    };
+  }, [s.intent, s.query, s.title]);
+
   const seen = new Set<string>();
-  const all = [...s.products, ...(more ?? [])].filter((p) => !hidden.has(p.id) && !seen.has(p.id) && (seen.add(p.id), true));
+  const all = [...s.products, ...blend(more ?? [], more === null ? [] : shopifyMore)].filter((p) => !hidden.has(p.id) && !seen.has(p.id) && (seen.add(p.id), true));
   const visible = all.slice(0, shown);
 
   useEffect(() => {

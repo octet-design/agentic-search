@@ -195,6 +195,7 @@ export function ProductDetail({
   preview,
   layout,
   onOpenSimilar,
+  renderSave,
 }: {
   id: string;
   country: Country | null;
@@ -202,6 +203,8 @@ export function ProductDetail({
   /** Search-card data shown while the full product loads. */
   preview?: ShopifyCard;
   layout: "page" | "sheet";
+  /** Replaces the default heart (e.g. Typesense search saves into Drape's shared saved list). */
+  renderSave?: (card: ShopifyCard) => React.ReactNode;
   /** Sheet: open a similar / Style it / same-brand product in place (the page links to it instead). */
   onOpenSimilar?: (p: ShopifyCard) => void;
 }) {
@@ -269,7 +272,7 @@ export function ProductDetail({
             ))}
           <div className="mt-1 flex items-start justify-between gap-3">
             <h1 className={`font-display leading-tight tracking-tight ${sheet ? "text-2xl" : "text-3xl"}`}>{title}</h1>
-            {card && <SaveButton p={card} country={shopIn} className="shrink-0 border border-line" />}
+            {card && (renderSave ? renderSave(card) : <SaveButton p={card} country={shopIn} className="shrink-0 border border-line" />)}
           </div>
           <div className="mt-2 flex flex-wrap items-center gap-3">
             {price && <span className="text-xl font-semibold">{fmt(price)}</span>}

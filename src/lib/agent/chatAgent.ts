@@ -4,6 +4,8 @@
  * then names concrete picks. Product questions, compare and "more like #n" reuse the same chat context.
  */
 import { z } from "zod";
+import { blend, isShopifyId } from "../blend";
+import { shopifyFacts, shopifyForSection, shopifyLike } from "../blendServer";
 import { compareProducts } from "../compare";
 import { FEATURES } from "../config";
 import { getEnv } from "../env";
@@ -485,10 +487,27 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
     emit({ type: "sections_plan", sections: sections.map(({ id, spec, why }) => ({ id, title: spec.title, why })) });
     emit({ type: "step", id: "search", label: "Finding options in the catalog", status: "running" });
     const s0 = performance.now();
-    const rails = await retrieveRails(
-      sections.map((s) => ({ id: s.id, title: s.spec.title, intent: s.intent, perPage: 40 })),
-      tax,
-    );
+    // Typesense search (Aura style) also blends in Shopify Global Catalog matches, fetched in parallel.
+    const blendShopify = input.style === "aura";
+    const [rails, shopifyLists] = await Promise.all([
+      retrieveRails(
+        sections.map((s) => ({ id: s.id, title: s.spec.title, intent: s.intent, perPage: 40 })),
+        tax,
+      ),
+      blendShopify
+        ? Promise.all(
+            sections.map((s) =>
+              shopifyForSection({
+                query: s.intent.semanticQuery || s.spec.title,
+                audience: s.intent.audience,
+                min: s.intent.price?.min,
+                max: s.intent.price?.max,
+                signal: input.signal,
+              }),
+            ),
+          )
+        : Promise.resolve([] as ProductCard[][]),
+    ]);
     timings.search = Math.round(performance.now() - s0);
     emit({ type: "step", id: "search", label: "Finding options in the catalog", status: "done", ms: timings.search });
 
@@ -497,7 +516,7 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
       const s = sections[i];
       // 8 per section like a chat answer; "See all" lists more with these same filters (/api/chat/section).
       const ranked = diversify(tasteBoost(rail.products, taste, tax), 8, 2);
-      const shown = withRefs(ranked.slice(0, 8));
+      const shown = withRefs(blendShopify ? blend(ranked.slice(0, 8), (shopifyLists[i] ?? []).slice(0, 4)) : ranked.slice(0, 8));
       const more: ProductCard[] = [];
       top.push({ title: s.spec.title, products: shown.slice(0, 4) });
       emit({ type: "section", id: s.id, title: s.spec.title, why: s.why, query: s.intent.semanticQuery, products: shown, more, relaxedNote: rail.relaxedNote, intent: rail.intent });
@@ -556,11 +575,15 @@ Don't write product numbers in the text.`,
       timings.write = Math.round(performance.now() - w0);
       emit({ type: "step", id: "curate", label: "Picking my favourites", status: "done", ms: timings.write });
     }
-  } else if (plan.turnType === "product_question") {
+  } else if (plan.turnType === "product_question" || (plan.turnType === "compare" && refProducts(plan.refs).some((t) => isShopifyId(t.id)))) {
     let targets = refProducts(plan.refs);
     if (!targets.length) targets = input.state.products.slice(-6);
-    const raw = targets.length ? await getRawProducts(targets.map((t) => t.id)) : [];
+    const raw = targets.length ? await getRawProducts(targets.filter((t) => !isShopifyId(t.id)).map((t) => t.id)) : [];
     const byId = new Map(raw.map((r) => [r.id, r]));
+    // Shopify products aren't in Typesense: read their live details from Shopify instead.
+    const shopifyLines = new Map(
+      await Promise.all(targets.filter((t) => isShopifyId(t.id)).map(async (t) => [t.id, await shopifyFacts(t.id, input.signal)] as const)),
+    );
     await llmTextStream({
       name: "chat-answer",
       model,
@@ -570,6 +593,8 @@ Don't write product numbers in the text.`,
         .map((m) => `${m.role}: ${m.content.slice(0, 400)}`)
         .join("\n")}\n\nProducts:\n${targets
         .map((t) => {
+          const facts = shopifyLines.get(t.id);
+          if (isShopifyId(t.id)) return `#${t.ref} ${t.title} | ${t.brand} (an online store on Shopify) | ₹${Math.round(t.price)} | ${facts ?? "details unavailable"}`;
           const r = byId.get(t.id);
           return `#${t.ref} ${t.title} | ${t.brand} | ₹${Math.round(t.price)} | colour ${t.color} | fabric ${r?.fabric ?? t.fabric ?? "?"} | fit ${r?.fit ?? "?"} | pattern ${r?.pattern ?? "?"} | occasions ${(r?.use_case ?? []).join(", ")} | sizes ${(r?.sizes ?? []).slice(0, 10).join(", ") || "not listed"} | ${cleanText(r?.description).slice(0, 200)}`;
         })
@@ -605,7 +630,10 @@ Don't write product numbers in the text.`,
     const target = refProducts(plan.refs)[0];
     if (target) {
       emit({ type: "step", id: "search", label: "Finding similar pieces", status: "running" });
-      const emb = (await getEmbeddings([target.id])).get(target.id);
+      const fromShopify = isShopifyId(target.id);
+      const blendShopify = input.style === "aura" || fromShopify;
+      const shopifyMatches = blendShopify ? shopifyLike(target, { max: plan.similar?.maxPrice ?? null, signal: input.signal }) : Promise.resolve([] as ProductCard[]);
+      const emb = fromShopify ? undefined : (await getEmbeddings([target.id])).get(target.id);
       const changes = sanitizeIntent(
         mergeIntent(emptyIntent(""), {
           colors: { include: plan.similar?.colors ?? [], exclude: base.colors.exclude, strength: "must" },
@@ -617,13 +645,16 @@ Don't write product numbers in the text.`,
         tax,
       );
       const found = emb ? await vectorNeighbours({ vector: emb.vec, genders: gendersLike(emb.doc.gender), excludeIds: [target.id], k: 16, intent: changes }) : [];
-      const ranked = tasteBoost(found, taste, tax);
+      const catalog = tasteBoost(found, taste, tax);
+      const shopifyFound = await shopifyMatches;
+      // A Shopify product's look-alikes come from Shopify; a catalog product's are catalog first, Shopify blended in.
+      const ranked = fromShopify ? shopifyFound : blendShopify ? blend(catalog.slice(0, 8), shopifyFound.slice(0, 4)) : catalog;
       // The label is the requested change ("in blue"); the planner sometimes echoes the product name instead.
       const rawLabel = plan.similar?.label?.trim() ?? "";
       const echoes = /^(more )?like\b/i.test(rawLabel) || target.title.toLowerCase().includes(rawLabel.toLowerCase().replace(/^(more )?like\s+/i, "").slice(0, 20));
       const label = rawLabel && !echoes ? ` · ${rawLabel}` : "";
       emit({ type: "step", id: "search", label: "Finding similar pieces", status: "done" });
-      emit({ type: "section", id: `like-${target.ref}-${Date.now().toString(36)}`, title: `More like ${shortTitle(target.title)}${label}`, why: target.title, query: `${target.title}${label}`, products: withRefs(ranked.slice(0, 8)), more: [] });
+      emit({ type: "section", id: `like-${target.ref}-${Date.now().toString(36)}`, title: `More like ${shortTitle(target.title)}${label}`, why: target.title, query: `${target.title}${label}`, products: withRefs(ranked.slice(0, blendShopify ? 12 : 8)), more: [] });
     }
   }
 
