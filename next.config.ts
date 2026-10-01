@@ -5,6 +5,13 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "/**": ["./data/taxonomy.json"],
   },
+  // Genuine Finds became Aura.
+  async redirects() {
+    return [
+      { source: "/finds", destination: "/aura", permanent: false },
+      { source: "/finds/:path*", destination: "/aura", permanent: false },
+    ];
+  },
 };
 
 export default nextConfig;

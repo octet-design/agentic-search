@@ -10,6 +10,7 @@ const Rating = z.object({ value: z.number(), scale_max: z.number().default(5), c
 const Description = z.object({ plain: z.string().nullish() }).nullish();
 
 const Seller = z.object({
+  id: z.string().nullish(),
   name: z.string().nullish(),
   url: z.string().nullish(),
   links: z.array(z.object({ type: z.string(), url: z.string() })).default([]),
@@ -68,6 +69,8 @@ export type ShopifyCard = {
   /** True when variants span a price range ("from ₹…"). */
   priceFrom: boolean;
   seller: string | null;
+  /** gid://shopify/Shop/… ("more from this brand"). */
+  sellerId: string | null;
   rating: { value: number; count: number | null } | null;
   /** Up to 3 merchant-supplied highlights. */
   features: string[];

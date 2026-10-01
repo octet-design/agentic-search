@@ -1,4 +1,4 @@
-import type { Product } from "./types";
+import type { Product, ShopifyCard } from "./types";
 
 /** Everything the product detail UI shows, for the currently selected variant. Safe to send to the client. */
 export type ProductView = {
@@ -10,7 +10,7 @@ export type ProductView = {
   /** One-click checkout for the selected variant, else the store product page. */
   buyUrl: string | null;
   storeUrl: string | null;
-  seller: { name: string | null; url: string | null; policies: { label: string; url: string }[] };
+  seller: { id: string | null; name: string | null; url: string | null; policies: { label: string; url: string }[] };
   rating: { value: number; count: number | null } | null;
   options: { name: string; values: { label: string; available: boolean }[] }[];
   selected: { name: string; label: string }[];
@@ -43,6 +43,7 @@ export function toProductView(id: string, p: Product): ProductView {
     buyUrl: v?.checkout_url ?? v?.url ?? null,
     storeUrl: v?.url ?? seller?.url ?? null,
     seller: {
+      id: seller?.id ?? null,
       name: seller?.name ?? null,
       url: seller?.url ?? null,
       policies: (seller?.links ?? []).filter((l) => POLICY_LABELS[l.type]).map((l) => ({ label: POLICY_LABELS[l.type], url: l.url })),
@@ -55,5 +56,23 @@ export function toProductView(id: string, p: Product): ProductView {
     highlights: p.metadata?.top_features ?? [],
     specs: p.metadata?.tech_specs ?? [],
     description: v?.description?.plain ?? p.description?.plain ?? null,
+  };
+}
+
+/** The grid/save card for a product as currently shown (selected variant's price, photo and checkout). */
+export function cardFromView(v: ProductView): ShopifyCard {
+  return {
+    id: v.id,
+    title: v.title,
+    image: v.images[0]?.url ?? null,
+    price: v.price,
+    priceFrom: false,
+    seller: v.seller.name,
+    sellerId: v.seller.id,
+    rating: v.rating,
+    features: v.highlights.slice(0, 3),
+    url: v.storeUrl,
+    checkoutUrl: v.buyUrl,
+    defaultOptions: v.selected.map((s) => s.label).join(" / ") || null,
   };
 }

@@ -39,6 +39,6 @@ describe("createAnswerSplitter", () => {
 describe("isNonFashionQuery", () => {
   it("blocks gadgets, home and beauty but not fashion", () => {
     for (const q of ["wireless headphones", "coffee mug", "face serum", "gaming laptop", "smartphone"]) expect(isNonFashionQuery(q), q).toBe(true);
-    for (const q of ["linen shirt men", "cotton kurta women", "leather watch men", "tote bag", "sneakers", "phone crossbody bag", "tea dress", "coffee brown sweater", "d cup bra", "pet print shirt"]) expect(isNonFashionQuery(q), q).toBe(false);
+    for (const q of ["linen shirt men", "cotton kurta women", "leather watch men", "tote bag", "sneakers", "phone crossbody bag", "leather laptop tote", "headphone case", "tea dress", "coffee brown sweater", "d cup bra", "pet print shirt"]) expect(isNonFashionQuery(q), q).toBe(false);
   });
 });

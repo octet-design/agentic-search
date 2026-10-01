@@ -4,7 +4,7 @@ import { Fragment, type ReactNode } from "react";
 import { ShopifyImage } from "@/components/shopify/ShopifyCard";
 import type { Country } from "@/lib/shopify/countries";
 import type { ShopifyCard } from "@/lib/shopify/types";
-import { priceLabel, Rating } from "./Products";
+import { priceLabel, Rating } from "./ProductTile";
 
 type Ctx = { onRef: (ref: number) => void; card: (ref: number) => ShopifyCard | undefined; country: Country };
 

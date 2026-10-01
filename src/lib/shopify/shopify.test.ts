@@ -40,6 +40,7 @@ describe("shopify catalog", () => {
       price: { amount: 960000, currency: "INR" },
       priceFrom: true,
       seller: "Kenny Flowers",
+      sellerId: null,
       rating: { value: 4.9, count: 526 },
       features: [],
       url: null,

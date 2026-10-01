@@ -69,6 +69,7 @@ export function toCard(p: Product): ShopifyCard {
     price: min,
     priceFrom: !!p.price_range && p.price_range.min.amount !== p.price_range.max.amount,
     seller: v?.seller?.name ?? null,
+    sellerId: v?.seller?.id ?? null,
     rating: p.rating ? { value: p.rating.value, count: p.rating.count ?? null } : null,
     features: (p.metadata?.top_features ?? []).slice(0, 3),
     url: v?.url ?? null,
@@ -86,6 +87,12 @@ export type SearchOpts = CallOpts & {
   shipsFrom?: string[];
   /** Shopify taxonomy category ids (OR). */
   categories?: string[];
+  /** Taxonomy attribute filters, e.g. [{ name: "Size", values: ["M"] }] (AND across entries, OR within). */
+  attributes?: { name: string; values: string[] }[];
+  /** Only these shops (gid://shopify/Shop/…): "more from this brand". */
+  shops?: string[];
+  /** Look-alikes of these products (gid://shopify/p/…), with or without a query. */
+  like?: string[];
 };
 
 export async function searchCatalog(query: string, opts: SearchOpts = {}): Promise<ShopifyPage> {
@@ -94,9 +101,16 @@ export async function searchCatalog(query: string, opts: SearchOpts = {}): Promi
   if (opts.price && (opts.price.min != null || opts.price.max != null)) filters.price = opts.price;
   if (opts.shipsFrom?.length) filters.ships_from = opts.shipsFrom.map((c) => ({ country: c }));
   if (opts.categories?.length) filters.categories = opts.categories;
+  if (opts.attributes?.length) filters.attributes = opts.attributes;
+  if (opts.shops?.length) filters.shops = opts.shops;
   const raw = await callTool(
     "search_catalog",
-    { query, filters, pagination: { limit: opts.limit ?? 24, ...(opts.cursor ? { cursor: opts.cursor } : {}) } },
+    {
+      ...(query.trim() ? { query } : {}),
+      ...(opts.like?.length ? { like: opts.like.map((id) => ({ id })) } : {}),
+      filters,
+      pagination: { limit: opts.limit ?? 24, ...(opts.cursor ? { cursor: opts.cursor } : {}) },
+    },
     { country, currency: opts.currency, signal: opts.signal },
   );
   const parsed = SearchResult.parse(raw);

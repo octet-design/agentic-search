@@ -13,7 +13,9 @@
     "discover": "node --env-file-if-exists=.env.local --import tsx scripts/discover.ts",
     "build:taxonomy": "node --env-file-if-exists=.env.local --import tsx scripts/build-taxonomy.ts",
     "eval": "node --env-file-if-exists=.env.local --import tsx scripts/eval.ts",
-    "eval:chat": "node --env-file-if-exists=.env.local --import tsx scripts/eval-chat.ts"
+    "eval:chat": "node --env-file-if-exists=.env.local --import tsx scripts/eval-chat.ts",
+    "ucp": "node --env-file-if-exists=.env.local --import tsx scripts/ucp-poc.ts",
+    "eval:aura": "node --import tsx scripts/eval-aura.ts"
   },
   "dependencies": {
     "clsx": "^2.1.1",

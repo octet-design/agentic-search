@@ -9,7 +9,7 @@ import type { ChatRequest, Emit } from "./types";
 
 /** Model calls per turn (search → maybe refine → answer). The last one may not call tools. */
 const MAX_ROUNDS = 4;
-const MAX_TOOL_CALLS_PER_ROUND = 4;
+const MAX_TOOL_CALLS_PER_ROUND = 3;
 
 type PendingCall = { id: string; name: string; args: string };
 
@@ -18,10 +18,10 @@ export async function runFindsTurn(req: ChatRequest, emit: Emit, signal: AbortSi
   const t0 = Date.now();
   const model = getShopifyEnv().SHOPIFY_AGENT_MODEL;
   const country = getCountry(req.country);
-  const ctx = new ToolContext(country, req.shown, req.excluded, req.nextRef, emit, signal);
+  const ctx = new ToolContext(country, req.shown, req.excluded, req.nextRef, emit, signal, req.sizes);
 
   const messages: ChatCompletionMessageParam[] = [
-    { role: "system", content: systemPrompt({ country, audience: req.audience, remembered: req.remembered, excluded: req.excluded, shown: req.shown }) },
+    { role: "system", content: systemPrompt({ country, audience: req.audience, remembered: req.remembered, excluded: req.excluded, shown: req.shown, sizes: req.sizes }) },
     ...req.history.map((h) => ({ role: h.role, content: h.content }) as ChatCompletionMessageParam),
     { role: "user", content: req.message },
   ];

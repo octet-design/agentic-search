@@ -12,7 +12,7 @@ import { getShopifyEnv } from "./env";
 import { money } from "./format";
 import { isNonFashionQuery, searchFashion } from "./search";
 import type { ShopifyCard } from "./types";
-import { toProductView, type ProductView } from "./view";
+import { cardFromView, toProductView, type ProductView } from "./view";
 
 const ItemSchema = z.object({ label: z.string(), query: z.string(), why: z.string() });
 const PlanSchema = z.object({ occasions: z.array(z.object({ name: z.string(), note: z.string(), items: z.array(ItemSchema) })) });
@@ -112,19 +112,7 @@ export async function styleIt(opts: { id: string; country: Country; occasion?: s
     v = toProductView(id, p);
     pieces.set(`${id}:${country.code}`, v);
   }
-  const piece: ShopifyCard = {
-    id,
-    title: v.title,
-    image: v.images[0]?.url ?? null,
-    price: v.price,
-    priceFrom: false,
-    seller: v.seller.name,
-    rating: v.rating,
-    features: v.highlights.slice(0, 3),
-    url: v.storeUrl,
-    checkoutUrl: v.buyUrl,
-    defaultOptions: null,
-  };
+  const piece: ShopifyCard = { ...cardFromView(v), defaultOptions: null };
 
   const plan = await planFor(v, country, opts.signal);
   const occ = plan.occasions.find((o) => o.name === opts.occasion) ?? plan.occasions[0];

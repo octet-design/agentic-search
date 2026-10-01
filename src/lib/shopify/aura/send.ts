@@ -1,22 +1,23 @@
 "use client";
 
 /**
- * Sends one Genuine Finds turn and streams its events into the store. A module function (not a hook),
- * so a turn keeps streaming while the page navigates from /finds to /finds/<id>.
+ * Sends one Aura turn and streams its events into the store. A module function (not a hook), so a turn keeps
+ * streaming while the page navigates from /aura to /aura/c/<id>.
  */
 import type { FindsEvent } from "../agent/types";
-import { historyText, useFinds } from "./store";
+import { historyText, useAura } from "./store";
+import { track } from "./taste";
 
 const running = new Map<string, AbortController>();
 
-export async function sendFindsMessage(chatId: string, text: string) {
+export async function sendAuraMessage(chatId: string, text: string) {
   const message = text.trim();
   if (!message) return;
   running.get(chatId)?.abort();
   const ac = new AbortController();
   running.set(chatId, ac);
 
-  const store = useFinds.getState();
+  const store = useAura.getState();
   const before = store.chats[chatId];
   if (!before) return;
   const history = before.messages
@@ -25,6 +26,7 @@ export async function sendFindsMessage(chatId: string, text: string) {
     .filter((m) => m.content);
   store.addUser(chatId, message);
   const msgId = store.addAssistant(chatId);
+  track({ type: "search", query: message });
 
   try {
     const res = await fetch("/api/shopify/chat", {
@@ -34,11 +36,12 @@ export async function sendFindsMessage(chatId: string, text: string) {
         message,
         history,
         country: before.country,
-        audience: before.audience,
+        audience: null,
         remembered: before.chips,
         excluded: before.hidden,
-        shown: before.shown,
-        nextRef: before.nextRef,
+        sizes: store.inMySize ? store.sizes : [],
+        shown: useAura.getState().chats[chatId]?.shown ?? before.shown,
+        nextRef: useAura.getState().chats[chatId]?.nextRef ?? before.nextRef,
       }),
       signal: ac.signal,
     });
@@ -62,20 +65,20 @@ export async function sendFindsMessage(chatId: string, text: string) {
         buf = buf.slice(idx + 2);
         if (!line) continue;
         try {
-          useFinds.getState().apply(chatId, msgId, JSON.parse(line.slice(6)) as FindsEvent);
+          useAura.getState().apply(chatId, msgId, JSON.parse(line.slice(6)) as FindsEvent);
         } catch {
           // skip a malformed event
         }
       }
     }
-    useFinds.getState().finish(chatId, msgId);
+    useAura.getState().finish(chatId, msgId);
   } catch (err) {
-    useFinds.getState().finish(chatId, msgId, ac.signal.aborted ? "Stopped." : err instanceof Error ? err.message : "Something went wrong.");
+    useAura.getState().finish(chatId, msgId, ac.signal.aborted ? "Stopped." : err instanceof Error ? err.message : "Something went wrong.");
   } finally {
     if (running.get(chatId) === ac) running.delete(chatId);
   }
 }
 
-export function stopFinds(chatId: string) {
+export function stopAura(chatId: string) {
   running.get(chatId)?.abort();
 }

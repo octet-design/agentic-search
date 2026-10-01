@@ -25,11 +25,12 @@ export const TOOLS: ChatCompletionTool[] = [
       parameters: {
         type: "object",
         additionalProperties: false,
-        required: ["title", "why", "query", "min_price", "max_price", "local_brands_only", "remembered"],
+        required: ["title", "why", "query", "like_ref", "min_price", "max_price", "local_brands_only", "remembered", "refinements"],
         properties: {
           title: { type: "string", description: "Short row heading, e.g. 'Linen shirts under ₹3,000'." },
           why: { type: "string", description: "One short line under the heading on why this row fits, e.g. 'Breathable for a beach wedding'." },
-          query: { type: "string", description: "2-5 word English product query including who it's for, e.g. 'linen shirt men'." },
+          query: { type: "string", description: "2-5 word English product query including who it's for, e.g. 'linen shirt men'. Ignored when like_ref is set." },
+          like_ref: { type: ["integer", "null"], description: "For 'more like this': the ref of a shown product to find look-alikes of; otherwise null." },
           min_price: { type: ["number", "null"], description: "Minimum price in whole units of the shopper's currency, or null." },
           max_price: { type: ["number", "null"], description: "Maximum price in whole units of the shopper's currency, or null." },
           local_brands_only: { type: "boolean", description: "True only if the shopper asked for brands/stores from their own country." },
@@ -37,6 +38,16 @@ export const TOOLS: ChatCompletionTool[] = [
             type: "array",
             items: { type: "string" },
             description: "The shopper's standing preferences for this chat so far, as short labels (e.g. 'Under ₹3,000', 'Size M', 'No polyester', 'Pastels'). Keep earlier ones unless the shopper dropped or changed them.",
+          },
+          refinements: {
+            type: "array",
+            description: "2-3 Smart Filter questions specific to THIS search that would narrow it down, each with 3-6 short tappable options. E.g. for western wear: {question:'What length?', options:['Cropped','Mini','Midi','Ankle length']}, {question:'Which fit?', options:['Fitted','Relaxed','Loose waist']}. Not budget or occasion (the app asks those).",
+            items: {
+              type: "object",
+              additionalProperties: false,
+              required: ["question", "options"],
+              properties: { question: { type: "string" }, options: { type: "array", items: { type: "string" } } },
+            },
           },
         },
       },
@@ -78,11 +89,17 @@ export const TOOLS: ChatCompletionTool[] = [
 const SearchArgs = z.object({
   title: z.string().trim().min(1).max(80),
   why: z.string().trim().max(140),
-  query: z.string().trim().min(1).max(120),
+  // Empty is fine for "more like this" (like_ref); checked in search().
+  query: z.string().trim().max(120),
   min_price: z.number().min(0).nullable(),
   max_price: z.number().min(0).nullable(),
+  like_ref: z.number().int().nullable(),
   local_brands_only: z.boolean(),
   remembered: z.array(z.string().trim().min(1).max(60)).max(12),
+  refinements: z
+    .array(z.object({ question: z.string().trim().min(1).max(60), options: z.array(z.string().trim().min(1).max(30)).min(2).max(8) }))
+    .max(4)
+    .catch([]),
 });
 const DetailsArgs = z.object({
   ref: z.number().int(),
@@ -105,6 +122,8 @@ export class ToolContext {
     public nextRef: number,
     private emit: Emit,
     private signal: AbortSignal,
+    /** "In my size": applied to every search. */
+    private sizes: string[] = [],
   ) {
     for (const s of shown) this.byRef.set(s.ref, s);
     this.exclude = new Set(excluded.map((e) => e.id));
@@ -129,15 +148,26 @@ export class ToolContext {
   }
 
   private async search(a: z.infer<typeof SearchArgs>) {
-    if (isNonFashionQuery(a.query)) {
+    const likeOf = a.like_ref != null ? this.byRef.get(a.like_ref) : undefined;
+    if (a.like_ref != null && !likeOf) return { error: `No product #${a.like_ref} in this chat.` };
+    if (!likeOf && !a.query) return { error: "Pass a query (or like_ref for look-alikes)." };
+    if (!likeOf && isNonFashionQuery(a.query)) {
       return { error: "Out of scope: this is not a fashion item. Don't search again; tell the shopper you only help with fashion right now and offer a fashion angle." };
     }
     const id = `s${++this.sections}-${Date.now().toString(36)}`;
     this.emit({ type: "section_start", id, title: a.title, why: a.why });
-    this.emit({ type: "status", label: `Searching “${a.query}” in ${this.country.name}` });
+    this.emit({ type: "status", label: likeOf ? `Finding pieces like ${likeOf.title.slice(0, 40)}` : `Searching “${a.query}” in ${this.country.name}` });
     if (a.remembered.length) this.emit({ type: "chips", items: a.remembered });
+    if (a.refinements.length) this.emit({ type: "refinements", items: a.refinements.map((r) => ({ question: r.question, options: r.options.slice(0, 6) })) });
 
-    const search = { query: a.query, min: a.min_price, max: a.max_price, local: a.local_brands_only };
+    const search = {
+      query: likeOf ? "" : a.query,
+      min: a.min_price,
+      max: a.max_price,
+      local: a.local_brands_only,
+      like: likeOf?.id ?? null,
+      sizes: this.sizes,
+    };
     const page = await searchFashion(search, this.country, { limit: 20, exclude: this.exclude, signal: this.signal });
     const products = page.products.slice(0, 10).map((c) => ({ ...c, ref: this.nextRef++ }));
     for (const p of products) this.byRef.set(p.ref, { ref: p.ref, id: p.id, title: p.title, store: p.seller, price: this.price(p) });

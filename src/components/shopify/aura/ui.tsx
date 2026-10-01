@@ -60,14 +60,20 @@ export function Sheet({ open, onClose, title, children, wide = false }: { open: 
   );
 }
 
-export type ComposerHandle = { focus: () => void };
+export type ComposerHandle = { focus: () => void; insert: (text: string) => void };
 
 /** Enter sends, Shift+Enter adds a line; a stop button while a reply streams. */
 export const Composer = forwardRef<ComposerHandle, { onSend: (t: string) => void; onStop?: () => void; running?: boolean; placeholder: string; autoFocus?: boolean; large?: boolean }>(
   function Composer({ onSend, onStop, running, placeholder, autoFocus, large }, ref) {
     const [value, setValue] = useState("");
     const ta = useRef<HTMLTextAreaElement>(null);
-    useImperativeHandle(ref, () => ({ focus: () => ta.current?.focus() }));
+    useImperativeHandle(ref, () => ({
+      focus: () => ta.current?.focus(),
+      insert: (text) => {
+        setValue((v) => (v ? `${v.trimEnd()} ${text}` : text));
+        requestAnimationFrame(() => ta.current?.focus());
+      },
+    }));
     const send = () => {
       const t = value.trim();
       if (!t || running) return;

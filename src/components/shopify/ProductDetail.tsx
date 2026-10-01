@@ -4,10 +4,10 @@ import { ChevronLeft, ChevronRight, ExternalLink, Loader2, ShieldCheck, Shopping
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { getCountry, type Country } from "@/lib/shopify/countries";
-import { money, shopifyProductHref, similarQuery } from "@/lib/shopify/format";
+import { money, shopifyProductHref } from "@/lib/shopify/format";
 import type { ShopifyCard, ShopifyPage } from "@/lib/shopify/types";
-import type { ProductView } from "@/lib/shopify/view";
-import { SaveButton } from "./finds/Products";
+import { cardFromView, type ProductView } from "@/lib/shopify/view";
+import { SaveButton } from "./aura/ProductTile";
 import { ShopifyImage } from "./ShopifyCard";
 import { StyleIt } from "./StyleIt";
 
@@ -128,42 +128,25 @@ function Description({ text }: { text: string }) {
   );
 }
 
-/** Saveable card for the product as currently shown. */
-function toCard(v: ProductView): ShopifyCard {
-  return {
-    id: v.id,
-    title: v.title,
-    image: v.images[0]?.url ?? null,
-    price: v.price,
-    priceFrom: false,
-    seller: v.seller.name,
-    rating: v.rating,
-    features: v.highlights.slice(0, 3),
-    url: v.storeUrl,
-    checkoutUrl: v.buyUrl,
-    defaultOptions: v.selected.map((s) => s.label).join(" / ") || null,
-  };
-}
-
-function Similar({ view, country, onOpen }: { view: ProductView; country: Country; onOpen?: (p: ShopifyCard) => void }) {
+/** A horizontal rail of products from the search API (similar items, more from this brand). */
+function ProductRail({ title, params, country, onOpen }: { title: string; params: Record<string, string>; country: Country; onOpen?: (p: ShopifyCard) => void }) {
   const [items, setItems] = useState<ShopifyCard[] | null>(null);
+  const qs = new URLSearchParams({ ...params, country: country.code }).toString();
   useEffect(() => {
-    const q = similarQuery(view.title);
-    if (!q) return;
     let live = true;
-    fetch(`/api/shopify/search?${new URLSearchParams({ q, country: country.code, exclude: view.id })}`)
+    fetch(`/api/shopify/search?${qs}`)
       .then((r) => (r.ok ? r.json() : { products: [] }))
-      .then((page: ShopifyPage) => live && setItems(page.products.slice(0, 10)))
+      .then((page: ShopifyPage) => live && setItems(page.products.slice(0, 12)))
       .catch(() => live && setItems([]));
     return () => {
       live = false;
     };
-  }, [view.id, view.title, country.code]);
+  }, [qs]);
 
   if (items && !items.length) return null;
   return (
     <section className="border-t border-line pt-4">
-      <h3 className="mb-3 text-sm font-medium">Similar from other stores</h3>
+      <h3 className="mb-3 text-sm font-medium">{title}</h3>
       <div className="no-scrollbar -mx-1 flex gap-3 overflow-x-auto px-1 pb-1">
         {(items ?? Array.from({ length: 4 }, () => null)).map((p, i) =>
           p ? (
@@ -219,7 +202,7 @@ export function ProductDetail({
   /** Search-card data shown while the full product loads. */
   preview?: ShopifyCard;
   layout: "page" | "sheet";
-  /** Sheet: open a similar / Style it product in place (the page links to it instead). */
+  /** Sheet: open a similar / Style it / same-brand product in place (the page links to it instead). */
   onOpenSimilar?: (p: ShopifyCard) => void;
 }) {
   const [view, setView] = useState<ProductView | null>(initial);
@@ -268,7 +251,7 @@ export function ProductDetail({
   const rating = view?.rating ?? preview?.rating ?? null;
   const storeUrl = view?.storeUrl ?? preview?.url ?? null;
   const shopIn = country ?? getCountry(null);
-  const card = view ? toCard(view) : preview;
+  const card = view ? cardFromView(view) : preview;
 
   return (
     <div className={sheet ? "flex flex-col gap-5 p-5" : "grid gap-8 md:grid-cols-2"}>
@@ -375,6 +358,10 @@ export function ProductDetail({
           </div>
         )}
         <StyleIt id={id} country={shopIn} onOpen={onOpenSimilar} />
+        {view && <ProductRail title="Similar items" params={{ like: view.id, exclude: view.id }} country={shopIn} onOpen={onOpenSimilar} />}
+        {view?.seller.id && (
+          <ProductRail title={`More from ${view.seller.name ?? "this brand"}`} params={{ shop: view.seller.id, exclude: view.id }} country={shopIn} onOpen={onOpenSimilar} />
+        )}
         {!!view?.highlights.length && (
           <Section title="Highlights">
             <ul className="list-disc space-y-1 pl-5">
@@ -409,7 +396,6 @@ export function ProductDetail({
             </div>
           </Section>
         )}
-        {view && <Similar view={view} country={shopIn} onOpen={onOpenSimilar} />}
       </div>
     </div>
   );
