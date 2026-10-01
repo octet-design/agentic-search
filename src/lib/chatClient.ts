@@ -41,6 +41,7 @@ export async function sendChatMessage(chatId: string, text: string, opts: { debu
     memory: FEATURES.memory ? session.memory.map((m) => m.text) : [],
     taste: tastePayload({ profile: session.profile, signals: session.signals }),
     debug: opts.debug,
+    style: before.surface === "aura" ? ("aura" as const) : undefined,
   };
 
   try {

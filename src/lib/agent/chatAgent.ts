@@ -70,6 +70,8 @@ export type ChatTurnInput = {
   today?: Date;
   signal?: AbortSignal;
   debug?: boolean;
+  /** "aura": Aura++'s Plush-style surface (short guidance + one tappable question, results do the talking, no picks). */
+  style?: "drape" | "aura";
 };
 
 // ---------------------------------------------------------------------------
@@ -138,6 +140,15 @@ const PlanSchema = z.object({
 type Plan = z.infer<typeof PlanSchema>;
 
 let plannerSystem: string | null = null;
+
+/** Appended to the planner prompt for Aura++ (overrides the intro / sections / ask guidance above). */
+const AURA_STYLE = `
+
+AURA STYLE (this chat is in Aura++, a Plush-style app: the results appear as a big grid next to the chat, so your words stay short). These rules override the intro, sections and ask guidance above:
+- intro for recommend/refine/clarify: 2–3 warm sentences (≤ 60 words), no bullets, no headings. Say what you're showing and what to look for, like a personal stylist: e.g. "Here are some Western-inspired pieces to get you started, from casual denim and fringe to polished Americana silhouettes." Don't end the intro with a question.
+- sections: usually 1–2 (one per distinct thing to shop); up to 3 only for a full look or outfit.
+- ask: ALWAYS set it for recommend/refine/clarify: one guiding question that narrows the search (e.g. "Are you looking for a full Western look or a few key pieces for your existing wardrobe?") with 2–4 short tappable options.
+- product_question / compare / more_like: keep the answer to 2–4 sentences.`;
 
 function plannerPrompt(tax: TaxonomyApi): string {
   if (plannerSystem) return plannerSystem;
@@ -390,7 +401,7 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
     name: "chat-plan",
     model,
     schema: PlanSchema,
-    system: plannerPrompt(tax),
+    system: input.style === "aura" ? plannerPrompt(tax) + AURA_STYLE : plannerPrompt(tax),
     user: plannerUser(input),
     usage,
     signal: input.signal,
@@ -494,7 +505,8 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
     debug.rails = rails.map((r) => ({ id: r.id, title: r.title, q: r.debug.q, filter: r.debug.filter, rounds: r.debug.rounds, dropped: r.debug.dropped, relaxed: r.relaxed.map((x) => x.id) }));
 
     // 3. Drape's picks: 3–4 products explained like a stylist would (what it is, why it suits, how to style it).
-    if (top.some((t) => t.products.length)) {
+    // Aura++ skips them: its results grid does the showing, and it saves a model call per turn.
+    if (input.style !== "aura" && top.some((t) => t.products.length)) {
       emit({ type: "step", id: "curate", label: "Picking my favourites", status: "running" });
       const w0 = performance.now();
       const candidates = top.flatMap((t) => t.products);
@@ -606,7 +618,10 @@ Don't write product numbers in the text.`,
       );
       const found = emb ? await vectorNeighbours({ vector: emb.vec, genders: gendersLike(emb.doc.gender), excludeIds: [target.id], k: 16, intent: changes }) : [];
       const ranked = tasteBoost(found, taste, tax);
-      const label = plan.similar?.label ? ` · ${plan.similar.label}` : "";
+      // The label is the requested change ("in blue"); the planner sometimes echoes the product name instead.
+      const rawLabel = plan.similar?.label?.trim() ?? "";
+      const echoes = /^(more )?like\b/i.test(rawLabel) || target.title.toLowerCase().includes(rawLabel.toLowerCase().replace(/^(more )?like\s+/i, "").slice(0, 20));
+      const label = rawLabel && !echoes ? ` · ${rawLabel}` : "";
       emit({ type: "step", id: "search", label: "Finding similar pieces", status: "done" });
       emit({ type: "section", id: `like-${target.ref}-${Date.now().toString(36)}`, title: `More like ${shortTitle(target.title)}${label}`, why: target.title, query: `${target.title}${label}`, products: withRefs(ranked.slice(0, 8)), more: [] });
     }

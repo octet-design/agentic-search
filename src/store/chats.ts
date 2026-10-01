@@ -63,11 +63,17 @@ export type Chat = {
   nextRef: number;
   /** Picked in "Shopping for" when the chat started (null = anyone). */
   audience?: AudienceKey | null;
+  /** Which app the chat belongs to: Drape's home (default) or Aura++ (kept out of Drape's sidebar). */
+  surface?: "drape" | "aura";
+  /** Aura++: products from outside the chat (feed, similar, brand) the shopper asked about, given refs here. */
+  pinned?: ProductCard[];
 };
 
 type State = { chats: Record<string, Chat>; order: string[] };
 type Actions = {
-  newChat: (audience?: AudienceKey | null) => string;
+  newChat: (audience?: AudienceKey | null, surface?: Chat["surface"]) => string;
+  /** Gives an outside product a ref in this chat (or returns the one it has). */
+  pin: (chatId: string, card: ProductCard) => number;
   deleteChat: (id: string) => void;
   renameChat: (id: string, title: string) => void;
   addUser: (chatId: string, text: string, refs?: number[]) => string;
@@ -176,20 +182,32 @@ const safeStorage: StateStorage = {
 
 export const useChats = create<State & Actions>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       chats: {},
       order: [],
-      newChat: (audience = null) => {
+      newChat: (audience = null, surface = "drape") => {
         const id = uid();
         const now = Date.now();
         set((s) => {
-          const chat: Chat = { id, title: "New chat", createdAt: now, updatedAt: now, messages: [], intent: null, chips: [], lastSections: [], shown: [], nextRef: 1, audience };
+          const chat: Chat = { id, title: "New chat", createdAt: now, updatedAt: now, messages: [], intent: null, chips: [], lastSections: [], shown: [], nextRef: 1, audience, surface };
           const order = [id, ...s.order];
           const chats = { ...s.chats, [id]: chat };
           for (const old of order.slice(MAX_CHATS)) delete chats[old];
           return { chats, order: order.slice(0, MAX_CHATS) };
         });
         return id;
+      },
+      pin: (chatId, card) => {
+        const c = get().chats[chatId];
+        if (!c) return 0;
+        const known = c.shown.find((s) => s.id === card.id);
+        if (known) return known.ref;
+        const ref = c.nextRef;
+        const shown: ShownRef = { ref, id: card.id, title: card.title, brand: card.brand, color: card.color, fabric: card.fabric, category: card.category, price: card.price };
+        set((s) => ({
+          chats: { ...s.chats, [chatId]: { ...c, nextRef: ref + 1, shown: [...c.shown, shown].slice(-120), pinned: [...(c.pinned ?? []), slim({ ...card, ref })].slice(-40) } },
+        }));
+        return ref;
       },
       deleteChat: (id) =>
         set((s) => {

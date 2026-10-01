@@ -19,6 +19,8 @@ const BodySchema = z.object({
   memory: z.array(z.string().max(200)).max(30).default([]),
   taste: TastePayloadSchema.optional(),
   debug: z.boolean().optional(),
+  /** "aura" for Aura++ (short Plush-style replies). */
+  style: z.enum(["drape", "aura"]).optional(),
 });
 
 export async function POST(req: Request) {
