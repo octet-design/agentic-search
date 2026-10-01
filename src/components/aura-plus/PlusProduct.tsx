@@ -81,13 +81,27 @@ function shopifyPreview(p: ProductCard): ShopifyCard {
  * sizes, similar) plus "More from this brand". Shopify products: the Shopify view (photos, variants, Buy now,
  * Style it, similar, more from the brand). Ask / more-like actions are pinned at the bottom for both.
  */
-export function PlusProduct({ p, onOpen, onAsk, onMoreLike }: { p: ProductCard; onOpen: (p: ProductCard) => void; onAsk?: (p: ProductCard) => void; onMoreLike?: (p: ProductCard) => void }) {
+export function PlusProduct({
+  p,
+  onOpen,
+  onAsk,
+  onMoreLike,
+  showSource = false,
+}: {
+  p: ProductCard;
+  onOpen: (p: ProductCard) => void;
+  onAsk?: (p: ProductCard) => void;
+  onMoreLike?: (p: ProductCard) => void;
+  showSource?: boolean;
+}) {
   const shopify = isShopifyId(p.id);
   return (
     <div>
-      <div className="px-5 pt-4">
-        <SourceChip p={p} className="inline-block" />
-      </div>
+      {showSource && (
+        <div className="px-5 pt-4">
+          <SourceChip p={p} className="inline-block" />
+        </div>
+      )}
       {shopify ? (
         <ShopifyProductDetail
           id={shopifyIdOf(p.id)}

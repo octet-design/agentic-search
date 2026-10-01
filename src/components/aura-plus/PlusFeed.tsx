@@ -29,7 +29,7 @@ const SKELETON_SHAPES = ["aspect-[3/4]", "aspect-[2/3]", "aspect-square", "aspec
  * Aura++ "For you": a stable Pinterest-style feed from the Typesense catalog, personalised by what the shopper
  * saved in Drape or Aura++ (shared), mixed with curated picks, paged in as they scroll.
  */
-export function PlusFeed() {
+export function PlusFeed({ blend: mixShopify = false }: { blend?: boolean }) {
   const [items, setItems] = useState<ProductCard[]>([]);
   const [cursor, setCursor] = useState<string | null>(null);
   const [shopifyCursor, setShopifyCursor] = useState<string | null>(null);
@@ -55,12 +55,14 @@ export function PlusFeed() {
     try {
       const post = (url: string, body: unknown) => fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
       const exclude = [...seeds.hidden, ...ids.current].slice(-300);
-      // Our catalog is the backbone; Shopify's feed (India) is blended in and fails soft.
+      // Our catalog is the backbone; in Blend search, Shopify's feed (India) is mixed in and fails soft.
       const [res, shop] = await Promise.all([
         post("/api/aura-plus/feed", { seedIds: seeds.seedIds.filter((id) => !id.startsWith("shopify-")), excludeIds: exclude.filter((id) => !id.startsWith("shopify-")), cursor }),
-        post("/api/shopify/feed", { country: "IN", cursor: shopifyCursor, exclude: exclude.filter((id) => id.startsWith("shopify-")).map((id) => id.slice(8)) })
-          .then((r) => (r.ok ? (r.json() as Promise<{ items: ShopifyCard[]; cursor: string | null }>) : null))
-          .catch(() => null),
+        mixShopify
+          ? post("/api/shopify/feed", { country: "IN", cursor: shopifyCursor, exclude: exclude.filter((id) => id.startsWith("shopify-")).map((id) => id.slice(8)) })
+              .then((r) => (r.ok ? (r.json() as Promise<{ items: ShopifyCard[]; cursor: string | null }>) : null))
+              .catch(() => null)
+          : Promise.resolve(null),
       ]);
       if (!res.ok) throw new Error();
       const data = (await res.json()) as { items: ProductCard[]; cursor: string };

@@ -9,14 +9,15 @@ import type { ProductCard } from "@/lib/agent/types";
 import { sendChatMessage } from "@/lib/chatClient";
 import type { Example } from "@/lib/examples";
 import { useChats } from "@/store/chats";
+import type { PlusMode } from "./mode";
 import { PlusFeed } from "./PlusFeed";
 import { PlusProduct } from "./PlusProduct";
 import { PlusActionsContext, type PlusActions } from "./PlusTile";
 
 const short = (t: string) => (t.length > 40 ? `${t.slice(0, 38).trimEnd()}…` : t);
 
-/** Aura++ home: Plush-style hero on Drape's Typesense catalog, example searches, and the personalised feed. */
-export function PlusHome({ examples }: { examples: Example[] }) {
+/** Typesense / Blend search home: Plush-style hero, example searches, and the personalised feed. */
+export function PlusHome({ examples, mode }: { examples: Example[]; mode: PlusMode }) {
   const router = useRouter();
   const hydrated = useHydrated();
   const [query, setQuery] = useState("");
@@ -25,10 +26,10 @@ export function PlusHome({ examples }: { examples: Example[] }) {
   /** Starts an Aura++ chat; `about` pins a feed product so the agent can answer about it. */
   const start = (text: string, about?: ProductCard) => {
     const { newChat, pin } = useChats.getState();
-    const id = newChat(null, "aura");
+    const id = newChat(null, mode.surface);
     const ref = about ? pin(id, about) : null;
     void sendChatMessage(id, text, ref != null ? { refs: [ref] } : {});
-    router.push(`/aura-plus/c/${id}`);
+    router.push(`${mode.base}/c/${id}`);
   };
 
   const actions = useMemo<PlusActions>(
@@ -36,6 +37,7 @@ export function PlusHome({ examples }: { examples: Example[] }) {
       onOpen: setQuick,
       onAsk: (p, q) => start(`About ${short(p.title)}: ${q ?? "Tell me about it. Is it worth it?"}`, p),
       onMoreLike: (p) => start(`More like this: ${short(p.title)}`, p),
+      showSource: mode.blend,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
@@ -50,7 +52,7 @@ export function PlusHome({ examples }: { examples: Example[] }) {
             <motion.h1 initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="font-display text-4xl leading-tight tracking-tight md:text-6xl">
               Style that speaks <em>your</em> language
             </motion.h1>
-            <p className="mx-auto mt-4 max-w-md text-ink-soft">Describe what you&rsquo;re looking for in English, Hinglish or Hindi, and we&rsquo;ll curate tasteful results from our catalog.</p>
+            <p className="mx-auto mt-4 max-w-md text-ink-soft">Describe what you&rsquo;re looking for in English, Hinglish or Hindi, and we&rsquo;ll curate tasteful results from {mode.blend ? "our catalog and stores across Shopify" : "our catalog"}.</p>
           </div>
 
           <form
@@ -98,12 +100,12 @@ export function PlusHome({ examples }: { examples: Example[] }) {
             ))}
           </div>
 
-          <div className="mt-16">{hydrated && <PlusFeed />}</div>
+          <div className="mt-16">{hydrated && <PlusFeed blend={mode.blend} />}</div>
         </div>
       </div>
 
       <Sheet open={!!quick} onClose={() => setQuick(null)} title={quick?.brand ?? "Product"}>
-        {quick && <PlusProduct key={quick.id} p={quick} onOpen={setQuick} onAsk={(p) => actions.onAsk?.(p, null)} onMoreLike={actions.onMoreLike} />}
+        {quick && <PlusProduct key={quick.id} p={quick} onOpen={setQuick} onAsk={(p) => actions.onAsk?.(p, null)} onMoreLike={actions.onMoreLike} showSource={mode.blend} />}
       </Sheet>
     </PlusActionsContext.Provider>
   );

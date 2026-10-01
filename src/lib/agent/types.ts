@@ -149,6 +149,8 @@ export type ProductCard = {
   source?: "typesense" | "shopify";
   /** Shopify products: one-click checkout for the default variant. */
   checkoutUrl?: string | null;
+  /** Shopify products priced in another currency: `price` is converted at Shopify's rate. */
+  priceApprox?: boolean;
 };
 
 /** Minimal product data kept client-side for taste signals (no embeddings). */

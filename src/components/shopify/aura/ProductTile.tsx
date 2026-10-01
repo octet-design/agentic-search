@@ -30,8 +30,8 @@ export const useTileActions = () => {
 const QUICK_ASKS = ["Is it true to size?", "What goes with it?", "Cheaper alternatives?"];
 const DISLIKE = ["Too pricey", "Not my style", "Colour", "Fabric", "Other"];
 
-export const priceLabel = (p: Pick<ShopifyCard, "price" | "priceFrom">, country: Country) =>
-  p.price ? `${p.priceFrom ? "from " : ""}${money(p.price, country.locale)}` : null;
+export const priceLabel = (p: Pick<ShopifyCard, "price" | "priceFrom" | "priceApprox">, country: Country) =>
+  p.price ? `${p.priceApprox ? "≈ " : ""}${p.priceFrom ? "from " : ""}${money(p.price, country.locale)}` : null;
 
 export function Rating({ r }: { r: ShopifyCard["rating"] }) {
   if (!r) return null;

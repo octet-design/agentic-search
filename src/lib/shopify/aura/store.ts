@@ -94,7 +94,7 @@ const titleFrom = (t: string) => {
   const s = plainMentions(t).replace(/\s+/g, " ").trim();
   return s.length > 48 ? `${s.slice(0, 46)}…` : s || "New chat";
 };
-const priceText = (p: ShopifyCard, country: CountryCode) => (p.price ? `${p.priceFrom ? "from " : ""}${money(p.price, getCountry(country).locale)}` : "price on site");
+const priceText = (p: ShopifyCard, country: CountryCode) => (p.price ? `${p.priceApprox ? "≈ " : ""}${p.priceFrom ? "from " : ""}${money(p.price, getCountry(country).locale)}` : "price on site");
 
 function patch(chat: AuraChat, msgId: string, fn: (m: AuraAssistantMsg) => AuraAssistantMsg): AuraChat {
   return { ...chat, updatedAt: Date.now(), messages: chat.messages.map((m) => (m.id === msgId && m.role === "assistant" ? fn(m) : m)) };

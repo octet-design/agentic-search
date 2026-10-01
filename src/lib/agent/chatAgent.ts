@@ -74,6 +74,8 @@ export type ChatTurnInput = {
   debug?: boolean;
   /** "aura": Aura++'s Plush-style surface (short guidance + one tappable question, results do the talking, no picks). */
   style?: "drape" | "aura";
+  /** Blend search: mix Shopify Global Catalog results into every result set (tagged with their source). */
+  blend?: boolean;
 };
 
 // ---------------------------------------------------------------------------
@@ -487,8 +489,8 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
     emit({ type: "sections_plan", sections: sections.map(({ id, spec, why }) => ({ id, title: spec.title, why })) });
     emit({ type: "step", id: "search", label: "Finding options in the catalog", status: "running" });
     const s0 = performance.now();
-    // Typesense search (Aura style) also blends in Shopify Global Catalog matches, fetched in parallel.
-    const blendShopify = input.style === "aura";
+    // Blend search mixes in Shopify Global Catalog matches, fetched in parallel with Typesense.
+    const blendShopify = !!input.blend;
     const [rails, shopifyLists] = await Promise.all([
       retrieveRails(
         sections.map((s) => ({ id: s.id, title: s.spec.title, intent: s.intent, perPage: 40 })),
@@ -631,7 +633,7 @@ Don't write product numbers in the text.`,
     if (target) {
       emit({ type: "step", id: "search", label: "Finding similar pieces", status: "running" });
       const fromShopify = isShopifyId(target.id);
-      const blendShopify = input.style === "aura" || fromShopify;
+      const blendShopify = !!input.blend || fromShopify;
       const shopifyMatches = blendShopify ? shopifyLike(target, { max: plan.similar?.maxPrice ?? null, signal: input.signal }) : Promise.resolve([] as ProductCard[]);
       const emb = fromShopify ? undefined : (await getEmbeddings([target.id])).get(target.id);
       const changes = sanitizeIntent(

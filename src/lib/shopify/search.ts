@@ -2,7 +2,7 @@ import { searchCatalog } from "./client";
 import { FASHION_CATEGORIES } from "./config";
 import type { Country } from "./countries";
 import { toMinor } from "./format";
-import type { ShopifyPage } from "./types";
+import type { ShopifyCard, ShopifyPage } from "./types";
 
 /** Hard stop for obviously non-fashion searches (the agent's prompt forbids them, but the model sometimes still tries; the grid has no agent). */
 const NON_FASHION =
@@ -42,19 +42,38 @@ export async function searchFashion(
     currency: cur,
     limit: opts.limit ?? 20,
     cursor: opts.cursor,
-    price: { min, max },
+    // With no budget, a sky-high cap still makes Shopify report its USD rate (see usdRateFrom) without filtering.
+    price: { min, max: max ?? toMinor(RATE_PROBE_MAX, cur) },
     shipsFrom: spec.local ? [country.code] : undefined,
     categories: FASHION_CATEGORIES,
     shops: spec.shop ? [spec.shop] : undefined,
     like: spec.like ? [PRODUCT_GID(spec.like)] : undefined,
     signal: opts.signal,
   });
+  if (page.usdRate) usdRates.set(cur, page.usdRate);
+  const rate = page.usdRate ?? usdRates.get(cur) ?? null;
   return {
     ...page,
-    products: page.products.filter(
-      (c) =>
-        !opts.exclude?.has(c.id) &&
-        (!c.price || (c.price.currency === cur && (min == null || c.price.amount >= min) && (max == null || c.price.amount <= max))),
-    ),
+    products: page.products
+      .map((c) => localise(c, cur, rate))
+      .filter(
+        (c): c is ShopifyCard =>
+          !!c && !opts.exclude?.has(c.id) && (!c.price || ((min == null || c.price.amount >= min) && (max == null || c.price.amount <= max))),
+      ),
   };
+}
+
+const RATE_PROBE_MAX = 10_000_000_000;
+/** Last exchange rate Shopify used per currency, for pages where it didn't report one. */
+const usdRates = new Map<string, number>();
+
+/**
+ * Keeps one currency per country: Shopify sometimes prices a store in USD even for another market. Those are
+ * converted at Shopify's own rate and flagged approximate; other foreign currencies are dropped.
+ */
+export function localise(c: ShopifyCard, cur: string, usdRate: number | null): ShopifyCard | null {
+  if (!c.price || c.price.currency === cur) return c;
+  if (c.price.currency !== "USD" || !usdRate) return null;
+  const usd = c.price.amount / 100;
+  return { ...c, price: { amount: toMinor(Math.round(usd * usdRate), cur), currency: cur }, priceApprox: true };
 }

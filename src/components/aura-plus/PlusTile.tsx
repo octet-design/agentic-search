@@ -15,6 +15,8 @@ export type PlusActions = {
   /** ✦ Ask about this product (a quick question, or null to start typing about it). */
   onAsk?: (p: ProductCard, question: string | null) => void;
   onMoreLike?: (p: ProductCard) => void;
+  /** Blend search: show where each product comes from. */
+  showSource?: boolean;
 };
 export const PlusActionsContext = createContext<PlusActions | null>(null);
 const useActions = () => {
@@ -55,7 +57,7 @@ const Item = ({ onClick, children }: { onClick: () => void; children: React.Reac
 
 /** Drape catalog product as an Aura tile: 3:4 in grids, a fixed per-product shape in the masonry feed. Saves are shared with Drape. */
 export function PlusTile({ p, masonry = false, index = 0 }: { p: ProductCard; masonry?: boolean; index?: number }) {
-  const { onOpen, onAsk, onMoreLike } = useActions();
+  const { onOpen, onAsk, onMoreLike, showSource } = useActions();
   const saved = useSession((s) => s.saved.includes(p.id));
   const { toggleLike, dislike, track } = useSession.getState();
   const [menu, setMenu] = useState<"ask" | "hide" | null>(null);
@@ -73,7 +75,7 @@ export function PlusTile({ p, masonry = false, index = 0 }: { p: ProductCard; ma
         <button type="button" onClick={open} className="block w-full overflow-hidden rounded-xl bg-sand" aria-label={`${p.brand} ${p.title}, ${inr(p.price)}`}>
           <ProductImage src={p.image} alt={p.title} className={`${shape} w-full transition duration-300 group-hover:scale-[1.02]`} />
         </button>
-        <SourceChip p={p} />
+        {showSource && <SourceChip p={p} />}
         <div className="absolute right-2 top-2 flex flex-col gap-1.5">
           <button
             type="button"
@@ -148,7 +150,10 @@ export function PlusTile({ p, masonry = false, index = 0 }: { p: ProductCard; ma
         <button type="button" onClick={open} className={`text-left leading-snug text-ink-soft hover:underline ${masonry ? "line-clamp-1 text-xs" : "line-clamp-2 text-sm uppercase tracking-wide"}`}>
           {p.title}
         </button>
-        <span className={`mt-0.5 font-semibold ${masonry ? "text-sm" : "text-base"}`}>{inr(p.price)}</span>
+        <span className={`mt-0.5 font-semibold ${masonry ? "text-sm" : "text-base"}`} title={p.priceApprox ? "Converted from the store's currency" : undefined}>
+          {p.priceApprox ? "≈ " : ""}
+          {inr(p.price)}
+        </span>
       </div>
     </motion.article>
   );

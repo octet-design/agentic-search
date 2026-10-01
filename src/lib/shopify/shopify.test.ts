@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { shortId, toCard } from "./client";
+import { shortId, toCard, usdRateFrom } from "./client";
+import { localise } from "./search";
 import { money, shopifyProductHref, similarQuery, toMinor } from "./format";
 import { SearchResult } from "./types";
 
@@ -70,5 +71,21 @@ describe("shopify catalog", () => {
   it("builds a look-alike query from a product title", () => {
     expect(similarQuery("Women's Mul Shiffon Kurti - R1138")).toBe("women's mul shiffon kurti");
     expect(similarQuery("The Casa Blanca - Short Sleeve White Linen Shirt")).toBe("the casa blanca short sleeve");
+  });
+});
+
+describe("Shopify prices in another currency", () => {
+  it("reads Shopify's USD rate from the price-filter message", () => {
+    const messages = [{ code: "price_filter_applied", data: { request_currency: "INR", applied_usd: { max: 31.2687 } } }];
+    expect(usdRateFrom(messages, { currency: "INR", price: { max: 300000 } })).toBeCloseTo(95.94, 1);
+    expect(usdRateFrom([], { currency: "INR", price: { max: 300000 } })).toBeNull();
+  });
+
+  it("converts USD-priced stores to the local currency and marks them approximate", () => {
+    const card = { id: "x", title: "t", image: null, price: { amount: 2200, currency: "USD" }, priceFrom: false, seller: null, sellerId: null, rating: null, features: [], url: null, checkoutUrl: null, defaultOptions: null };
+    expect(localise(card, "INR", 96)).toMatchObject({ price: { amount: 211200, currency: "INR" }, priceApprox: true });
+    expect(localise(card, "INR", null)).toBeNull();
+    expect(localise({ ...card, price: { amount: 100, currency: "EUR" } }, "INR", 96)).toBeNull();
+    expect(localise({ ...card, price: { amount: 100000, currency: "INR" } }, "INR", 96)?.priceApprox).toBeUndefined();
   });
 });

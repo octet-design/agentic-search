@@ -119,7 +119,25 @@ export async function searchCatalog(query: string, opts: SearchOpts = {}): Promi
     cursor: parsed.pagination?.cursor ?? null,
     hasNext: parsed.pagination?.has_next_page ?? false,
     total: parsed.pagination?.total_count ?? null,
+    usdRate: usdRateFrom(parsed.messages, opts),
   };
+}
+
+/**
+ * Shopify filters prices in USD and says what our budget became ("applied_usd"), which gives its exchange rate:
+ * local units per 1 USD. Null when no price filter in our currency was sent.
+ */
+export function usdRateFrom(messages: { code?: string | null; data?: Record<string, unknown> | null }[], opts: Pick<SearchOpts, "price" | "currency">): number | null {
+  const m = messages.find((x) => x.code === "price_filter_applied");
+  const applied = (m?.data?.applied_usd ?? null) as { min?: number; max?: number } | null;
+  if (!applied || !opts.currency || opts.currency === "USD" || m?.data?.request_currency !== opts.currency) return null;
+  const digits = new Intl.NumberFormat("en", { style: "currency", currency: opts.currency }).resolvedOptions().maximumFractionDigits ?? 2;
+  for (const k of ["max", "min"] as const) {
+    const local = opts.price?.[k];
+    const usd = applied[k];
+    if (local != null && usd) return local / 10 ** digits / usd;
+  }
+  return null;
 }
 
 /** Full product; `selected` picks the variant (e.g. [{ name: "Size", label: "M" }]). */

@@ -54,6 +54,8 @@ export type Product = z.infer<typeof Product>;
 
 export const SearchResult = z.object({
   products: z.array(Product).default([]),
+  /** e.g. price_filter_applied, which carries the USD amount Shopify converted our budget to. */
+  messages: z.array(z.object({ code: z.string().nullish(), data: z.record(z.string(), z.unknown()).nullish() })).catch([]).default([]),
   pagination: z.object({ cursor: z.string().nullish(), has_next_page: z.boolean().default(false), total_count: z.number().nullish() }).nullish(),
 });
 
@@ -81,6 +83,15 @@ export type ShopifyCard = {
   defaultOptions: string | null;
   /** Chat reference number, set by the Genuine Finds agent. */
   ref?: number;
+  /** The store priced it in another currency; `price` is converted at Shopify's own rate. */
+  priceApprox?: boolean;
 };
 
-export type ShopifyPage = { products: ShopifyCard[]; cursor: string | null; hasNext: boolean; total: number | null };
+export type ShopifyPage = {
+  products: ShopifyCard[];
+  cursor: string | null;
+  hasNext: boolean;
+  total: number | null;
+  /** Local currency units per 1 USD, as Shopify converted our price filter (when one was sent). */
+  usdRate?: number | null;
+};

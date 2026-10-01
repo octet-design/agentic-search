@@ -21,6 +21,8 @@ const BodySchema = z.object({
   debug: z.boolean().optional(),
   /** "aura" for Aura++ (short Plush-style replies). */
   style: z.enum(["drape", "aura"]).optional(),
+  /** Blend search: mix Shopify results into every result set. */
+  blend: z.boolean().optional(),
 });
 
 export async function POST(req: Request) {

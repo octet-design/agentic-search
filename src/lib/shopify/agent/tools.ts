@@ -113,8 +113,8 @@ export class ToolContext {
     this.exclude = new Set(excluded.map((e) => e.id));
   }
 
-  price(c: Pick<ShopifyCard, "price" | "priceFrom">): string {
-    return c.price ? `${c.priceFrom ? "from " : ""}${money(c.price, this.country.locale)}` : "price on site";
+  price(c: Pick<ShopifyCard, "price" | "priceFrom" | "priceApprox">): string {
+    return c.price ? `${c.priceApprox ? "≈ " : ""}${c.priceFrom ? "from " : ""}${money(c.price, this.country.locale)}` : "price on site";
   }
 
   async run(name: string, rawArgs: string): Promise<unknown> {

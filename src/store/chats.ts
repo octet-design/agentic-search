@@ -63,8 +63,8 @@ export type Chat = {
   nextRef: number;
   /** Picked in "Shopping for" when the chat started (null = anyone). */
   audience?: AudienceKey | null;
-  /** Which app the chat belongs to: Drape's home (default) or Aura++ (kept out of Drape's sidebar). */
-  surface?: "drape" | "aura";
+  /** Which app the chat belongs to: Drape's home (default), Typesense search ("aura") or Blend search ("blend"). */
+  surface?: "drape" | "aura" | "blend";
   /** Aura++: products from outside the chat (feed, similar, brand) the shopper asked about, given refs here. */
   pinned?: ProductCard[];
 };

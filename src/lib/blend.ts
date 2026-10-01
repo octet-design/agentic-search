@@ -46,6 +46,7 @@ export function fromShopify(c: ShopifyCard): ProductCard {
     score: 0,
     source: "shopify",
     checkoutUrl: c.checkoutUrl,
+    ...(c.priceApprox ? { priceApprox: true } : {}),
   };
 }
 

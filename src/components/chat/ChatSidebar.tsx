@@ -20,7 +20,7 @@ export function ChatSidebar({ activeId, onNavigate }: { activeId?: string; onNav
   const order = useChats((s) => s.order);
   const chats = useChats((s) => s.chats);
   const deleteChat = useChats((s) => s.deleteChat);
-  const list = hydrated ? order.map((id) => chats[id]).filter((c) => c && c.messages.length > 0 && c.surface !== "aura") : [];
+  const list = hydrated ? order.map((id) => chats[id]).filter((c) => c && c.messages.length > 0 && (c.surface ?? "drape") === "drape") : [];
 
   return (
     <nav className="flex h-full flex-col gap-1 p-3 text-sm" aria-label="Chats">

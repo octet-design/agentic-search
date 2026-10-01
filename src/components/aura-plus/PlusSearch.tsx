@@ -16,6 +16,7 @@ import type { ShopifyCard } from "@/lib/shopify/types";
 import { sendChatMessage, stopChat } from "@/lib/chatClient";
 import { useChats, type AssistantMessage, type Chat, type ChatSection } from "@/store/chats";
 import { useSession } from "@/store/session";
+import type { PlusMode } from "./mode";
 import { PlusProduct } from "./PlusProduct";
 import { PlusActionsContext, PlusSkeleton, PlusTile, type PlusActions } from "./PlusTile";
 
@@ -63,7 +64,7 @@ function ResultCard({ s, active, onView }: { s: ChatSection; active: boolean; on
 }
 
 /** The live grid for one result set: the chat's picks first, then the same filters' longer list as you scroll. */
-function ResultsGrid({ s, hidden }: { s: ChatSection; hidden: Set<string> }) {
+function ResultsGrid({ s, hidden, mixShopify }: { s: ChatSection; hidden: Set<string>; mixShopify: boolean }) {
   const [more, setMore] = useState<ProductCard[] | null>(null);
   const [shopifyMore, setShopifyMore] = useState<ProductCard[]>([]);
   const [shown, setShown] = useState(16);
@@ -81,8 +82,9 @@ function ResultsGrid({ s, hidden }: { s: ChatSection; hidden: Set<string> }) {
     };
   }, [s.intent]);
 
-  // The same need from Shopify's Global Catalog, blended into the longer list.
+  // Blend search: the same need from Shopify's Global Catalog, mixed into the longer list.
   useEffect(() => {
+    if (!mixShopify) return;
     const q = s.intent ? withAudience(s.intent.semanticQuery || s.title, s.intent.audience) : s.query || s.title;
     const qs = new URLSearchParams({ q, country: "IN" });
     if (s.intent?.price?.min != null) qs.set("min", String(s.intent.price.min));
@@ -95,7 +97,7 @@ function ResultsGrid({ s, hidden }: { s: ChatSection; hidden: Set<string> }) {
     return () => {
       live = false;
     };
-  }, [s.intent, s.query, s.title]);
+  }, [mixShopify, s.intent, s.query, s.title]);
 
   const seen = new Set<string>();
   const all = [...s.products, ...blend(more ?? [], more === null ? [] : shopifyMore)].filter((p) => !hidden.has(p.id) && !seen.has(p.id) && (seen.add(p.id), true));
@@ -204,7 +206,7 @@ function AssistantTurn({
 }
 
 /** Aura++ search view: Drape's Typesense chat engine with Aura's layout (chat left, live results right). */
-export function PlusSearch({ id }: { id: string }) {
+export function PlusSearch({ id, mode }: { id: string; mode: PlusMode }) {
   const router = useRouter();
   const hydrated = useHydrated();
   const chat = useChats((s) => s.chats[id]);
@@ -255,8 +257,9 @@ export function PlusSearch({ id }: { id: string }) {
         const ref = useChats.getState().pin(id, p);
         send(`More like this: ${shortName(p)}`, [ref]);
       },
+      showSource: mode.blend,
     }),
-    [id, send],
+    [id, mode.blend, send],
   );
 
   if (!hydrated) return <div className="h-[calc(100dvh-3.5rem)]" />;
@@ -265,7 +268,7 @@ export function PlusSearch({ id }: { id: string }) {
       <div className="mx-auto max-w-md p-10 text-center">
         <p className="font-display text-2xl">This chat isn&apos;t here.</p>
         <p className="mt-2 text-ink-soft">Chats are saved in this browser only.</p>
-        <Link href="/aura-plus" className="mt-5 inline-block bg-ink px-5 py-2 text-sm text-canvas">
+        <Link href={mode.base} className="mt-5 inline-block bg-ink px-5 py-2 text-sm text-canvas">
           Start a new search
         </Link>
       </div>
@@ -297,8 +300,8 @@ export function PlusSearch({ id }: { id: string }) {
         <aside className={`min-h-0 flex-1 flex-col bg-paper md:flex md:w-[420px] md:flex-none md:shadow-[0_8px_40px_rgba(0,0,0,0.08)] ${tab === "chat" ? "flex" : "hidden"}`}>
           <div className="flex items-center gap-2.5 bg-ink px-4 py-3 text-canvas">
             <Sparkles size={17} />
-            <h2 className="flex-1 font-medium">Typesense search</h2>
-            <button onClick={() => router.push("/aura-plus")} className="rounded-full p-1 hover:bg-white/10" aria-label="Close chat">
+            <h2 className="flex-1 font-medium">{mode.title}</h2>
+            <button onClick={() => router.push(mode.base)} className="rounded-full p-1 hover:bg-white/10" aria-label="Close chat">
               <X size={18} />
             </button>
           </div>
@@ -350,7 +353,7 @@ export function PlusSearch({ id }: { id: string }) {
                 </button>
                 {menu && (
                   <div className="absolute bottom-11 right-0 z-20 w-44 border border-line bg-paper p-1 shadow-lg" role="menu">
-                    <button role="menuitem" onClick={() => router.push("/aura-plus")} className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm hover:bg-sand">
+                    <button role="menuitem" onClick={() => router.push(mode.base)} className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm hover:bg-sand">
                       <MessageCircle size={15} /> New Chat
                     </button>
                     <button role="menuitem" onClick={() => (setMenu(false), setHistory(true))} className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm hover:bg-sand">
@@ -368,7 +371,7 @@ export function PlusSearch({ id }: { id: string }) {
           {showLoader ? (
             <Loader key={last?.id} startedAt={last?.at ?? 0} stage={stageOf(last)} activity={last?.steps.find((s) => s.status === "running")?.label ?? null} />
           ) : active ? (
-            <ResultsGrid key={active.id} s={active} hidden={hidden} />
+            <ResultsGrid key={active.id} s={active} hidden={hidden} mixShopify={mode.blend} />
           ) : (
             <p className="py-24 text-center text-ink-soft">Your results will appear here.</p>
           )}
@@ -376,18 +379,18 @@ export function PlusSearch({ id }: { id: string }) {
       </div>
 
       <Sheet open={!!quick} onClose={() => setQuick(null)} title={quick?.brand ?? "Product"}>
-        {quick && <PlusProduct key={quick.id} p={quick} onOpen={setQuick} onAsk={(p) => actions.onAsk?.(p, null)} onMoreLike={actions.onMoreLike} />}
+        {quick && <PlusProduct key={quick.id} p={quick} onOpen={setQuick} onAsk={(p) => actions.onAsk?.(p, null)} onMoreLike={actions.onMoreLike} showSource={mode.blend} />}
       </Sheet>
 
       <Sheet open={history} onClose={() => setHistory(false)} title="History">
         <ul className="p-3">
           {order
             .map((cid) => chats[cid])
-            .filter((c) => c && c.surface === "aura" && c.messages.length)
+            .filter((c) => c && c.surface === mode.surface && c.messages.length)
             .map((c) => (
               <li key={c.id} className={`group flex items-center gap-2 rounded-lg px-3 py-2.5 ${c.id === id ? "bg-sand" : "hover:bg-sand/60"}`}>
                 <MessageSquare size={15} className="shrink-0 text-ink-faint" />
-                <Link href={`/aura-plus/c/${c.id}`} onClick={() => setHistory(false)} className="min-w-0 flex-1 truncate text-sm">
+                <Link href={`${mode.base}/c/${c.id}`} onClick={() => setHistory(false)} className="min-w-0 flex-1 truncate text-sm">
                   {c.title}
                 </Link>
                 <button onClick={() => useChats.getState().deleteChat(c.id)} className="hidden text-ink-faint hover:text-warn group-hover:block" aria-label={`Delete ${c.title}`}>
