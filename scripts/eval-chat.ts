@@ -29,7 +29,12 @@ export const CONVERSATIONS: Turn[][] = [
   ["need some new tops for college", "something bolder than usual"],
   ["saree as a gift for my mom", "something in silk"],
   ["a kurta for a puja", "under 2500"],
+  ["men", "office wear"],
+  ["women", "apparel", "i want it for a birthday party"],
 ];
+
+/** Turns that are too vague to guide: the agent must ask (no products) before it recommends. Keyed "conversation.turn". */
+const MUST_CLARIFY = new Set(["15.1", "16.1", "16.2"]);
 
 /** "Shopping for" picker per conversation (1-based); the others start with "anyone". */
 const PICKED: Record<number, "women" | "men" | "girls" | "boys"> = { 13: "men", 14: "men" };
@@ -79,7 +84,7 @@ const arg = (name: string) => {
 const unknownRef = (text: string, known: Set<number>) =>
   [...text.replace(/\[[^\]]*\]\(#\d{1,3}\)/g, "").matchAll(/#(\d{1,3})\b/g)].some((m) => !known.has(Number(m[1])));
 
-function checkTurn(t: TurnOut, prevBase: Intent | undefined, prevAsk: string | undefined, known: Set<number>): string[] {
+function checkTurn(t: TurnOut, prevBase: Intent | undefined, prevAsk: string | undefined, known: Set<number>, mustClarify = false): string[] {
   const tax = getTaxonomy();
   const fails: string[] = [];
   if (t.error) return [`ERROR: ${t.error}`];
@@ -107,6 +112,9 @@ function checkTurn(t: TurnOut, prevBase: Intent | undefined, prevAsk: string | u
   if (t.turnType === "product_question" && t.answer.trim().length < 20) fails.push("ANSWER: empty");
   if (t.turnType === "compare" && (!t.compare || t.compare.products.length < 2)) fails.push("COMPARE: missing block");
   if (!t.intro.trim() && !t.answer.trim() && !t.compare) fails.push("TEXT: no reply text");
+  // Guidance agent: vague asks get a question first, never products.
+  if (mustClarify && t.turnType !== "clarify") fails.push(`CLARIFY: expected a question first, got ${t.turnType}`);
+  if (t.turnType === "clarify" && t.sections.length) fails.push("CLARIFY: showed products before the need was clear");
   // Guidance branch
   if (t.turnType === "recommend" && !/^\s*[-•*]\s+/m.test(t.intro)) fails.push("GUIDANCE: recommend intro has no guidance bullets");
   const shownRefs = new Set(t.sections.flatMap((s) => s.products.map((p) => p.ref)));
@@ -169,7 +177,7 @@ async function runConversation(n: number, messages: Turn[], audience: (typeof PI
       t.error = err instanceof Error ? err.message : String(err);
     }
     t.totalMs = Math.round(performance.now() - t0);
-    t.fails = checkTurn(t, prevBase, prevAsk, new Set(state.products.map((p) => p.ref)));
+    t.fails = checkTurn(t, prevBase, prevAsk, new Set(state.products.map((p) => p.ref)), MUST_CLARIFY.has(`${n}.${turns.length + 1}`));
     prevBase = t.base ?? prevBase;
     prevAsk = t.ask ?? prevAsk;
     turns.push(t);

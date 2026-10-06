@@ -1,897 +1,994 @@
 # Conversational eval report
 
-Generated 2026-10-06T09:37:26.046Z · 14 conversations · 38 turns
+Generated 2026-10-06T10:24:28.028Z · 16 conversations · 43 turns
 
-**38/38 turns passed** automatic checks (exclusions, audience, strict budget, sticky exclusions, section count, answers, compare, guidance bullets, 2+ explained picks from the shown products, closing question, no repeated question, no visible #numbers, taste only where the intent calls for it). Every turn is sent the same learned taste (green, purple, cotton blend, ₹1,500–2,100) to catch leaks. Median first text 1.1s, first products 7.2s, full turn 10.2s. Avg tokens 7721 in / 769 out; total cost $0.107.
+**41/43 turns passed** automatic checks (exclusions, audience, strict budget, sticky exclusions, section count, answers, compare, guidance bullets, 2+ explained picks from the shown products, closing question, no repeated question, no visible #numbers, taste only where the intent calls for it). Every turn is sent the same learned taste (green, purple, cotton blend, ₹1,500–2,100) to catch leaks. Median first text 1.2s, first products 8.6s, full turn 12.1s. Avg tokens 7856 in / 735 out; total cost $0.112.
 
 ## Conversation 1
 
 ### 🧑 office casual wear comfortable for women, no polyester
 
-*recommend · first text 1.5s · first products 9.4s · total 13.3s · 7334/952 tokens* ✅
+*recommend · first text 1.2s · first products 9.8s · total 13.2s · 7598/882 tokens* ✅
 
-Remembers: `Women` `~ Cotton` `~ Linen` `✕ Polyester` `~ comfortable` `~ breathable`
+Remembers: `Women` `~ Cotton` `~ Linen` `✕ Polyester` `~ comfortable`
 
-Personalized: Used your taste (green, purple, cotton blend) · Preferring ₹1.5k–₹2.1k
+> For comfortable office casual wear without polyester, natural fabrics like cotton and linen are ideal for breathability and ease. - **Cotton shirts and tops** offer comfort and a neat look suitable for office. - **Linen trousers and skirts** keep you cool and stylish in a casual office setting. - **Soft cotton dresses or kurti styles** blend comfort with a professional vibe.
 
-> For comfortable office casual wear without polyester, focus on breathable natural fabrics and relaxed yet polished styles. - **Cotton and linen fabrics** are ideal for comfort and breathability throughout the workday. - **Simple silhouettes** like straight trousers, A-line skirts, and classic shirts keep the look professional yet easy. - **Neutral and soft colors** work well for office settings and mix easily with other pieces. - **Avoid synthetic fabrics** like polyester to ensure maximum comfort and skin-friendliness.
+**Cotton Tops**: #1 Women Cotton White Printed Tunic (SHREE, ₹649); #2 Women Navy Blue Cotton Printed Tunic (SHREE, ₹599); #3 Women's Blue & White Striped Flared Cotton Top (Juniper Fashion, ₹495); #4 Women Retro Blue Regular Fit Casual Tops (Spykar, ₹1619)
 
-**Cotton Shirts & Tops**: #1 Cropped Mint Green Tee · Soft Pastel Cotton Tee for Casual Style (Chapter 2 Drip, ₹1190); #2 White Casual Cotton T-Shirt For Women (Neofaa, ₹1699); #3 Navy Knit Top (MiniKlub, ₹134); #4 Beige High Neck Flat Knit Top (Outzidr, ₹649)
+**Linen Bottoms**: #9 Straight Fit White Linen Trousers Online in India (Genes Lecoanet Hemant, ₹5999); #10 Blue and White Striped Linen Trousers (BCPH, ₹2899); #11 Green and White Striped Linen Trousers (BCPH, ₹2899); #12 Calling June Bondi Embroidered Trousers in Beige · Cotton Linen (Calling June, ₹10900)
 
-**Linen Trousers & Skirts**: #9 Straight Fit White Linen Trousers Online in India (Genes Lecoanet Hemant, ₹5999); #10 Green and White Striped Linen Trousers (BCPH, ₹2899); #11 Beige Cotton Linen Trousers (BCPH, ₹2499); #12 Calling June Bondi Embroidered Trousers in Beige · Cotton Linen (Calling June, ₹10900)
-
-**Cotton Kurti & Ethnic Tops**: #17 Libas Off White Ethnic Printed Cotton Blend Straight Short Kurti (Libas, ₹899); #18 Libas Green Ethnic Printed Cotton Straight Short Kurti (Libas, ₹1069); #19 Plus Size Mint Green Floral Printed Cotton Kurti for Women (Label Flavia, ₹4996); #20 Online White Solid Straight Cotton Blend Kurti (Aurelia, ₹1120)
+**Cotton Dresses and Kurtis**: #17 Women Cotton Indigo Blue Printed Dress (SHREE, ₹999); #18 Women Cotton Off White and Blue Floral Print Dress (SHREE, ₹1039); #19 White Giza Cotton Printed Oversized Dress · Luxury Summer Dress Women (Genes Lecoanet Hemant, ₹2999); #20 M Exclusive Green Printed Cotton Casual Wear Dress (Ethnic Plus, ₹1199)
 
 Picks:
-- **#17 Best breathable office kurti**: This off white straight kurti from Libas is made of a cotton blend fabric with printed detailing, offering breathability and comfort for office wear. Its straight fit keeps the look polished yet relaxed, perfect for daily office casuals without polyester. _Tip: Pair it with neutral trousers or leggings and simple juttis for an effortless office look._
-- **#11 Relaxed cotton-linen trousers**: These beige trousers blend cotton and linen for a soft, breathable fabric ideal for all-day office comfort. The relaxed fit ensures ease of movement, and the solid beige color pairs well with many tops for versatile styling. _Tip: Combine with a tucked-in cotton shirt or kurti and loafers for a smart casual office outfit._
-- **#4 Cozy knit top for layering**: This beige high neck knit top is a regular fit piece suitable for office wear, made from a knit fabric that is soft and breathable. Its neutral color and simple design make it great for layering under blazers or cardigans in air-conditioned offices. _Tip: Wear it under a structured blazer with tailored pants for a neat office look._
+- **#4 Best for classic office casual**: This blue regular fit cotton shirt from Spykar offers a solid, neat look perfect for office casual wear. The 100% cotton fabric ensures breathability and comfort throughout the workday without polyester. _Tip: Pair it with neutral trousers or skirts and simple accessories for a polished office look._
+- **#9 Cool and crisp linen trousers**: These white straight fit linen trousers by Genes Lecoanet Hemant are made from pure linen, ideal for staying cool and comfortable in warmer office environments. The clean solid white adds a fresh, professional vibe to casual office outfits. _Tip: Combine with a tucked-in cotton blouse or tunic and loafers for effortless office style._
+- **#17 Comfortable cotton dress for office**: This indigo blue A-line cotton dress from SHREE features printed detailing and a relaxed fit, making it breathable and comfortable for long office hours. The cotton fabric keeps it natural and polyester-free. _Tip: Add a light cardigan or blazer and simple flats to complete the office-appropriate look._
 
-> These picks combine breathable cotton and linen fabrics in relaxed, polished styles perfect for comfortable office casual wear without polyester.
+> These picks combine breathable cotton and linen fabrics in classic fits and colors for comfortable, stylish office casual wear without polyester.
 
-Asks: What is your preferred color palette for office wear? [Neutrals (white, beige, navy) / Pastels (pink, light blue) / Brights (red, orange)]
+Asks: What is your budget range for office casual wear? [Under ₹1,500 / ₹1,500 to ₹3,000 / Above ₹3,000]
 
-Follow-ups: `Show cotton tops` `Show linen bottoms` `Add ethnic wear`
+Follow-ups: `Show cotton tops` `Show linen bottoms` `Show cotton dresses`
 
 ### 🧑 cheaper
 
-*refine · first text 1.4s · first products 10.9s · total 14.9s · 8174/937 tokens* ✅
+*refine · first text 1.1s · first products 8.1s · total 11.2s · 8438/881 tokens* ✅
 
-Remembers: `Women` `~ Cotton` `~ Linen` `✕ Polyester` `Under ₹1,500` `~ comfortable` `~ breathable`
+Remembers: `Women` `~ Cotton` `~ Linen` `✕ Polyester` `Under ₹3,500` `~ comfortable`
 
-> I've refined the selection to focus on more affordable, comfortable office casual wear without polyester, prioritizing cotton and linen fabrics.
+> I've refined the selection to focus on more affordable cotton and linen office casual wear without polyester, keeping comfort and style in mind.
 
-**Affordable Cotton Shirts & Tops**: #25 Women Off White Printed Collar Neck Top (Monte Carlo, ₹1315); #26 Women Cotton White Printed Tunic (SHREE, ₹649); #27 Women Off White & Magenta Printed Top 2 Pc Set (Monte Carlo, ₹842); #28 Cotton Flat Knit Top (Styleunion, ₹399)
+**Affordable Cotton Tops**: #25 Women Cotton Grey Printed Tunic (SHREE, ₹649); #26 Women Cotton White Printed Tunic (SHREE, ₹649); #27 Women Abstract Printed Spread Collar Casual Shirt (Neofaa, ₹1299); #28 M Glorious Rust Orange Printed Cotton Office Wear Dress (Ethnic Plus, ₹1199)
 
-**Budget Linen Trousers & Skirts**: #33 Green Striped Straight Cotton Pants (Tjori, ₹699); #34 Green & White Striped Cotton Pants (Tjori, ₹1399); #35 Linen Rich Stripe Relaxed Fit Trousers (Marks & Spencer, ₹1499); #36 Linen Rich Plain Relaxed Fit Trousers (Marks & Spencer, ₹1199)
+**Budget Linen Bottoms**: #33 Rareism Women's Perk Black Cotton Blend Wide Ankle Length Printed Track Pant (The House Of Rare, ₹2694); #34 Linen Blend Striped Wide Leg Trousers (Marks & Spencer, ₹1799); #35 Linen Rich Printed Wide Leg Trousers (Marks & Spencer, ₹1599); #36 LACE LINEN PRINTED PANT (Dash and Dot, ₹2934)
 
-**Economical Cotton Kurtis & Ethnic Tops**: #41 Green Solid Casual Kurti with Lace (Aurelia, ₹660); #42 Women Cotton Off White Yarn Dyed Tunic (SHREE, ₹599); #43 Green Cotton Solid Short Kurti (Aurelia, ₹620); #44 Women Cotton Green Printed Tunic (SHREE, ₹649)
+**Economical Cotton Dresses and Kurtis**: #41 Latin Quarters Women Green Solid Half Sleeves Casual Dress (Latin Quarters, ₹1200); #42 Multicolor Cotton Printed Dress (Tjori, ₹739); #43 Latin Quarters Women Straight Blue 3/4Th Sleeves Collared Solid Casual Dress (Latin Quarters, ₹1500); #44 M Exclusive Green Printed Cotton Casual Wear Dress (Ethnic Plus, ₹1199)
 
 Picks:
-- **#28 Easiest all-day comfort**: This off white cotton flat knit top is 100% cotton, ensuring breathability and softness, perfect for office wear in warm weather. Its solid color and regular fit make it versatile and easy to style for daily office use. _Tip: Pair it with striped cotton trousers for a fresh, professional look._
-- **#33 Best budget cotton pants**: These green striped straight cotton pants are lightweight and breathable, ideal for office and casual wear. The straight fit offers comfort and a neat silhouette, while the stripes add subtle interest without being too bold. _Tip: Combine with a plain cotton top to balance the pattern and keep the outfit polished._
-- **#36 Relaxed linen trousers under ₹1500**: These linen-rich plain relaxed fit trousers provide excellent breathability and comfort for office wear, especially in warmer climates. The solid multi-color tone is easy to match with printed or solid tops, making it a versatile wardrobe staple. _Tip: Wear with a printed cotton tunic to add texture and color contrast._
-- **#42 Affordable cotton office tunic**: This off white cotton yarn dyed tunic has a straight fit and printed detailing, making it suitable for office and daily wear. The cotton fabric ensures comfort, while the subtle print adds a touch of style without overpowering. _Tip: Pair with solid linen trousers for a balanced, comfortable office outfit._
+- **#25 Best budget cotton tunic**: This grey printed cotton tunic offers a relaxed fit, perfect for all-day comfort at the office. Its breathable cotton fabric and subtle print keep it stylish yet professional within a very affordable price. _Tip: Pair it with slim trousers and simple flats for an effortless office look._
+- **#34 Affordable linen blend trousers**: These striped wide-leg trousers in a linen blend provide a breathable, comfortable fit ideal for warm office days. The regular fit and subtle stripes add a touch of sophistication without compromising ease. _Tip: Match with a solid cotton blouse and loafers to balance the print and keep it office-appropriate._
+- **#41 Classic cotton shift dress**: This green cotton shift dress features a classic fit and half sleeves, making it a versatile piece for daily office wear. The solid colour and breathable fabric ensure comfort and a neat appearance. _Tip: Add a belt and minimal jewelry to elevate the look for meetings or presentations._
+- **#28 Flowy printed cotton dress**: This rust orange cotton dress has a flowy fit with digital prints, blending comfort with a pop of colour suitable for casual office days or festive occasions. Its breathable fabric suits warmer climates well. _Tip: Wear with neutral sandals and light accessories to keep the focus on the vibrant print._
 
-> These picks combine breathable cotton and linen fabrics with comfortable fits, perfect for affordable, stylish office wear in warm weather.
+> These picks combine breathable cotton and linen fabrics with relaxed fits and subtle prints, perfect for affordable, comfortable office wear in warm weather.
 
-Asks: What is your maximum budget for each item? [Under ₹1,000 / Under ₹1,500 / Under ₹2,000]
+Asks: What is your maximum budget for each item? [Under ₹1000 / ₹1000 to ₹2000 / ₹2000 to ₹3500 / No budget limit]
 
-Follow-ups: `Show linen only` `Add more colors` `Include sleeveless options`
+Follow-ups: `Show more colors` `Add sleeveless options` `Include kurta sets`
 
 ### 🧑 is the second one breathable enough for a humid day?
 
-*product_question · first text 3.6s · first products – · total 3.8s · 8067/249 tokens* ✅
+*product_question · first text 17.2s · first products – · total 17.7s · 8326/237 tokens* ✅
 
-Remembers: `Women` `~ Cotton` `~ Linen` `✕ Polyester` `Under ₹1,500` `~ comfortable` `~ breathable`
+Remembers: `Women` `~ Cotton` `~ Linen` `✕ Polyester` `Under ₹3,500` `~ comfortable`
 
-> The [White Casual Cotton T-Shirt](#2) is actually made from modal and lycra, not cotton, so it won’t be as breathable or moisture-wicking as pure cotton or linen. Modal is softer and somewhat breathable but lycra adds stretch and can trap heat, making it less ideal for very humid days. For a humid day, pure cotton or linen tops would be more comfortable and breathable than this modal-lycra blend.
+> Yes, the [Women Navy Blue Cotton Printed Tunic](#2) is breathable enough for a humid day. It's made from 100% cotton, which naturally allows air circulation and absorbs moisture, helping you stay comfortable in humidity. The relaxed fit also enhances airflow, making it a good choice for warm, humid office days.
 
-Follow-ups: `Show more cotton tops` `Show linen trousers` `Show cotton kurtis`
+Follow-ups: `Show more cotton tops` `Show more linen bottoms` `Show more cotton dresses`
 
 ### 🧑 Compare these [refs 1, 9]
 
-*compare · first text 1.6s · first products – · total 6.1s · 8171/516 tokens* ✅
+*compare · first text 1.4s · first products – · total 6.5s · 8387/528 tokens* ✅
 
-Remembers: `Women` `~ Cotton` `~ Linen` `✕ Polyester` `Under ₹1,500` `~ comfortable` `~ breathable`
+Remembers: `Women` `~ Cotton` `~ Linen` `✕ Polyester` `Under ₹3,500` `~ comfortable`
 
-> Let's compare the two items based on their fabric, breathability, and suitability for humid days.
+> Let's compare the Women Cotton White Printed Tunic (#1) and the Straight Fit White Linen Trousers (#9) for your office casual needs.
 
-Compare: #1 Cropped Mint Green Tee · Soft Pastel Cotton Tee for Casual Style vs #9 Straight Fit White Linen Trousers Online in India
+Compare: #1 Women Cotton White Printed Tunic vs #9 Straight Fit White Linen Trousers Online in India
 
-Occasions: Office → #1, Casual outing → #1, Festive puja → tie, Travel → #1
+Occasions: Office → #1, Casual outing → #1, Daily wear → #1, Office meeting → #1
 
-- Pick A if you want an affordable, breathable cotton top for casual or office wear.
-- Avoid B as it exceeds budget and is less suitable for office occasions.
-- Choose A for comfort and breathability on humid days within budget.
+- Pick A if you want a budget-friendly, comfortable cotton tunic suitable for office wear.
+- Pick B if you prefer linen fabric and casual style but can stretch your budget beyond ₹3500.
+- Avoid B if budget is strict or formal office wear is required.
 
-Asks: Would you like recommendations for more breathable options under ₹1500? [Yes, please / No, thanks]
+Asks: What matters most in your comparison? [Comfort in humidity / Style and fit / Price and value]
 
-Follow-ups: `Show more cotton tops` `Show more linen trousers` `Under ₹1000 options`
+Follow-ups: `Show more cotton tops` `Show more linen bottoms` `Add cotton dresses`
 
 ### 🧑 show men's instead
 
-*refine · first text 1.0s · first products 6.5s · total 9.6s · 9092/786 tokens* ✅
+*refine · first text 1.3s · first products 8.6s · total 12.5s · 9321/760 tokens* ✅
 
-Remembers: `Men` `~ Cotton` `~ Linen` `✕ Polyester` `Under ₹1,500` `~ comfortable` `~ breathable`
+Remembers: `Men` `~ Cotton` `~ Linen` `✕ Polyester` `Under ₹3,500` `~ comfortable`
 
-> Switching the focus to men's comfortable office casual wear without polyester, prioritizing breathable fabrics and affordability.
+> Switching to men's comfortable office casual wear without polyester, focusing on affordable cotton and linen options.
 
 **Affordable Cotton Shirts**: #49 Casual Shirt for Men · Breathable & Soft with Color Fastness Regular Fit Spread Collar Neck Cotton Fabric Printed Pattern (Cantabil, ₹999); #50 Casual Shirt for Men · Breathable & Soft with Color Fastness Regular Fit Spread Collar Neck Cotton Fabric Printed Pattern (Cantabil, ₹959); #51 Premium White Jaipuri Cotton Printed Shirts For Men Online (Tistabene, ₹899); #52 Designer Pink Jaipuri Cotton Printed Shirts For Men (Tistabene, ₹899)
 
-**Budget Linen Trousers**: #57 Men Black Solid Twill Casual Trousers (U.S. Polo Assn., ₹999); #58 Men Grey Regular Fit Solid Casual Trousers (U.S. Polo Assn., ₹959); #59 Men Olive Slim Tapered Fit Solid Flat Front Casual Trousers (Louis Philippe, ₹1474); #60 Men Navy Slim Tapered Fit Solid Flat Front Casual Trousers (Louis Philippe, ₹1474)
+**Budget Linen Trousers**: #57 Men's Grey Loose Fit Striped Casual Trousers (TIGC, ₹1099); #58 White Striped Slim Fit Linen Trousers (Jack & Jones, ₹2249); #59 Men's Cream Loose Fit Striped Casual Trousers (TIGC, ₹1089); #60 Men's Beige Striped Linen Blend Trousers (Celio, ₹3499)
 
-**Economical Cotton T-Shirts & Polos**: #65 Men's Brown Relaxed Fit Striped Casual T-Shirts (TIGC, ₹819); #66 Men's Blue Regular Fit Striped Casual Polo T-Shirts (TIGC, ₹1069); #67 Men Light Green Cotton Striped T-Shirt (U.S. Polo Assn., ₹399); #68 T-Shirt for Men · Breathable & Soft with Color Fastness Regular Fit Polo Neck Cotton Fabric Striped Pattern (Cantabil, ₹919)
+**Economical Cotton Casual Tops**: #65 Duke Men Half Sleeve Cotton Printed Casual Regular Tshirt (SDVP42) (Duke India, ₹959); #66 Men Cricket Fan T-Shirt IPL Printed Casual Sportswear Tee (Technosport, ₹629); #67 Men Cricket Fan T-Shirt IPL Printed Casual Sportswear Tee (Technosport, ₹629); #68 Men's Blue Slim Fit Graphic Printed Casual T-Shirt (TIGC, ₹1249)
 
 Picks:
-- **#50 Best light blue office shirt**: This light blue casual shirt is made from breathable cotton with a regular fit and printed pattern, ideal for comfortable office wear in warm weather. Its spread collar adds a smart touch while keeping the look relaxed yet professional. _Tip: Pair it with neutral chinos or trousers for a fresh office casual look._
-- **#58 Affordable grey office trousers**: These grey regular fit casual trousers from U.S. Polo Assn. are made for daily office wear with a breathable fabric and solid pattern. The neutral grey color complements most shirts and offers comfort for long workdays. _Tip: Match with light or pastel cotton shirts for a balanced office outfit._
-- **#67 Pure cotton casual T-shirt**: This light green striped T-shirt is 100% cotton, ensuring breathability and comfort for casual days. Its regular fit and soft fabric make it a great affordable option for relaxed office or weekend wear without polyester. _Tip: Wear it with casual trousers or jeans for a laid-back look._
+- **#50 Best light blue cotton shirt**: This light blue casual shirt is made of breathable cotton with a regular fit and printed pattern, ideal for comfortable office wear in warm weather. The spread collar adds a smart touch suitable for daily office use without polyester. _Tip: Pair it with beige or grey trousers for a balanced office casual look._
+- **#60 Stylish beige linen blend trousers**: These beige trousers blend 55% linen and 45% cotton, offering breathability and softness with a straight fit and subtle stripes. Perfect for office wear in warmer months, they keep you comfortable and polished without polyester. _Tip: Match with a crisp white or pastel shirt to keep the outfit fresh and professional._
+- **#65 Comfortable cotton blend casual tee**: This half sleeve t-shirt in a soft cotton blend features a gentle printed design and regular fit, making it suitable for casual office days or weekend wear. The cotton blend ensures comfort and breathability. _Tip: Wear it with casual trousers or jeans for a relaxed yet neat look._
 
-> These picks combine breathable cotton and comfortable fits, perfect for affordable, polyester-free office casual wear in warm weather.
+> These picks combine breathable cotton and linen fabrics in smart, comfortable fits ideal for office and casual wear without polyester.
 
-Asks: What colors do you prefer for men's office casual wear? [Neutrals (white, beige, grey) / Blues and greens / Bold colors (red, orange)]
+Asks: What is your preferred style for men's office casual wear? [Shirts and trousers / T-shirts and chinos / Polos and linen pants]
 
-Follow-ups: `Under ₹1,000` `Show cotton only` `Add formal shoes`
+Follow-ups: `Under ₹2,000` `Show linen only` `Add footwear options`
 
 ## Conversation 2
 
 ### 🧑 what should I wear to a mehendi in Jaipur in November
 
-*recommend · first text 1.1s · first products 9.9s · total 13.5s · 7363/955 tokens* ✅
+*recommend · first text 1.4s · first products 9.8s · total 13.2s · 7677/984 tokens* ✅
 
-Remembers: `Women` `~ comfortable`
+Remembers: `~ comfortable` `~ breathable`
 
-> For a mehendi in Jaipur in November, go for vibrant, comfortable ethnic wear that suits the festive mood and pleasant weather. - **Bright colors** like yellow, green, or orange complement mehendi vibes and Jaipur's lively atmosphere. - **Lightweight fabrics** such as cotton or silk blends keep you comfortable in mild November weather. - **Traditional styles** like lehengas, anarkalis, or kurta sets with light embroidery or mirror work fit the occasion perfectly. - **Comfortable footwear** like embellished flats or juttis help you enjoy the event without hassle.
+Personalized: Used your taste (green, purple, cotton blend) · Preferring ₹1.5k–₹2.1k
 
-**Lehengas** _(Few exact matches, so also showing related categories.)_: #1 Lightweight Bottal Green Mul Mul Cotton Saree for All Day Comfort (Gopikanya, ₹2699); #2 Pink Handloom Cotton Saree Lightweight Comfortable Saree for Summer Wear (Gopikanya, ₹1899); #3 Libas Red Floral Printed Cotton Blend Saree With Unstitched Blouse Piece (Libas, ₹1879); #4 Gerua Red Solid Cotton Blend Straight Suit With Dupatta (Libas, ₹799)
+> For a mehendi in Jaipur in November, vibrant colors and comfortable fabrics work best to match the festive vibe and mild weather. - **Bright hues** like yellow, green, and orange complement the traditional mehendi theme. - **Lightweight fabrics** such as cotton or silk blends keep you comfortable in the pleasant November climate. - **Embroidered or printed ethnic wear** adds festive charm without being too heavy. - **Comfortable footwear** like embellished juttis or sandals suit the event and walking on grass or uneven ground. - **Accessorize with floral or traditional jewellery** to enhance the ethnic look.
 
-**Anarkali Suits**: #9 Libas Pink Printed Silk Blend Anarkali Suit With Dupatta (Libas, ₹3199); #10 Red Dola Silk Printed Anarkali Suit With Intricate Hand Embroidery (Kalki, ₹11000); #11 Libas Rama Green Embroidered Silk Blend Anarkali Suit With Dupatta (Libas, ₹2619); #12 Pink Silk Anarkali Suit With Zari Thread Embroidery (Kalki, ₹13500)
+**Embroidered Kurtas**: #1 Light Green Cotton Blend Embroidered Kurta (Kisah, ₹2699); #2 Light Pink Cotton Blend Embroidered Kurta with Intricate Neckline (Kisah, ₹5998); #3 Men's Blue Silk Cotton Blend Floral Printed Thread Embroidered Mid-Length Kurta (Vastramay, ₹6027); #4 Yashvi Pink Cotton Blend Embroidered Kurta (Lakshita, ₹2595)
 
-**Kurta Sets**: #17 Pink Geometric Printed Cotton Blend Straight Kurta with Palazzo Set (Aurelia, ₹2625); #18 Yellow Geometric Printed Cotton Blend Straight Kurta with Palazzo Set (Aurelia, ₹2625); #19 Mehadi Green Cotton Printed Two Piece Set (Neeru's, ₹4217); #20 Mehadi Green Cotton Printed Two Piece Set (Neeru's, ₹4385)
+**Ethnic Skirts and Tops**: #9 Yellow Embroidered kurta with Green Printed Skirt and Yellow Dupatta (Aurelia, ₹1820); #10 Green Floral Printed Lace Pure Cotton Straight Top, Skirt and Stole Se (Aurelia, ₹3999); #11 Pink Bandhani Printed Silk Top Skirt with Light Green Dupatta Set (True Browns, ₹16197); #12 Lime Green Bandhani Printed Silk Top Skirt Set (True Browns, ₹4499)
+
+**Juttis and Sandals**: #17 Women's Black Embellished Comfortable Wedge Sandal (Carlton London, ₹1679); #18 Men Pink Festive Ethnic Slip On Juttis & Mojaris Online (Fausto, ₹1399); #19 Tan Ethnic Slip-On Festive Juttis For Men Online (Fausto, ₹1299); #20 Casual Clogs for Men · Lightweight & Comfortable with Cushioned Insole EVA Upper EVA Sole Slip on Closure. (Cantabil, ₹649)
 
 Picks:
-- **#19 Best for festive comfort**: This Mehadi Green Cotton Printed Two Piece Set from Neeru's is made of breathable cotton with a flowy fit, perfect for staying comfortable during a lively mehendi ceremony in Jaipur's mild November weather. The printed pattern adds a festive touch without being too heavy. _Tip: Pair it with simple juttis and light gold jewelry to keep the look fresh and traditional._
-- **#11 Elegant embroidered silk blend**: The Libas Rama Green Embroidered Silk Blend Anarkali Suit features delicate embroidery on a flowy silk blend fabric, combining festive elegance with comfort. Its green shade fits the mehendi vibe and Jaipur's pleasant climate well. _Tip: Wear with statement earrings and a matching dupatta for a graceful mehendi look._
-- **#18 Bright and casual festive wear**: This Yellow Geometric Printed Cotton Blend Straight Kurta with Palazzo Set by Aurelia offers a relaxed fit in breathable cotton blend fabric. The bright yellow color suits the mehendi's joyful atmosphere and Jaipur's November weather perfectly. _Tip: Add colorful bangles and comfortable flats to complete the cheerful ensemble._
+- **#9 Best festive yellow set**: This yellow embroidered kurta paired with a green printed skirt and yellow dupatta is made from 100% polyester, offering vibrant colors and festive embroidery perfect for a mehendi ceremony. The bright yellow complements the traditional mehendi vibe and the regular fit ensures comfort in Jaipur's mild November weather. _Tip: Pair it with light gold or green jewelry and comfortable sandals for a complete look._
+- **#10 Breathable green cotton set**: This green floral printed lace pure cotton skirt and top set is breathable and comfortable, ideal for daytime festive events like mehendi. The cotton fabric keeps you cool, while the floral print adds a fresh, ethnic charm suited to Jaipur's pleasant November climate. _Tip: Style it with minimal floral accessories and simple juttis to keep the look elegant yet comfortable._
+- **#18 Festive pink embroidered juttis**: These pink embroidered slip-on juttis for men are festive and comfortable, perfect for walking on grass or uneven ground during mehendi functions. The fabric embroidery adds ethnic charm, and the pink color pairs well with many traditional outfits. _Tip: Match these juttis with a light-colored kurta to highlight their vibrant pink embroidery._
 
-> These picks balance vibrant colors, comfort, and traditional style ideal for a festive mehendi in Jaipur's pleasant November weather.
+> These picks combine vibrant colors, breathable fabrics, and festive embroidery to keep you stylish and comfortable at a Jaipur mehendi in November.
 
-Asks: Do you prefer lehengas, anarkalis, or kurta sets for mehendi? [Lehengas / Anarkalis / Kurta Sets]
+Asks: What style do you prefer for your mehendi outfit? [Traditional / Fusion / Casual]
 
-Follow-ups: `Show bright colors` `Suggest footwear` `Add jewellery options`
+Follow-ups: `Show yellow kurtas` `Find embroidered skirts` `Suggest comfortable juttis`
 
 ### 🧑 for women, total budget 5000
 
-*refine · first text 1.5s · first products 12.7s · total 15.9s · 8313/871 tokens* ✅
+*refine · first text 1.4s · first products 11.5s · total 14.8s · 8572/927 tokens* ✅
 
-Remembers: `Women` `Under ₹5,000` `~ comfortable`
+Remembers: `Women` `Under ₹5,000` `~ comfortable` `~ breathable`
 
-> I've refined the options to fit your ₹5000 budget for comfortable, festive ethnic wear suitable for a mehendi in Jaipur in November.
+> Here are comfortable and festive women's outfits and footwear options under ₹5000 for a mehendi in Jaipur in November.
 
-**Lehengas** _(Few exact matches, so also showing related categories and a few up to ₹7,000.)_: #25 Cream With Pink Silk Blend Saree With Blouse Piece (Karagiri, ₹3249); #26 Pink Handloom Cotton Saree Lightweight Comfortable Saree for Summer Wear (Gopikanya, ₹1899); #27 Libas Art Pink Embroidered Silk Blend Lehenga Set (Libas, ₹6399); #28 Lightweight Bottal Green Mul Mul Cotton Saree for All Day Comfort (Gopikanya, ₹2699)
+**Embroidered Kurtas**: #25 Yashvi Pink Cotton Blend Embroidered Kurta (Lakshita, ₹2595); #26 Online Orange Embroidered Straight Cotton Blend Kurta (Aurelia, ₹1120); #27 Yellow Embroidered Straight Cotton Blend Kurta online (Aurelia, ₹1000); #28 Janasya Women's Sage Green Cotton Blend Yoke Embroidered Straight Kurta Set (Janasya, ₹1899)
 
-**Anarkali Suits**: #33 Libas Pink Printed Silk Blend Anarkali Suit With Dupatta (Libas, ₹3199); #34 Anarkali Pattern Printed Suit with Embroidered Jacket (Chhabra 555, ₹1995); #35 Libas Rama Green Embroidered Silk Blend Anarkali Suit With Dupatta (Libas, ₹2619); #36 Gorgeous Olive Green Coding Embroidery Silk Mehendi Wear Anarkali Gown (Zeel Clothing, ₹2339)
+**Ethnic Skirts and Tops**: #33 Yellow Embroidered kurta with Green Printed Skirt and Yellow Dupatta (Aurelia, ₹1820); #34 Green Floral Printed Lace Pure Cotton Straight Top, Skirt and Stole Se (Aurelia, ₹3999); #35 Ethnic Printed Short Top with Flared Skirt & Dupatta · Pink (Fashor, ₹4499); #36 Lime Green Bandhani Printed Silk Top Skirt Set (True Browns, ₹4499)
 
-**Kurta Sets**: #41 Pink Geometric Printed Cotton Blend Straight Kurta with Palazzo Set (Aurelia, ₹2625); #42 Yellow Geometric Printed Cotton Blend Straight Kurta with Palazzo Set (Aurelia, ₹2625); #43 Mehadi Green Cotton Printed Two Piece Set (Neeru's, ₹4217); #44 Mehadi Green Cotton Printed Two Piece Set (Neeru's, ₹4385)
+**Juttis and Sandals** _(Few exact matches, so also showing related categories and a few up to ₹2,800.)_: #41 Women's Black Embellished Comfortable Wedge Sandal (Carlton London, ₹1679); #42 Women's Beige Embellished Comfortable Wedge Sandal (Carlton London, ₹1679); #43 Women White Textured Comfortable Slip On Loafers Online (Fausto, ₹949); #44 Blend Knit Slip Ons : Black-Grey (Neeman's, ₹1499)
 
 Picks:
-- **#33 Best festive silk blend anarkali**: This pink printed silk blend anarkali from Libas is flowy and comfortable, perfect for a festive mehendi event in November. The silk blend fabric offers a nice sheen without being too heavy, and the printed pattern adds a cheerful vibe suitable for celebrations. _Tip: Pair it with light gold or pearl jewelry and comfortable juttis for an elegant festive look._
-- **#41 Relaxed cotton blend kurta set**: The pink geometric printed cotton blend kurta with palazzo set from Aurelia is relaxed fit and breathable, ideal for staying comfortable throughout the day in Jaipur's November weather. Its casual yet festive print makes it versatile for mehendi functions and daily wear. _Tip: Add minimal accessories and slip-on sandals for an effortless, chic appearance._
-- **#28 Lightweight solid cotton saree**: This bottal green mul mul cotton saree is lightweight and breathable, ensuring all-day comfort during your mehendi ceremony. Its solid color offers a subtle elegance, and cotton fabric is perfect for the mild November climate in Jaipur. _Tip: Style with a contrasting blouse and traditional jewelry to elevate the look._
+- **#28 Best festive cotton kurta**: This sage green cotton blend kurta has embroidered yoke detailing and a regular straight fit, making it breathable and elegant for a mehendi in Jaipur's November weather. It balances comfort with festive style perfectly. _Tip: Pair it with light cotton trousers and minimal jewelry for a graceful look._
+- **#35 Flowy festive ethnic set**: The pink muslin silk and chanderi skirt set features ethnic prints and a flowy fit, offering a comfortable yet vibrant outfit ideal for festive occasions like mehendi parties. _Tip: Wear with statement earrings and simple sandals to highlight the prints and fabric._
+- **#42 Comfortable beige embellished sandals**: These beige wedge sandals have embellishments that add festive charm while ensuring comfort with a block heel, suitable for standing and walking during celebrations. _Tip: Match with both kurtas and ethnic skirts for versatile festive footwear._
+- **#44 Casual slip-ons for all-day wear**: The black-grey polyester knit slip-ons provide textured comfort and a casual vibe, great for when you want to keep your feet relaxed during daytime festivities or travel. _Tip: Use them with cotton kurtas or casual ethnic wear for a laid-back look._
 
-> These picks blend comfort, festive appeal, and breathable fabrics ideal for a joyful mehendi celebration in Jaipur's mild November weather.
+> These picks blend breathable fabrics, festive embroidery, and comfortable footwear under ₹5000 for a stylish mehendi look in Jaipur.
 
-Asks: Which style do you prefer for your mehendi outfit? [Lehenga / Anarkali Suit / Kurta Set]
+Asks: Do you prefer kurta sets or skirt-top sets for mehendi? [Kurta sets / Skirt and top sets / No preference]
 
-Follow-ups: `Show more lehengas` `Show more anarkalis` `Show more kurta sets`
+Follow-ups: `Show more kurta options` `Show more skirt-top sets` `Add matching jewellery`
 
 ### 🧑 More like this, but in green [refs 3]
 
-*more_like · first text 1.1s · first products 4.2s · total 4.2s · 7794/385 tokens* ✅
+*more_like · first text 9.8s · first products 16.6s · total 16.6s · 8028/400 tokens* **FAIL**
 
-Remembers: `Women` `Under ₹5,000` `~ comfortable`
+Remembers: `Women` `Green` `Under ₹5,000` `~ comfortable` `~ breathable`
 
-> Here are similar cotton blend sarees like #3 but in green shades, perfect for a comfortable and festive mehendi look.
+> Here are embroidered silk-cotton blend kurtas similar to #3 but in green shades, perfect for a festive mehendi with comfort and style.
 
-**More like Libas Red Floral Printed Cotton Blend… · in green**: #49 Libas Lime Green Printed Cotton Saree With Unstitched Blouse Piece (Libas, ₹989); #50 Libas Green Printed Cotton Blend Saree With Unstitched Blouse Piece (Libas, ₹1379); #51 Libas Green Geometric Printed Cotton Saree With Unstitched Blouse Piece (Libas, ₹1589); #52 Libas Green Tribal Printed Cotton Blend Saree With Unstitched Blouse Piece (Libas, ₹1749)
+**More like Men's Blue Silk Cotton Blend Floral Pr… · in green**: #49 Floral Embroidered Thread Work Jacquard Weave Stright Kurta With Trousers (Inddus, ₹1699); #50 Green Silk Blend Embroidered Kurta (Kisah, ₹1499); #51 M Wonderful Green Thread Embroidered Silk Reception Wear Men's Kurta (Ethnic Plus, ₹2999); #52 Men Green Embroidered Kurta (Kisah, ₹2699)
 
-Asks: Would you like me to find matching blouses or accessories? [Yes, blouses / Yes, accessories / No, thanks]
+Asks: Would you like matching bottoms or just the kurta? [Matching bottoms / Kurta only / Not sure]
 
-Follow-ups: `Show more green sarees` `Add matching blouses` `Show festive jewellery`
+Follow-ups: `Show more green kurtas` `Add footwear options` `Include dupattas`
+
+**Checks failed:**
+- AUDIENCE "More like Men's Blue Silk Cotton Blend Floral Pr… · in green": Floral Embroidered Thread Work Jacquard Weave Stright Kurta With Trousers is male
+- AUDIENCE "More like Men's Blue Silk Cotton Blend Floral Pr… · in green": Green Silk Blend Embroidered Kurta is male
+- AUDIENCE "More like Men's Blue Silk Cotton Blend Floral Pr… · in green": M Wonderful Green Thread Embroidered Silk Reception Wear Men's Kurta is male
+- AUDIENCE "More like Men's Blue Silk Cotton Blend Floral Pr… · in green": Men Green Embroidered Kurta is male
 
 ## Conversation 3
 
 ### 🧑 shaadi mein pehenne ke liye sherwani, ivory ya beige
 
-*recommend · first text 1.4s · first products 6.4s · total 10.2s · 7068/812 tokens* ✅
+*recommend · first text 1.2s · first products 7.0s · total 11.8s · 7363/874 tokens* ✅
 
-Remembers: `Men` `Off-white / ivory / cream` `Beige / nude` `~ elegant` `~ traditional`
+Remembers: `Men` `Off-white / ivory / cream` `Beige / nude` `~ traditional` `~ elegant`
 
-> For a wedding sherwani in ivory or beige, choose elegant fabrics and subtle embellishments to keep the look regal yet understated. - **Silk or brocade fabrics** offer a rich texture perfect for weddings. - **Ivory and beige shades** look sophisticated and pair well with gold or pearl accessories. - **Light embroidery or zari work** adds just the right festive touch without overpowering the outfit.
+> For a wedding sherwani in ivory or beige, choose elegant fabrics and subtle embellishments to look regal yet refined. - **Silk or brocade fabrics** offer a rich texture perfect for weddings. - **Ivory and beige shades** create a sophisticated, timeless look. - **Light embroidery or zari work** adds just the right festive touch without overpowering. - **Pair with matching mojari or jutti** for a complete traditional look.
 
-**Silk Sherwanis**: #1 Ivory Silk Blend Kurta Indo-Western Sherwani Set with Floral Jacquard Design for Wedding & Reception Outfit (Kisah, ₹13998); #2 Ivory Silk Blend Indo-Western Sherwani Jacket with Floral Jacquard Design · Wedding & Reception Outfit (Kisah, ₹13998); #3 Ivory Silk Sherwani With Resham Zari And Zardosi Work (Kalki, ₹74999); #4 Ivory Silk Sherwani For Groom With Geometric And Floral Embroidery (Kalki, ₹142950)
+**Silk Sherwanis**: #1 Ivory Silk Blend Kurta Indo-Western Sherwani Set with Floral Jacquard Design for Wedding & Reception Outfit (Kisah, ₹13998); #2 Ivory Silk Blend Indo-Western Sherwani Jacket with Floral Jacquard Design · Wedding & Reception Outfit (Kisah, ₹13998); #3 Ivory Silk Sherwani With Resham Zari And Zardosi Work (Kalki, ₹74999); #4 Ivory silk embroidered sherwani set with anarkali (Shreeman, ₹68199)
 
 **Brocade Sherwanis**: #9 Ivory Silk Blend Kurta Indo-Western Sherwani Set with Floral Jacquard Design for Wedding & Reception Outfit (Kisah, ₹13998); #10 Ivory Silk Blend Indo-Western Sherwani Jacket with Floral Jacquard Design · Wedding & Reception Outfit (Kisah, ₹13998); #11 Ivory Silk Sherwani For Groom With Geometric And Floral Embroidery (Kalki, ₹142950); #12 Resonance Embroidered Silk Sherwani · Ivory (Anita Dongre, ₹250000)
 
 Picks:
-- **#3 Best for classic wedding elegance**: This ivory silk sherwani features resham zari and zardosi embroidery, combining traditional craftsmanship with a structured yet comfortable fit. Its rich silk fabric and detailed embroidery make it perfect for a regal wedding look that stands out without being too flashy. _Tip: Pair it with beige churidar pants and gold-toned mojris to enhance the royal vibe._
-- **#1 Easiest all-day comfort**: This ivory silk blend Indo-Western sherwani set has a floral jacquard design with subtle embellishments, offering a blend of traditional and modern style. The regular fit and silk blend fabric ensure comfort throughout long wedding ceremonies and receptions. _Tip: Wear it with slim-fit trousers and minimal accessories for a refined, contemporary look._
-- **#4 Tailored for formal grandeur**: Made from raw silk, this ivory sherwani has geometric and floral embroidery with a tailored fit, giving a sharp and elegant silhouette. Its premium fabric and intricate detailing make it ideal for formal wedding events where you want to make a strong impression. _Tip: Complement it with a matching stole and classic leather juttis for a complete groom-ready ensemble._
+- **#3 Best for classic wedding elegance**: This ivory silk sherwani features resham zari and zardosi embroidery, combining traditional craftsmanship with a structured yet comfortable fit. Its rich silk fabric and intricate work make it perfect for a regal wedding look in subtle ivory. _Tip: Pair it with beige churidar and traditional mojari to complete the elegant ensemble._
+- **#11 Tailored rawsilk with fine embroidery**: Made from ivory rawsilk, this sherwani offers a tailored fit with geometric and floral embroidery that adds a refined texture. The fabric's natural sheen and detailed work suit formal wedding occasions beautifully. _Tip: Wear with a matching stole and beige trousers for a sophisticated traditional style._
+- **#1 Affordable silk blend with floral jacquard**: This ivory Indo-Western sherwani in silk blend features floral jacquard embellishments, giving a festive yet understated look. Its regular fit and lighter fabric make it comfortable for day-long wedding events. _Tip: Combine with slim beige pants and minimal accessories for a modern traditional vibe._
+- **#4 Tailored silk with embroidered anarkali flair**: This ivory silk sherwani set includes an embroidered anarkali style, tailored for a formal wedding setting. The rich silk fabric and detailed embroidery offer a graceful and festive appearance. _Tip: Add a beige dupatta and classic jutti to enhance the traditional charm._
 
-> These ivory sherwanis blend traditional embroidery with comfortable fits, perfect for elegant wedding celebrations in warm weather.
+> These ivory and beige sherwanis blend traditional embroidery with elegant fabrics, perfect for a stylish and comfortable wedding look.
 
-Asks: What is your budget range for the sherwani? [Under ₹10,000 / ₹10,000 to ₹25,000 / Above ₹25,000]
+Asks: What is your budget for the sherwani? [Under ₹10,000 / ₹10,000 - ₹25,000 / Above ₹25,000]
 
-Follow-ups: `Show embroidered options` `Include matching accessories` `Suggest footwear to match`
+Follow-ups: `Show embroidered options` `Include matching footwear` `Add accessories like turbans`
 
 ### 🧑 kuch sasta dikhao
 
-*refine · first text 1.2s · first products 4.3s · total 7.4s · 7508/675 tokens* ✅
+*refine · first text 1.1s · first products 3.7s · total 7.1s · 7742/617 tokens* ✅
 
-Remembers: `Men` `Off-white / ivory / cream` `Beige / nude` `Under ₹20,000` `~ elegant` `~ traditional`
+Remembers: `Men` `Off-white / ivory / cream` `Beige / nude` `Under ₹20,000` `~ traditional` `~ elegant`
 
-> Here are more affordable ivory and beige sherwanis suitable for weddings, focusing on elegant yet budget-friendly choices. - **Silk blend fabrics** offer a good balance of luxury and cost-effectiveness. - **Simpler embroidery or jacquard designs** keep the sherwani festive without high price. - **Indo-Western styles** can be stylish yet less expensive than heavily embroidered traditional ones.
+> I've filtered the ivory and beige sherwanis to show more budget-friendly options for your wedding.
 
 **Silk Blend Sherwanis**: #17 Men Cream Textured Solid Indowestern Churidar with Dupatta Set (Kisah, ₹16998); #18 Ivory Silk Blend Kurta Indo-Western Sherwani Set with Floral Jacquard Design for Wedding & Reception Outfit (Kisah, ₹13998); #19 Fascinate Art Silk Fabric Wedding Wear Sherwani For Men In Beige Color (Sareesbazaar, ₹388); #20 Men's Beige Silk Blend Sherwani Set with Cream Pyjama (Vastramay, ₹16464)
 
 Picks:
-- **#18 Elegant ivory with floral jacquard**: This ivory Indo-Western sherwani is crafted from a silk blend fabric with embellished floral jacquard detailing, offering a refined yet budget-friendly look perfect for weddings and receptions. Its regular fit ensures comfort throughout long events, while the ivory shade keeps it traditional and versatile. _Tip: Pair it with beige churidar pants and polished mojaris for a complete wedding-ready ensemble._
-- **#20 Classic beige jacquard sherwani**: Made from silk blend fabric with subtle jacquard patterns, this beige sherwani set includes a cream pyjama for a coordinated look. The regular fit and festive design make it ideal for wedding functions where you want traditional elegance without overspending. _Tip: Add a matching beige stole or brooch to elevate the outfit for evening ceremonies._
-- **#17 Cream textured Indo-Western style**: This cream Indo-Western sherwani features textured silk blend jacquard fabric, combining traditional motifs with a modern cut. Its regular fit and lightweight fabric make it comfortable for day-long wear in warm weather, suitable for festive and wedding occasions on a budget. _Tip: Wear with cream churidar and minimal accessories to highlight the textured fabric._
+- **#18 Best budget ivory elegance**: This ivory Indo-Western sherwani is made from a silk blend with beautiful floral jacquard embellishments, giving it a rich yet affordable look perfect for weddings and receptions. Its regular fit ensures comfort throughout your special day without compromising style. _Tip: Pair it with beige or cream churidar and polished mojaris for a complete festive look._
+- **#20 Elegant beige with jacquard detail**: Crafted from a silk blend fabric, this beige sherwani features intricate jacquard patterns that add subtle texture and sophistication. The regular fit and included cream pyjama make it a convenient and stylish choice for wedding festivities within your budget. _Tip: Accessorize with a matching beige stole or a classic watch to elevate the ensemble._
+- **#19 Most affordable embroidered sherwani**: This beige sherwani in art silk fabric offers embroidered detailing at an unbeatable price, making it ideal if you want a traditional look without spending much. Its tailored fit adds a sharp silhouette suitable for formal wedding occasions. _Tip: Keep accessories minimal and let the embroidery stand out with simple cream churidar and leather footwear._
 
-> These picks balance elegant traditional styles with affordable silk blend fabrics and subtle embellishments for wedding celebrations.
+> These picks balance traditional elegance and affordability in ivory and beige tones, perfect for wedding celebrations on a budget.
 
-Asks: Do you prefer a traditional or Indo-Western style sherwani? [Traditional / Indo-Western]
+Asks: What is your maximum budget for the sherwani? [Under ₹10,000 / ₹10,000 to ₹20,000 / ₹20,000 to ₹30,000]
 
-Follow-ups: `Show heavier embroidery` `Under ₹15,000` `Add matching accessories`
+Follow-ups: `Show pure silk options` `Add matching mojari` `Show beige only`
 
 ### 🧑 juttis bhi dikhao
 
-*recommend · first text 1.3s · first products 6.9s · total 10.1s · 7891/711 tokens* ✅
+*recommend · first text 1.4s · first products 8.3s · total 12.1s · 8351/771 tokens* ✅
 
-Remembers: `Men` `Off-white / ivory / cream` `Beige / nude` `Under ₹20,000` `~ elegant` `~ traditional`
+Remembers: `Men` `Off-white / ivory / cream` `Beige / nude` `Under ₹20,000` `~ traditional` `~ elegant`
 
-> For your wedding sherwani in ivory or beige, pairing it with traditional juttis will complete the elegant ethnic look. - **Classic embroidered juttis** in ivory, beige, or gold complement the sherwani's subtle tones and embroidery. - **Leather or silk fabric juttis** offer comfort and a regal finish suitable for weddings. - **Look for juttis with zari, gota, or thread work** to match the festive vibe without overpowering your outfit.
+> Matching juttis in ivory or beige complement your sherwani perfectly for a traditional wedding look. - **Classic juttis** with embroidery or mirror work add festive charm. - **Leather or velvet materials** offer comfort and elegance. - **Neutral shades like beige or ivory** ensure coordination without clashing.
 
-**Embroidered Juttis**: #25 Avorio · Ivory Raw Silk Zardozi Embroidered Loafers (Dmodot, ₹18358); #26 Noor Crest Zardozi Leather Juttis in Ivory · Groom's Wedding Shoes (Domani Shoes, ₹11999); #27 Men Cream Silk Embroidered Slip On Juttis & Mojaris Online (Fausto, ₹1399); #28 Men's Beige Floral Embroidery Slip On Juttis & Mojaris (Fausto, ₹1199)
+**Embroidered Juttis**: #25 Off-White Zari Embroidered Jutti (House of Designers, ₹6080); #26 Beige Velvet Jutti With Hand Work For Men (Kalki, ₹2500); #27 Banarasi Embroidered Fabric Juttis · Custom Fabric (Domani Shoes, ₹5999); #28 Dreamer Ivory Embellished Juttis for Men Online (Fizzy Goblet, ₹3990)
+
+**Plain Leather Juttis** _(Few exact matches, so also showing close shades (white, brown), related categories and a few up to ₹28,000.)_: #33 KHADIM Nagra Jutti Ethnic Shoe for Men (Khadims, ₹774); #34 Men Classic Plain Toe Derby Leather Tan Lace Up Shoes (Louis Philippe, ₹2949); #35 Rare Rabbit Men's Amur Off White Plain Shoes (The House Of Rare, ₹4799); #36 Men Classic Plain Toe Derby Leather Brown Lace Up Shoes (Louis Philippe, ₹4719)
 
 Picks:
-- **#25 Best with heavy zari embroidery**: These Avorio Ivory Raw Silk Zardozi Embroidered Loafers are crafted in raw silk with intricate zardozi work, giving a rich and traditional look perfect for weddings. The ivory shade complements off-white or beige sherwanis beautifully, enhancing the regal vibe. _Tip: Pair these with a cream or beige sherwani and gold accessories for a cohesive festive look._
-- **#26 Elegant leather juttis for comfort**: Noor Crest Zardozi Leather Juttis in ivory offer a comfortable fit with fine leather and subtle embroidery, ideal for long wedding functions. The leather fabric adds durability while maintaining a traditional aesthetic. _Tip: Wear these with a beige sherwani and a matching leather belt for a polished appearance._
-- **#28 Budget-friendly beige embroidered juttis**: Men's Beige Floral Embroidery Slip On Juttis by Fausto are made in fabric with delicate floral embroidery, giving a soft traditional touch at an affordable price. The beige tone blends well with nude or cream wedding outfits. _Tip: Combine these with a light kurta-pajama set for a semi-formal festive look._
+- **#25 Best for traditional weddings**: This Off-White Zari Embroidered Jutti is crafted from leather and suede with intricate embroidery, perfectly matching an ivory or cream sherwani for a festive wedding look. Its off-white shade and detailed zari work add elegant charm without overpowering your outfit. _Tip: Pair these with your sherwani and a matching ivory or beige stole for a cohesive traditional ensemble._
+- **#26 Elegant velvet comfort**: The Beige Velvet Jutti with Hand Work features soft velvet fabric and delicate embroidery, offering both comfort and a rich texture ideal for wedding occasions. Its neutral beige tone blends seamlessly with off-white or cream outfits, enhancing your traditional style. _Tip: Wear these with a beige or cream kurta-pajama set to highlight the velvet's subtle sheen._
+- **#28 Ivory leather with subtle embroidery**: Dreamer Ivory Embellished Juttis combine smooth leather with tasteful embroidered detailing, making them a refined choice for festive and wedding events. The ivory color complements light-toned traditional wear, ensuring elegance and comfort throughout the day. _Tip: Match these with ivory or cream sherwanis and minimal accessories for a polished look._
 
-> These picks balance traditional embroidery, comfort, and budget-friendly options in ivory and beige tones for your wedding footwear.
+> These jutti picks blend traditional embroidery and neutral tones, perfectly complementing your wedding attire with comfort and style.
 
-Asks: Do you prefer plain or heavily embroidered juttis? [Plain / Heavily embroidered]
+Asks: What is your budget for juttis? [Under ₹1000 / ₹1000-₹2000 / Above ₹2000]
 
-Follow-ups: `Show more sherwanis` `Add matching accessories` `Under ₹10,000 juttis`
+Follow-ups: `Show more sherwanis` `Add matching accessories` `Suggest wedding turbans`
 
 ## Conversation 4
 
 ### 🧑 gift for my dad's 60th birthday under 3000
 
-*recommend · first text 1.3s · first products 6.8s · total 10.1s · 7265/874 tokens* ✅
+*recommend · first text 1.6s · first products 9.3s · total 12.6s · 7557/889 tokens* ✅
 
 Remembers: `Men` `Under ₹3,000`
 
-> For your dad's 60th birthday, thoughtful gifts under ₹3000 can blend style and practicality. - **Ethnic kurtas** offer comfort and traditional charm, perfect for festive occasions. - **Casual shirts** in soft fabrics suit everyday wear with a smart look. - **Accessories like wallets or belts** are practical and stylish gifts he can use daily.
+> For your dad's 60th birthday, thoughtful gifts under ₹3000 can blend style and usefulness perfectly. - **Ethnic wear** like a comfortable kurta or nehru jacket adds traditional charm. - **Footwear** such as loafers or sandals offer everyday comfort and style. - **Accessories** like a classy watch or leather belt are practical and elegant. - **Personal care** or grooming kits can also be a great choice if you want something different.
 
-**Ethnic Kurtas**: #1 Off-White and Blue Cotton Short Kurta For Men â‚¬€œ The Kaftan Company (The Kaftan Company, ₹1999); #2 Navy Blue Cotton Printed Short Kurta (Kisah, ₹1499); #3 Devansh Grey Solid Cotton Kurta (Aachho, ₹679); #4 Elegant Off-White Cotton Blend Kurta for Men Minimalistic Ethnic Wear (Kisah, ₹2998)
+**Ethnic Wear**: #1 Men Blue Linen Solid Kurta (Spykar, ₹1799); #2 Men White Linen Solid Kurta (Spykar, ₹1799); #3 Men's Black Cotton Linen Blend Kurta (Vastramay, ₹2673); #4 Legacy Cotton-Linen Short Kurta (Kingdom of White, ₹2499)
 
-**Casual Shirts**: #9 Casual Shirt for Men · Breathable & Soft with Color Fastness Regular Fit Spread Collar Neck Cotton Blend Fabric Solid Pattern (Cantabil, ₹1259); #10 Casual Shirt for Men · Breathable & Soft with Color Fastness Regular Fit Spread Collar Neck Cotton Fabric Striped Pattern (Cantabil, ₹895); #11 Men's Cotton White Solid Casual Shirt (Dennis Lingo, ₹899); #12 Men's Solid Sea Blue Slim Fit Cotton Casual Shirt (Dennis Lingo, ₹889)
+**Footwear**: #9 Men Black Solid Loafers Formal Premium Leather Light Weight Breathable Lining Slip Resistant Flexible Toe Shoes (Louis Philippe, ₹2949); #10 Men Navy Solid Loafers Casual Imported Premium Leather Light Weight Breathable Lining Slip Resistant Flexible Toe Shoes (Louis Philippe, ₹2949); #11 Now Men Cherry Solid Leather Formal Slip-Ons Shoes (Inc.5, ₹1476); #12 Now Mens Brown Solid Round Toe Casual Loafers Shoes (Inc.5, ₹2916)
 
-**Wallets & Belts**: #17 Wax Plain Leather Mens Wallet · Black (Da Milano, ₹2099); #18 Men Brown Textured Leather Formal Belt (Louis Philippe, ₹2336); #19 Black Bifold Leather Mens Wallet (Da Milano, ₹2999); #20 Men Brown Textured Genuine Leather Formal Belt (Louis Philippe, ₹1179)
+**Accessories**: #17 Solid Classic Brown Belt (Zodiac Online, ₹1799); #18 Solid Classic Black Belt (Zodiac Online, ₹1999); #19 Kazo Everra Classic Belt (Kazo, ₹916); #20 Voylla Silver Toned Classic Analog Watch (Voylla, ₹2249)
 
 Picks:
-- **#4 Best for festive and wedding wear**: This off-white cotton blend kurta offers a comfortable regular fit with a minimalistic solid pattern, ideal for your dad's 60th birthday celebrations that might include festive or wedding events. The cotton blend fabric balances breathability and durability, perfect for Indian weather. _Tip: Pair it with beige or cream churidar pants and leather sandals for a classic ethnic look._
-- **#17 Practical and stylish daily wallet**: This black bifold wallet from Da Milano is made of textured leather, combining elegance with everyday functionality. It suits your dad's daily use, offering a refined accessory under ₹3000 that complements both casual and formal outfits. _Tip: Gift it as a standalone or pair with a matching leather belt for a coordinated look._
-- **#10 Soft striped casual shirt**: A light blue cotton casual shirt with a regular fit and striped pattern, perfect for your dad's daily wear or casual office days. The breathable cotton fabric ensures comfort, making it a versatile and budget-friendly gift. _Tip: Wear it with chinos or jeans for a smart casual appearance._
+- **#1 Best festive linen kurta**: This navy blue slim fit kurta in linen by Spykar offers a breathable, elegant option perfect for festive occasions like your dad's 60th birthday. Linen's natural texture keeps it comfortable, while the solid color ensures versatility. _Tip: Pair it with white or beige churidar and leather sandals for a classic look._
+- **#9 Elegant leather loafers**: These black leather loafers from Louis Philippe combine formal style with comfort, ideal for daily or special occasion wear. Their breathable lining and slip-resistant sole make them practical yet polished. _Tip: Wear them with tailored trousers or jeans and a crisp shirt for a smart-casual vibe._
+- **#20 Classic silver analog watch**: This stainless steel silver-toned analog watch by Voylla is a timeless accessory that suits both formal and daily wear. Its sleek design adds a touch of sophistication without being flashy, perfect for a milestone gift. _Tip: Match it with leather belts or formal shoes to complete a refined look._
 
-> These picks blend ethnic charm, daily practicality, and casual style, perfect for celebrating your dad's milestone birthday under ₹3000.
+> These picks blend traditional style, everyday comfort, and timeless elegance for a thoughtful 60th birthday gift under ₹3000.
 
-Asks: What does your dad like more: ethnic wear, casual shirts, or accessories? [Ethnic wear / Casual shirts / Accessories]
+Asks: What does your dad like most? [Ethnic wear / Footwear / Accessories / Grooming kits]
 
-Follow-ups: `Show ethnic kurtas` `Show casual shirts` `Show wallets and belts`
+Follow-ups: `Show ethnic wear` `Show footwear` `Show accessories`
 
 ### 🧑 he likes watches
 
-*refine · first text 1.1s · first products 4.6s · total 7.5s · 7590/672 tokens* ✅
+*refine · first text 1.0s · first products 3.7s · total 6.5s · 7798/589 tokens* ✅
 
-Remembers: `Men` `Under ₹3,000` `~ durable` `~ classic` `~ stylish`
+Remembers: `Men` `Under ₹3,000` `~ classic` `~ elegant`
 
-> Since your dad likes watches, let's focus on stylish and practical watches under ₹3000 that make great gifts for his 60th birthday. - **Classic designs** suit milestone birthdays and can be worn daily or on special occasions. - **Leather or metal straps** offer durability and style; leather is more traditional, metal more versatile. - **Water resistance and brand reliability** add value and longevity to the gift.
+> Focusing on watches for your dad's 60th birthday gift under ₹3000, here are classic and elegant options that combine style with practicality.
 
-**Men's Watches**: #25 Formal Plain Leather Mens Belt · Black (Da Milano, ₹2449); #26 Men's Black & Brown Formal Reversible Belt (Cantabil, ₹719); #27 Formal Aztec Leather Mens Belt · Black (Da Milano, ₹2449); #28 Men's Textured Black Formal Leather Belt · Auto Lock mechanism (Cantabil, ₹899)
+**Classic Analog Watches**: #25 Duke Solid Stainless Steel Strap Analog Men Watch Silver Dial (DK009RM (Duke India, ₹1619); #26 Duke Solid Stainless Steel Strap Metal Body Analog Men Watch Silver Di (Duke India, ₹1829); #27 Voylla Silver Toned Classic Analog Watch (Voylla, ₹2249); #28 Voylla Silver Dial Analog Watch (Voylla, ₹1849)
 
 Picks:
-- **#25 Classic black leather belt**: This formal plain leather men's belt by Da Milano features a smooth black finish and solid pattern, perfect for a milestone birthday gift. Its plain leather fabric and regular fit make it a timeless accessory suitable for formal and semi-formal occasions, matching well with classic watches. _Tip: Pair it with a crisp white shirt and tailored trousers for a polished look._
-- **#27 Elegant embossed leather belt**: Also from Da Milano, this formal Aztec leather belt adds subtle texture with its embossed pattern while maintaining a classic black tone. It's ideal for someone who appreciates traditional style with a hint of detail, complementing a stylish watch under ₹3000. _Tip: Wear it with a dark blazer and dress shoes to highlight the embossed design._
-- **#26 Versatile reversible leather belt**: Cantabil's black and brown formal reversible belt offers two looks in one, crafted from leather with self-design detailing. This versatility suits both formal and casual wear, making it a practical gift that pairs well with various watch styles for everyday use. _Tip: Switch between black and brown sides to match your shoes effortlessly._
+- **#25 Best for formal occasions**: This Duke solid stainless steel strap analog watch features a sleek silver dial and a durable stainless steel band, making it perfect for formal events and work settings. Its classic design ensures it complements a variety of outfits, adding a touch of elegance without being flashy. _Tip: Pair it with a formal shirt and trousers for a polished look._
+- **#27 Elegant daily wear option**: The Voylla silver toned classic analog watch offers a unisex design with a solid stainless steel build, suitable for daily wear and formal occasions alike. Its understated silver finish makes it versatile and stylish for everyday use. _Tip: Wear it with both casual and semi-formal outfits to elevate your style effortlessly._
+- **#26 Great for casual and party wear**: This Duke stainless steel strap metal body analog watch in silver has solid detailing that adds a subtle flair, ideal for casual outings and parties. Its sturdy stainless steel construction ensures durability while maintaining a classic look. _Tip: Combine it with smart casual attire like jeans and a shirt for a refined yet relaxed vibe._
 
-> These belts blend classic style and practicality, perfect companions to a stylish watch gift for your dad's 60th birthday.
+> These silver-toned stainless steel watches offer classic elegance and versatility, perfect for gifting your dad within a ₹3000 budget.
 
-Asks: What style of watch does your dad prefer? [Leather strap / Metal strap / Digital / Analog]
+Asks: Does he prefer leather strap or metal bracelet watches? [Leather strap / Metal bracelet / No preference]
 
-Follow-ups: `Show leather strap watches` `Show metal strap watches` `Add wallets and belts`
+Follow-ups: `Show leather strap watches` `Show metal bracelet watches` `Add belts to gift options`
 
 ### 🧑 Compare these [refs 1, 2]
 
-*compare · first text 1.1s · first products – · total 6.1s · 7668/596 tokens* ✅
+*compare · first text 1.2s · first products – · total 5.8s · 7807/597 tokens* ✅
 
-Remembers: `Men` `Under ₹3,000` `~ durable` `~ classic` `~ stylish`
+Remembers: `Men` `Under ₹3,000` `~ classic` `~ elegant`
 
-> Here's a comparison of the two kurtas you pointed out.
+> Here's a comparison of the two kurta options you pointed out.
 
-Compare: #1 Off-White and Blue Cotton Short Kurta For Men â‚¬€œ The Kaftan Company vs #2 Navy Blue Cotton Printed Short Kurta
+Compare: #1 Men Blue Linen Solid Kurta vs #2 Men White Linen Solid Kurta
 
-Occasions: Casual Outing → #1, Festive Puja → tie, Daily Wear → #2, Gift Giving → #1, Office (Casual Fridays) → #1
+Occasions: Office → tie, Wedding guest → #1, Festive puja → #2, Casual outing → #2, Date night → #1, Gift-giving → #1
 
-- Pick A if you want a classic, versatile kurta with a subtle textured design suitable for gifting and semi-formal occasions.
-- Pick B if you prefer a budget-friendly, darker kurta with a vibrant printed pattern ideal for daily wear and casual outings.
-- Both kurtas are durable cotton fabrics, but A's off-white shade requires more care to maintain.
+- Pick A if you want a classic, elegant navy blue kurta for festive and evening occasions.
+- Pick B if you prefer a versatile white kurta suitable for casual, daily, and festive wear.
+- Both are excellent gifts within budget, choose based on recipient's color preference.
 
-Asks: Do you want the comparison focused on fabric, style, or price? [Fabric / Style / Price]
-
-Follow-ups: `Show more watches` `Add belts and wallets` `Under ₹2,000 options`
+Follow-ups: `Show leather strap watches` `Show metal bracelet watches` `More kurta options`
 
 ## Conversation 5
 
 ### 🧑 birthday party dress for my 6 year old daughter
 
-*recommend · first text 1.1s · first products 5.1s · total 8.5s · 7086/809 tokens* ✅
+*recommend · first text 11.9s · first products 23.0s · total 26.7s · 7620/896 tokens* **FAIL**
 
 Remembers: `Girls · 6y` `~ comfortable` `~ breathable`
 
-Personalized: Used your taste (green, purple, cotton blend) · Preferring ₹1.5k–₹2.1k
+> For your 6-year-old daughter's birthday party dress, choose fun, comfortable, and age-appropriate styles that let her move freely and shine.
 
-> For a 6-year-old girl's birthday party dress, choose something fun, comfortable, and age-appropriate with bright colors or playful prints. - **Frocks and dresses** in cotton or cotton-blend are breathable and easy to move in. - **Bright colors and prints** like florals or polka dots add a festive vibe. - **Avoid heavy embellishments** to keep the dress light and comfortable for play.
+**Flared Dresses**: #1 Baby Girls Pink Floral Lace Fit and Flare Party Dress Regular Fit West (MiniKlub, ₹1328); #2 Baby Girls Pink Floral Applique Fit and Flare Party Dress Regular Fit (MiniKlub, ₹1328); #3 Babyhug Sleeveless Floral Corsage Fit and Flare Glittery Party Dress · Dusty Pink (Babyhug, ₹1313); #4 Pink and Green Block Printed Cotton Tie-up Flared Dress (Tjori, ₹451)
 
-**Party Frocks**: #1 Kidbea Girls Cotton Frock · Heart Printed Dress for Summer (Kidbea, ₹499); #2 Summer Daisy- Pink & Yellow Organic Cotton Dress For Girls (Littleens, ₹4770); #3 Light Organic Cotton Girls Frock Set · Pack of 4 (Pink, Mustard Yellow, Sky Blue & Rust) (Kidbea, ₹2699); #4 Elite VCK28 Devalekha Girl Cotton Frock Online (Kusvaa, ₹980)
+**Co-ord Sets**: #9 Cream Plain Straight Fit Pure Cotton Co-Ord Set For Girls (Neofaa, ₹1799); #10 Jaw-dropping GRW132 Ankita Cotton Co-Ord Set For Kids Online (Kusvaa, ₹1500); #11 Exclusive Hot Pink Pleated Co-Ord Set For Girls (Neofaa, ₹2999); #12 Kids Pink Printed Cotton Co-Ords (Libas, ₹659)
 
-**Ethnic Dresses**: #9 Girls Light Yellow Cotton Schiffli Straight kurta With Palazzo (Aurelia, ₹1160); #10 Girls Ethnic Wear Pink Floral Screen Print Cotton Cambric Lehenga Choli Set with Yellow Chiffon Dupatta (Vastramay, ₹6267); #11 Girls Ethnic Cotton Cambric Yellow Bandhani Printed Lehenga Choli Set with Organza Dupatta (Vastramay, ₹7197); #12 Zuari Supima Cotton Pink Kurta Set (Mulmul, ₹5950)
+**Ethnic Skirts with Tops** _(Few exact matches, so also showing related categories.)_: #17 Girls Ethnic Wear Pink Floral Screen Print Cotton Cambric Lehenga Choli Set with Yellow Chiffon Dupatta (Vastramay, ₹6267); #18 Girls Ethnic Cotton Cambric Yellow Bandhani Printed Lehenga Choli Set with Organza Dupatta (Vastramay, ₹7197); #19 Girls' Red Ethnic Motifs Embroidered Georgette Straight Kurta with Sha (Aurelia, ₹3599); #20 Bitiya by Bhama Girls Pink Ethnic motifs woven design Kurta With Shara (Bhama Designs, ₹1429)
 
 Picks:
-- **#1 Best budget-friendly party frock**: This pink cotton blend frock with heart prints is breathable and comfortable, perfect for a 6-year-old's birthday party. Its regular fit allows easy movement for play, and the printed design adds a fun, festive touch without heavy embellishments. _Tip: Pair it with simple sandals and a cute hairband for a playful look._
-- **#4 Light and airy handblock print frock**: A white cotton frock with handblock prints, this flowy dress is ideal for a party setting while keeping your child cool and comfortable. The handblock print adds a charming ethnic touch suitable for special occasions without being too heavy. _Tip: Add colorful accessories like a bright hair clip to enhance the look._
-- **#9 Comfortable ethnic kurta set**: This light yellow cotton blend kurta with palazzo pants offers a breathable and comfortable fit with printed detailing. It's perfect for a party with a slightly traditional vibe, allowing your daughter to move freely and stay comfortable. _Tip: Complete the outfit with simple juttis and light jewelry for a festive feel._
+- **#3 Glittery and flowy party dress**: This dusty pink sleeveless fit and flare dress from Babyhug is made with glittery fabric and floral detailing, perfect for a 6-year-old's birthday party. Its flowy fit allows easy movement and comfort while adding sparkle to the celebration. _Tip: Pair with simple sandals and a cute hairband to keep the look playful and age-appropriate._
+- **#12 Comfortable cotton co-ord set**: This pink printed cotton co-ord set from Libas offers breathable comfort with its soft cotton fabric, ideal for active kids at a party. The printed design adds festive charm without compromising on ease of wear. _Tip: Add bright sneakers or ballerina flats for a fun and practical party outfit._
+- **#18 Festive yellow lehenga choli set**: This yellow Bandhani printed lehenga choli set from Vastramay is made of cotton cambric, combining traditional festive style with breathable fabric. Its flowy silhouette is great for a party, giving your daughter a vibrant and comfortable ethnic look. _Tip: Complete the outfit with the included organza dupatta and simple sandals for a festive vibe._
 
-> These picks balance comfort, playful prints, and festive style, perfect for a lively 6-year-old's birthday celebration.
+> These picks balance sparkle, comfort, and festive charm, perfect for your daughter's fun and stylish birthday party look.
 
-Asks: What colors or styles does she like? [Bright & colorful / Pastels / Floral prints / Simple & plain]
+Asks: What style does she prefer? [Flared dresses / Co-ord sets / Ethnic skirts with tops]
 
-Follow-ups: `Show cotton frocks` `Add ethnic dresses` `Under ₹1,500`
+Follow-ups: `Under ₹1,500` `Add matching shoes` `Show cotton fabrics`
+
+**Checks failed:**
+- GUIDANCE: recommend intro has no guidance bullets
 
 ### 🧑 not pink please
 
-*refine · first text 1.4s · first products 7.2s · total 10.9s · 7629/900 tokens* ✅
+*refine · first text 1.6s · first products 8.5s · total 12.4s · 8594/976 tokens* ✅
 
 Remembers: `Girls · 6y` `✕ Pink` `~ comfortable` `~ breathable`
 
-> Got it! I'll focus on birthday party dresses for your 6-year-old daughter that are comfortable and breathable but avoid pink shades.
+> I've removed pink options and focused on other vibrant, comfortable colours for your daughter's birthday party dress.
 
-**Party Frocks Without Pink**: #17 Baby Girls Light Blue and White Cotton Blend Striped Dress with Heart (MiniKlub, ₹1048); #18 Cotton Blend Drop Waist Gingham Dress (6-16 Yrs) (Marks & Spencer, ₹2499); #19 Baby Girls Mint Green Cotton Blend Dress Tulle Overlay Floral Applique (MiniKlub, ₹908); #20 Toddler Girl Knee Length Embroidered Cotton Dress with Bow Detailing (Lilliput World, ₹1295)
+**Flared Dresses**: #25 Baby Girls Mint Green Cotton Blend Dress Tulle Overlay Floral Applique (MiniKlub, ₹908); #26 Cotton Blend Drop Waist Gingham Dress (6-16 Yrs) (Marks & Spencer, ₹2499); #27 Baby Girls Light Blue and White Cotton Blend Striped Dress with Heart (MiniKlub, ₹1048); #28 Toddler Girl Knee Length Embroidered Cotton Dress with Bow Detailing (Lilliput World, ₹1295)
 
-**Ethnic Dresses Without Pink** _(Few exact matches, so also showing related categories.)_: #25 Girls Silk Blend Embroidered Lehenga Choli Set with Dupatta (Vastramay, ₹4857)
+**Co-ord Sets**: #33 Cotton Linen Top & Pants Co-ord Set · Hand-Block Printed (Dulaar, ₹2600); #34 Cotton Linen Top & Pants Co-ord Set · Hand-Block Printed (Dulaar, ₹2600); #35 Kids Blue Printed Cotton Co-Ords (Libas, ₹699); #36 Girls "Must Have Snooze Coordinate Set. Refreshing Graphic T-Shirt With Matching Pattern Printed Trackpant. Comfortable Body For Ease. Breathable And Absorbent 100% Cotton Single Jersey Fabric." (Styleunion, ₹499)
+
+**Ethnic Skirts with Tops** _(Few exact matches, so also showing related categories.)_: #41 Girls Ethnic Cotton Cambric Yellow Bandhani Printed Lehenga Choli Set with Organza Dupatta (Vastramay, ₹7197); #42 Kids Red Printed Cotton Straight Kurta With Skirt & Dupatta (Libas, ₹988); #43 Bitiya By Bhama Girls Off White & Yellow Block Printed Cotton Shirt With Skirt Online (Bhama Designs, ₹999); #44 Kalki Beige Cream Printed Kurta And Palazzo Set In Cotton For Girls (Kalki, ₹1821)
 
 Picks:
-- **#19 Best for festive comfort**: This mint green party dress features a cotton blend base with a soft polyester tulle overlay adorned with floral applique, giving it a delicate and festive look. Its flared fit ensures comfort and ease of movement, perfect for a 6-year-old at a birthday party. _Tip: Pair it with white sandals and a simple hairband to keep the look fresh and playful._
-- **#17 Light and breathable partywear**: Made from a cotton blend, this light blue and white striped dress combines a comfortable bodice with a soft net skirt and lining. The regular fit and breathable fabric make it ideal for active kids at parties, while the stripes add a charming touch without using pink. _Tip: Add a pair of white sneakers for a cute yet practical party outfit._
-- **#20 Casual yet festive yellow dress**: This yellow knee-length dress crafted from pure cotton features embroidered detailing and bow accents, blending casual comfort with a festive vibe. Its regular fit and breathable fabric suit a child's playful nature during celebrations. _Tip: Complement it with matching yellow or white sandals and a small bracelet for a sweet look._
-- **#25 Elegant ethnic partywear**: A peach silk blend lehenga choli set with embroidered patterns and a flowy fit, this outfit is perfect for more formal festive occasions or weddings. The silk blend fabric adds a subtle sheen, while the peach tone offers a soft alternative to pink. _Tip: Pair with delicate gold jewelry and comfortable mojris to complete the traditional look._
+- **#25 Best mint green party dress**: This Mint Green flared dress for girls is made from a cotton blend with a polyester tulle overlay, featuring floral applique embellishments. Its breathable cotton base and soft tulle make it comfortable and festive, perfect for a 6-year-old's birthday party without any pink hues. _Tip: Pair it with white sandals and a simple hairband to keep the look fresh and playful._
+- **#28 Bright yellow embroidered dress**: A cheerful yellow cotton dress with embroidered details and bow accents, this regular fit frock offers comfort and style for casual or festive parties. The pure cotton fabric ensures breathability, ideal for active kids at a birthday celebration. _Tip: Add white sneakers or ballerina flats to balance comfort with cuteness._
+- **#42 Vibrant red ethnic kurta set**: This red printed cotton/poly chiffon kurta with skirt and dupatta set is festive and comfortable, combining breathable cotton with lightweight chiffon. Its regular fit and bright red color make it a standout choice for party occasions, avoiding pink but still lively and traditional. _Tip: Complete the look with simple juttis and minimal jewelry for a charming ethnic vibe._
+- **#35 Cool blue printed co-ord set**: A blue printed cotton co-ord set with a flowy fit, this outfit is breathable and easy to wear for daily or festive occasions. The cotton fabric ensures comfort for a young girl, while the printed pattern adds a fun, vibrant touch without any pink shades. _Tip: Pair with sandals or slip-ons and a light cardigan if needed for cooler weather._
 
-> These picks offer breathable, comfortable partywear options in soft blues, greens, yellows, and peach—perfect for a stylish, pink-free celebration.
+> These picks offer vibrant, comfortable, and breathable options in mint, yellow, red, and blue, perfect for a lively birthday party without any pink.
 
-Asks: Would you prefer a western-style frock or an ethnic dress for the party? [Western frock / Ethnic dress]
+Asks: What colours does she like besides pink? [Yellow / Blue / Green / Orange]
 
-Follow-ups: `Show only yellow dresses` `Add blue color options` `Include floral prints`
+Follow-ups: `Show more dresses` `Show more co-ord sets` `Show ethnic skirts`
 
 ### 🧑 which one is the most comfortable?
 
-*product_question · first text 7.4s · first products – · total 8.1s · 8511/279 tokens* ✅
+*product_question · first text 2.8s · first products – · total 3.7s · 9814/295 tokens* ✅
 
 Remembers: `Girls · 6y` `✕ Pink` `~ comfortable` `~ breathable`
 
-> The most comfortable dress for your 6-year-old daughter is the [Pure Cotton Floral Dress (6-16 Yrs)](#21) by Marks & Spencer.  It's made of 100% cotton, which is breathable and soft on sensitive skin, perfect for active kids at a party. The regular fit allows easy movement without being restrictive. Compared to dresses with tulle overlays or silk blends, pure cotton is lighter and cooler, ideal for comfort during celebrations.
+> The most comfortable option for your 6-year-old daughter would be the [Pure Cotton Floral Dress (#29)] or the [Girls White Floral Textured Cotton Dress (#31)]. Both are made from 100% cotton, which is breathable and soft on the skin, ideal for comfort at a party. The fit is regular or fit & flare, allowing ease of movement, and cotton fabric keeps her cool and comfortable throughout the event. The other cotton blend or tulle-overlay dresses may be less breathable or slightly less soft for sensitive skin.
 
-Follow-ups: `Show more ethnic dresses` `Show more frocks` `Under ₹1,000`
+Follow-ups: `Show more yellow dresses` `Add co-ord sets` `Include sleeveless options`
 
 ## Conversation 6
 
 ### 🧑 bodycon dress, no cutouts, not red
 
-*recommend · first text 1.2s · first products 7.1s · total 10.4s · 6756/743 tokens* ✅
+*recommend · first text 7.4s · first products 14.2s · total 18.0s · 7017/676 tokens* ✅
 
-Remembers: `✕ Red` `✕ cutouts` `~ fitted`
+Remembers: `✕ Red` `✕ cutouts` `~ bodycon`
 
 Personalized: Used your taste (green, purple, cotton blend) · Preferring ₹1.5k–₹2.1k
 
-> For a bodycon dress without cutouts and avoiding red, I suggest exploring versatile colors and fabrics that enhance your silhouette while keeping the look sleek and elegant. - **Solid colors** like black, navy, or jewel tones offer a classic, slimming effect and are easy to accessorize. - **Fabrics** such as stretch cotton, rayon blends, or jersey provide comfort and a flattering fit. - **Avoid cutouts** but consider subtle details like ruching or asymmetric necklines for interest without revealing skin. - **Pair with** simple heels and minimal accessories to keep the focus on the dress's shape.
+> A bodycon dress without cutouts and avoiding red can be sleek and elegant for many occasions. - **Solid colors** like black, navy, or jewel tones work well for bodycon styles and keep the look sophisticated. - **Fabric choice** matters: stretchy blends like rayon or modal blends offer comfort and a flattering fit. - **Avoid cutouts** by selecting dresses with clean lines and minimal embellishments for a polished look.
 
-**Solid Color Bodycon Dresses**: #1 Solid Green Bodycon Dress (Outzidr, ₹699); #2 Blue Spaghetti Solid Bodycon Dress (Outzidr, ₹1649); #3 Latin Quarters Women'S Black Sweatheart Neck Sleeveless Solid Party Bodycon Dress Shrug Set (Latin Quarters, ₹3499); #4 Latin Quarters Women'S Black V-Neck Cap Sleeves Solid Party Bodycon Dress (Latin Quarters, ₹1400)
+**Solid Color Bodycon Dresses**: #1 Navy Blue Bodycon Polo Dress (ONLY, ₹1294); #2 Navy blue Lace Detail Printed Bodycon Dress (Outzidr, ₹1749); #3 Navy Blue Striped Square Neck Bodycon Dress (Outzidr, ₹1649); #4 Pink Bodycon Dress (VERO MODA, ₹1119)
 
 Picks:
-- **#4 Best budget black bodycon**: This black bodycon dress from Latin Quarters is made of nylon stretch fabric, offering a classic fit that flatters your silhouette without cutouts. Its solid black color and cap sleeves make it perfect for evening parties while staying within your budget. _Tip: Pair it with silver or gold minimalist jewelry and black heels for a sleek look._
-- **#2 Elegant blue party dress**: The blue spaghetti strap bodycon dress by Outzidr features a solid pattern and bodycon fit, ideal for club wear or evening parties. The vibrant blue adds color without being red, and the fitted cut enhances your shape comfortably. _Tip: Add a clutch and strappy heels to complete your party-ready outfit._
-- **#1 Casual green bodycon option**: This solid green bodycon dress from Outzidr is versatile for casual or evening occasions. Its simple design and bodycon fit provide a flattering silhouette without any cutouts, making it a great choice for less formal events or day-to-night wear. _Tip: Wear with nude flats or sandals and minimal accessories for an effortless look._
+- **#2 Best for evening parties**: This navy blue lace detail printed bodycon dress combines a floral lace fabric with a fitted silhouette, perfect for evening or party occasions. The lace adds a touch of elegance without any cutouts, keeping it classy and suitable for your preference. _Tip: Pair it with silver heels and delicate jewelry for a polished party look._
+- **#3 Great for versatile occasions**: The navy blue striped square neck bodycon dress offers a stylish twist with its striped pattern and square neckline, made for party and casual wear. Its bodycon fit flatters your shape while avoiding cutouts, making it a chic, everyday option. _Tip: Wear with ankle boots or flats and a denim jacket for a casual vibe._
+- **#4 Budget-friendly solid pink option**: This pink bodycon dress in 100% polyester is a solid color choice that fits your budget and avoids red hues. Its simple, fitted cut is ideal for casual or party settings, giving you a feminine and comfortable look. _Tip: Add nude pumps and a clutch to complete a soft, elegant outfit._
 
-> These picks offer fitted, cutout-free bodycon dresses in classic black, vibrant blue, and versatile green, perfect for your style and budget.
+> These picks offer elegant bodycon fits in navy and pink, all without cutouts, perfect for casual to party occasions within your budget.
 
-Asks: What color do you prefer instead of red? [Black / Navy / Green / Purple]
+Asks: What occasion is the dress for? [Party / Casual / Office / Date]
 
-Follow-ups: `Show sleeveless options` `Add long sleeve dresses` `Under ₹3,000`
+Follow-ups: `Show sleeveless options` `Add long sleeves` `Under ₹3,000`
 
 ### 🧑 longer ones
 
-*refine · first text 1.0s · first products 4.3s · total 7.9s · 7199/702 tokens* ✅
+*refine · first text 1.2s · first products 5.9s · total 9.5s · 7393/594 tokens* ✅
 
-Remembers: `✕ Red` `✕ cutouts` `~ fitted`
+Remembers: `✕ Red` `✕ cutouts` `~ bodycon`
 
-> Here are longer bodycon dresses without cutouts, maintaining elegance and comfort. - **Longer length** adds sophistication and can be more versatile for various occasions. - **Solid colors** like black and navy remain flattering and easy to style. - **Look for stretch fabrics** to ensure a comfortable, fitted silhouette. - **Avoid cutouts** but consider subtle design elements like sleeve length or neckline shape for added style.
+> Here are longer bodycon dresses without cutouts, avoiding red, for a sleek and elegant look.
 
-**Long Solid Bodycon Dresses**: #9 trueBrowns Blue Cotton Blend Long Dress (True Browns, ₹3000); #10 Ivory Ribbed Knit Dress (VERO MODA, ₹1199); #11 Luca Supima Cotton Black Long Dress (Mulmul, ₹11900); #12 Marquee Green Lurex Bodycon Midi Dress (VERO MODA, ₹2999)
+**Long Bodycon Dresses**: #9 Girls Navy Blue Polyester Dress Sequin and Ruffle Detail Regular Fit P (MiniKlub, ₹1493); #10 Pink Solid Bodycon Short Dress (Zink London, ₹499); #11 Gerua Blue Printed Polyester Dress (Libas, ₹1099); #12 Navy blue Lace Detail Printed Bodycon Dress (Outzidr, ₹1749)
 
 Picks:
-- **#12 Best for evening glam**: This green lurex bodycon midi dress combines a sleek fit with a subtle metallic shimmer, perfect for evening parties or casual outings where you want a bit of sparkle. The blend of nylon, acetate, metallic fibers, and elastane ensures stretch and comfort while maintaining a polished look. _Tip: Pair it with nude heels and minimal jewelry to let the dress shine._
-- **#10 Easiest all-day comfort**: The ivory ribbed knit dress offers a bodycon fit in a soft, stretchy fabric blend of viscose, nylon, and polyester, making it comfortable for daily wear while still flattering your silhouette. Its textured pattern adds subtle interest without overwhelming the simplicity. _Tip: Style with casual sneakers or sandals and a denim jacket for a relaxed vibe._
-- **#9 Best casual maxi option**: This blue cotton blend long dress has a regular fit and solid color, making it a versatile choice for casual or daily wear. The cotton blend fabric is breathable and easy to maintain, ideal for warmer weather and longer wear. _Tip: Add a belt to define your waist and accessorize with statement earrings for a polished casual look._
+- **#12 Elegant navy blue bodycon**: This navy blue bodycon dress features lace and floral print details, blending sophistication with a sleek fit. Its bodycon cut flatters the figure, perfect for evening parties or going out, while the lace adds a delicate texture. _Tip: Pair it with nude heels and simple silver jewelry to highlight the lace details._
+- **#9 Party-ready navy blue dress**: A regular fit navy blue polyester dress with sequin and ruffle embellishments, designed for festive occasions. The soft inner lining ensures comfort for longer wear, and the embellishments add sparkle without overwhelming the look. _Tip: Style it with metallic sandals and a clutch for a festive vibe._
+- **#10 Affordable pink bodycon dress**: Made from a cotton-polyester-lycra blend, this pink solid bodycon dress offers stretch and comfort suitable for casual parties. Though pink, it avoids red tones and provides a sleek silhouette for a youthful, fun look. _Tip: Wear with white sneakers or block heels for a casual yet chic appearance._
 
-> These picks offer a range of fitted, longer dresses from casual to party-ready, all without cutouts and with comfortable fabrics.
+> These picks offer elegant and comfortable bodycon options in navy and pink, ideal for parties and evening outings without cutouts or red hues.
 
-Asks: What length do you prefer for the dress? [Knee-length / Midi / Maxi]
+Asks: What length do you prefer for your bodycon dress? [Knee-length / Midi / Maxi]
 
-Follow-ups: `Show sleeveless options` `Add jackets to match` `Under ₹2,000`
+Follow-ups: `Show sleeveless options` `Add lace details` `Under ₹2000`
 
 ### 🧑 Will this suit a pear body type? [refs 2]
 
-*product_question · first text 3.7s · first products – · total 4.7s · 7207/269 tokens* ✅
+*product_question · first text 2.9s · first products – · total 3.6s · 7426/241 tokens* ✅
 
-Remembers: `✕ Red` `✕ cutouts` `~ fitted`
+Remembers: `✕ Red` `✕ cutouts` `~ bodycon`
 
-> The [Blue Spaghetti Solid Bodycon Dress](#2) can suit a pear body type if styled thoughtfully. Its bodycon fit will highlight curves, so balance is key—pair it with a structured jacket or shrug to broaden the shoulders and draw attention upward. The spaghetti straps may emphasize the shoulders and arms, which helps create proportion. Since it's a longer bodycon dress in a solid blue, it offers a sleek silhouette without adding bulk, flattering the hips gracefully.
+> Yes, the [Navy blue Lace Detail Printed Bodycon Dress](#2) can suit a pear body type well. The navy color and floral lace details draw attention upward, balancing wider hips. The bodycon fit will highlight your curves, so ensure the dress has some stretch for comfort. Pair it with lighter accessories on top to enhance the balanced look for parties or evenings out.
 
-Asks: What occasion is this dress for? [Casual / Party / Office / Other]
-
-Follow-ups: `Show more black dresses` `Show cotton fabric only` `Add accessories to match`
+Follow-ups: `Show more navy blue` `Show black dresses` `Show sleeveless options`
 
 ## Conversation 7
 
 ### 🧑 Goa trip outfits for a guy, 6000 total
 
-*recommend · first text 1.0s · first products 7.5s · total 9.8s · 7330/881 tokens* ✅
+*recommend · first text 1.3s · first products 12.3s · total 16.0s · 7575/935 tokens* ✅
 
-Remembers: `Men` `Under ₹6,000` `~ breathable` `~ comfortable`
+Remembers: `Men` `Under ₹6,000` `~ breathable` `~ lightweight`
 
 Personalized: Used your taste (green, purple, cotton blend)
 
-> For a Goa trip, go for light, breathable fabrics and vibrant, casual styles that keep you cool and stylish. - **Cotton and linen** fabrics are perfect for the beach climate, offering comfort and breathability. - **Bright colors and prints** like tropical or floral add a fun vacation vibe. - **Mix and match** casual shirts with shorts or light trousers for versatile looks. - **Comfortable footwear** like sandals or slip-ons are a must for easy walking. - **Keep accessories minimal** but consider sunglasses and a hat for sun protection.
+> For a Goa trip, lightweight, breathable, and casual outfits work best for comfort and style in the tropical climate. - **Casual shirts and tees** in cotton or linen keep you cool and stylish. - **Shorts and light trousers** are perfect for beach and city exploring. - **Footwear like sandals or casual sneakers** offer comfort and ease. - **Accessories like sunglasses and caps** protect you from the sun and add to the look.
 
-**Casual Shirts**: #1 Men's Linen Cotton Casual Wear Regular Fit Shirts/Cottonworld (Cottonworld, ₹2590); #2 Men's Linen Cotton Casual Wear Regular Fit Shirts (Cottonworld, ₹2390); #3 Men's Cotton White Solid Casual Shirt (Dennis Lingo, ₹899); #4 Men's Cotton Olive Green Solid Casual Shirt (Dennis Lingo, ₹899)
+**Casual Shirts & Tees**: #1 Men's Linen Cotton Casual Wear Regular Fit Shirts (Cottonworld, ₹2390); #2 Men's Cotton White Solid Casual Shirt (Dennis Lingo, ₹899); #3 Men's Linen Cotton Casual Wear Regular Fit Shirts/Cottonworld (Cottonworld, ₹2590); #4 Men's Cotton Olive Green Solid Casual Shirt (Dennis Lingo, ₹899)
 
-**Shorts and Light Trousers**: #9 Explore Versatile Men's White Cotton Shorts (Celio, ₹1999); #10 Celio India Men’s White Cotton Shorts Online (Celio, ₹2499); #11 Men's Solid Cotton Stretch Shorts Online (Indian Terrain, ₹2399); #12 Men's Solid Cotton Blend Shorts Online (Indian Terrain, ₹1499)
+**Shorts & Light Trousers**: #9 Men's Solid Cotton Blend Shorts Online (Indian Terrain, ₹1699); #10 Celio India Men’s White Cotton Shorts Online (Celio, ₹2499); #11 Men's Dark Blue Solid Cotton Relaxed Fit Mid-Rise Cargo Trousers (Dennis Lingo, ₹1429); #12 Celio India Men’s Beige Cotton Loose Shorts Online (Celio, ₹2499)
 
-**Comfortable Footwear**: #17 Refresh Looks With Black Casual Leather Sandals for Mens Now (Inc.5, ₹1316); #18 Now Mens Brown Solid Round Toe Casual Leather Slipon Shoes (Inc.5, ₹1476); #19 Men's Comfort Sandals · WGE53242 Black (Walkaroo, ₹799); #20 Men's Daily Wear Comfort Sandals · WE1335 Brown (Walkaroo, ₹579)
+**Comfortable Footwear**: #17 Refresh Looks With Black Casual Leather Sandals for Mens Now (Inc.5, ₹1316); #18 Mens Black Casual Sandals for Polished Looks · Comfort Today (Inc.5, ₹1316); #19 Men's Black Casual Comfort Sandals Online (Fausto, ₹999); #20 Men's Black Design Comfort Casual Sandals Online (Fausto, ₹1199)
 
 Picks:
-- **#2 Bright breathable linen shirt**: This yellow linen-cotton blend shirt is perfect for a Goa trip with its breathable fabric and vibrant color, keeping you cool and stylish in the tropical climate. _Tip: Pair it with light-colored shorts for a fresh vacation look._
-- **#9 Versatile white cotton shorts**: These white cotton chino shorts have a regular fit and breathable fabric, ideal for casual beachwear and daily comfort during your trip. _Tip: Match with the yellow linen shirt for a bright, relaxed outfit._
-- **#19 Comfortable black travel sandals**: These black synthetic leather sandals offer comfort and easy wear, perfect for walking around Goa's beaches and streets all day. _Tip: Wear with shorts and a casual shirt for effortless style and comfort._
+- **#1 Best breathable linen shirt**: This yellow shirt blends 55% linen and 45% cotton, offering excellent breathability and a relaxed regular fit, perfect for the warm, humid Goa climate. Its solid color and casual style make it versatile for day trips or beachside strolls. _Tip: Pair it with light shorts or chinos for a fresh, vacation-ready look._
+- **#10 Ideal beach-ready white shorts**: These white cotton shorts are 100% cotton with a straight fit, making them lightweight and comfortable for beach days or casual outings. The solid white color complements bright or neutral tops, enhancing the tropical vibe. _Tip: Combine with a colorful linen shirt or a simple tee for easy style._
+- **#17 Comfortable leather casual sandals**: These black leather sandals offer durability and breathability, with a casual design suited for daily wear and walking around Goa's streets or beaches. Leather ensures comfort and a polished look compared to synthetic options. _Tip: Wear them with shorts or rolled-up trousers to keep cool and stylish._
 
-> These picks combine breathable fabrics, bright colors, and comfortable footwear for a stylish, practical Goa trip outfit within budget.
+> These picks balance breathable fabrics, casual fits, and versatile colors for comfortable, stylish Goa trip outfits within budget.
 
-Asks: Do you prefer more casual beachwear or smart casual for your Goa trip? [Casual beachwear / Smart casual]
+Asks: What style do you prefer for your Goa trip outfits? [Casual and relaxed / Sporty and active / Trendy and fashionable]
 
-Follow-ups: `Add sunglasses and hats` `Show budget-friendly options` `Include swimwear suggestions`
+Follow-ups: `Under ₹3,000 per item` `Show cotton only` `Add beach accessories`
 
 ### 🧑 add sunglasses too
 
-*recommend · first text 1.2s · first products 4.5s · total 7.6s · 7668/656 tokens* ✅
+*refine · first text 1.5s · first products 8.8s · total 13.0s · 8779/997 tokens* ✅
 
-Remembers: `Men` `Under ₹6,000` `~ breathable` `~ comfortable`
+Remembers: `Men` `Under ₹6,000` `~ breathable` `~ lightweight`
 
-Personalized: Used your taste (green, purple, cotton blend)
+> Adding sunglasses is perfect for sun protection and completing your Goa trip look. Choose styles that suit your face shape and offer UV protection.
 
-> Sunglasses are a stylish and practical addition for your Goa trip, protecting your eyes while enhancing your look. - **Choose UV protection**: Essential for sunny beach days. - **Go for classic shapes** like aviators or wayfarers that suit most face shapes. - **Consider lightweight frames** for comfort in the heat.
+**Casual Shirts & Tees**: #25 Men's Linen Cotton Casual Wear Regular Fit Shirts (Cottonworld, ₹2390); #26 Men's Stylish Solid Casual Shirt · Regular Fit (Cantabil, ₹1349); #27 Men's Stylish Solid Casual Shirt · Regular Fit (Cantabil, ₹1349); #28 Men's Linen Cotton Casual Wear Regular Fit Shirts/Cottonworld (Cottonworld, ₹2590)
 
-**Men's Sunglasses**: #25 Carlton London Black Toned Black Polarised And Uv Protected Lens Mens Aviator Sunglasses For Men (Carlton London, ₹2032); #26 Stylish Cap for Men & Women UV Protection Lightweight & Breathable Fabric Adjustable Closure Comfortable Fit Ideal for Outdoor, Sports & Casual Use Black (Cult Store, ₹279); #27 Carlton London Black Toned Black Polarised And Uv Protected Lens Mens Rectangle Sunglasses For Men (Carlton London, ₹1172); #28 Carlton London Blue Toned Yellow Polarised And Uv Protected Lens Mens Wayfarer Sunglasses For Men (Carlton London, ₹1674)
+**Shorts & Light Trousers**: #33 Men's Solid Cotton Blend Shorts Online (Indian Terrain, ₹1499); #34 Men's Solid Cotton Blend Shorts Online (Indian Terrain, ₹1699); #35 Men's Cotton Linen Casual Wear Regular Fit Pants/Cottonworld (Cottonworld, ₹2290); #36 Men's Linen Cotton Casual Wear Regular Fit Pants/Cottonworld (Cottonworld, ₹3790)
+
+**Comfortable Footwear**: #41 Refresh Looks With Black Casual Leather Sandals for Mens Now (Inc.5, ₹1316); #42 Brown Casual Leather Sandals for Mens for Chic Style · Smart (Inc.5, ₹3290); #43 Leap7X AIRFLOW-S2 Men's Black Casual Sandals · Velcro Closure with Airflow Outsoles (Liberty Shoes, ₹2499); #44 Men's Black Casual Comfort Sandals Online (Fausto, ₹999)
+
+**Sunglasses**: #49 Carlton London Black Toned Black Polarised And Uv Protected Lens Mens Aviator Sunglasses For Men (Carlton London, ₹2032); #50 Carlton London Black Toned Black Polarised And Uv Protected Lens Mens Rectangle Sunglasses For Men (Carlton London, ₹1172); #51 Stylish Cap for Men & Women UV Protection Lightweight & Breathable Fabric Adjustable Closure Comfortable Fit Ideal for Outdoor, Sports & Casual Use Black (Cult Store, ₹279); #52 Carlton London Metallic Toned Brown Polarised And Uv Protected Lens Mens Square Sunglasses For Men (Carlton London, ₹1607)
 
 Picks:
-- **#25 Classic black aviators with UV protection**: These Carlton London aviator sunglasses feature black toned polarized lenses that protect your eyes from UV rays, perfect for sunny beach days in Goa. Their solid black frame is timeless and suits most face shapes, ensuring you look stylish and feel comfortable during travel. _Tip: Pair these aviators with casual tees and shorts for a cool, effortless look._
-- **#27 Affordable black wayfarers for daily wear**: These Carlton London rectangle sunglasses come with polarized and UV protected lenses in a sleek black frame. Their regular fit and solid pattern make them versatile for daily travel and casual outings, all within a budget-friendly price. _Tip: Wear these wayfarers with light cotton shirts and chinos for a smart casual vibe._
-- **#28 Trendy blue wayfarers for a pop of color**: These Carlton London wayfarers have blue toned yellow polarized lenses that add a fun splash of color while offering UV protection. The solid blue frame is great for casual and travel occasions, giving you a fresh, vibrant look in the sunny weather. _Tip: Match these with neutral or white outfits to let the sunglasses stand out._
+- **#25 Best breathable linen shirt**: This yellow shirt blends 55% linen and 45% cotton, making it lightweight and breathable—ideal for warm Goa weather and casual travel days. Its regular fit ensures comfort without being too loose or tight. _Tip: Pair it with light shorts or linen trousers for a fresh, vacation-ready look._
+- **#33 Light and airy shorts**: These off-white cotton blend shorts are perfect for casual outings and daily wear. The 70% cotton fabric keeps them breathable and comfortable, while the chino style adds a smart touch to your travel wardrobe. _Tip: Match with the yellow linen shirt for a bright, relaxed ensemble._
+- **#49 Classic aviator sunglasses**: These black aviator sunglasses feature polarized and UV-protected lenses, perfect for shielding your eyes from strong sunlight during travel. Their timeless design complements casual and travel outfits effortlessly. _Tip: Wear them with any casual shirt and shorts combo to complete your look and protect your eyes._
+- **#41 Comfortable black leather sandals**: These black leather sandals offer a solid, stylish option for casual daily wear. Leather ensures durability and breathability, making them suitable for walking around comfortably during your trip. _Tip: Pair with shorts and a linen shirt for an easy, stylish vacation outfit._
 
-> These picks combine UV protection, comfort, and style in classic aviator and wayfarer shapes perfect for your Goa travel needs.
+> These picks combine breathable fabrics, sun protection, and comfortable footwear for a stylish, practical Goa travel wardrobe.
 
-Asks: Do you prefer classic styles like aviators or something trendier? [Aviators / Wayfarers / Trendy styles]
+Asks: What style of sunglasses do you prefer? [Aviator / Wayfarer / Round / Sporty]
 
-Follow-ups: `Add hats for sun` `Show beachwear` `Include casual watches`
+Follow-ups: `Under ₹3,000` `Show leather sandals` `Add caps or hats`
 
 ## Conversation 8
 
 ### 🧑 old money look for men
 
-*recommend · first text 1.1s · first products 7.9s · total 12.8s · 7648/1125 tokens* ✅
+*recommend · first text 1.0s · first products 8.7s · total 13.2s · 8009/1175 tokens* ✅
 
-Remembers: `Men` `~ classic` `~ tailored` `~ minimal`
+Remembers: `Men` `~ classic` `~ refined` `~ timeless`
 
 Personalized: Used your taste (green, purple, cotton blend) · Preferring ₹1.5k–₹2.1k
 
-> For an old money look for men, focus on timeless, high-quality pieces with a neutral palette and classic tailoring. - **Tailored blazers and trousers** in navy, grey, or beige exude understated elegance. - **Crisp white shirts** and fine knitwear add sophistication without flashiness. - **Leather loafers or brogues** in brown or black complete the look with class. - **Minimal accessories** like a classic watch or leather belt enhance the refined vibe without overpowering. - Avoid trendy or flashy items; stick to quality fabrics like wool, cotton, and cashmere.
+> For an old money look for men, focus on timeless, high-quality pieces with a refined and understated elegance. - **Classic tailoring**: Opt for well-fitted blazers, trousers, and shirts in neutral or muted tones. - **Luxurious fabrics**: Choose natural fabrics like wool, silk blends, and fine cotton for a sophisticated feel. - **Subtle colors and patterns**: Stick to solid colors, pinstripes, or minimal patterns like herringbone. - **Elegant accessories**: Leather shoes, classic watches, and simple belts complete the look without overpowering it.
 
-**Tailored Blazers & Trousers**: #1 Beige Men’s Tailored Wool Trousers (Genes Lecoanet Hemant, ₹2999); #2 Black Men’s Tailored Wool Trousers (Genes Lecoanet Hemant, ₹2999); #3 Dark Grey Effortless Blazer · Sleek Men’s Tailored Jacket (Vahro, ₹3999); #4 Men's Beige Relaxed Fit Cotton Blend Trousers (Celio, ₹2599)
+**Tailored Blazers**: #1 Men's Navy Blue Silk Blend Blazer (Vastramay, ₹16917); #2 Premium Wool Blend Easy-Iron Slim Fit Blue Formal Blazer (Louis Philippe, ₹6561); #3 Men Linen Blend Brown Slim Fit Check Formal Blazer (Louis Philippe, ₹9375); #4 Dark Grey Effortless Blazer · Sleek Men’s Tailored Jacket (Vahro, ₹3999)
 
-**Crisp Shirts & Fine Knitwear**: #9 Celio India Men’s White Cotton Shirts Online (Celio, ₹2999); #10 Celio India Men’s Off-White Cotton Shirts Online (Celio, ₹2899); #11 Men's White Solid Regular Fit Shirts (Killer Jeans, ₹2319); #12 Men's White Solid Straight Fit Shirts (Killer Jeans, ₹2299)
+**Dress Shirts**: #9 Men's Beige Cotton Silk Blend Printed Shirt (Vastramay, ₹3027); #10 Mens Cotton Beige Colour Regular Fit Shirt Oura (Minister White, ₹875); #11 Intricate Soft Beige & Brown Botanical Bloom Linen Blend Shirt (Vastrado, ₹644); #12 Elegant Warm Beige & Green Embroidered Linen Blend Statement Shirt (Vastrado, ₹644)
 
-**Classic Leather Footwear**: #17 Tresmode Xavier Black Men's Leather Loafers (Tresmode, ₹9000); #18 Tresmode Swed Black Men's Leather Loafers (Tresmode, ₹8700); #19 Brown Faux Leather Mens Loafers with Metallic Sun Motif Embellishment (Kalki, ₹2000); #20 Brown Faux Leather Mens Loafers with Metallic Sunburst Charm (Kalki, ₹3999)
+**Classic Trousers**: #17 Beige Men’s Tailored Wool Trousers (Genes Lecoanet Hemant, ₹2999); #18 Black Men’s Tailored Wool Trousers (Genes Lecoanet Hemant, ₹2999); #19 Men Beige Classic Fit Solid Flat Front Casual Trousers (Louis Philippe, ₹2552); #20 Men's Beige Relaxed Fit Cotton Blend Trousers (Celio, ₹2599)
 
-**Minimal Accessories**: #25 Formal Plain Leather Mens Belt · Black & Brown (Da Milano, ₹3499); #26 Formal Embossed Leather Mens Belt-Black & Brown (Da Milano, ₹3999); #27 Men Black & Brown Solid Reversible Formal Italian Leather with Gold Buckle Belt (Louis Philippe, ₹1119); #28 Leather Strap Analog Watch (U.S. Polo Assn., ₹6549)
+**Leather Footwear**: #25 Now Mens Black Formal Leather Solid Shoes Online Fashion (Inc.5, ₹3490); #26 Order Mens Black Shoes Formal Leather Solid (Inc.5, ₹1396); #27 Men's Brown Patent Leather Formal Office Shoes Online (Fausto, ₹1199); #28 Men Brown Solid Oxford Formal Imported Premium Leather Light Weight Breathable Lining Slip Resistant Flexible Toe Shoes (Louis Philippe, ₹2949)
 
 Picks:
-- **#3 Classic tailored dark grey blazer**: This dark grey blazer is tailored with a blend of polyester, viscose, and elastane, giving it a structured yet comfortable fit. Its solid color and refined cut make it perfect for achieving the timeless, understated elegance of the old money look, suitable for formal and office settings. _Tip: Pair it with a crisp white shirt and beige or black trousers for a polished ensemble._
-- **#9 Crisp white cotton shirt essential**: Made from 100% cotton, this white shirt offers breathability and a clean, classic look with its regular fit and solid pattern. It complements tailored pieces beautifully and is a staple for the old money aesthetic, ensuring sophistication without flashiness. _Tip: Tuck it neatly into tailored trousers and add a leather belt for a sharp finish._
-- **#1 Relaxed beige wool blend trousers**: These beige trousers in a poly wool blend provide a relaxed fit with solid detailing, ideal for formal or daily wear. Their neutral tone and quality fabric align well with the classic, minimal style of the old money look, offering comfort and elegance. _Tip: Combine with the dark grey blazer and white shirt for a cohesive, timeless outfit._
-- **#27 Minimal black leather belt**: This black leather belt from Louis Philippe is made of 100% leather with a solid, understated design. It adds a subtle touch of refinement and is perfect for formal or office wear, enhancing the old money look without overpowering it. _Tip: Wear it with matching black shoes and tailored trousers to complete your outfit._
+- **#4 Best tailored dark grey blazer**: This dark grey tailored blazer from Vahro is made with a blend of polyester, viscose, and elastane, offering a sleek fit and solid color that fits perfectly with the old money aesthetic of understated elegance. Its neutral tone and refined cut make it versatile for formal occasions and office wear, aligning well with your preference for classic and timeless pieces. _Tip: Pair it with beige or black tailored trousers and a crisp white shirt for a polished look._
+- **#10 Classic beige cotton shirt**: This beige cotton shirt from Minister White is a solid, regular fit piece that brings a clean and sophisticated vibe. The pure cotton fabric ensures comfort and breathability, ideal for daily wear or formal office settings, complementing the old money style's emphasis on quality and simplicity. _Tip: Tuck it neatly into tailored trousers and add a leather belt for a refined finish._
+- **#17 Relaxed beige wool trousers**: These beige tailored trousers from Genes Lecoanet Hemant are crafted from poly wool, offering a relaxed fit that balances comfort with formality. The solid color and wool fabric provide a luxurious feel, perfect for maintaining a classic, timeless look suitable for office or formal occasions. _Tip: Combine with a dark blazer and polished leather shoes to complete the ensemble._
+- **#25 Elegant black leather formal shoes**: These black formal leather shoes from Inc.5 are classic Oxfords, a staple in an old money wardrobe. Their solid black color and quality leather material ensure they pair well with formal attire, providing a sophisticated and polished appearance for work, parties, or formal events. _Tip: Wear with dark socks and a matching leather belt to maintain a cohesive look._
 
-> These picks combine classic tailoring, quality fabrics, and minimal accessories for a refined old money look that is timeless and elegant.
+> These picks combine timeless tailoring, quality fabrics, and classic colors to create a refined old money look for men.
 
-Asks: What occasion or setting is this look for? [Office / Casual outings / Formal events / Everyday wear]
+Asks: What is your budget range for this look? [Under ₹5,000 / ₹5,000 to ₹15,000 / Above ₹15,000]
 
-Follow-ups: `Add watches and belts` `Show leather shoes` `Include knitwear options`
+Follow-ups: `Add watches and belts` `Include casual options` `Show luxury brands`
 
 ### 🧑 just the shoes, cheaper
 
-*refine · first text 1.0s · first products 6.2s · total 10.2s · 8085/774 tokens* ✅
+*refine · first text 1.1s · first products 4.5s · total 7.8s · 8151/604 tokens* ✅
 
-Remembers: `Men` `Under ₹3,000` `~ classic` `~ minimal`
+Remembers: `Men` `~ Leather` `Under ₹3,500` `~ classic` `~ refined` `~ timeless`
 
-> Here are more affordable classic leather shoes for the old money look, focusing on loafers and brogues in brown and black.
+> Here are more affordable leather formal shoes and loafers that maintain the classic old money style without stretching your budget.
 
-**Affordable Leather Loafers**: #33 Men's Black Party Genuine Leather Loafer Shoes Online (Fausto, ₹1699); #34 Now Mens Black Solid Round Toe Party Wear Moccasin Shoes (Inc.5, ₹1996); #35 Mens Party Square Toe Black Loafer Shoes for Polished Looks! (Inc.5, ₹2396); #36 Men Brown Formal Velvet Slip On Shoes for Party Online (Fausto, ₹949)
-
-**Budget-Friendly Leather Brogues**: #41 Men's Brown Patent Leather Formal Office Shoes Online (Fausto, ₹1199); #42 Men's Black Leather Broad Formal Slip On Shoe For Office (Fausto, ₹1199); #43 Men’s Black Solid Lace-Up Brogues · Classic Formal Shoes (Inc.5, ₹1420); #44 Men Brown Lace Up Genuine Leather Formal Brogues (Monte Carlo, ₹2914)
+**Affordable Leather Formal Shoes**: #33 Now Mens Black Formal Leather Solid Shoes Online Fashion (Inc.5, ₹3490); #34 Order Mens Black Shoes Formal Leather Solid (Inc.5, ₹1396); #35 Men's Black Patent Leather Party Formal Shoes Online (Fausto, ₹1299); #36 Men's Tan Party Formal Office Leather Shoes Online (Fausto, ₹1699)
 
 Picks:
-- **#33 Best for formal parties**: These black genuine leather loafers feature an embossed design that adds subtle texture while keeping a classic penny loafer silhouette. Their formal appeal and comfortable regular fit make them ideal for weddings or formal parties within your budget. _Tip: Pair with a tailored black or navy suit for a polished look._
-- **#41 Affordable patent leather formal shoes**: These brown patent leather shoes offer a sleek, shiny finish perfect for formal occasions and office wear. The solid pattern and regular fit ensure comfort and versatility, making them a great budget-friendly choice for daily formal use. _Tip: Match with beige or grey trousers and a crisp shirt for office-ready style._
-- **#43 Classic black lace-up brogues**: These black leather brogues have a clean, solid design with lace-up closure, perfect for formal or evening wear. Their regular fit and classic style make them a timeless addition to your wardrobe under ₹1500. _Tip: Wear with dark formal trousers and a blazer for a sharp, professional look._
-- **#36 Budget velvet loafers for parties**: These brown velvet slip-on loafers bring a touch of luxury with their soft fabric and solid color, ideal for party or wedding occasions. Their affordable price and comfortable fit make them a stylish alternative to leather for formal events. _Tip: Combine with a cream or beige kurta-pajama for a festive vibe._
+- **#34 Best budget black leather derby**: These black formal derby shoes by Inc.5 are made of genuine leather with a solid pattern, offering a classic and versatile look perfect for office wear and formal occasions. Their regular fit ensures comfort for all-day use, making them a practical choice within your ₹3500 budget. _Tip: Pair these with tailored black or navy trousers and a crisp white shirt for a sharp office look._
+- **#36 Timeless tan leather derby**: This tan leather derby from Fausto features a solid pattern and regular fit, ideal for adding a subtle pop of color to your formal or party outfits. The leather fabric ensures durability and a polished finish, suitable for both office and social events. _Tip: Combine with beige or grey chinos and a light blue shirt for a smart casual vibe._
+- **#35 Affordable patent leather Oxfords**: These black patent leather Oxfords by Fausto have a textured strip detail that adds a refined touch to your formal or party wear. The patent leather gives a sleek, shiny appearance, perfect for evening events without exceeding your budget. _Tip: Wear with a dark suit and a slim tie to enhance the sophisticated look._
 
-> These picks offer classic, affordable leather and velvet shoes perfect for formal occasions, balancing style, comfort, and budget.
+> Classic leather shoes in black and tan offer versatile, budget-friendly options for formal and office wear with timeless appeal.
 
-Asks: Do you prefer loafers or brogues? [Loafers / Brogues]
+Asks: Do you prefer black or brown shoes? [Black / Brown / Either]
 
-Follow-ups: `Show more loafers` `Show more brogues` `Under ₹2,000`
+Follow-ups: `Show loafers only` `Add belts to match` `Under ₹2,000`
 
 ## Conversation 9
 
 ### 🧑 hi
 
-*chitchat · first text 1.0s · first products – · total 2.2s · 5887/179 tokens* ✅
+*chitchat · first text 1.1s · first products – · total 3.0s · 6178/175 tokens* ✅
 
-> Hello! How can I assist you with your style or shopping needs today?
+> Hello! How can I help you with your style or shopping today?
 
-Asks: What are you looking for today? [Women’s clothing / Men’s clothing / Kids’ clothing / Accessories & more]
+Asks: What are you shopping for today? [Everyday wear / Office wear / Party or festive / Footwear]
 
-Follow-ups: `Show new arrivals` `Help me pick an outfit` `Suggest gift ideas`
+Follow-ups: `Show ethnic wear` `Show western tops` `Show footwear`
 
 ### 🧑 I need a saree for my college farewell, elegant but not heavy
 
-*recommend · first text 1.0s · first products 9.1s · total 14.6s · 7384/927 tokens* ✅
+*recommend · first text 1.1s · first products 7.0s · total 9.8s · 7751/948 tokens* ✅
 
-Remembers: `✕ heavy` `~ lightweight` `~ elegant`
+Remembers: `~ lightweight` `~ elegant`
 
 Personalized: Used your taste (green, purple, cotton blend) · Preferring ₹1.5k–₹2.1k
 
-> For your college farewell, an elegant yet lightweight saree will keep you comfortable and stylish throughout the event. - **Chiffon sarees** offer a graceful drape and are light on the body, perfect for a semi-formal occasion. - **Georgette sarees** provide a flowy look with subtle elegance without feeling heavy. - **Cotton-silk blends** combine comfort with a slight sheen for a polished appearance without bulk.
+> For your college farewell, an elegant yet light saree will keep you comfortable and stylish throughout the event. - **Lightweight fabrics** like chiffon, georgette, or crepe offer flowy elegance without heaviness. - **Subtle embellishments** such as minimal embroidery or sequins add sophistication without bulk. - **Soft colors** like pastels, beige, or light pink keep the look graceful and youthful. - **Avoid heavy zari or brocade** to maintain comfort and ease of movement.
 
-**Chiffon Sarees**: #1 Beige embroidered saree with classic design (Kalki, ₹39950); #2 Peach Embroidered Saree with Radiant Sheen (Kalki, ₹15495); #3 Sea Green Multicolor Embroidered Chiffon Saree (Lashkaraa, ₹15800); #4 Green Chiffon Embroidered Saree With Blouse Piece (Karagiri, ₹3749)
+**Chiffon Sarees**: #1 Pink Handloom Cotton Saree Lightweight Comfortable Saree for Summer Wear (Gopikanya, ₹1899); #2 Maroon Chiffon Satin Sequins Embroidered Designer Saree with Blouse (Karagiri, ₹4399); #3 Lightweight White Mul Mul Cotton Embroidery Work Saree (Gopikanya, ₹2780); #4 White Jimmy Choo Sequins Embroidered Designer Saree with Blouse (Karagiri, ₹5199)
 
-**Georgette Sarees**: #9 Off White Embroidered Georgette Saree (Lashkaraa, ₹17500); #10 Multicolor Floral Printed Georgette Saree with Stitched Blouse (Aurelia, ₹6599); #11 Libas Art Off White Jamawar Embroidered Georgette Saree With Unstitched Blouse Piece (Libas, ₹4419); #12 Off White Lavender Pastel Harmony Embroidered Saree (Kalki, ₹32500)
+**Georgette Sarees**: #9 Pink Handloom Cotton Saree Lightweight Comfortable Saree for Summer Wear (Gopikanya, ₹1899); #10 Lightweight Blue Mul Mul Cotton Saree for Summer Comfort (Gopikanya, ₹2649); #11 Pure Georgette Solid Embroidered Saree With Scalloping And Fancy Blouse (Karagiri, ₹3399); #12 Pure Georgette Solid Embroidered Saree With Scalloping And Fancy Blouse (Karagiri, ₹3399)
 
-**Cotton-Silk Blend Sarees**: #17 Libas Peach Solid Silk Blend Saree With Unstitched Blouse Piece (Libas, ₹1579); #18 Libas Beige Solid Silk Blend Saree With Unstitched Blouse Piece (Libas, ₹1999); #19 Peach Cotton Blend Saree With Blouse Piece (Karagiri, ₹2399); #20 Beige Silk Blend Saree With Blouse Piece (Karagiri, ₹3749)
+**Crepe Sarees**: #17 Pink Handloom Cotton Saree Lightweight Comfortable Saree for Summer Wear (Gopikanya, ₹1899); #18 Off White Lavender Pastel Harmony Embroidered Saree (Kalki, ₹32500); #19 Lightweight White Mul Mul Cotton Embroidery Work Saree (Gopikanya, ₹2780); #20 Off White Floral Embroidered Crepe Silk Saree (Lashkaraa, ₹12500)
 
 Picks:
-- **#18 Best budget silk blend**: This beige silk blend saree from Libas offers a flowy fit and solid pattern, combining the elegance of silk with lightweight comfort. Its neutral shade makes it perfect for a college farewell where you want to look polished yet not overdone. _Tip: Pair it with gold or pearl jewelry and a sleek bun for a classy look._
-- **#11 Elegant embroidered georgette**: The off white embroidered georgette saree by Libas is flowy and light, with delicate embroidery adding subtle sophistication. Its soft color and fabric make it ideal for an elegant farewell event without feeling heavy. _Tip: Wear with pastel or silver accessories and soft makeup to enhance the delicate vibe._
-- **#4 Lightweight green chiffon charm**: This green chiffon embroidered saree by Karagiri is light and breathable, perfect for staying comfortable during your farewell. The embroidery adds a festive touch while the chiffon fabric ensures graceful draping. _Tip: Complement with matching green or gold earrings and a simple clutch._
+- **#3 Elegant lightweight cotton embroidery**: This white Mul Mul cotton saree features delicate embroidery and a flowy fit, making it light and breathable for your college farewell. The subtle white-on-white work adds elegance without heaviness, perfect for a youthful, graceful look. _Tip: Pair it with minimal silver jewelry and a pastel blouse for a fresh, refined style._
+- **#9 Comfortable pink cotton for casual elegance**: A pink handloom cotton saree in a solid pattern offers lightweight comfort and a soft color that suits a farewell event. Its breathable fabric ensures you stay cool while looking effortlessly elegant and understated. _Tip: Wear it with a simple sleeveless blouse and light makeup to keep the look fresh and easygoing._
+- **#12 Green georgette with subtle embroidery**: This green pure georgette saree has embroidered details and a regular fit, combining lightweight fabric with a touch of sophistication. It’s suitable for festive occasions like farewells, offering graceful drape and ease of movement. _Tip: Style it with statement earrings and a matching blouse to elevate your ensemble without feeling heavy._
 
-> These picks blend lightweight fabrics with elegant designs, ensuring comfort and style for your college farewell.
+> These picks blend light fabrics and subtle embellishments for an elegant, comfortable farewell look in soft, flattering colors.
 
 Asks: What colors do you prefer for your saree? [Pastels / Brights / Neutrals / Any]
 
-Follow-ups: `Show chiffon sarees` `Show georgette sarees` `Show cotton-silk sarees`
+Follow-ups: `Show chiffon sarees` `Show georgette sarees` `Show crepe sarees`
 
 ## Conversation 10
 
 ### 🧑 gift ideas
 
-*recommend · first text 1.1s · first products 9.5s · total 13.1s · 7982/1008 tokens* ✅
+*clarify · first text 1.0s · first products – · total 2.1s · 6179/177 tokens* ✅
 
-> Here are some versatile gift ideas that suit various tastes and occasions. - **Jewellery**: Timeless and personal, perfect for women or loved ones. - **Bags**: Stylish handbags or clutches make practical yet fashionable gifts. - **Ethnic wear**: Sarees or kurta sets are great for festive or traditional occasions. - **Accessories**: Watches, scarves, or sunglasses add a thoughtful touch. - **Footwear**: Comfortable yet trendy options like loafers or sandals suit many.
+> I can help you find the perfect gift!
 
-**Jewellery**: #1 Elegant Natural Blue Sapphire Ring For Women (Ornate Jewels, ₹3699); #2 Estele Rosegold Plated Stylish Circular American Diamond & Mint Orange Bead Varya Maang Tikka: Elegant Accessory for Women (Estele, ₹600); #3 Estele Rosegold Plated Stylish American Diamond & Green Bead Adorned Varya Maang Tikka/An Elegant Jewelry Choice for Women (Estele, ₹650); #4 Calyra Solitaire Ring at the best price from Swashaa. Elegant rings for women starting Rs.799.99 with free shipping, quick delivery, hassle-free returns. (Swashaa, ₹850)
+Asks: Who is the gift for? [Woman / Man / Girl / Boy / Unisex]
 
-**Bags**: #9 Jungle Blue Gift Box · Stylish, Sustainable, and Full of Love, Small Size (Label Flavia, ₹1996); #10 Stylish and Lightweight The Backpacks Online (Mokobara, ₹4299); #11 Elegant Black Gift Box · Stylish, Sustainable, and Full of Love (Label Flavia, ₹499); #12 Stylish Cream Textured Sling Bag for Womens · Office Fashion (Inc.5, ₹1490)
-
-**Ethnic Wear**: #17 Boys Ethnic Wear Set · Kurta Pajama with Stylish Nehru Jacket (Kidbea, ₹1999); #18 Traditional Bandhani Couple Set · Red Hand-Dyed Bandhani Co-Ord Set For Her And Red Pure Bandhani Silk Kurta Pant Set For Him (Kalki, ₹30299); #19 Straight Fit Embroidered Traditional Kurta and Pant With Dupatta Set (Styleunion, ₹1499); #20 Kanchipuram Handloom Sarees at Nalli. Discover a Festive Traditional Beauty (Nalli, ₹22500)
-
-**Accessories**: #25 Stylish Cap for Men & Women UV Protection Lightweight & Breathable Fabric Adjustable Closure Comfortable Fit Ideal for Outdoor, Sports & Casual Use Black (Cult Store, ₹279); #26 Stylish Voylla Watch: Studded Black Dial for Modern Look (Voylla, ₹1699); #27 Duke Stylish Analog Silver Metal Strap Wrist Watch for Women (DK7002RW (Duke India, ₹839); #28 Duke Stylish Square Dial Nylon Strap Chronograph Wrist Watch For Women (Duke India, ₹2879)
-
-**Footwear**: #33 Casual Flip Flop for Men · Lightweight & Comfortable with Cushioned Insole PU Upper Rubber Sole Slip on Closure. (Cantabil, ₹649); #34 Casual Clogs for Men · Lightweight & Comfortable with Cushioned Insole EVA Upper EVA Sole Slip on Closure. (Cantabil, ₹649); #35 Men Black Comfortable Slip on Leather Loafers (Monte Carlo, ₹3999); #36 Big Stepr Velvet Slippers · Wedding Favours & Gifting (Domani Shoes, ₹1999)
-
-Picks:
-- **#20 Best for festive weddings**: This mauve silk Kanchipuram saree features elegant zari butta detailing, making it a luxurious and traditional choice for festive and wedding occasions. The silk fabric ensures a rich drape and a comfortable fit for long events. _Tip: Pair it with gold jewelry and classic heels to enhance the regal look._
-- **#10 Ideal for travel and daily use**: This multi-colour unisex backpack combines vegan leather and water-resistant nylon, offering durability and style. Its solid pattern and practical design make it perfect for travel, daily wear, or casual outings. _Tip: Match it with casual or athleisure wear for a coordinated look._
-- **#1 Elegant daily wear ring**: This blue sapphire ring in 925 sterling silver offers a solid blue colour and a regular fit, making it suitable for daily wear or formal gifting. Its understated elegance complements both casual and formal outfits. _Tip: Wear it alone or stack with other silver rings for a chic effect._
-- **#36 Versatile gifting velvet slippers**: These black velvet slippers with embroidered detailing are unisex and ideal for wedding favours, corporate gifting, or lounge wear. The velvet fabric adds a touch of luxury while ensuring comfort. _Tip: Pair them with ethnic or lounge wear for a stylish yet relaxed look._
-
-> From traditional silk sarees to versatile backpacks and elegant accessories, these picks cover festive, casual, and gifting needs beautifully.
-
-Asks: Who is the gift for? [Woman / Man / Kid]
-
-Follow-ups: `Jewellery gifts` `Ethnic wear gifts` `Stylish bags`
+Follow-ups: `Gift under ₹1000` `Gift for birthday` `Show popular gifts`
 
 ### 🧑 for my wife
 
-*refine · first text 1.4s · first products 9.3s · total 13.5s · 8705/923 tokens* ✅
+*recommend · first text 1.0s · first products 10.5s · total 14.3s · 7945/1085 tokens* ✅
 
-Remembers: `Women` `~ elegant` `~ stylish`
+Remembers: `Women`
 
-> Since this gift is for your wife, let's focus on elegant and thoughtful options that she can cherish and use often.
+> For your wife, thoughtful gifts that blend elegance and personal touch work best. - **Jewellery**: Classic pieces like earrings or pendants add a timeless charm. - **Bags**: Stylish handbags or clutches suit everyday or special occasions. - **Ethnic wear**: Sarees or kurta sets in rich fabrics celebrate tradition with style. - **Accessories**: Scarves or watches can complement her wardrobe beautifully.
 
-**Elegant Jewellery**: #41 Estele Rose Gold Plated CZ Elegant Drop Earrings with Blue Stones for Women (Estele, ₹650); #42 Estele Rose Gold Plated CZ Elegant Designer Pendant Set with Mint Green Stones for Women (Estele, ₹1150); #43 Elegant Natural Blue Sapphire Ring For Women (Ornate Jewels, ₹3699); #44 Elegant Silver Blue Sapphire CZ Stud Earrings (Ornate Jewels, ₹1699)
+**Jewellery**: #1 Carlton London Women'S Gift Card Jewellery-18K Gold Plated With Pearl Studded Necklace And Earrings Jewellery Set Fjs4105 (Carlton London, ₹897); #2 Gold Plated With Natural Stone Fancy Drop Earring For Women (Carlton London, ₹558); #3 Gold Pearl Metal Earrings (Outzidr, ₹299); #4 Estele Gold Plated Elegant Floral Designer Kada Bracelet with White American Diamonds/Luxurious Jewelry for Women (Estele, ₹699)
 
-**Stylish Handbags**: #49 Jungle Blue Gift Box · Stylish, Sustainable, and Full of Love, Small Size (Label Flavia, ₹1996); #50 Rareism Articale Women Flounce Off White Polyester Fabric Colorblock Knitted Tote Bag (The House Of Rare, ₹1439); #51 Emily Red Stylised Handbag (Mulmul, ₹11990); #52 Emily Blue Stylised Handbag (Mulmul, ₹11990)
+**Bags**: #9 Latin Quarters Women's Beige Handbag & Matching Clutch Set (Latin Quarters, ₹1500); #10 Latin Quarters Women's Black Handbag & Matching Clutch Set (Latin Quarters, ₹1500); #11 Stylish Womens Dark Beige Party Textured Shoulder Bag Choice (Inc.5, ₹4290); #12 Womens Black Solid Handbag for Smart Looks · Premium Elegant (Inc.5, ₹4290)
 
-**Traditional Ethnic Wear**: #57 Traditional Bandhani Couple Set · Red Hand-Dyed Bandhani Co-Ord Set For Her And Red Pure Bandhani Silk Kurta Pant Set For Him (Kalki, ₹30299); #58 Red Traditional Silk Saree (Chhabra 555, ₹12000); #59 Astonishing Red Printed Silk Traditional Saree With Blouse (Zeel Clothing, ₹1799); #60 Unstitched Outstanding Purple Weaving Silk Traditional Saree With Blouse (Ethnic Plus, ₹2819)
+**Ethnic Wear**: #17 Plus Size Crepe Floral Kurta · Elegant Women's Ethnic Wear (Swasti Clothing, ₹1996); #18 Janasya Women's Red Chanderi Silk Embellished Gold Foil Printed Kurta with Sharara and Dupatta Set (Janasya, ₹1599); #19 Red Silk Blend Saree With Blouse Piece (Karagiri, ₹2599); #20 Janasya Women's Teal Blue Silk Blend Yoke Embroidered Gold Printed A-Line Kurta Set with Dupatta (Janasya, ₹1999)
+
+**Accessories** _(Few exact matches, so also showing related categories.)_: #25 Elleven Women's Black Textured Cotton Blend Skinny Fit Ankle Length Le (Aurelia, ₹999); #26 Bodycare Womens Combed Cotton Black Solid SHORTY -E-9B-3Pcs-Pack of 3 (Ebodycare, ₹510); #27 Black with Gold Toned and Black Polarised Lens Oversized Sunglass for womens (Carlton London, ₹1839); #28 Women's Black Premium Cotton Training Tights (Cult Store, ₹939)
 
 Picks:
-- **#58 Best for festive elegance**: This red traditional silk saree features intricate woven designs that bring out a rich, festive vibe perfect for weddings or parties. The silk fabric ensures a luxurious feel and graceful drape, ideal for your wife's elegant style. _Tip: Pair it with gold jewelry and classic heels to enhance the traditional look._
-- **#41 Best with heavy zari**: These rose gold plated drop earrings with white and blue CZ stones add a subtle yet striking sparkle. Made of brass with detailed embellishments, they complement festive or party wear beautifully, enhancing elegance without overpowering. _Tip: Wear these earrings with a matching blue or white outfit to highlight their colors._
-- **#52 Best for festive cocktail parties**: This blue and gold embroidered potli bag combines traditional embroidery with a stylish silhouette, perfect for festive or cocktail occasions. Its compact size and rich colors make it a chic accessory for your wife's dressy ensembles. _Tip: Carry it with a blue or gold outfit to create a coordinated, polished look._
-- **#43 Best for daily elegance**: This natural blue sapphire ring in 925 sterling silver offers a sophisticated yet wearable style. Its solid blue stone adds a pop of color suitable for daily wear or formal events, making it a versatile gift your wife can cherish. _Tip: Pair it with silver or blue-toned accessories for a cohesive look._
+- **#18 Festive red silk-chiffon set**: This red kurta set in Chanderi silk and chiffon features elegant gold foil prints, perfect for festive or wedding occasions. Its regular fit and rich fabric blend offer both comfort and traditional charm, ideal for your wife's special celebrations. _Tip: Pair it with gold jewelry and matching heels to enhance the festive vibe._
+- **#1 Elegant gold-plated pearl set**: This 18K gold-plated brass necklace and earrings set is embellished with pearls, making it a classy choice for parties and festive events. Its warm gold tone and delicate pearl accents complement traditional and contemporary outfits alike. _Tip: Wear it with ethnic wear or a solid-colored dress to let the jewelry stand out._
+- **#9 Versatile beige handbag & clutch**: This beige PU handbag and matching clutch set offers a solid, neutral tone suitable for casual, formal, and party occasions. Its practical size and classic color make it an easy accessory to pair with many outfits, adding understated elegance. _Tip: Use the clutch for evening events and the handbag for day-to-day outings for versatile styling._
+- **#27 Chic black oversized sunglasses**: These black oversized sunglasses with gold-toned accents are perfect for casual daily wear or vacations. They add a stylish edge and protect eyes from the sun, making them a fashionable yet functional accessory for your wife. _Tip: Pair them with casual outfits or resort wear to complete a chic look._
 
-> These picks blend traditional elegance with stylish accessories, perfect for gifting your wife something she can wear on special occasions and beyond.
+> These picks blend festive elegance, versatile accessories, and stylish everyday essentials for your wife's varied wardrobe needs.
 
-Asks: What is your wife's preferred style or favorite colors? [Traditional / Modern / Neutral colors / Bright colors]
+Asks: What is your budget for the gift? [Under ₹1,000 / ₹1,000 to ₹5,000 / ₹5,000 to ₹10,000 / Above ₹10,000]
 
-Follow-ups: `Show more jewellery` `Show more handbags` `Show ethnic wear options`
+Follow-ups: `Show jewellery options` `Show bags` `Show ethnic wear`
 
 ### 🧑 under 2000
 
-*refine · first text 1.0s · first products 8.5s · total 11.9s · 8997/925 tokens* ✅
+*refine · first text 1.1s · first products 10.9s · total 15.1s · 8686/932 tokens* ✅
 
-Remembers: `Women` `Under ₹2,000` `~ elegant` `~ stylish`
+Remembers: `Women` `Under ₹2,000` `~ elegant`
 
-> I've refined the gift options to fit your budget under ₹2000, focusing on elegant yet affordable choices for your wife.
+> Here are elegant gift ideas for your wife all under ₹2,000, balancing style and affordability.
 
-**Elegant Jewellery**: #65 Elegant Green Stone Embellished Hasli And Earring Set (Tjori, ₹1797); #66 Set Of 3 Gold & Rose Gold Plated Stylish Link Chain For Women Embellished (Carlton London, ₹503); #67 Estele Gold Plated CZ Lakshmi Devi Embellished with Elephants Designer Earrings for Women (Estele, ₹1150); #68 Festive Hues Temple Design Pearls Embellished Gold Toned Jewellery Set (Voylla, ₹1949)
+**Affordable Jewellery**: #33 Carlton London Women'S Gift Card Jewellery-18K Gold Plated With Pearl Studded Necklace And Earrings Jewellery Set Fjs4105 (Carlton London, ₹897); #34 Carlton London Women'S Gift Card Jewellery-Rhodium-Plated Layered Necklace Fjn4098 (Carlton London, ₹718); #35 Estele Gold Plated Elegant Floral Designer Kada Bracelet with White American Diamonds/Luxurious Jewelry for Women (Estele, ₹699); #36 24Kt Gold Plated Trendy Candy Pendant with fancy White Crystals for Women (Estele, ₹899)
 
-**Stylish Handbags**: #73 Stylish Cream Textured Sling Bag for Womens · Office Fashion (Inc.5, ₹1490); #74 Latin Quarters Women Pink Solid Handles Satchel Bag (Latin Quarters, ₹1750); #75 Timber & Thread Off White Cotton Solid Sling Bag (Anekaant, ₹1644); #76 Pink Label Flavia Large Gift Box · Stylish, Sustainable, and Full of Love (Label Flavia, ₹750)
+**Budget-Friendly Bags**: #41 Womens Beige Textured Sling Bag · Elegant Look Fresh Elegant (Inc.5, ₹876); #42 Latin Quarters Women's Beige Handbag & Matching Clutch Set (Latin Quarters, ₹1500); #43 Womens Textured Beige Sling Bag for Chic Style Elegant Style (Inc.5, ₹1596); #44 Latin Quarters Women's Black Handbag & Matching Clutch Set (Latin Quarters, ₹1500)
 
-**Traditional Ethnic Wear**: #81 Grey Cotton Blend Traditional Saree (Inddus, ₹1872); #82 Rama Soft Cotton Handloom Saree Elegant Traditional Wear for Women (Gopikanya, ₹1899); #83 Astonishing Red Printed Silk Traditional Saree With Blouse (Zeel Clothing, ₹1799); #84 Beige Cotton Blend Traditional Saree (Inddus, ₹2000)
+**Ethnic Wear Under ₹2,000**: #49 Plus Size Crepe Floral Kurta · Elegant Women's Ethnic Wear (Swasti Clothing, ₹1996); #50 Janasya Women's Red Chanderi Silk Embellished Gold Foil Printed Kurta with Sharara and Dupatta Set (Janasya, ₹1599); #51 Janasya Women's Teal Blue Silk Blend Floral Zari Embroidered Straight Kurta with Sharara and Dupatta Set (Janasya, ₹1799); #52 Crimson Red Chiffon Solid Saree With Blouse Piece (Karagiri, ₹1799)
 
 Picks:
-- **#83 Best festive silk saree**: This red printed silk saree is perfect for festive and wedding occasions, offering a rich look with its smooth silk fabric and vibrant print. Its regular fit ensures comfort while maintaining elegance, ideal for gifting within your budget. _Tip: Pair it with gold jewellery and classic heels to enhance its festive appeal._
-- **#65 Elegant green stone jewellery set**: This green and silver embellished hasli and earring set in German silver is great for ethnic occasions. Its intricate embellishments add a traditional touch that complements festive sarees beautifully, making it a thoughtful and stylish gift. _Tip: Wear it with a green or silver outfit to highlight the jewellery's colours._
-- **#73 Cream textured sling bag for daily use**: This cream textured synthetic sling bag is versatile for casual and daily wear. Its neutral shade and textured pattern make it easy to pair with various outfits, providing practical style for everyday use within your budget. _Tip: Match it with light-toned casual or office wear for a polished look._
-- **#76 Affordable stylish gift box**: The Pink Label Flavia large gift box is a stylish and sustainable option for gifting. Its solid pink colour and thoughtful packaging make it suitable for party and festive occasions, adding a personal touch to your present. _Tip: Use it to wrap your chosen gift for an elegant presentation._
+- **#51 Best for festive celebrations**: This teal blue silk blend kurta set features elegant floral zari embroidery, perfect for festive and cultural occasions. The silk blend fabric offers a rich feel while the straight cut ensures comfort and style. _Tip: Pair it with traditional juttis and delicate silver jewelry to enhance the festive look._
+- **#50 Vibrant red for wedding parties**: A red Chanderi silk kurta with gold foil print paired with sharara and chiffon dupatta, this set is ideal for weddings and parties. The lightweight Chanderi fabric keeps you comfortable while looking vibrant and elegant. _Tip: Accessorize with gold-toned jewelry and a matching clutch for a complete festive outfit._
+- **#33 Elegant gold-plated pearl set**: This 18K gold-plated brass necklace and earrings set is embellished with pearls, making it a classy choice for festive or party occasions. Its gold tone adds warmth and pairs well with traditional outfits under ₹2,000. _Tip: Wear it with a simple kurta or saree to let the jewelry stand out._
+- **#42 Versatile beige handbag set**: A beige PU handbag and matching clutch set with solid detailing, suitable for casual, formal, and party occasions. The neutral color and practical design make it a stylish and budget-friendly accessory. _Tip: Pair it with both ethnic and western outfits for effortless elegance._
 
-> These picks blend festive elegance, practical style, and thoughtful gifting options under ₹2000.
+> These picks blend festive elegance and everyday versatility, all within your ₹2,000 budget for a thoughtful gift.
 
-Asks: Does she prefer jewellery, handbags, or ethnic wear? [Jewellery / Handbags / Ethnic Wear]
+Asks: Which type of gift would she prefer? [Jewellery / Bags / Ethnic Wear / Accessories]
 
-Follow-ups: `Show more jewellery` `Show more handbags` `Show more ethnic wear`
+Follow-ups: `Show more jewellery` `Show more bags` `Show more ethnic wear`
 
 ## Conversation 11
 
 ### 🧑 i want a purse for my wedding lehenga
 
-*recommend · first text 1.1s · first products 8.9s · total 12.6s · 7203/906 tokens* ✅
+*recommend · first text 1.6s · first products 7.3s · total 11.5s · 7491/998 tokens* ✅
 
 Remembers: `Women`
 
-> For a wedding lehenga, pick a small, embellished bag that echoes your outfit's work without competing with it. - **Potli bags** are the classic pick: zari or gota work sits naturally with traditional embroidery. - **Match the metal**: gold-toned hardware with gold jewellery, silver or oxidised with silver. - **Keep it compact**: a heavy lehenga needs a bag that carries only the essentials.
+> For a wedding lehenga, pick a small, embellished bag that complements your outfit without overpowering it. - **Potli bags** are the classic choice: zari or gota work pairs beautifully with traditional embroidery. - **Embellished clutches** with sequins or beadwork add sparkle and elegance. - **Metallic box clutches** in gold or silver tones match jewellery and add a modern touch.
 
 **Potli Bags**: #1 Silver and Gold Potli Bag with Crescent Motif (Kalki, ₹9899); #2 Gold Silk Potli Bag (Kalki, ₹8990); #3 Mulmul Myra Pink Potli Bag (Mulmul, ₹4650); #4 Luminous Red Potli With Gota Work (Tjori, ₹969)
 
-**Embellished Clutches**: #9 Gold And Silver Embellished Clutch (Kalki, ₹8490); #10 Womens Gold Party Embellished Clutch Bag for Chic Style Look (Inc.5, ₹3690); #11 Gold Dual-Toned Embellished Clutch Bag For Women (Inc.5, ₹3290); #12 Gold Embellished Clutch (Kalki, ₹8490)
+**Embellished Clutches**: #9 Gold And Silver Embellished Clutch (Kalki, ₹8490); #10 Gold Embellished Clutch (Kalki, ₹8490); #11 Womens Gold Party Embellished Clutch Bag for Chic Style Look (Inc.5, ₹3690); #12 Blush & Bead Accent Beads Embellished Velvet Clutch · Beige (Anekaant, ₹4199)
 
-**Metallic Box Clutches**: #17 Latin Quarters Women's Metallic Golden Box Clutch with Chunky Chain Strap (Latin Quarters, ₹1450); #18 Metallic Gold Slim Studded Clutch Bag (Bombaim, ₹14850); #19 Silver Coiled Metallic Sculptural Clutch (Outzidr, ₹1199); #20 Black Coiled Metallic Sculptural Clutch (Outzidr, ₹1199)
+**Metallic Box Clutches**: #17 Latin Quarters Women's Metallic Golden Box Clutch with Chunky Chain Strap (Latin Quarters, ₹1450); #18 Silver Coiled Metallic Sculptural Clutch (Outzidr, ₹1199); #19 Metallic Gold Slim Studded Clutch Bag (Bombaim, ₹14850); #20 Now Womens Metallic Handbag With Zip Lock For Party Use (Inc.5, ₹1956)
 
 Picks:
-- **#2 Classic silk potli for weddings**: This gold silk potli bag from Kalki features elegant embellished detailing on a rich silk fabric, making it a perfect match for a traditional wedding lehenga. Its compact size ensures you carry just essentials without overwhelming your outfit. _Tip: Pair it with gold jewelry and matching gold-toned footwear for a cohesive look._
-- **#12 Elegant gold embellished clutch**: This gold clutch from Kalki combines metal and embellishments for a refined, festive look ideal for weddings. Its sleek shape complements heavy lehenga embroidery without competing, adding a modern touch to traditional attire. _Tip: Carry it with a gold-toned lehenga and minimal accessories to let the clutch shine._
-- **#4 Budget-friendly red potli with gota work**: This red potli bag by Tjori features traditional gota work embellishment, perfect for bridal occasions and festive events. Its vibrant color and lightweight design make it a cheerful, practical choice for a wedding lehenga without a high price tag. _Tip: Match it with red or gold accents in your outfit or jewelry for a harmonious look._
+- **#2 Classic silk potli for weddings**: This gold silk potli bag features traditional embellished detailing, crafted in luxurious silk fabric. Its rich gold tone and classic potli shape make it perfect to complement a wedding lehenga, enhancing the ethnic vibe without overpowering your outfit. _Tip: Pair it with gold jewelry and matching gold embroidery on your lehenga for a cohesive look._
+- **#10 Elegant gold embellished clutch**: A gold clutch made with mixed metal and adorned with intricate embellishments, this piece adds sparkle and sophistication. Its compact size and shiny finish make it ideal for carrying essentials while elevating your wedding ensemble. _Tip: Carry it with a gold or beige lehenga to highlight the clutch's shimmer and keep accessories minimal._
+- **#4 Affordable red potli with gota work**: This red potli bag features traditional gota work embellishment, perfect for a bridal or festive occasion. Its vibrant red color and embellished pattern add a pop of color and ethnic charm, making it a budget-friendly yet stylish choice for your wedding lehenga. _Tip: Use it to add contrast to a gold or cream lehenga, or match it with red accents in your outfit._
+- **#19 Luxurious metallic gold leather clutch**: Crafted from top grain soft pebbled leather, this metallic gold slim clutch is embellished for a refined, modern look. It’s perfect if you want a contemporary touch with a luxe feel to complement your festive or wedding attire. _Tip: Pair it with sleek heels and minimal jewelry for a chic, polished finish._
 
-> These picks blend traditional charm and modern elegance, offering versatile, embellished bags that complement your wedding lehenga beautifully.
+> These picks blend traditional charm and modern elegance, offering versatile options to complement your wedding lehenga beautifully.
 
-Asks: What colors or embellishments does your lehenga have? [Gold & red / Pastel shades / Heavy embroidery / Minimal embellishment]
+Asks: What colors or embellishments does your lehenga have? [Gold and red / Silver and blue / Pastel shades / Bright multicolor]
 
 Follow-ups: `Show potli bags` `Show embellished clutches` `Show metallic clutches`
 
 ### 🧑 it's red with heavy gold zari work
 
-*refine · first text 1.3s · first products 9.0s · total 13.3s · 8109/1031 tokens* ✅
+*refine · first text 1.4s · first products 9.9s · total 14.1s · 8407/1040 tokens* ✅
 
 Remembers: `Women` `Red` `Gold` `~ embellished`
 
-> Since your lehenga is red with heavy gold zari work, focus on bags that complement these rich colors and intricate embroidery without overpowering your outfit. - **Choose red or gold bags** to harmonize with your lehenga's palette. - **Opt for zari or gota work** on potli bags to echo the embroidery. - **Gold metallic clutches** can add a modern yet festive touch. - **Avoid overly colorful or plain bags** that might clash or look dull.
+> Since your lehenga is red with heavy gold zari work, choose bags that complement this rich, traditional look without clashing or overwhelming it. - **Potli bags in red or gold with zari or zardosi work** will harmonize perfectly. - **Gold embellished clutches** with intricate bead or sequin work will add sparkle without competing. - **Metallic gold clutches** in a sleek design will enhance the gold zari accents subtly.
 
-**Red & Gold Potli Bags**: #25 Luminous Red Potli With Gota Work (Tjori, ₹969); #26 Red Embroidered Motif Potli Bag in Silk (Kalki, ₹7899); #27 Red Silk Mirror Embellished Potli Bag (Kalki, ₹6399); #28 Radiant Red Gota Patti Silk Potli (Tjori, ₹1069)
+**Red and Gold Potli Bags**: #25 Red Embroidered Motif Potli Bag in Silk (Kalki, ₹7899); #26 Scarlet Red Embroidered Silk Potli (Tjori, ₹1069); #27 Red Silk Mirror Embellished Potli Bag (Kalki, ₹6399); #28 Ruby Red Zari Embroidered Silk Envelope Clutch (Tjori, ₹919)
 
-**Gold Embellished Clutches**: #33 Ruby Red Zari Embroidered Silk Envelope Clutch (Tjori, ₹919); #34 Gold Sequins Embroidered Clutch (House of Designers, ₹5040); #35 Red and Gold Jaal Textured Pearl Embellished Bag (Kalki, ₹11899); #36 Gold Hand-Embroidered Clutch (House of Designers, ₹5040)
+**Gold Embellished Clutches**: #33 Red and Gold Jaal Textured Pearl Embellished Bag (Kalki, ₹11899); #34 Gold Sequins Embroidered Clutch (House of Designers, ₹5040); #35 Inddus Red & Gold-toned Woven Brocade Box Clutch (Inddus, ₹539); #36 Gold Fawn Sequins Embroidered Clutch (House of Designers, ₹10000)
 
-**Metallic Gold Clutches**: #41 Red Coiled Metallic Sculptural Clutch (Outzidr, ₹1199); #42 Black Leather Clutch With Gold Rose (House of Designers, ₹6000); #43 Solid Structured Sling Bag (U.S. Polo Assn., ₹1774); #44 Gold Embellished Clutch (Kalki, ₹8490)
+**Metallic Gold Clutches**: #41 Red Coiled Metallic Sculptural Clutch (Outzidr, ₹1199); #42 Womens Gold Party Embellished Clutch Bag for Chic Style Look (Inc.5, ₹3690); #43 Gold Embellished Clutch (Kalki, ₹8490); #44 Gold Crystal Embroidered Clutch (House of Designers, ₹2800)
 
 Picks:
-- **#26 Rich silk embroidery for weddings**: This red potli bag is crafted from silk and features intricate embroidered motifs, perfectly matching the heavy gold zari work on your lehenga. Its luxurious fabric and detailed embroidery make it ideal for wedding occasions, enhancing your festive look. _Tip: Pair it with gold jewelry to highlight the embroidery and keep your outfit cohesive._
-- **#44 Elegant gold metal clutch**: This gold clutch combines mix metal fabric with embellished detailing, offering a modern yet traditional appeal. Its gold tone complements the zari work on your lehenga, making it a standout accessory for weddings and festive parties. _Tip: Carry it with a red or gold lehenga to maintain a rich, coordinated palette._
-- **#25 Affordable red potli with gota work**: Made with red fabric and embellished with gota work, this potli bag offers a festive look that echoes the gold zari on your lehenga. It's a budget-friendly option that still brings traditional charm to your wedding ensemble. _Tip: Use it to add a pop of color and texture, pairing well with gold bangles or earrings._
-- **#35 Pearl-embellished red and gold bag**: This red handbag features pearl embellishments and a jaal textured pattern, blending traditional craftsmanship with a luxurious feel. Its red and gold accents perfectly match your lehenga’s heavy zari work, making it a sophisticated choice for weddings and festive occasions. _Tip: Match it with pearl jewelry to enhance the bag’s detailing and your overall look._
+- **#27 Best for heavy embellishment**: This red silk potli bag features mirror embellishments that complement your lehenga's heavy gold zari work beautifully. Its rich silk fabric and intricate detailing make it perfect for weddings and festive occasions, matching the grandeur of your outfit. _Tip: Pair it with gold jewelry and traditional footwear to complete your festive look._
+- **#43 Elegant gold metal clutch**: This gold clutch made from mixed metal with embellished detailing offers a sleek yet ornate option. Its metallic sheen will subtly enhance the gold zari on your lehenga without overpowering your ensemble, ideal for wedding events. _Tip: Carry it with a red and gold outfit to maintain a balanced, regal appearance._
+- **#26 Affordable embroidered silk potli**: This scarlet red silk potli bag with embroidered detailing is a budget-friendly choice that still brings traditional charm. Its vibrant red shade and fine embroidery make it suitable for festive and wedding occasions, complementing your lehenga's color and work. _Tip: Use it to add a pop of color and texture while keeping your essentials handy._
+- **#42 Chic gold embellished clutch**: This gold synthetic clutch with embellished work is perfect for festive or evening parties. Its lightweight material and sparkling embellishments provide a contemporary touch that pairs well with traditional red and gold attire. _Tip: Match it with gold-toned accessories for a cohesive look._
 
-> These bags blend rich reds and golds with embroidery and embellishments, perfectly complementing your heavy zari lehenga for wedding celebrations.
+> These picks blend traditional red and gold with rich embellishments, offering versatile, elegant bag options for your wedding ensemble.
 
-Asks: What is your budget for the purse? [Under ₹5,000 / ₹5,000 to ₹10,000 / Above ₹10,000]
+Asks: What is your budget for the purse? [Under ₹2,000 / ₹2,000–₹5,000 / Above ₹5,000]
 
-Follow-ups: `Show more potli bags` `Show more embellished clutches` `Show metallic clutches`
+Follow-ups: `Show more potli bags` `Show more embellished clutches` `Show more metallic clutches`
 
 ### 🧑 under 2000
 
-*refine · first text 1.1s · first products 6.5s · total 10.0s · 8782/849 tokens* ✅
+*refine · first text 1.1s · first products 9.5s · total 13.4s · 9110/923 tokens* ✅
 
 Remembers: `Women` `Red` `Gold` `Under ₹2,000` `~ embellished`
 
-> Here are red and gold embellished purses under ₹2000 that complement your heavy gold zari red lehenga without compromising on style.
+> I've refined the selection to show only red and gold purses under ₹2000 that suit your heavily embroidered red and gold wedding lehenga.
 
-**Budget Red Potli Bags**: #49 Luminous Red Potli With Gota Work (Tjori, ₹969); #50 Trendy Bags Blush Stones Embellished Potli (Voylla, ₹1774); #51 Radiant Red Gota Patti Silk Potli (Tjori, ₹1069); #52 Cult Gym Bag 12L Red with Black Shaker Bottle 550ml Black (Cult Store, ₹1500)
+**Affordable Red Potli Bags**: #49 Scarlet Red Embroidered Silk Potli (Tjori, ₹1069); #50 Ruby Red Zari Embroidered Silk Envelope Clutch (Tjori, ₹919); #51 Cult Gym Bag 12L Red with Black Shaker Bottle 550ml Black (Cult Store, ₹1500); #52 Now Womens Red Textured Sling Bag With Zip Lock (Inc.5, ₹1196)
 
-**Affordable Gold Embellished Clutches**: #57 Inddus Red & Gold-toned Woven Brocade Box Clutch (Inddus, ₹539); #58 Adorn Embellished Suede Clutch (Anekaant, ₹1410); #59 Irvine Medium Emb Envelop Clutch (Lavie World, ₹1679); #60 Golden Magnet Lock Clutch Bag for Parties (Inc.5, ₹1396)
+**Budget Gold Embellished Clutches** _(Few exact matches, so also showing close shades (maroon, pink, orange, yellow, beige) and a few up to ₹2,800.)_: #57 Inddus Red & Gold-toned Woven Brocade Box Clutch (Inddus, ₹539); #58 Adorn Embellished Suede Clutch (Anekaant, ₹1410); #59 Gold Crystal Embroidered Clutch (House of Designers, ₹2800); #60 Irvine Medium Emb Envelop Clutch (Lavie World, ₹1679)
 
-**Metallic Gold Clutches Under ₹2000**: #65 Red Coiled Metallic Sculptural Clutch (Outzidr, ₹1199); #66 Apex Small Clutch (Lavie World, ₹1749); #67 Solid Structured Sling Bag (U.S. Polo Assn., ₹1774); #68 Latin Quarters Women's Metallic Golden Box Clutch with Chunky Chain Strap (Latin Quarters, ₹1450)
+**Metallic Gold Clutches Under ₹2000**: #65 Red Coiled Metallic Sculptural Clutch (Outzidr, ₹1199); #66 Apex Small Clutch (Lavie World, ₹1749); #67 Latin Quarters Women's Metallic Golden Box Clutch with Chunky Chain Strap (Latin Quarters, ₹1450); #68 HZ Zion Medium Envelop Clutch (Lavie World, ₹1249)
 
 Picks:
-- **#51 Best silk potli for weddings**: This red silk potli with gota patti embellishment is perfect for weddings and festive occasions. The silk fabric adds a rich texture that complements heavy gold zari work on your lehenga, while the gota patti enhances the traditional vibe. _Tip: Pair it with gold jewelry and red or gold footwear to complete your festive look._
-- **#59 Elegant gold embroidered clutch**: This gold medium envelope clutch features delicate embroidered detailing on fabric, making it ideal for evening weddings and parties. Its gold tone matches your lehenga's zari perfectly, adding a subtle yet sophisticated shine. _Tip: Carry it with matching gold heels and minimal jewelry for a balanced, elegant appearance._
-- **#49 Affordable red potli with gota work**: This red potli bag with gota work is a budget-friendly choice under ₹1000. Its embellished pattern and festive red color make it suitable for bridal occasions, complementing your lehenga without overpowering it. _Tip: Use it to hold essentials and pair with traditional juttis or mojaris for a cohesive ethnic look._
+- **#50 Best red silk embroidery**: This ruby red clutch in Dupion silk features zari dori embroidery, perfectly matching your red and gold wedding lehenga. Its compact envelope style is elegant and easy to carry for wedding festivities. _Tip: Pair it with gold jewelry and red heels to complement the rich embroidery._
+- **#60 Elegant gold embroidered clutch**: A medium-sized gold fabric clutch with intricate embroidery, ideal for evening wedding events. Its warm gold tone and detailed work enhance your lehenga's gold accents without overpowering the look. _Tip: Carry it with matching gold bangles and a sleek updo for a polished appearance._
+- **#68 Gold embellished fabric clutch**: This gold fabric clutch with embellishments offers a festive vibe suitable for weddings and evening parties. Its moderate size balances style and practicality, fitting essentials comfortably. _Tip: Match it with a red and gold dupatta to tie the outfit together seamlessly._
+- **#49 Silk potli with embroidery**: A scarlet red silk potli bag richly embroidered, perfect for traditional wedding occasions. Its drawstring closure and soft fabric add a classic touch while being lightweight and easy to carry. _Tip: Use it to hold small essentials and pair with gold jhumkas for a traditional look._
 
-> These picks blend traditional embellishments with festive red and gold tones, perfect for your wedding ensemble under ₹2000.
+> These picks blend rich reds and golds with embroidery, perfectly complementing your wedding lehenga under ₹2000.
 
-Asks: Do you prefer a traditional potli bag or a modern clutch style? [Potli bag / Clutch]
+Asks: Would you prefer a potli bag, a clutch, or a metallic clutch? [Potli bag / Clutch / Metallic clutch]
 
-Follow-ups: `Show more red bags` `Show more gold clutches` `Add matching jewellery`
+Follow-ups: `Show more options` `Add matching jewellery` `Under ₹1500`
 
 ## Conversation 12
 
 ### 🧑 need some new tops for college
 
-*recommend · first text 1.0s · first products 8.0s · total 12.1s · 7358/997 tokens* ✅
+*recommend · first text 1.0s · first products 6.9s · total 10.5s · 7730/979 tokens* ✅
 
-Remembers: `Women` `~ comfortable` `~ breathable`
+Remembers: `~ comfortable` `~ breathable`
 
 Personalized: Used your taste (green, purple, cotton blend) · Preferring ₹1.5k–₹2.1k
 
-> For college tops, go for comfortable, versatile styles that mix and match easily with jeans or skirts. - **Casual cotton tops** are breathable and perfect for daily wear. - **Printed or striped patterns** add a youthful, fun vibe. - **Lightweight fabrics** like rayon or modal keep you cool and stylish. - **Simple fits** like regular or relaxed ensure comfort throughout the day.
+> For college tops, comfort and style are key. Choose versatile, easy-to-style tops that suit your daily activities and personal taste. - **Casual t-shirts** offer comfort and come in many prints and colors for a youthful vibe. - **Blouses and tunics** can elevate your look while remaining comfortable and breathable. - **Crop tops and camisoles** are trendy options for layering or warmer days. - **Light fabrics** like cotton or rayon blend keep you cool and fresh throughout the day.
 
-**Cotton Tops**: #1 Cropped Mint Green Tee · Soft Pastel Cotton Tee for Casual Style (Chapter 2 Drip, ₹1190); #2 White Casual Cotton T-Shirt For Women (Neofaa, ₹1699); #3 Women's 100% Cotton Casual Wear Regular Fit Tshirt/Cottonworld (Cottonworld, ₹590); #4 Indifferent Black T-Shirt · 100% Cotton, 280 GSM T-Shirt (Chapter 2 Drip, ₹2290)
+**Casual T-Shirts**: #1 XYXX Cotton T Shirts for Men · Yellow poly tshirt, Premium Supima Cotton, Anti-Bacterial, zero irritation, Sweat Resistant, Everyday Casual Wear (XYXX, ₹399); #2 Baby Boys Navy Blue Red And White Cotton T-Shirt Regular Fit Casual Ki (MiniKlub, ₹628); #3 Indifferent Black T-Shirt · 100% Cotton, 280 GSM T-Shirt (Chapter 2 Drip, ₹2290); #4 White Casual Cotton T-Shirt For Women (Neofaa, ₹1699)
 
-**Rayon & Modal Tops**: #9 Dark Pink Glitter Floral Printed Rayon Ethnic Shirt Dress (Wishful By W, ₹2280); #10 Juniper Sky Blue Geometric Printed Rayon Dobby Kaftan With Thread Work Embroidery (Juniper Fashion, ₹895); #11 Black & Red Block Printed Rayon Kaftan (The Kaftan Company, ₹3299); #12 Rareism Women's Ancona White Rayon Boat Neck Plain Kimono Sleeve Relaxed Fit Top (The House Of Rare, ₹2069)
+**Blouses and Tunics**: #9 Enamor E310 Crop Top · Cotton Rib In-Built Shelf Bra Crop Top for Comfortable and Stylish Support (Enamor, ₹899); #10 Enamor E310 Crop Top · Cotton Rib In-Built Shelf Bra Crop Top for Comfortable and Stylish Support (Enamor, ₹899); #11 Plus Size Floral Tunic · Stylish & Comfortable Navy Blue Dress (Swasti Clothing, ₹3556); #12 Grey Acid Wash Crop Top · Stylish and Comfortable Casual Wear (Chapter 2 Drip, ₹1490)
 
-**Printed & Striped Tops**: #17 Libas Blue Striped Printed Cotton Blend Shirt (Libas, ₹1069); #18 Plus Size Blue Stripe Printed Cotton Top (Amydus, ₹2499); #19 Latin Quarters Women Green Round Neck 3/4Th Sleeves Printed Tunic Blouse For Casual Wear (Latin Quarters, ₹800); #20 Rayon Pleated Top With Dotted Block Print (Kilol, ₹1520)
+**Crop Tops and Camisoles**: #17 Trendy Black Strappy Crop Top For Women (Neofaa, ₹999); #18 Trendy O Ring Crop Top For Women (Neofaa, ₹1299); #19 Pink and White Striped Cotton Kaftan Dress (The Kaftan Company, ₹2495); #20 Black and White Paisley Print Cotton Tunic Top (The Kaftan Company, ₹1995)
 
 Picks:
-- **#3 Best budget cotton tee**: This purple regular fit T-shirt from Cottonworld is made of 100% cotton, ensuring breathability and comfort for long college days. Its solid color makes it easy to pair with jeans or skirts, perfect for casual daily wear within your budget. _Tip: Pair it with denim jeans and sneakers for a simple, stylish college look._
-- **#12 Relaxed rayon top for comfort**: The white relaxed fit top from The House Of Rare is crafted from a rayon blend, offering a soft, lightweight feel that's ideal for warm weather. Its plain design and kimono sleeves add a trendy touch while keeping you comfortable all day. _Tip: Wear it with printed bottoms or leggings to add some contrast and keep the outfit fresh._
-- **#17 Striped cotton blend shirt**: This blue striped shirt by Libas is made from a cotton blend, combining comfort with a crisp look. The regular fit and classic stripes make it versatile for casual college days or even semi-formal occasions. _Tip: Tuck it into high-waisted jeans or skirts and add loafers for a smart casual vibe._
-- **#1 Soft pastel cropped tee**: The mint green cropped tee from Chapter 2 Drip is made of soft cotton, perfect for casual wear and layering. Its pastel shade adds a youthful, fresh look suitable for college, especially in warmer weather. _Tip: Layer it under a denim jacket or pair with high-waisted shorts for a trendy, laid-back style._
+- **#4 Tailored comfort for daily wear**: This white casual cotton T-shirt for women is made from modal lycra, offering a tailored fit that is breathable and comfortable for college days. Its solid white color makes it versatile and easy to pair with jeans or skirts for a fresh, clean look. _Tip: Pair it with denim jeans and sneakers for a classic college outfit._
+- **#12 Casual crop top with cool texture**: The grey acid wash crop top is crafted from 100% cotton denim, giving it a trendy, textured look while keeping it breathable and comfortable. Its regular fit and casual style make it perfect for warm college days and easy to style with high-waisted pants or skirts. _Tip: Wear it with high-waisted jeans and casual shoes for a laid-back vibe._
+- **#20 Printed cotton tunic for versatile style**: This black and white paisley print cotton tunic top offers a straight fit and breathable cotton fabric, ideal for all-day comfort at college. The print adds visual interest while maintaining a casual yet polished look suitable for both daily wear and office-like settings. _Tip: Combine it with leggings or slim pants and flats for a smart casual look._
 
-> These picks blend comfort, style, and versatility for your college wardrobe across cotton, rayon, and prints.
+> These picks blend comfort, breathability, and style perfectly for versatile college wear across casual and semi-formal looks.
 
-Asks: What colors or patterns do you prefer for your college tops? [Solid colors / Prints and patterns / Bright colors / Pastels]
+Asks: What style of tops do you prefer? [Casual t-shirts / Blouses and tunics / Crop tops and camisoles]
 
-Follow-ups: `Show cotton tops` `Show printed tops` `Under ₹1,500`
+Follow-ups: `Show more casual t-shirts` `Include sleeveless options` `Add printed tops`
 
 ### 🧑 something bolder than usual
 
-*refine · first text 1.1s · first products 8.2s · total 11.9s · 7995/844 tokens* ✅
+*refine · first text 1.1s · first products 9.1s · total 13.8s · 8619/939 tokens* ✅
 
-Remembers: `Women` `~ comfortable` `~ breathable`
+Remembers: `~ comfortable` `~ breathable`
 
-> I've updated the selection to include bolder, more vibrant tops with striking prints, brighter colors, and unique cuts to stand out on campus. - **Bright colors and bold prints** make a strong style statement. - **Unique cuts and details** like ruffles or asymmetric hems add interest. - **Mix fabrics** like cotton with silk blends for texture contrast. - **Look for standout patterns** like geometric or abstract prints to elevate your look.
+> I've updated the selection to include bolder, more vibrant tops that stand out for college wear.
 
-**Bold Printed Tops**: #25 Dark Blue Printed Cotton Top (VERO MODA, ₹2599); #26 Plus Size Blue Stripe Printed Cotton Top (Amydus, ₹2499); #27 Bright Yellow Small Printed Cotton Top (Varanga, ₹1499); #28 Women Yellow Cotton Blend Ruffle Detail Top for Maternity Wear (MiniKlub, ₹399)
+**Graphic and Printed T-Shirts**: #25 Pace Combed Cotton T-shirts Bold Burgundy (XYXX, ₹449); #26 Element Combed Cotton Polo T-shirts Bold Burgundy (XYXX, ₹399); #27 Baby Boys Yellow Cotton Printed T-Shirt Regular Fit Casual Wear (MiniKlub, ₹628); #28 Bold Print Cotton T-Shirt (U.S. Polo Assn., ₹870)
 
-**Bright Solid & Textured Tops**: #33 Bright Blue Tasseled Green Cotton Kaftan Top For Women (The Kaftan Company, ₹518); #34 Bright Yellow Small Printed Cotton Top (Varanga, ₹1499); #35 Mustard Yellow Woven Rayon Tunic #430 (Lyra, ₹450); #36 True Blue Woven Rayon Tunic #430 (Lyra, ₹450)
+**Statement Crop Tops**: #33 Women's Striped Halter-Neck Top in Cotton Bold Stripe · Beige (Genes Lecoanet Hemant, ₹3499); #34 Red and Black Satin Ethnic Motif Kaftan Night Dress (The Kaftan Company, ₹2699); #35 Black And Purple Round Neck Poly Satin Floral Kaftan Top (The Kaftan Company, ₹995); #36 Luxe Gold Reflective Crop Top Black (SilverTraq, ₹1399)
+
+**Vibrant Tunics and Blouses**: #41 Red & Orange Printed Tie-Dye Cotton Kaftan with Pom-Pom Detailing (The Kaftan Company, ₹2695); #42 Plus Size Tunic Dress · Vibrant Yellow Floral Print for Women (Swasti Clothing, ₹3556); #43 Purple Pure Cotton Floral Printed Flared Tunic (Janasya, ₹849); #44 Purple & White Block Printed Cotton Tunic with Pants (Set of Two) (Kapraaha, ₹5520)
 
 Picks:
-- **#27 Best for vibrant casual wear**: This bright yellow small printed cotton top from Varanga combines a lively mustard hue with breathable cotton blend fabric, making it perfect for bold, comfortable daily wear or casual parties. Its regular fit ensures ease of movement, ideal for a college setting where comfort meets style. _Tip: Pair it with neutral jeans or skirts to let the bright print stand out._
-- **#33 Ethnic motifs for festive flair**: The green slim fit cotton kaftan top from The Kaftan Company features ethnic motifs that add a unique, artistic touch. Its slim fit and breathable cotton fabric make it suitable for casual, festive, or party occasions, offering a stylish yet comfortable option for campus events or celebrations. _Tip: Wear it with fitted trousers or leggings and ethnic accessories for a standout look._
-- **#26 Soft voile with bold stripes**: Amydus's plus size blue stripe printed cotton-blend voile top offers a lightweight, airy feel with a striking striped pattern. The cotton-blend voile fabric ensures breathability and comfort, while the regular fit suits everyday casual wear, making it a great choice for a bold yet easygoing campus outfit. _Tip: Combine with solid-colored bottoms to balance the bold stripes._
+- **#28 Bold red graphic print**: This red slim fit cotton T-shirt from U.S. Polo Assn. features a vibrant printed pattern that makes a strong style statement while remaining breathable and comfortable for daily wear. Its slim cut adds a modern edge, perfect for standing out on campus. _Tip: Pair it with dark jeans and white sneakers for a sharp casual look._
+- **#41 Vibrant tie-dye cotton kaftan**: This relaxed red and orange printed tie-dye cotton kaftan offers bold colors and pom-pom detailing, making it a lively choice for casual or vacation wear. The 100% cotton fabric ensures breathability and comfort in warm weather. _Tip: Wear it with simple leggings or shorts and minimal accessories to let the colors pop._
+- **#36 Gold reflective sporty crop top**: This black bodycon crop top with gold reflective stripes combines sporty vibes with bold style. Made from polyester and spandex, it offers stretch and breathability, ideal for casual outings or gym sessions where you want to stand out. _Tip: Team it with high-waisted joggers or shorts and sporty sneakers for an energetic look._
+- **#42 Bright yellow floral tunic**: This vibrant yellow pure cotton tunic with floral print is a cheerful and comfortable option for daily wear. The regular fit and breathable fabric make it suitable for long college days while adding a bold splash of color. _Tip: Pair it with white or neutral leggings and simple sandals for fresh, easy styling._
 
-> These picks blend bold colors, prints, and comfortable fabrics to elevate your campus style with vibrant, breathable tops.
+> These picks offer bold colors and prints in breathable fabrics, perfect for comfortable, standout college outfits across casual and sporty styles.
 
-Asks: Do you prefer bold prints or bright solid colors? [Bold prints / Bright solids / Mix of both]
+Asks: What colors do you prefer for bolder tops? [Bright reds and oranges / Deep blues and purples / Multicolor and prints / Black and neon accents]
 
-Follow-ups: `Show cotton only` `Add sleeveless options` `Under ₹1,500`
+Follow-ups: `Show printed t-shirts` `Show embellished crop tops` `Show colorful tunics`
 
 ## Conversation 13 (Shopping for: men)
 
 ### 🧑 saree as a gift for my mom
 
-*recommend · first text 1.4s · first products 9.5s · total 13.3s · 7375/961 tokens* ✅
+*recommend · first text 1.0s · first products 13.0s · total 17.0s · 7645/986 tokens* ✅
 
 Remembers: `Women`
 
-> For gifting a saree to your mom, choose elegant fabrics and timeless designs that she can cherish and wear comfortably. - **Silk sarees** like Kanjivaram or Banarasi are classic and perfect for special occasions. - **Cotton or cotton-silk blends** offer comfort for daily or casual wear. - **Light embroidery or prints** keep the saree versatile and graceful without being too flashy.
+> For gifting a saree to your mom, consider timeless elegance and comfort with fabrics and designs she will love. - **Silk sarees** are a classic choice, perfect for festive and special occasions. - **Cotton or cotton-blend sarees** offer comfort for daily or casual wear. - **Printed or embroidered sarees** add a touch of style without being too heavy. - **Avoid very trendy or flashy styles** unless you know her taste well.
 
-**Silk Sarees**: #1 Handloom Red Pure Katan Silk Brocade Banarasi Saree With Antique Gold Zari (WeaverStory, ₹43995); #2 Yellow Jacquard Silk Saree With Woven Brocade Zari Work (Kalki, ₹41495); #3 Red Shaded Dola Silk Saree With Zari Jaal Work (Kalki, ₹8995); #4 Red Kanjeevaram Silk Blend Woven Design Zari Saree With Blouse Piece (Karagiri, ₹3099)
+**Silk Sarees**: #1 Elegant Sea Green Silk Saree For Festive Wear (Sareesbazaar, ₹134); #2 Navy Blue & Gold-Toned Silk Blend Woven Design Saree (Inddus, ₹1360); #3 Blue Festive Duo · Cape Pre Draped Saree Set For Her And Silk Kurta Jacket Set For Him (Kalki, ₹75749); #4 Lime Green Pure Silk Saree With Satin Finishing (WeaverStory, ₹16995)
 
-**Cotton Sarees**: #9 Light Mauve Handloom Cotton Silk Eknaliya Chanderi Saree With Thread And Zari Meena Flower Booti (WeaverStory, ₹18995); #10 Light Royal Blue Handloom Cotton Saree With Printed Blouse (Gopikanya, ₹1899); #11 Beige Silk Blend Casual Wear Saree With Blouse Piece (Karagiri, ₹2299); #12 Light Mehndi Handloom Handloom Cotton Saree With Embroidery Work Blouse (Gopikanya, ₹2199)
+**Cotton Sarees**: #9 Blue Cotton Blend Casual Wear Saree With Blouse Piece (Karagiri, ₹2599); #10 Green Cotton Blend Casual Wear Saree With Blouse Piece (Karagiri, ₹2599); #11 Fancy Perrot Green Mul Mul Cotton Saree for Casual and Festive Wear (Gopikanya, ₹2699); #12 Trendy C Green and White Half and Half Mul Mul Cotton Saree for Occasions (Gopikanya, ₹2599)
 
-**Light Embroidered Sarees**: #17 Pastel Green Light Embroidered Saree (Kalki, ₹10995); #18 Flamingos In Flight Zardozi Embroidered Saree · Green (Anita Dongre, ₹69300); #19 Light Green Embroidered Crepe Saree (Lashkaraa, ₹18800); #20 Green Light Flow Embroidered Saree (Kalki, ₹35950)
+**Embroidered Sarees**: #17 Libas Art Green Embroidered Silk Blend Saree With Unstitched Blouse Piece (Libas, ₹4149); #18 Libas Prussian Blue Embroidered Silk Blend Saree (Libas, ₹1439); #19 Floral Embroidered Mirror Work Satin Saree (Inddus, ₹1852); #20 Pink Nylon Floral Embroidered Mirror Work Saree (Karagiri, ₹3899)
 
 Picks:
-- **#1 Classic Banarasi Silk Elegance**: This pure Katan silk Banarasi saree in vibrant red features antique gold zari brocade work, making it a timeless choice for festive and wedding occasions. The rich fabric and intricate detailing reflect traditional craftsmanship, perfect for gifting your mom a luxurious and elegant saree she can cherish. _Tip: Pair it with gold jewelry and a classic bun for a regal look._
-- **#9 Comfortable Festive Cotton Silk**: This light mauve handloom cotton silk saree with embroidered thread and zari Meena flower bootis offers a blend of comfort and festive charm. Its soft fabric and subtle embroidery make it ideal for cultural events or elegant day occasions, suitable for moms who appreciate both style and ease. _Tip: Wear with pearl accessories and a soft makeup look for daytime grace._
-- **#17 Pastel Green Light Embroidery**: This pastel green saree with delicate embroidered detailing is a graceful option for festive and party occasions. Its regular fit and subtle color make it versatile and flattering, perfect for moms who prefer understated elegance with a touch of artistry. _Tip: Complement with silver jewelry and a light shawl for added warmth and style._
+- **#1 Classic festive silk elegance**: This sea green silk saree features delicate embroidery, making it a timeless choice for festive and wedding occasions. The silk fabric offers a rich texture and comfortable drape, ideal for your mom to feel special and elegant. _Tip: Pair it with gold jewelry and a matching blouse for a complete festive look._
+- **#17 Embroidered silk blend charm**: This green silk blend saree with intricate embroidery balances comfort and style, perfect for party and festive wear. The silk blend fabric is easier to maintain than pure silk, making it practical for gifting. _Tip: Style it with subtle earrings and a sleek hairstyle to highlight the embroidery._
+- **#12 Light and fresh cotton festive wear**: A green and white cotton saree with colorblock detailing, this option is breathable and comfortable for warmer weather or casual festive events. Its cotton fabric ensures ease of wear and care, suitable for everyday elegance. _Tip: Wear it with simple silver or oxidized accessories for a fresh, modern look._
+- **#4 Pure silk with satin finish**: This lime green pure silk saree with a satin finish offers a smooth, luxurious feel and a vibrant color for celebrations. Its flowy fit adds grace, making it a standout gift for special occasions. _Tip: Complement it with a contrasting blouse and statement jewelry for a striking ensemble._
 
-> These picks blend classic silk luxury, comfortable cotton silk, and delicate embroidery to suit your mom's style and occasion needs perfectly.
+> These picks blend classic silk elegance, embroidered charm, and comfortable cotton options to suit your mom's style and occasion needs.
 
-Asks: What kind of saree does your mom prefer? [Silk / Cotton / Light embroidery]
+Asks: What is your mom's preferred saree fabric? [Silk / Cotton / Blend / Not sure]
 
-Follow-ups: `Show festive sarees` `Show casual sarees` `Add matching blouse options`
+Follow-ups: `Show festive sarees` `Show casual sarees` `Show embroidered sarees`
 
 ### 🧑 something in silk
 
-*refine · first text 1.1s · first products 6.8s · total 11.0s · 8348/941 tokens* ✅
+*refine · first text 1.3s · first products 4.4s · total 9.3s · 8002/656 tokens* ✅
 
-Remembers: `Women` `Silk`
+Remembers: `Women` `Silk` `~ elegant` `~ traditional`
 
-> Focusing on silk sarees, I'll highlight elegant options in pure silk and silk blends that offer both luxury and comfort for your mom.
+> Focusing on elegant silk sarees for your mom, perfect for festive or special occasions with rich texture and traditional appeal.
 
-**Pure Silk Sarees**: #25 Handloom Red Pure Katan Silk Brocade Banarasi Saree With Antique Gold Zari (WeaverStory, ₹43995); #26 Pure Silk Pure Zari Pink with Yellow Color Paithani Saree (Nalli, ₹137664); #27 Pure Silk Pure Zari Pink with Red Color Kanjivaram Saree (Nalli, ₹102967); #28 Maroon Handloom Pure Katan Silk Zari Wasket Saree With Kadhwa Border (WeaverStory, ₹54995)
-
-**Silk Blend Sarees**: #33 Coral Red Silk Saree with Floral Gold Zari Weaving (Neeru's, ₹3823); #34 Red Banaras Silk Floral Weaved Saree (Neeru's, ₹9560); #35 Precious Navy Blue Floral Printed Silk Casual Wear Saree With Blouse (Zeel Clothing, ₹1379); #36 Attractive Teal Green Floral Printed Silk Casual Wear Saree With Blouse (Zeel Clothing, ₹1379)
-
-**Cotton Silk Sarees**: #41 Unstitched Elegant Green Printed Silk Casual Wear Saree With Blouse (Ethnic Plus, ₹1559); #42 Women's Purple Cotton-Silk Ethnic Motifs Saree With Unstitched Blouse Piece (Vastramay, ₹9597); #43 Unstitched Magnetic Grey & Purple Floral Printed Silk Wedding Wear Saree (Ethnic Plus, ₹3779); #44 Grey Maheshwari Silk Cotton Saree (Nalli, ₹9114)
+**Pure Silk Sarees**: #25 Navy Blue Pure Silk Jaal Gold Zariwork Saree With Matching Blouse Piece (Koskii, ₹20993); #26 Blue And Green Handloom Pure Katan Silk Rangkaat Banarasi Saree · Pre order (WeaverStory, ₹56995); #27 Pecock Blue Handloom Pure Silk Kanjivaram Saree With Wine And Gold Zari Border And Elephant Motifs (WeaverStory, ₹14995); #28 Pure Silk Pure Zari Red, Black and Green Dual Tone Kanjivaram Saree (Nalli, ₹28098)
 
 Picks:
-- **#25 Best for grand festive occasions**: This Handloom Red Pure Katan Silk Brocade Banarasi Saree features rich antique gold zari work on luxurious Katan silk fabric. Its striking red color and intricate brocade pattern make it perfect for weddings and festive parties, offering a traditional yet elegant look. _Tip: Pair it with gold jewelry and a classic bun hairstyle to highlight the zari work._
-- **#33 Affordable silk with floral zari**: The Coral Red Silk Saree with Floral Gold Zari Weaving from Neeru's is a beautiful silk saree that combines vibrant coral red with delicate floral zari patterns. It’s ideal for festive celebrations where you want a touch of luxury without heavy embellishments. _Tip: Wear with subtle gold accessories and a matching blouse to keep the focus on the zari weaving._
-- **#42 Festive cotton-silk blend comfort**: This Purple Cotton-Silk Saree with Ethnic Motifs offers the sheen of silk combined with breathable cotton, making it comfortable for long festive or wedding events. The ethnic motifs add traditional charm while the cotton blend ensures ease of wear. _Tip: Style with silver or oxidized jewelry for a contemporary ethnic look._
-- **#35 Casual silk with floral print**: The Precious Navy Blue Floral Printed Silk Saree is a lightweight, printed silk option suitable for casual or office wear with a festive touch. Its floral print and navy blue shade make it versatile for day events or informal celebrations. _Tip: Pair with minimalistic pearl or stud earrings and a simple blouse for an elegant casual look._
+- **#26 Luxurious Katan Silk Elegance**: This Blue And Green Handloom Pure Katan Silk Rangkaat Banarasi Saree features exquisite cutwork on rich Katan silk, making it a standout choice for festive and wedding occasions. The blend of blue and green hues adds a vibrant yet traditional touch, perfect for your elegant silk preference. _Tip: Pair it with gold jewelry and a sleek bun for a classic festive look._
+- **#27 Traditional Kanjivaram with Motifs**: The Peacock Blue Handloom Pure Silk Kanjivaram Saree with Wine and Gold Zari Border and Elephant Motifs offers a beautiful traditional appeal with its pure silk fabric and intricate zari work. The elephant motifs add cultural richness, ideal for weddings and festive parties. _Tip: Complement with statement temple jewelry and a matching blouse to enhance the motifs._
+- **#25 Rich Navy Blue Silk with Zari**: This Navy Blue Pure Silk Jaal Gold Zariwork Saree by Koskii is crafted from pure silk with elegant embellished detailing. Its deep navy shade and gold zari make it suitable for festive events and parties, providing a sophisticated yet festive vibe. _Tip: Wear with gold accessories and a bold lip color for a striking appearance._
 
-> From grand brocade to casual prints, these silk picks cover festive, wedding, and everyday elegance with comfort and style.
+> These picks showcase the beauty of pure silk sarees with traditional embellishments, perfect for festive and wedding celebrations.
 
-Asks: What occasion is the saree for? [Festive / Casual / Formal]
+Asks: What color does your mom prefer for silk sarees? [Blue shades / Green shades / Red or warm tones / Neutral or gold]
 
-Follow-ups: `Show more pure silk` `Include silk blends` `Add cotton silk options`
+Follow-ups: `Show embroidered silk sarees` `Show pure silk sarees` `Show silk blend sarees`
 
 ## Conversation 14 (Shopping for: men)
 
 ### 🧑 a kurta for a puja
 
-*recommend · first text 1.1s · first products 6.6s · total 10.1s · 7097/791 tokens* ✅
+*recommend · first text 1.2s · first products 8.0s · total 12.2s · 7680/1003 tokens* ✅
 
 Remembers: `Men`
 
-> For a puja, choose a kurta that balances tradition and comfort, with subtle elegance. - **Cotton or silk fabrics** keep you comfortable and look festive. - **Light colors or pastels** work well for spiritual and daytime events. - **Embroidered or printed kurtas** add a touch of tradition without being too flashy. - **Avoid heavy or dark colors** to keep the vibe serene and appropriate.
+> For a puja, choose kurtas that blend tradition with comfort and a touch of elegance. - **Classic cotton kurtas** offer breathability and ease during rituals. - **Silk or silk-blend kurtas** add a festive sheen without being too flashy. - **Embroidered or printed kurtas** bring in ethnic charm suitable for religious ceremonies.
 
-**Cotton Kurtas**: #1 Men’s Off-White Cotton Printed Kurta with Vintage Motifs 30043 (Minister White, ₹995); #2 Men’s Off-White Cotton Printed Kurta with Geometric Accents 30045 (Minister White, ₹995); #3 Beige Printed Cotton Kurta with Multicolor Kantha-Inspired Motifs for Festive Wear (Kisah, ₹3498); #4 Elegant Off-White Cotton Blend Kurta for Men Minimalistic Ethnic Wear (Kisah, ₹2998)
+**Cotton Kurtas**: #1 Elegant Off-White Cotton Blend Kurta for Men Minimalistic Ethnic Wear (Kisah, ₹2998); #2 Elegant Off-White Cotton Blend Kurta for Men · Minimalistic Ethnic Wear (Kisah, ₹2249); #3 Off-White and Blue Cotton Short Kurta For Men â‚¬€œ The Kaftan Company (The Kaftan Company, ₹1999); #4 Men's White Cotton Blend Solid Kurta (Vastramay, ₹4467)
 
-**Silk Blend Kurtas**: #9 Off-White Silk Blend Embroidered Long Kurta (Kisah, ₹5999); #10 White Silk Blend Kurta with Multicolor Floral Prints and Mandarin Collar (Kisah, ₹4998); #11 Men's White Silk Blend Kurta (Vastramay, ₹4167); #12 Men's Pink Floral Printed Silk Blend Kurta With Cream Solid Viscose Pant Set (Vastramay, ₹6084)
+**Silk Blend Kurtas**: #9 Men's White Silk Blend Kurta (Vastramay, ₹4167); #10 Men's Peach Silk Blend Jacquard Kurta (Vastramay, ₹6477); #11 Maroon Solid Silk Blend Kurta for Mens Elegant Festive Ethnic Wear (Kisah, ₹2998); #12 Peach Silk Blend Solid Mid Kurta (Kisah, ₹2999)
+
+**Embroidered Kurtas**: #17 M Enchanting Off-White Embroidered Silk Function Wear Men’s Kurta (Ethnic Plus, ₹2579); #18 S Dazzling Off-White Embroidered Silk Wedding Wear Men’s Kurta (Ethnic Plus, ₹2279); #19 Grey Embroidered Kurta Set For Men (Kalki, ₹3999); #20 Gleaming Gold · Off-White Gold Zari Thread Embroidered Pattu Kurta Set (Hilo Design, ₹18721)
 
 Picks:
-- **#3 Best for traditional puja vibes**: This beige printed cotton kurta features multicolor Kantha-inspired motifs, blending tradition with comfort. The cotton blend fabric ensures breathability, perfect for a spiritual puja setting, while the festive prints add subtle elegance without overwhelming the look. _Tip: Pair it with simple churidar pants and leather sandals for a complete traditional ensemble._
-- **#9 Elegant silk blend with embroidery**: This cream silk blend kurta has delicate embroidered detailing that elevates its festive appeal. The silk blend fabric adds a slight sheen and softness, making it suitable for a more formal puja or cultural celebration while keeping you comfortable. _Tip: Wear it with off-white or beige trousers and minimal accessories to highlight the embroidery._
-- **#1 Easiest all-day comfort**: An off-white cotton blend kurta with vintage printed motifs, this piece offers a relaxed fit and breathable fabric ideal for long puja ceremonies. Its subtle print keeps the look traditional yet understated, perfect for daytime spiritual events. _Tip: Combine with cotton pajama pants and slip-on mojaris for effortless style._
+- **#2 Best for puja and festive wear**: This off-white cotton blend kurta offers a regular straight fit with solid detailing, making it comfortable and traditional for puja ceremonies. The breathable fabric ensures you stay cool during rituals, while the subtle color keeps it elegant and appropriate for religious occasions. _Tip: Pair it with beige or white churidar and simple mojaris for a classic look._
+- **#19 Elegant embroidered silk for puja**: This grey silk kurta features intricate embroidery and a straight fit, perfect for adding a refined ethnic touch to your puja outfit. Silk fabric lends a festive sheen while the embroidery enhances the traditional vibe without being overly flashy. _Tip: Wear it with matching silk trousers and minimal accessories to highlight the embroidery._
+- **#9 Silk blend kurta with festive sheen**: A white silk blend kurta with a regular straight cut, this piece balances comfort with a subtle festive shine. Its solid pattern makes it versatile for puja and other cultural celebrations, offering a polished yet understated look. _Tip: Combine with off-white or cream pants and a contrasting shawl for added elegance._
+- **#3 Casual yet festive short kurta**: This off-white and blue cotton short kurta features textured detailing and a regular fit, ideal if you prefer a lighter, shorter style for puja. The cotton fabric keeps it breathable, while the subtle pattern adds ethnic charm suitable for daily or festive wear. _Tip: Pair with white or blue cotton pants and simple sandals for a relaxed traditional look._
 
-> These picks balance tradition, comfort, and subtle festive details, perfect for a serene and stylish puja outfit.
+> These kurtas blend comfort, tradition, and subtle elegance, perfect for a respectful and stylish puja outfit.
 
-Asks: What fabric do you prefer for the kurta? [Cotton / Silk blend / No preference]
+Asks: What fabric do you prefer for your kurta? [Cotton / Silk blend / No preference]
 
-Follow-ups: `Show embroidered kurtas` `Show light colors only` `Add matching accessories`
+Follow-ups: `Show embroidered kurtas` `Add matching footwear` `Include festive accessories`
 
 ### 🧑 under 2500
 
-*refine · first text 1.2s · first products 5.2s · total 9.5s · 7773/807 tokens* ✅
+*refine · first text 1.0s · first products 5.9s · total 10.8s · 8614/921 tokens* ✅
 
-Remembers: `Men` `Under ₹2,500` `~ comfortable` `~ subtle`
+Remembers: `Men` `Under ₹2,500`
 
-> I've refined the kurta options to fit your budget under ₹2500, focusing on comfortable and elegant choices suitable for a puja.
+> Refining kurta options to fit under ₹2500 budget, focusing on affordable, comfortable, and elegant choices for puja.
 
-**Cotton Kurtas**: #17 Elegant Off-White Cotton Blend Kurta for Men · Minimalistic Ethnic Wear (Kisah, ₹2249); #18 Off-White Cotton Blend Printed Long Kurta (Kisah, ₹2249); #19 Men’s Off-White Cotton Printed Kurta with Vintage Motifs 30043 (Minister White, ₹995); #20 Men’s Off-White Cotton Printed Kurta with Geometric Accents 30045 (Minister White, ₹995)
+**Cotton Kurtas**: #25 Elegant Off-White Cotton Blend Kurta for Men · Minimalistic Ethnic Wear (Kisah, ₹2249); #26 Men’s Off-White Cotton Printed Kurta with Vintage Motifs 30043 (Minister White, ₹995); #27 Men’s Off-White Cotton Printed Kurta with Geometric Accents 30045 (Minister White, ₹995); #28 Off-White and Blue Cotton Short Kurta For Men â‚¬€œ The Kaftan Company (The Kaftan Company, ₹1999)
 
-**Silk Blend Kurtas**: #25 VASTRAMAY Men's Dark Blue Cotton Silk Blend Kurta (Vastramay, ₹2247); #26 Green Silk Blend Embroidered Kurta (Kisah, ₹1499); #27 Men's Maroon Cotton Silk Blend Kurta (Vastramay, ₹2247); #28 Beige Silk Blend Solid Long Kurta (Kisah, ₹1998)
+**Silk Blend Kurtas**: #33 Maroon Solid Silk Blend Kurta for Men · Elegant Festive Ethnic Wear (Kisah, ₹2249); #34 Men's Gold Silk Blend Ethnic Shirt (Vastramay, ₹1857); #35 Men's Gold Cotton Silk Blend Kurta (Vastramay, ₹2247); #36 Men's Cream Silk Blend Solid Long Kurta (Kisah, ₹1874)
+
+**Embroidered Kurtas**: #41 S Dazzling Off-White Embroidered Silk Wedding Wear Men’s Kurta (Ethnic Plus, ₹2279); #42 Men’s Off-White Cotton Printed Kurta with Vintage Motifs 30043 (Minister White, ₹995); #43 Men’s Off-White Cotton Printed Kurta with Geometric Accents 30045 (Minister White, ₹995); #44 Fantastic White Thread Embroidery Silk Festive Wear Men's Kurta (Zeel Clothing, ₹2279)
 
 Picks:
-- **#17 Best subtle puja cotton kurta**: This off-white cotton blend kurta has a minimalistic solid design and a regular fit, making it comfortable and understated for a puja ceremony. The breathable fabric suits warm weather and the elegant simplicity fits the occasion's traditional vibe. _Tip: Pair it with beige or white churidar and simple mojaris for a classic look._
-- **#26 Rich embroidered silk blend option**: The dark green silk blend kurta with embroidery adds a festive touch while staying within budget. Its regular fit and luxurious fabric make it suitable for both puja and other celebrations, offering a refined yet comfortable style. _Tip: Wear it with cream trousers and leather sandals to highlight the embroidery._
-- **#20 Casual printed cotton for daily wear**: This off-white cotton blend kurta features geometric prints and a regular fit, perfect if you want a subtle yet stylish option for casual puja or daily wear. The cotton fabric ensures comfort in warm weather. _Tip: Combine it with jeans or casual trousers for a relaxed ethnic look._
-- **#28 Cream silk blend for elegant occasions**: This beige silk blend kurta has a solid pattern and regular fit, ideal if you want a light, elegant kurta that works for puja and weddings. The cotton silk fabric balances comfort and sheen, suitable for moderate temperatures. _Tip: Match it with white or cream churidar and a shawl for a polished appearance._
+- **#25 Best for traditional puja**: This off-white cotton blend kurta from Kisah offers a minimalistic, solid design with a regular straight fit, perfect for traditional puja occasions. The cotton blend fabric ensures comfort in warm weather while maintaining an elegant look under ₹2500. _Tip: Pair it with beige or brown churidar and leather sandals for a classic ethnic look._
+- **#36 Elegant silk blend for festive wear**: The cream silk blend kurta from Kisah features a solid pattern and regular straight fit, blending festive elegance with comfort. Silk blend fabric adds a subtle sheen suitable for puja and wedding events, all within your budget. _Tip: Wear with off-white or cream trousers and mojaris to enhance the festive vibe._
+- **#41 Best embroidered silk kurta**: This off-white silk kurta from Ethnic Plus showcases intricate embroidery, elevating your look for festive and wedding occasions. The straight fit and silk fabric provide a rich feel, making it a standout choice under ₹2500 for traditional gatherings. _Tip: Combine with white or cream churidar and a matching stole for a regal appearance._
+- **#28 Casual festive short kurta**: The off-white and blue cotton short kurta from The Kaftan Company offers textured detailing and a regular fit, ideal for casual festive events. Its breathable cotton fabric keeps you comfortable, and the short length adds a modern touch within budget. _Tip: Pair with slim-fit jeans or cotton trousers for a smart casual ethnic look._
 
-> These picks blend comfort, subtlety, and festive elegance within your ₹2500 budget for puja and related occasions.
+> These picks balance traditional elegance and comfort with cotton and silk blends, perfect for puja and festive occasions under ₹2500.
 
-Asks: Do you prefer a specific color for the kurta? [Off-white/White / Beige / Any light color]
+Asks: Do you prefer a plain or embroidered kurta? [Plain / Embroidered]
 
-Follow-ups: `Show embroidered kurtas` `Add matching footwear` `Include kurta sets`
+Follow-ups: `Show more cotton kurtas` `Show more silk blend kurtas` `Show more embroidered kurtas`
+
+## Conversation 15
+
+### 🧑 men
+
+*clarify · first text 1.2s · first products – · total 2.3s · 6178/187 tokens* ✅
+
+Remembers: `Men`
+
+> You want to shop for men, great! What type of items are you looking for?
+
+Asks: What are you shopping for? [Everyday wear / Office wear / Party or festive / Footwear / Accessories]
+
+Follow-ups: `Show ethnic wear` `Show western tops` `Show bags`
+
+### 🧑 office wear
+
+*recommend · first text 1.1s · first products 8.6s · total 12.2s · 8035/1033 tokens* ✅
+
+Remembers: `Men`
+
+> For men's office wear, focus on smart, comfortable, and versatile pieces that look professional and feel good throughout the workday. - **Shirts** in solid colors or subtle patterns are office staples, easy to pair with trousers or chinos. - **Trousers** should be well-fitted and in neutral shades like black, navy, or grey for maximum versatility. - **Blazers** add a formal touch and can elevate simple outfits, perfect for meetings or presentations. - **Shoes** like formal oxfords or loafers complete the polished look while ensuring comfort.
+
+**Formal Shirts**: #1 Men Blue Button Down Collar Cotton Solid Formal Shirt (U.S. Polo Assn., ₹1539); #2 Navy Blue Reguler Fit Formal Blend Cotton Linen Shirts For Men (Neofaa, ₹1499); #3 Tramonti Sky Cotton Formal Solid Shirt for men (Zodiac Online, ₹3159); #4 Mens Cotton Blue Colour Regular Fit Shirt Glance (Minister White, ₹645)
+
+**Office Trousers**: #9 Men Linen Blend Beige Regular Fit Solid Casual Trousers (Louis Philippe, ₹2694); #10 Men Linen Blend Navy Slim Fit Solid Formal Trousers (Louis Philippe, ₹3555); #11 Men Trouser Relaxed Fit Dark Grey Mid Rise (Spykar, ₹3499); #12 Dark Grey Regular Fit Trousers (Jack & Jones, ₹1749)
+
+**Blazers & Jackets**: #17 Men Grey Premium Linen Blend Slim Fit Textured Formal Blazer (Louis Philippe, ₹6836); #18 Denim Jacket for Men · Premium Casual Jacket Smart Fit Spread Collar Cotton Blend Fabric Solid Pattern (Cantabil, ₹1709); #19 Men Linen Blend Black Solid Formal Two Piece Suit (Louis Philippe, ₹46279); #20 Regular Fit Textured Stretch Jacket (Marks & Spencer, ₹8999)
+
+**Formal Shoes**: #25 Men Black Solid Slip on Genuine Leather Formal Shoes (Monte Carlo, ₹2500); #26 Men Black Genuine Leather Office Formal Lace Up Derby Shoes (Fausto, ₹1199); #27 Men Black Solid Derby Formal Premium Leather Light Weight Breathable Lining Slip Resistant Flexible Toe Shoes (Louis Philippe, ₹2359); #28 Men Black Solid Slip-on Formal Premium Leather Light Weight Breathable Lining Slip Resistant Flexible Toe Shoes (Louis Philippe, ₹2949)
+
+Picks:
+- **#1 Best tailored cotton shirt**: This blue tailored formal shirt from U.S. Polo Assn. is made of breathable cotton, perfect for all-day office comfort. Its solid color and tailored fit offer a sharp, professional look suitable for formal meetings. _Tip: Pair it with navy or grey trousers for a classic office ensemble._
+- **#10 Slim fit navy formal trousers**: These navy slim fit trousers blend wool and linen, providing a polished look with comfort and breathability. The solid color and formal cut make them ideal for office wear, especially in warmer weather due to the linen content. _Tip: Combine with a light-colored shirt and a matching blazer for a sleek office outfit._
+- **#17 Textured grey linen blend blazer**: This grey slim fit blazer from Louis Philippe features a linen and wool blend with a subtle textured pattern, adding sophistication to your office attire. It's perfect for formal meetings or presentations, offering a smart layer without overheating. _Tip: Wear over a solid shirt and slim trousers for a refined business look._
+- **#27 Lightweight black leather derby shoes**: These black leather derby shoes from Louis Philippe are lightweight and breathable, ensuring comfort during long office hours. Their textured detailing adds a touch of elegance, making them suitable for formal office settings. _Tip: Match with formal trousers and a belt in similar leather for a cohesive look._
+
+> These picks combine classic office staples with breathable fabrics and smart fits for a comfortable, professional look.
+
+Asks: What colors do you prefer for your office wear? [Classic neutrals / Blues and greys / Add some color]
+
+Follow-ups: `Show formal shirts` `Show office trousers` `Show blazers and jackets`
+
+## Conversation 16
+
+### 🧑 women
+
+*clarify · first text 1.0s · first products – · total 2.1s · 6178/192 tokens* ✅
+
+Remembers: `Women`
+
+> Hi! You mentioned women, but could you please tell me what kind of item or occasion you're shopping for?
+
+Asks: What are you shopping for? [Everyday wear / Office wear / Party or festive / Footwear / Accessories]
+
+Follow-ups: `Show ethnic wear` `Show western tops` `Show bags`
+
+### 🧑 apparel
+
+*clarify · first text 1.1s · first products – · total 2.4s · 6257/197 tokens* ✅
+
+Remembers: `Women`
+
+> You want women's apparel, but could you specify the type or occasion?
+
+Asks: What type of women's apparel are you looking for? [Casual tops / Ethnic wear / Western bottoms / Dresses & jumpsuits / Office wear]
+
+Follow-ups: `Show casual tops` `Show ethnic wear` `Show dresses`
+
+### 🧑 i want it for a birthday party
+
+*recommend · first text 1.0s · first products 6.9s · total 10.2s · 7761/900 tokens* ✅
+
+Remembers: `Women` `~ comfortable` `~ flattering`
+
+Personalized: Used your taste (green, purple, cotton blend) · Preferring ₹1.5k–₹2.1k
+
+> For a birthday party, choose women's apparel that is festive and flattering, balancing comfort and style. - **Dresses** in vibrant colors or with subtle embellishments work well for a party vibe. - **Anarkalis or kurti sets** offer a traditional yet festive look with comfortable fabrics. - **Western tops paired with skirts or trousers** can create a chic, semi-formal party outfit.
+
+**Party Dresses**: #1 Latin Quarters Women's Pink Short Sleeves V-Neck Solid Party Above Knee Dress (Latin Quarters, ₹1350); #2 Janasya Women's Dark Purple Georgette Floral Printed Fit & Flare Dress (Janasya, ₹999); #3 Latin Quarters Women'S Black Sweatheart Neck Sleeveless Solid Party Bodycon Dress Shrug Set (Latin Quarters, ₹3499); #4 Janasya Women's Purple Georgette Botanical Printed Gathered Dress (Janasya, ₹999)
+
+**Ethnic Kurti Sets**: #9 Rareism Women's Janlopo Red Cotton Blend Full Sleeve Mandarin Collar Relaxed Fit Striped Top (The House Of Rare, ₹2474); #10 Rareism Women's Tonala Yellow Cotton Blend Crew Neck Plain Raglan Sleeve Relaxed Fit Top (The House Of Rare, ₹1999); #11 Elleven Women's Beige Solid Cotton Blend Relaxed Fit Ankle Length Mid (Aurelia, ₹1699); #12 Ethnic Floral Printed A-Line Paneled Kurti · Off White (Fashor, ₹1199)
+
+**Western Tops & Bottoms**: #17 Elleven Women's Navy Blue Solid Straight Western Wear Palazzo Pants (Aurelia, ₹2599); #18 Elleven Women's Black Solid Rayon Wide Leg Ankle Length Trousers (Aurelia, ₹1999); #19 XS Enchanting Hot Pink Silk Party Wear Western Top (Ethnic Plus, ₹1919); #20 Classic Plain Black Women's Trousers (Neofaa, ₹3499)
+
+Picks:
+- **#19 Best silk embroidered top**: This hot pink silk blouse with embroidered detailing is perfect for a birthday party, offering a festive and rich texture that stands out. Its regular fit and vibrant color make it flattering and comfortable for celebratory events. _Tip: Pair it with sleek black trousers or a skirt to balance the bright top and keep the look elegant._
+- **#12 Comfortable festive cotton kurti**: This off-white A-line kurti made of cotton features ethnic floral prints, making it a great choice for a party with a traditional touch. The breathable fabric and relaxed fit ensure comfort while looking stylish. _Tip: Wear it with contrasting leggings or palazzos and accessorize with ethnic jewelry for a complete festive look._
+- **#2 Floral georgette flowy dress**: This purple georgette midi dress with floral prints is flowy and lightweight, ideal for a party where you want to feel feminine and comfortable. The fit and flare cut flatters most body types and suits warm weather. _Tip: Add simple heels and minimal jewelry to keep the focus on the dress's lovely print._
+
+> These picks blend festive elegance and comfort across silk, cotton, and georgette fabrics for a stylish birthday party look.
+
+Asks: What style do you prefer for the birthday party? [Traditional ethnic / Western chic / Fusion mix]
+
+Follow-ups: `Show dresses only` `Add accessories` `Under ₹3,000`

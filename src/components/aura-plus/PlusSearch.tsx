@@ -218,7 +218,6 @@ export function PlusSearch({ id, mode }: { id: string; mode: PlusMode }) {
   const send = useCallback(
     (text: string, refList?: number[]) => {
       setPicked(null);
-      setTab("results");
       void sendChatMessage(id, text, refList?.length ? { refs: refList } : {});
     },
     [id],
@@ -253,6 +252,17 @@ export function PlusSearch({ id, mode }: { id: string; mode: PlusMode }) {
     [id, mode.blend, send],
   );
 
+  // The newest answer that brought products. When a new one lands, phones switch to the results tab (a reply
+  // that only asks a question stays in the chat); desktop viewers of older results get a "New results" pill.
+  const latestResultsId =
+    [...(chat?.messages ?? [])].reverse().find((m) => m.role === "assistant" && m.sections.some((s) => s.loaded && s.products.length))?.id ?? null;
+  const [seenResultsId, setSeenResultsId] = useState(latestResultsId);
+  if (latestResultsId !== seenResultsId) {
+    setSeenResultsId(latestResultsId);
+    setTab("results");
+  }
+  const mainRef = useRef<HTMLElement>(null);
+
   if (!hydrated) return <div className="h-[calc(100dvh-3.5rem)]" />;
   if (!chat) {
     return (
@@ -274,6 +284,8 @@ export function PlusSearch({ id, mode }: { id: string; mode: PlusMode }) {
   const newest = [...sections].reverse().find((s) => s.loaded && s.products.length);
   const active = sections.find((s) => s.id === picked) ?? newest ?? null;
   const showLoader = running && stageOf(last) < 3;
+  const latestResults = assistants.find((m) => m.id === latestResultsId);
+  const viewingOld = !!active && !!latestResults && !latestResults.sections.some((x) => x.id === active.id);
   // Pending "ask about" text typed into the composer; the user may still be editing a product mention.
   const pendingRefs = (text: string) => [...refs.values()].filter((p) => p.ref != null && text.includes(shortName(p))).map((p) => p.ref!);
 
@@ -358,7 +370,21 @@ export function PlusSearch({ id, mode }: { id: string; mode: PlusMode }) {
           </div>
         </aside>
 
-        <main className={`min-h-0 flex-1 overflow-y-auto px-4 pb-10 pt-4 md:block md:px-2 md:pt-0 ${tab === "results" ? "block" : "hidden"}`}>
+        <main ref={mainRef} className={`relative min-h-0 flex-1 overflow-y-auto px-4 pb-10 pt-4 md:block md:px-2 md:pt-0 ${tab === "results" ? "block" : "hidden"}`}>
+          {viewingOld && !showLoader && (
+            <div className="sticky top-2 z-10 flex justify-center">
+              <button
+                type="button"
+                onClick={() => {
+                  setPicked(null);
+                  mainRef.current?.scrollTo({ top: 0 });
+                }}
+                className="inline-flex items-center gap-1.5 rounded-full bg-ink px-4 py-2 text-sm font-medium text-canvas shadow-lg hover:bg-ink/90"
+              >
+                <Sparkles size={14} /> View new results
+              </button>
+            </div>
+          )}
           {showLoader ? (
             <Loader key={last?.id} startedAt={last?.at ?? 0} stage={stageOf(last)} activity={last?.steps.find((s) => s.status === "running")?.label ?? null} />
           ) : active ? (

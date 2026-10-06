@@ -148,3 +148,16 @@ Problem: in `/blend`, "chaniya choli" showed Typesense lehenga cholis ahead of S
   - nonsense item: "no products found".
 
   Search step: 0.8–8.6s, with Shopify the slowest part.
+
+## Guidance agent: ask before showing when the request is vague (2026-10-06)
+
+Feedback (screenshots vs Plush's AI stylist): "men" jumped straight to shirts and trousers. A guidance agent should ask first, then show sections and products once it understands. The user chose: all chat surfaces, as many questions as needed, plus a "View new results" pill.
+
+- **Clarify turns are question-only.** Vague means the agent knows neither the item type nor an occasion or purpose ("men", "women", "apparel", "show me something nice", "gift ideas"). A gender, budget, colour or vibe alone isn't enough. The turn returns one short sentence plus one question with 3–5 tappable options, and no sections (`hasSections` excludes clarify). It keeps asking one new thing per turn, and recommends as soon as the need is clear. A reply of "just show me / anything / surprise me" to its question gives a best guess. If a clarify turn comes back with no (new) question, there's a fallback question (`CLARIFY_FALLBACK`).
+- **Prompt placement matters.** With the long clarify rule inside the turn-type list, gpt-4.1-mini started writing one-sentence intros for *recommend* turns too (the eval's guidance check fell to 30/43). Moved to a separate "VAGUE REQUESTS" block at the end of the prompt, it scored 41/43, and the 2 remaining failures passed on reruns.
+- **Results side (Typesense and Blend search):**
+  - Sending a message no longer jumps phones to the Results tab; the tab switches when a turn actually brings new results, so a question stays in the chat.
+  - When you're viewing an older result set and a newer one exists, a "View new results" pill appears at the top of the results pane.
+- **Evals:**
+  - `eval:chat` adds two conversations ("men" → "office wear"; "women" → "apparel" → "birthday party"). The vague turns must be clarify, and clarify turns must show no products.
+  - `eval:blend` accepts a clarifying question for an unknown item.

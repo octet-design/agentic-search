@@ -24,7 +24,7 @@ const QUERIES: { q: string; audience?: "women" | "men" | "girls" | "boys"; expec
 ];
 
 type Section = { title: string; anchor?: Anchor; categories: string[]; products: ProductCard[]; emptyNote?: string };
-type Row = { n: number; q: string; sections: Section[]; ms: number; timings?: Record<string, number>; fails: string[]; error?: string };
+type Row = { n: number; q: string; sections: Section[]; ask?: string; ms: number; timings?: Record<string, number>; fails: string[]; error?: string };
 
 const arg = (name: string) => {
   const i = process.argv.indexOf(`--${name}`);
@@ -42,6 +42,7 @@ async function run(n: number, spec: (typeof QUERIES)[number]): Promise<Row> {
       (e: AgentEvent) => {
         if (e.type === "chat_state") for (const s of e.lastSections) specs.set(s.title, s.categories);
         if (e.type === "done") row.timings = e.timings;
+        if (e.type === "ask") row.ask = e.question;
         if (e.type === "section") row.sections.push({ title: e.title, anchor: e.anchor, categories: specs.get(e.title) ?? [], products: e.products, emptyNote: e.emptyNote });
       },
     );
@@ -58,7 +59,8 @@ async function run(n: number, spec: (typeof QUERIES)[number]): Promise<Row> {
   }
   const shown = row.sections.flatMap((s) => s.products);
   if (spec.expectEmpty && shown.length) row.fails.push(`EXPECTED NO PRODUCTS, got ${shown.length}`);
-  if (spec.expectEmpty && !row.sections.some((s) => s.emptyNote)) row.fails.push("EXPECTED a 'no products found' note");
+  // An unknown item may get "no products found" or, as a guidance agent, a question about what they mean.
+  if (spec.expectEmpty && !row.sections.some((s) => s.emptyNote) && !row.ask) row.fails.push("EXPECTED a 'no products found' note or a clarifying question");
   if (!spec.expectEmpty && !shown.length) row.fails.push("NO PRODUCTS");
   // Sections of one answer shouldn't mostly repeat each other.
   const ids = shown.map((p) => p.id);
@@ -73,11 +75,12 @@ function report(rows: Row[]): string {
   const lines = [
     "# Blend search relevance report",
     "",
-    `Generated ${new Date().toISOString()} · ${rows.length} queries · **${ok}/${rows.length} passed** (every shown product is an exact match for its section, empty sections say so, nonsense finds nothing) · median turn ${(med / 1000).toFixed(1)}s`,
+    `Generated ${new Date().toISOString()} · ${rows.length} queries · **${ok}/${rows.length} passed** (every shown product is an exact match for its section, empty sections say so, an unknown item finds nothing or gets a question) · median turn ${(med / 1000).toFixed(1)}s`,
     "",
   ];
   for (const r of rows) {
-    lines.push(`## ${r.n}. ${r.q} ${r.fails.length ? "**FAIL**" : "✅"}`, "", `*${(r.ms / 1000).toFixed(1)}s${r.timings ? ` · ${Object.entries(r.timings).map(([k, v]) => `${k} ${(v / 1000).toFixed(1)}s`).join(", ")}` : ""}*`, "");
+    if (r.ask && !r.sections.length) lines.push(`## ${r.n}. ${r.q} ${r.fails.length ? "**FAIL**" : "✅"}`, "", `Asked first: ${r.ask}`, "");
+    else lines.push(`## ${r.n}. ${r.q} ${r.fails.length ? "**FAIL**" : "✅"}`, "", `*${(r.ms / 1000).toFixed(1)}s${r.timings ? ` · ${Object.entries(r.timings).map(([k, v]) => `${k} ${(v / 1000).toFixed(1)}s`).join(", ")}` : ""}*`, "");
     for (const s of r.sections) {
       const counts = { t: s.products.filter((p) => p.source !== "shopify").length, s: s.products.filter((p) => p.source === "shopify").length };
       lines.push(`**${s.title}**: anchor ${s.anchor ? `\`${s.anchor.terms.join(" / ")}\`${s.anchor.categoryLevel ? " (category)" : ""}` : "_none_"} · ${counts.t} catalog + ${counts.s} Shopify`, "");

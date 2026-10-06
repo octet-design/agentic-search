@@ -148,11 +148,15 @@ type Plan = z.infer<typeof PlanSchema>;
 
 let plannerSystem: string | null = null;
 
+/** Used when a clarify turn comes back without a (new) question. */
+const CLARIFY_FALLBACK = { question: "What are you shopping for today?", options: ["Everyday wear", "Office wear", "Party or festive", "Footwear", "Accessories"] };
+
 /** Appended to the planner prompt for Aura++ (overrides the intro / sections / ask guidance above). */
 const AURA_STYLE = `
 
 AURA STYLE (this chat is in a Plush-style search app: the results appear as a big grid next to the chat, so your words stay short). These rules override the intro, sections and ask guidance above:
-- intro for recommend/refine/clarify: 2–3 warm sentences (≤ 60 words), no bullets, no headings. Say what you're showing and what to look for, like a personal stylist: e.g. "Here are some Western-inspired pieces to get you started, from casual denim and fringe to polished Americana silhouettes." Don't end the intro with a question.
+- intro for clarify: one short friendly sentence (no products, no bullets); the question goes in ask.
+- intro for recommend/refine: 2–3 warm sentences (≤ 60 words), no bullets, no headings. Say what you're showing and what to look for, like a personal stylist: e.g. "Here are some Western-inspired pieces to get you started, from casual denim and fringe to polished Americana silhouettes." Don't end the intro with a question.
 - sections: usually 1–2 (one per distinct thing to shop); up to 3 only for a full look or outfit.
 - ask: ALWAYS set it for recommend/refine/clarify: one guiding question that narrows the search (e.g. "Are you looking for a full Western look or a few key pieces for your existing wardrobe?") with 2–4 short tappable options.
 - product_question / compare / more_like: keep the answer to 2–4 sentences.`;
@@ -169,11 +173,11 @@ turnType
 - product_question: a question about shown products ("is #3 good for monsoon?", "which is more formal?", "will this suit a pear shape?"). Put their numbers in refs. No sections.
 - compare: the user wants to compare 2–3 shown products. refs = those numbers; compareCriterion = what they care about (occasion, comfort…) or null.
 - more_like: "more like #3", "like #3 but in blue". refs = [3]; similar = the requested changes (colours/fabrics/patterns ids, maxPrice), label e.g. "in blue" or "".
-- clarify: only when you can't even guess a direction (e.g. "gift ideas" with no recipient). Still plan best-guess sections when possible; your question goes in ask.
+- clarify: the request is too vague to guide well; ask first, no sections (see VAGUE REQUESTS at the end).
 - chitchat: greetings, thanks, off-topic → short friendly reply, no sections.
 
 intro (shown first, streamed) is your GUIDANCE, the way a great stylist (or ChatGPT) answers before showing anything:
-- recommend: one or two sentences that answer directly, then a blank line, then 3–5 bullets ("- **Key idea**: why / how", one or two sentences each), ≤ 160 words in all. Cover what actually works for this occasion, outfit and person: which styles, colours that pair, fabric, how much embellishment, proportions, what to avoid. Build on everything this chat already knows (the outfit they described, occasion, place, season, budget). Example for "purse for my wedding lehenga":
+- recommend: ALWAYS one or two sentences that answer directly, then a blank line, then 3–5 bullets (never just a sentence; the short one-sentence intro is for clarify turns only) ("- **Key idea**: why / how", one or two sentences each), ≤ 160 words in all. Cover what actually works for this occasion, outfit and person: which styles, colours that pair, fabric, how much embellishment, proportions, what to avoid. Build on everything this chat already knows (the outfit they described, occasion, place, season, budget). Example for "purse for my wedding lehenga":
 "For a wedding lehenga, pick a small, embellished bag that echoes your outfit's work without competing with it.
 
 - **Potli bags** are the classic pick: zari or gota work sits naturally with traditional embroidery.
@@ -201,6 +205,8 @@ ${
   }
 
 tasteWhy + useTaste (decide these FIRST; tasteWhy ≤ 12 words): decide from the INTENT of this message whether the user's learned taste (colours, fabrics, brands and budget learned from their clicks and saves; you don't see it, the app applies it as gentle tie-breaks) would genuinely help. true when the ask is open-ended about the user's own style and they haven't specified those things ("new tops for college", "something for date night"). false when it would distort the ask: shopping for someone else (a gift for dad, clothes for a child), a specific or functional need that already states what matters, or a new direction the user asks for ("something different", "bolder than usual", "try a new style"). Rule: if the user asks for a change from their usual (new look, different, bolder, experiment, "than usual", out of comfort zone), useTaste is false: their past taste is exactly what they want to move away from. Examples: "saree for my mom" → false (her taste, not the user's); "gift for dad" → false; "bolder than usual for a party" → false (user wants a change); "office shirts, only white cotton" → false (fully specified); "new tops for college" → true; "what should I wear to brunch" → true. Context from THIS chat always applies; that is not taste.
+
+VAGUE REQUESTS (turnType clarify): you're a guidance agent, so when a request is too vague to guide well, ask before showing anything. Vague = you know neither WHAT kind of item they want nor an occasion or purpose to choose items for: "men", "women", "kids", "apparel", "clothes", "I need something", "show me something nice", "gift ideas" with no recipient. A gender, a budget, a colour or a vibe alone is not enough. Then: sections = [], intro = one short friendly sentence on what you know so far (this short intro is for clarify only), ask = the single most useful missing detail with 3–5 tappable options (e.g. {"What are you shopping for?", ["Everyday wear","Office wear","Party or festive","Footwear","Accessories"]}). Keep clarifying across turns until you know the item type or an occasion or purpose to recommend for: one new question per turn, never repeat one, never ask what you already know. Only when they answer one of your questions with "just show me", "anything" or "surprise me", stop asking and recommend your best guess; an opening "show me something" is still vague. As soon as the need is clear ("office wear", "a birthday party", "linen shirts"), recommend with the full guidance intro.
 
 Vocabulary (canonical ids):
 ${tax.promptVocabulary()}
@@ -474,7 +480,8 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
           anchor: s.anchor.terms.length ? { terms: s.anchor.terms.slice(0, 6), categoryLevel: s.anchor.categoryLevel } : undefined,
         }));
   const whyByTitle = new Map(plan.sections.map((s) => [s.title, s.why]));
-  const hasSections = (plan.turnType === "recommend" || plan.turnType === "refine" || plan.turnType === "clarify") && specs.length > 0;
+  // A clarify turn only asks: products come once the need is clear.
+  const hasSections = (plan.turnType === "recommend" || plan.turnType === "refine") && specs.length > 0;
 
   emit({
     type: "chat_state",
@@ -487,7 +494,9 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
   if (memory.length) emit({ type: "memory", facts: memory });
   const asked = plan.ask?.question.trim() ?? "";
   // The model sometimes repeats its last question; drop it then (the follow-up chips show instead).
-  const ask = asked && !sameQuestion(asked, lastAsked(input.history)) ? { question: asked, options: plan.ask!.options.slice(0, 4) } : null;
+  const fresh = asked && !sameQuestion(asked, lastAsked(input.history)) ? { question: asked, options: plan.ask!.options.slice(0, plan.turnType === "clarify" ? 5 : 4) } : null;
+  // A clarify turn is only a question, so it must have one.
+  const ask = fresh ?? (plan.turnType === "clarify" ? CLARIFY_FALLBACK : null);
 
   let nextRef = input.state.nextRef;
   const withRefs = (cards: ProductCard[]) => cards.map((c) => ({ ...c, ref: nextRef++ }));
