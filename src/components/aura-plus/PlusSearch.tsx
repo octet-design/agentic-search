@@ -3,7 +3,7 @@
 import { ArrowRight, Clock, Plus, Loader2, MessageCircle, MessageSquare, MoreHorizontal, RotateCcw, Sparkles, Trash2, X } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { RichText } from "@/components/chat/RichText";
 import { shortName } from "@/components/chat/ChatView";
 import { CompareBlock } from "@/components/compare/CompareBlock";
@@ -110,7 +110,13 @@ function ResultsGrid({ s, hidden, mixShopify }: { s: ChatSection; hidden: Set<st
       {all.length === 0 && more !== null && <p className="py-16 text-center text-ink-soft">{s.emptyNote ?? "Nothing suitable in stock for this one."}</p>}
       <div className="grid grid-cols-2 gap-x-5 gap-y-10 md:grid-cols-3 xl:grid-cols-4">
         {visible.map((p, i) => (
-          <PlusTile key={p.id} p={p} index={i} />
+          <Fragment key={p.id}>
+            {/* Scout lists all of ours first; mark where the other stores' products begin. */}
+            {mixShopify && p.source === "shopify" && i > 0 && visible[i - 1].source !== "shopify" && (
+              <div className="col-span-full border-t border-line pt-6 text-sm font-medium text-ink-soft">More from other stores</div>
+            )}
+            <PlusTile p={p} index={i} />
+          </Fragment>
         ))}
         {all.length === 0 && more === null && Array.from({ length: 8 }, (_, i) => <PlusSkeleton key={i} />)}
       </div>
