@@ -8,7 +8,7 @@ import { create } from "zustand";
 import { createJSONStorage, persist, type StateStorage } from "zustand/middleware";
 import type { StepState } from "@/hooks/useAgentStream";
 import type { AudienceKey } from "@/store/session";
-import type { AgentEvent, ChatPick, ChatSectionSpec, Chip, CompareBlockData, Intent, ProductCard } from "@/lib/agent/types";
+import type { AgentEvent, Anchor, ChatPick, ChatSectionSpec, Chip, CompareBlockData, Intent, ProductCard } from "@/lib/agent/types";
 
 export type ChatSection = {
   id: string;
@@ -19,6 +19,9 @@ export type ChatSection = {
   relaxedNote?: string;
   /** Filters the section used; "See all" re-runs them without the LLM. */
   intent?: Intent;
+  /** Blend search: what counts as an exact match, and the note when nothing does. */
+  anchor?: Anchor;
+  emptyNote?: string;
   loaded: boolean;
 };
 
@@ -110,7 +113,7 @@ function reduce(chat: Chat, msgId: string, e: AgentEvent): Chat {
         sections: e.sections.map((s) => ({ id: s.id, title: s.title, why: s.why, query: "", products: [], loaded: false })),
       }));
     case "section": {
-      const section: ChatSection = { id: e.id, title: e.title, why: e.why, query: e.query, products: e.products.map(slim), relaxedNote: e.relaxedNote, intent: e.intent, loaded: true };
+      const section: ChatSection = { id: e.id, title: e.title, why: e.why, query: e.query, products: e.products.map(slim), relaxedNote: e.relaxedNote, intent: e.intent, anchor: e.anchor, emptyNote: e.emptyNote, loaded: true };
       const next = updateMsg(chat, msgId, (m) => ({
         ...m,
         sections: m.sections.some((s) => s.id === e.id) ? m.sections.map((s) => (s.id === e.id ? section : s)) : [...m.sections, section],

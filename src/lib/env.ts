@@ -13,6 +13,8 @@ const EnvSchema = z.object({
   OPENAI_MODEL_FAST: z.string().min(1).default("gpt-4.1-mini"),
   OPENAI_MODEL_VISION: z.string().min(1).default("gpt-4.1-mini"),
   OPENAI_MODEL_OFFLINE: z.string().min(1).default("gpt-4.1"),
+  /** Blend search relevance: one embedding model scores catalog and Shopify titles alike. */
+  OPENAI_MODEL_EMBED: z.string().min(1).default("text-embedding-3-small"),
 
   NEXT_PUBLIC_APP_NAME: z.string().min(1).default("Drape"),
 });

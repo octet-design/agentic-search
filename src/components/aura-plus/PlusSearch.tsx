@@ -11,8 +11,6 @@ import { ProductImage } from "@/components/product/ProductImage";
 import { Loader } from "@/components/shopify/aura/Loader";
 import { Composer, Sheet, useHydrated, type ComposerHandle } from "@/components/shopify/aura/ui";
 import type { ProductCard } from "@/lib/agent/types";
-import { blend, fromShopify, withAudience } from "@/lib/blend";
-import type { ShopifyCard } from "@/lib/shopify/types";
 import { sendChatMessage, stopChat } from "@/lib/chatClient";
 import { useChats, type AssistantMessage, type Chat, type ChatSection } from "@/store/chats";
 import { useSession } from "@/store/session";
@@ -66,41 +64,31 @@ function ResultCard({ s, active, onView }: { s: ChatSection; active: boolean; on
 /** The live grid for one result set: the chat's picks first, then the same filters' longer list as you scroll. */
 function ResultsGrid({ s, hidden, mixShopify }: { s: ChatSection; hidden: Set<string>; mixShopify: boolean }) {
   const [more, setMore] = useState<ProductCard[] | null>(null);
-  const [shopifyMore, setShopifyMore] = useState<ProductCard[]>([]);
   const [shown, setShown] = useState(16);
   const sentinel = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!s.intent) return;
     let live = true;
-    fetch("/api/chat/section", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ intent: s.intent }) })
+    // Blend search: one server list of exact matches from both sources, already ranked (lib/relevance.ts).
+    const req = mixShopify
+      ? fetch("/api/blend/section", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ intent: s.intent, anchor: s.anchor ?? null, categories: s.intent.categories.include }),
+        })
+      : fetch("/api/chat/section", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ intent: s.intent }) });
+    req
       .then((r) => (r.ok ? r.json() : { products: [] }))
       .then((j: { products: ProductCard[] }) => live && setMore(j.products ?? []))
       .catch(() => live && setMore([]));
     return () => {
       live = false;
     };
-  }, [s.intent]);
-
-  // Blend search: the same need from Shopify's Global Catalog, mixed into the longer list.
-  useEffect(() => {
-    if (!mixShopify) return;
-    const q = s.intent ? withAudience(s.intent.semanticQuery || s.title, s.intent.audience) : s.query || s.title;
-    const qs = new URLSearchParams({ q, country: "IN" });
-    if (s.intent?.price?.min != null) qs.set("min", String(s.intent.price.min));
-    if (s.intent?.price?.max != null) qs.set("max", String(s.intent.price.max));
-    let live = true;
-    fetch(`/api/shopify/search?${qs}`)
-      .then((r) => (r.ok ? r.json() : { products: [] }))
-      .then((j: { products: ShopifyCard[] }) => live && setShopifyMore((j.products ?? []).map(fromShopify)))
-      .catch(() => undefined);
-    return () => {
-      live = false;
-    };
-  }, [mixShopify, s.intent, s.query, s.title]);
+  }, [s.intent, s.anchor, mixShopify]);
 
   const seen = new Set<string>();
-  const all = [...s.products, ...blend(more ?? [], more === null ? [] : shopifyMore)].filter((p) => !hidden.has(p.id) && !seen.has(p.id) && (seen.add(p.id), true));
+  const all = [...s.products, ...(more ?? [])].filter((p) => !hidden.has(p.id) && !seen.has(p.id) && (seen.add(p.id), true));
   const visible = all.slice(0, shown);
 
   useEffect(() => {
@@ -118,7 +106,7 @@ function ResultsGrid({ s, hidden, mixShopify }: { s: ChatSection; hidden: Set<st
         {s.why && <p className="text-sm text-ink-soft">{s.why}</p>}
       </div>
       {s.relaxedNote && <p className="mb-4 text-xs text-ink-faint">{s.relaxedNote}</p>}
-      {all.length === 0 && more !== null && <p className="py-16 text-center text-ink-soft">Nothing suitable in stock for this one.</p>}
+      {all.length === 0 && more !== null && <p className="py-16 text-center text-ink-soft">{s.emptyNote ?? "Nothing suitable in stock for this one."}</p>}
       <div className="grid grid-cols-2 gap-x-5 gap-y-10 md:grid-cols-3 xl:grid-cols-4">
         {visible.map((p, i) => (
           <PlusTile key={p.id} p={p} index={i} />
@@ -160,7 +148,10 @@ function AssistantTurn({
     <div className="flex flex-col gap-3 text-[15px]">
       <RichText text={m.intro} onRef={onRef} refLabel={refLabel} />
       {m.sections.map((s) => (
-        <ResultCard key={s.id} s={s} active={s.id === active} onView={() => onView(s.id)} />
+        <div key={s.id}>
+          <ResultCard s={s} active={s.id === active} onView={() => onView(s.id)} />
+          {s.loaded && s.emptyNote && <p className="mt-1.5 text-sm text-ink-soft">{s.emptyNote}</p>}
+        </div>
       ))}
       <RichText text={m.answer} onRef={onRef} refLabel={refLabel} />
       {m.compare && <CompareBlock data={m.compare} onOpen={onOpen} />}
@@ -372,6 +363,12 @@ export function PlusSearch({ id, mode }: { id: string; mode: PlusMode }) {
             <Loader key={last?.id} startedAt={last?.at ?? 0} stage={stageOf(last)} activity={last?.steps.find((s) => s.status === "running")?.label ?? null} />
           ) : active ? (
             <ResultsGrid key={active.id} s={active} hidden={hidden} mixShopify={mode.blend} />
+          ) : last?.sections.some((s) => s.emptyNote) ? (
+            <div className="py-24 text-center text-ink-soft">
+              {last.sections.filter((s) => s.emptyNote).map((s) => (
+                <p key={s.id}>{s.emptyNote}</p>
+              ))}
+            </div>
           ) : (
             <p className="py-24 text-center text-ink-soft">Your results will appear here.</p>
           )}

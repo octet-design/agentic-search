@@ -151,6 +151,8 @@ export type ProductCard = {
   checkoutUrl?: string | null;
   /** Shopify products priced in another currency: `price` is converted at Shopify's rate. */
   priceApprox?: boolean;
+  /** Shopify products: merchant highlights and default options, also searched for exact matches. */
+  extraText?: string;
 };
 
 /** Minimal product data kept client-side for taste signals (no embeddings). */
@@ -234,6 +236,9 @@ export type AgentEvent =
       relaxedNote?: string;
       /** The exact filters this section used (after relaxation), for "See all". */
       intent?: Intent;
+      /** Blend search: what counts as an exact match here, and the note when nothing does. */
+      anchor?: Anchor;
+      emptyNote?: string;
     }
   | { type: "compare"; data: CompareBlockData }
   | { type: "memory"; facts: string[] }
@@ -261,7 +266,16 @@ export type ChatSectionSpec = {
   softPreferences: string[];
   semanticQuery: string;
   budgetMax: number | null;
+  /** Blend search: the product words a result must contain to count as an exact match. */
+  anchor?: Anchor;
 };
+
+/**
+ * What "exactly what the user asked for" means for a section. terms: the item's name and spellings of the
+ * same item ("chaniya choli", "chaniyacholi"). categoryLevel: the name is a whole taxonomy category
+ * ("saree"), so a catalog item in that category counts even without the word in its title.
+ */
+export type Anchor = { terms: string[]; categoryLevel: boolean };
 
 export type Emit = (e: AgentEvent) => void;
 

@@ -47,6 +47,8 @@ export function fromShopify(c: ShopifyCard): ProductCard {
     source: "shopify",
     checkoutUrl: c.checkoutUrl,
     ...(c.priceApprox ? { priceApprox: true } : {}),
+    // Highlights and options also count when checking for an exact match (lib/relevance.ts).
+    extraText: [...c.features, c.defaultOptions ?? ""].filter(Boolean).join(" · "),
   };
 }
 

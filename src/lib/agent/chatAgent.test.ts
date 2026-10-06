@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { normalizeCompare } from "../compare";
+import { shopifyQuery } from "./chatAgent";
 import { forSomeoneElse, keepUserStatedMusts, lastAsked, pickedAudience, recipientAudience, sameQuestion, refsInText, resolveCategories, toIntent, wantsChange } from "./chatAgent";
 import { fixtureTax as tax, intentWith } from "./testFixture";
 
@@ -142,5 +143,13 @@ describe("recipientAudience / pickedAudience", () => {
   it("maps picker values to an audience", () => {
     expect(pickedAudience("boys")).toEqual({ segment: "kids", kidGender: "boy", ageYears: null, source: "explicit" });
     expect(pickedAudience("women").segment).toBe("women");
+  });
+});
+
+describe("shopifyQuery", () => {
+  it("keeps the section's angle and always names the item", () => {
+    expect(shopifyQuery({ terms: ["chaniya choli"] }, "mirror work garba outfit for navratri")).toBe("chaniya choli mirror work garba outfit for navratri");
+    expect(shopifyQuery({ terms: ["chaniya choli"] }, "printed Chaniya-Choli for women")).toBe("printed Chaniya-Choli for women");
+    expect(shopifyQuery(undefined, "linen kurta for men")).toBe("linen kurta for men");
   });
 });

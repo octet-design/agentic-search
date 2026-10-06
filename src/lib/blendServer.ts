@@ -12,7 +12,7 @@ import { toProductView } from "./shopify/view";
 
 const INDIA = getCountry("IN");
 
-/** Shopify products for a chat section: same need, same budget. */
+/** Shopify products for a chat section: same need, same budget. Blend search passes the item's name as the query. */
 export async function shopifyForSection(opts: { query: string; audience: Intent["audience"]; min?: number | null; max?: number | null; limit?: number; signal?: AbortSignal }): Promise<ProductCard[]> {
   try {
     const page = await searchFashion({ query: withAudience(opts.query, opts.audience), min: opts.min ?? null, max: opts.max ?? null, local: false }, INDIA, { limit: opts.limit ?? 8, signal: opts.signal });

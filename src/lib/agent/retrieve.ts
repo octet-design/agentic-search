@@ -233,3 +233,30 @@ export async function retrieveRails(specs: RailSpec[], tax: TaxonomyApi, opts: R
   }
   return states.map((s) => s.result!);
 }
+
+/**
+ * Blend search: titles containing the anchor words, whatever category they're filed under ("chaniya choli"
+ * products filed as lehengas or ethnic sets). Base, audience and exclusions apply; musts such as budget are
+ * re-checked in code. One keyword search per spelling (up to 3), in parallel; fails soft.
+ */
+export async function retrieveAnchor(intent: Intent, terms: string[], tax: TaxonomyApi, perPage = 40): Promise<ProductCard[]> {
+  const spellings = [...new Set(terms.map((t) => t.trim().toLowerCase()).filter(Boolean))].slice(0, 3);
+  if (!spellings.length) return [];
+  const free: Intent = { ...intent, categories: { ...intent.categories, include: [], strength: "prefer" } };
+  try {
+    const responses = await Promise.all(
+      spellings.map(async (term) => {
+        const { params } = buildQuery({ ...free, semanticQuery: term }, tax, { perPage, mode: "semantic" });
+        delete params.vector_query;
+        delete params.rerank_hybrid_matches;
+        // Every word of the item's name must be in the title.
+        return (await multiSearch([{ ...params, q: term, query_by: "title", drop_tokens_threshold: 0, num_typos: 1 }]))[0];
+      }),
+    );
+    const dropped: Record<string, number> = {};
+    return dedupe(fuse(responses.map((r) => curate(r.hits ?? [], free, tax, dropped, true))));
+  } catch {
+    return [];
+  }
+}
+

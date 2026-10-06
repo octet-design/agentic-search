@@ -14,6 +14,7 @@
     "build:taxonomy": "node --env-file-if-exists=.env.local --import tsx scripts/build-taxonomy.ts",
     "eval": "node --env-file-if-exists=.env.local --import tsx scripts/eval.ts",
     "eval:chat": "node --env-file-if-exists=.env.local --import tsx scripts/eval-chat.ts",
+    "eval:blend": "node --env-file-if-exists=.env.local --import tsx scripts/eval-blend.ts",
     "ucp": "node --env-file-if-exists=.env.local --import tsx scripts/ucp-poc.ts",
     "eval:aura": "node --import tsx scripts/eval-aura.ts"
   },

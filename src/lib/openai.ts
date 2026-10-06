@@ -10,7 +10,7 @@ export function getOpenAI(): OpenAI {
 }
 
 export type ModelCheck = {
-  role: "fast" | "vision" | "offline";
+  role: "fast" | "vision" | "offline" | "embed";
   configured: string;
   available: boolean;
   suggestion: string | null;
@@ -31,6 +31,7 @@ export function suggestModel(
   role: ModelCheck["role"],
 ): string | null {
   const set = new Set(available);
+  if (role === "embed") return ["text-embedding-3-small", "text-embedding-3-large"].find((m) => set.has(m)) ?? null;
   const prefs = role === "offline" ? OFFLINE_FALLBACKS : FAST_FALLBACKS;
   const direct = prefs.find((m) => set.has(m));
   if (direct) return direct;
@@ -59,6 +60,7 @@ export async function verifyModels(): Promise<ModelCheck[]> {
     ["fast", env.OPENAI_MODEL_FAST],
     ["vision", env.OPENAI_MODEL_VISION],
     ["offline", env.OPENAI_MODEL_OFFLINE],
+    ["embed", env.OPENAI_MODEL_EMBED],
   ];
   return roles.map(([role, configured]) => {
     const available = set.has(configured);

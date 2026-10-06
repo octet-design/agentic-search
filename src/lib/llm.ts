@@ -11,6 +11,8 @@ const PRICES: Record<string, [number, number, number]> = {
   "gpt-4.1-nano": [0.1, 0.025, 0.4],
   "gpt-4o": [2.5, 1.25, 10],
   "gpt-4o-mini": [0.15, 0.075, 0.6],
+  "text-embedding-3-small": [0.02, 0.02, 0],
+  "text-embedding-3-large": [0.13, 0.13, 0],
 };
 
 export class Usage {
@@ -176,4 +178,13 @@ export async function llmTextStream(opts: {
   }
   opts.usage?.add(opts.name, opts.model, performance.now() - t0, usage);
   return text;
+}
+
+/** Embeddings for a batch of texts, in order (one request). */
+export async function embedTexts(opts: { model: string; texts: string[]; usage?: Usage; signal?: AbortSignal; timeoutMs?: number }): Promise<number[][]> {
+  if (!opts.texts.length) return [];
+  const t0 = performance.now();
+  const res = await getOpenAI().embeddings.create({ model: opts.model, input: opts.texts }, { timeout: opts.timeoutMs ?? 8_000, maxRetries: 1, signal: opts.signal });
+  opts.usage?.add("embed", opts.model, performance.now() - t0, { prompt_tokens: res.usage?.prompt_tokens ?? 0, completion_tokens: 0 });
+  return [...res.data].sort((a, b) => a.index - b.index).map((d) => d.embedding);
 }

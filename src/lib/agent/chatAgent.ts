@@ -4,8 +4,9 @@
  * then names concrete picks. Product questions, compare and "more like #n" reuse the same chat context.
  */
 import { z } from "zod";
-import { blend, isShopifyId } from "../blend";
+import { isShopifyId } from "../blend";
 import { shopifyFacts, shopifyForSection, shopifyLike } from "../blendServer";
+import { noExactNote, rankBlend } from "../relevance";
 import { compareProducts } from "../compare";
 import { FEATURES } from "../config";
 import { getEnv } from "../env";
@@ -18,7 +19,7 @@ import { mergeIntent, priceBandsText, sanitizeIntent } from "./intent";
 import { applyTaste, tasteBoost, type TastePayload } from "./personalize";
 import { sectionIntent } from "./plan";
 import { intentSummary } from "./rerank";
-import { diversify, retrieveRails } from "./retrieve";
+import { diversify, retrieveAnchor, retrieveRails } from "./retrieve";
 import { getTaxonomy, type TaxonomyApi } from "./taxonomy";
 import { DEPARTMENTS } from "./taxonomy.schema";
 import { IntentSchema, emptyIntent, type ChatSectionSpec, type Emit, type Intent, type ProductCard } from "./types";
@@ -37,6 +38,7 @@ export const ChatSectionSpecSchema = z.object({
   softPreferences: z.array(z.string()),
   semanticQuery: z.string(),
   budgetMax: z.number().nullable(),
+  anchor: z.object({ terms: z.array(z.string()).max(8), categoryLevel: z.boolean() }).optional(),
 });
 
 export const ShownProductSchema = z.object({
@@ -95,6 +97,7 @@ const SectionSchema = z.object({
   softPreferences: z.array(z.string()),
   semanticQuery: z.string(),
   budgetMax: z.number().nullable(),
+  anchor: z.object({ terms: z.array(z.string()), categoryLevel: z.boolean() }),
 });
 
 /**
@@ -183,7 +186,7 @@ Don't name specific products yet (you haven't seen them).
 - clarify / chitchat: the full reply.
 You may use general fashion knowledge freely (fabric behaviour, styling, pairing, occasion norms, climate, body-shape tips). Never invent stock, delivery, discounts, ratings or reviews.
 
-sections: each = a category the user should shop, with title (2–4 words), why = a practical tip for choosing within it (≤ 25 words, e.g. "Pick zari or mirror work if your lehenga is heavily embroidered; plain silk if it's minimal"), categories (1–3 canonical CATEGORY ids from the lists below, e.g. "shirt", "trouser", "loafer", "kurta-set", never department names), optional colors/fabrics/patterns/useCases ids that suit, softPreferences, semanticQuery (clean English, 6–12 words, for embedding search), budgetMax (per-section ₹ cap only when the user gave a total budget; else null).
+sections: each = a category the user should shop, with title (2–4 words), why = a practical tip for choosing within it (≤ 25 words, e.g. "Pick zari or mirror work if your lehenga is heavily embroidered; plain silk if it's minimal"), categories (1–3 canonical CATEGORY ids from the lists below, e.g. "shirt", "trouser", "loafer", "kurta-set", never department names), optional colors/fabrics/patterns/useCases ids that suit, softPreferences, semanticQuery (clean English, 6–12 words, for embedding search), budgetMax (per-section ₹ cap only when the user gave a total budget; else null), anchor = the exact item this section is for, used to show only exact matches: terms = the ITEM's name as the user said it (or this section's product noun when you chose it, e.g. "anarkali") plus spellings and transliterations of the SAME item only, lowercase ("chaniya choli", "chaniya-choli", "chaniyacholi", "chania choli"); never broader or related items ("lehenga" or "navratri lehenga" are not chaniya choli). Keep named types that change what the item is (bandhani saree, kanjivaram saree, kolhapuri chappal, patola dupatta, potli bag), but leave out plain attributes, which are filtered separately: fabric, colour, fit, print, occasion ("linen kurta" → "kurta", "red silk saree" → "saree"). categoryLevel = true when the name is a whole canonical category ("saree", "kurta set", "loafer"), false when it's narrower than its category ("chaniya choli" within lehenga, "kolhapuri" within sandals, "bandhani saree" within saree).
 
 base: the chat's running understanding, CARRIED FORWARD from the current state and updated with this message: audience; budgetMin/budgetMax (₹) with budgetStrict (true when the user stated a limit or said "cheaper"); mustColors/mustFabrics ONLY when the user explicitly requires them ("only cotton", "must be black"). Fabrics/colours YOU suggest go in section fabrics/colors, never in must; excludeColors/excludeFabrics/excludePatterns/excludeBrands (canonical ids) and textExclusions (other negatives: "cutouts", "sleeveless", "heavy embroidery"); preferences (soft style words: "breathable", "minimal", "not too heavy"); occasion; summary (short English description of the current need). Keep everything from the previous state unless the user changes or drops it ("polyester is fine now" removes that exclusion; a new unrelated need resets occasion/preferences but keeps audience and exclusions).
 Rules: canonical ids only (from the vocabulary). "k" = ×1000; "under 2k" → budgetMax 2000 strict; "around 2000" → 1600–2400 not strict; "cheaper" → budgetMax below most shown prices, strict. Audience: explicit words or gender-implicit items (saree → women, sherwani → men); "for my wife/daughter/dad" sets it; if unknown and the profile has exactly one audience use it. If it's still unknown and the need is gendered clothing or footwear, set ask {"Who is this for?", ["Women","Men","Kids"]} and still plan best-guess sections.
@@ -374,6 +377,15 @@ export function wantsChange(message: string): boolean {
   return /\b(?:than usual|new look|fresh look|different|bolder|experiment\w*|out of (?:my )?comfort zone|change (?:my|of) (?:style|look)|something new|kuch (?:naya|alag|hatke))\b/i.test(message);
 }
 
+/** Blend search's Shopify query for a section: its own angle ("mirror work chaniya choli"), always naming the item. */
+export function shopifyQuery(anchor: { terms: string[] } | undefined, semanticQuery: string): string {
+  const item = anchor?.terms[0]?.trim();
+  if (!item) return semanticQuery;
+  const flat = (x: string) => x.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  const words = semanticQuery.split(/\s+/).slice(0, 8).join(" ");
+  return flat(words).includes(flat(item)) ? words : `${item} ${words}`;
+}
+
 function tasteNote(taste: TastePayload): string {
   const liked = [...taste.likes.colors, ...taste.likes.fabrics, ...taste.likes.brands].slice(0, 3);
   return liked.length ? `Used your taste (${liked.join(", ")})` : "Used your taste";
@@ -459,6 +471,7 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
           softPreferences: s.softPreferences,
           semanticQuery: s.semanticQuery,
           budgetMax: s.budgetMax,
+          anchor: s.anchor.terms.length ? { terms: s.anchor.terms.slice(0, 6), categoryLevel: s.anchor.categoryLevel } : undefined,
         }));
   const whyByTitle = new Map(plan.sections.map((s) => [s.title, s.why]));
   const hasSections = (plan.turnType === "recommend" || plan.turnType === "refine" || plan.turnType === "clarify") && specs.length > 0;
@@ -491,7 +504,8 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
     const s0 = performance.now();
     // Blend search mixes in Shopify Global Catalog matches, fetched in parallel with Typesense.
     const blendShopify = !!input.blend;
-    const [rails, shopifyLists] = await Promise.all([
+    // Blend: Shopify is searched by the item's name; Typesense also searches titles for it in any category.
+    const [rails, shopifyLists, anchorLists] = await Promise.all([
       retrieveRails(
         sections.map((s) => ({ id: s.id, title: s.spec.title, intent: s.intent, perPage: 40 })),
         tax,
@@ -500,16 +514,45 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
         ? Promise.all(
             sections.map((s) =>
               shopifyForSection({
-                query: s.intent.semanticQuery || s.spec.title,
+                query: shopifyQuery(s.spec.anchor, s.intent.semanticQuery || s.spec.title),
                 audience: s.intent.audience,
                 min: s.intent.price?.min,
                 max: s.intent.price?.max,
+                limit: 20,
                 signal: input.signal,
               }),
             ),
           )
         : Promise.resolve([] as ProductCard[][]),
+      blendShopify ? Promise.all(sections.map((s) => (s.spec.anchor ? retrieveAnchor(s.intent, s.spec.anchor.terms, tax) : Promise.resolve([])))) : Promise.resolve([] as ProductCard[][]),
     ]);
+    // Blend: only exact matches from either source, on one relevance scale, catalog first on ties.
+    const blended = blendShopify
+      ? await Promise.all(
+          sections.map((s, i) =>
+            rankBlend({
+              catalog: [...(anchorLists[i] ?? []), ...tasteBoost(rails[i].products, taste, tax)],
+              shopify: shopifyLists[i] ?? [],
+              query: s.intent.semanticQuery || s.spec.title,
+              anchor: s.spec.anchor ?? null,
+              sectionCategories: s.spec.categories,
+              tax,
+              limit: 16,
+              usage,
+              signal: input.signal,
+            }),
+          ),
+        )
+      : [];
+    // Sections of one answer shouldn't repeat each other: earlier sections keep their items, later ones
+    // take the next best (repeats only when a section would otherwise run short).
+    const usedIds = new Set<string>();
+    const blendedShown = blended.map((r) => {
+      const fresh = r.products.filter((p) => !usedIds.has(p.id));
+      const pick = (fresh.length >= 4 ? fresh : [...fresh, ...r.products.filter((p) => usedIds.has(p.id))]).slice(0, 8);
+      pick.forEach((p) => usedIds.add(p.id));
+      return pick;
+    });
     timings.search = Math.round(performance.now() - s0);
     emit({ type: "step", id: "search", label: "Finding options in the catalog", status: "done", ms: timings.search });
 
@@ -518,10 +561,12 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
       const s = sections[i];
       // 8 per section like a chat answer; "See all" lists more with these same filters (/api/chat/section).
       const ranked = diversify(tasteBoost(rail.products, taste, tax), 8, 2);
-      const shown = withRefs(blendShopify ? blend(ranked.slice(0, 8), (shopifyLists[i] ?? []).slice(0, 4)) : ranked.slice(0, 8));
+      const shown = withRefs(blendShopify ? blendedShown[i] : ranked.slice(0, 8));
+      const anchor = s.spec.anchor;
+      const emptyNote = blendShopify && anchor && !shown.length ? noExactNote(anchor) : undefined;
       const more: ProductCard[] = [];
       top.push({ title: s.spec.title, products: shown.slice(0, 4) });
-      emit({ type: "section", id: s.id, title: s.spec.title, why: s.why, query: s.intent.semanticQuery, products: shown, more, relaxedNote: rail.relaxedNote, intent: rail.intent });
+      emit({ type: "section", id: s.id, title: s.spec.title, why: s.why, query: s.intent.semanticQuery, products: shown, more, relaxedNote: blendShopify ? undefined : rail.relaxedNote, intent: rail.intent, ...(blendShopify ? { anchor, emptyNote } : {}) });
     });
     debug.rails = rails.map((r) => ({ id: r.id, title: r.title, q: r.debug.q, filter: r.debug.filter, rounds: r.debug.rounds, dropped: r.debug.dropped, relaxed: r.relaxed.map((x) => x.id) }));
 
@@ -650,7 +695,12 @@ Don't write product numbers in the text.`,
       const catalog = tasteBoost(found, taste, tax);
       const shopifyFound = await shopifyMatches;
       // A Shopify product's look-alikes come from Shopify; a catalog product's are catalog first, Shopify blended in.
-      const ranked = fromShopify ? shopifyFound : blendShopify ? blend(catalog.slice(0, 8), shopifyFound.slice(0, 4)) : catalog;
+      // A catalog product's look-alikes from both sources share one similarity scale (catalog first on ties).
+      const ranked = fromShopify
+        ? shopifyFound
+        : blendShopify
+          ? (await rankBlend({ catalog: catalog.slice(0, 12), shopify: shopifyFound, query: target.title, anchor: null, sectionCategories: [], tax, limit: 12, usage, signal: input.signal })).products
+          : catalog;
       // The label is the requested change ("in blue"); the planner sometimes echoes the product name instead.
       const rawLabel = plan.similar?.label?.trim() ?? "";
       const echoes = /^(more )?like\b/i.test(rawLabel) || target.title.toLowerCase().includes(rawLabel.toLowerCase().replace(/^(more )?like\s+/i, "").slice(0, 20));

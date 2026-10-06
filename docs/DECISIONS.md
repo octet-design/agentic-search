@@ -124,3 +124,27 @@ Decisions:
 - **Style it replaces "Ask Drape".** `lib/styleIt.ts` makes one cached LLM plan per product: 3 occasions × 3 complementary items with canonical categories, colours and a semantic query. The look for the selected occasion is retrieved on demand with the piece's audience, never its own category, and a hard price cap of ~1.5× the piece (relaxable). A ₹5k kurta was getting a ₹59k necklace with a "prefer" cap. Men's looks prefer watches, belts and stoles over necklaces. First load is ~6–7s; switching occasions is ~1s. It lives under the Shop button, so buying stays at the top.
 - **"Shopping for" picker.** It's chosen on the new-chat screen, remembered for the next new chat, stored on the chat and sent every turn as the *default* audience. A recipient named in the message wins, via the prompt plus a `recipientAudience` guard. Without the guard, "saree as a gift for my mom" with Men picked searched men's sarees, relaxed repeatedly and timed out.
 - **Eval:** 14 conversations, 2 of them with the picker set. New checks: at least 2 explained picks per turn with sections, picks must come from the shown products, and each explanation is 15+ words. Result: 38/38.
+
+## Blend search: exact matches only (2026-10-06)
+
+Problem: in `/blend`, "chaniya choli" showed Typesense lehenga cholis ahead of Shopify's real chaniya cholis. Typesense does have 3 in-stock chaniya cholis (plus 32 "navratri lehengas"), but the taxonomy maps the term to `lehenga` and the weak MiniLM semantic leg ranks generic lehenga cholis first. On top of that, the old `blend()` placed 2 catalog items then 1 Shopify item no matter what. The user decided: **exact matches only** ("no products found" otherwise), **term tiers + embeddings** as one yardstick, **pure relevance with catalog winning ties**.
+
+- **Anchor per section** (planner output, no extra call): `terms` = the item's name plus spellings of the same item; `categoryLevel` = the name is a whole canonical category. Named types stay in (bandhani saree, kolhapuri chappal, potli bag); plain attributes stay out (fabric, colour, print), because "linen kurta" as an anchor rejected Shopify's "Linen Short Kurta".
+- **`lib/relevance.ts`** (no Shopify imports):
+  - `isExact`: a word-boundary match of an anchor term in the title, or in Shopify highlights/options (`extraText`). For category-level anchors, catalog items filed under that category (or a child category) also count. Shopify cards have no category, so they need the word.
+  - `rankBlend`: exact gate → one embedding scale (`text-embedding-3-small`, `OPENAI_MODEL_EMBED`, cached per text) → scores bucketed by 0.02 with catalog first inside a bucket (transitive, unlike a pairwise ε compare) → at most 3 per brand. If the embedding call fails, it falls back to each source's own order.
+- **Recall:** `retrieveAnchor` searches titles for the item in any category, e.g. the chaniya cholis filed elsewhere. Shopify is queried with the section's own angle plus the item name (`shopifyQuery`), 20 results.
+- **No repeats across sections:** the sections of one answer take fresh items first. Without this, all three chaniya choli sections showed the same 3 catalog items.
+- **Where it applies (Blend search only):**
+  - chat sections;
+  - "more like this", which ranks by similarity with no exact gate;
+  - the results grid's longer list (`POST /api/blend/section`, replacing the client-side interleave).
+
+  The home feed keeps the interleave, since it has no query. Drape home and Typesense search are unchanged (`eval:chat` 38/38).
+- **Empty state:** a section with no exact match carries `emptyNote` ("No products found for "x" in either catalog."), shown in the chat and the results pane.
+- **Eval:** `npm run eval:blend` runs 8 queries and passes 8/8, with every shown product exact. Results:
+  - chaniya choli: 2 catalog + 14 Shopify, no lehengas;
+  - linen kurta (men): all catalog in the chat, since catalog titles score slightly higher and win ties; Shopify's linen kurtas appear in the longer list;
+  - nonsense item: "no products found".
+
+  Search step: 0.8–8.6s, with Shopify the slowest part.

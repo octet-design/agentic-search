@@ -61,6 +61,7 @@ In dev, the server checks at boot that the configured models exist, and warns wi
 | `npm run build:taxonomy [-- --repropose]` | M1 taxonomy → `data/taxonomy.json` + `data/taxonomy.review.md`. LLM calls are cached in `.cache/llm`. |
 | `npm run eval [-- --only 1,4] [-- --no-rerank]` | Runs the 25 brief queries headless → `docs/eval-report.md`, with automatic FAIL checks |
 | `npm run eval:chat [-- --only 1,3]` | 12 scripted multi-turn conversations → `docs/eval-chat-report.md`; checks exclusions (also across turns), audience, budgets, answers, compare, guidance + closing question, no repeated questions, no visible numbers, taste leaks, latency |
+| `npm run eval:blend [-- --only 1,3]` | Blend search relevance: 8 queries where one source is thin → `docs/eval-blend-report.md`; every shown product must be an exact match, empty sections must say "no products found" |
 
 ## Architecture
 
