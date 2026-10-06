@@ -17,7 +17,7 @@ const BodySchema = z.object({
 });
 
 /**
- * Blend search's longer list for a result set: our catalog (same filters as the chat, plus titles naming the
+ * Scout's longer list for a result set: our catalog (same filters as the chat, plus titles naming the
  * item in any category) and Shopify, exact matches only, on one relevance scale with catalog first on ties.
  */
 export async function POST(req: Request) {

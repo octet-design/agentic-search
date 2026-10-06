@@ -19,7 +19,7 @@ export type ChatSection = {
   relaxedNote?: string;
   /** Filters the section used; "See all" re-runs them without the LLM. */
   intent?: Intent;
-  /** Blend search: what counts as an exact match, and the note when nothing does. */
+  /** Scout: what counts as an exact match, and the note when nothing does. */
   anchor?: Anchor;
   emptyNote?: string;
   loaded: boolean;
@@ -66,7 +66,7 @@ export type Chat = {
   nextRef: number;
   /** Picked in "Shopping for" when the chat started (null = anyone). */
   audience?: AudienceKey | null;
-  /** Which app the chat belongs to: Drape's home (default), Typesense search ("aura") or Blend search ("blend"). */
+  /** Which app the chat belongs to: Drape's home (default), Typesense search ("aura") or Scout ("blend"). */
   surface?: "drape" | "aura" | "blend";
   /** Aura++: products from outside the chat (feed, similar, brand) the shopper asked about, given refs here. */
   pinned?: ProductCard[];

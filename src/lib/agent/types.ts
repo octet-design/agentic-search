@@ -236,7 +236,7 @@ export type AgentEvent =
       relaxedNote?: string;
       /** The exact filters this section used (after relaxation), for "See all". */
       intent?: Intent;
-      /** Blend search: what counts as an exact match here, and the note when nothing does. */
+      /** Scout: what counts as an exact match here, and the note when nothing does. */
       anchor?: Anchor;
       emptyNote?: string;
     }
@@ -266,7 +266,7 @@ export type ChatSectionSpec = {
   softPreferences: string[];
   semanticQuery: string;
   budgetMax: number | null;
-  /** Blend search: the product words a result must contain to count as an exact match. */
+  /** Scout: the product words a result must contain to count as an exact match. */
   anchor?: Anchor;
 };
 

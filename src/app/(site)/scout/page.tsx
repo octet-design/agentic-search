@@ -1,0 +1,13 @@
+import type { Metadata } from "next";
+import { SCOUT_MODE } from "@/components/aura-plus/mode";
+import { PlusHome } from "@/components/aura-plus/PlusHome";
+import { getExamples } from "@/lib/examples";
+
+export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = { title: "Scout", description: "A shopping agent that scouts our catalog and India-based stores on Shopify, asks what you need, and shows only exact matches." };
+
+/** Scout (formerly Blend search): Typesense search's flow with Shopify Global Catalog results mixed in, tagged by source. */
+export default async function ScoutPage() {
+  return <PlusHome examples={await getExamples()} mode={SCOUT_MODE} />;
+}

@@ -1,5 +1,5 @@
 /**
- * Blend search relevance: one yardstick for our catalog and Shopify. A product counts only if it is exactly
+ * Scout relevance: one yardstick for our catalog and Shopify. A product counts only if it is exactly
  * what the section asks for (the anchor's words, or the whole category when the anchor is a category).
  * Exact matches from our catalog come first, then Shopify's; each source is ordered by embedding similarity.
  * No Shopify imports: Shopify products arrive as ProductCards (lib/blend.ts).
@@ -102,7 +102,7 @@ export function catalogFirst(catalog: ProductCard[], shopify: ProductCard[], sco
 export type ExactResult = { products: ProductCard[]; exact: { catalog: number; shopify: number } };
 
 /**
- * Blend search ranking. With an anchor, only exact matches from either source survive; without one
+ * Scout ranking. With an anchor, only exact matches from either source survive; without one
  * ("more like this"), everything is kept. Our catalog's results come first, then Shopify's, each ordered by
  * similarity to the query, with at most `perBrand` per brand at the top.
  */

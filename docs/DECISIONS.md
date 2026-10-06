@@ -172,3 +172,7 @@ Feedback (screenshots vs Plush's AI stylist): "men" jumped straight to shirts an
   - the Similar / More-from-brand rails in the product view (optional `localSellers` on the Shopify `ProductDetail`).
 
   The Shopify tab itself is unchanged. Measured cost: none. Every probe query still returned a full 20 results, all from India-based stores. Stores that ship from India but price in USD still appear (converted, "≈ ₹").
+
+## Blend search renamed to Scout (2026-10-06)
+
+User-facing name, header tab (telescope icon), page titles and route are now **Scout** at `/scout`. `/blend` and `/blend/c/:id` redirect there (307, in `next.config.ts`), so shared links keep working. Internal names stay as they were (`surface: "blend"` keeps chats saved before the rename, plus the `blend` flag, `lib/blend*.ts`, `rankBlend` and `/api/blend/section`), because renaming them changes nothing for users.

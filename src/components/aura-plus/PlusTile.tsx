@@ -15,7 +15,7 @@ export type PlusActions = {
   /** ✦ Ask about this product (a quick question, or null to start typing about it). */
   onAsk?: (p: ProductCard, question: string | null) => void;
   onMoreLike?: (p: ProductCard) => void;
-  /** Blend search: show where each product comes from. */
+  /** Scout: show where each product comes from. */
   showSource?: boolean;
 };
 export const PlusActionsContext = createContext<PlusActions | null>(null);

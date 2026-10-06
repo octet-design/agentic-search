@@ -235,7 +235,7 @@ export async function retrieveRails(specs: RailSpec[], tax: TaxonomyApi, opts: R
 }
 
 /**
- * Blend search: titles containing the anchor words, whatever category they're filed under ("chaniya choli"
+ * Scout: titles containing the anchor words, whatever category they're filed under ("chaniya choli"
  * products filed as lehengas or ethnic sets). Base, audience and exclusions apply; musts such as budget are
  * re-checked in code. One keyword search per spelling (up to 3), in parallel; fails soft.
  */

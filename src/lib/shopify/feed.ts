@@ -104,7 +104,7 @@ async function fetchSource(src: Source, country: Country, cursor: string, signal
 
 const CURATED_PER_PAGE = 3;
 
-/** `local`: only products shipped from the buyer's country (Blend search's local-sellers rule). */
+/** `local`: only products shipped from the buyer's country (Scout's local-sellers rule). */
 export async function feedPage(opts: { country: Country; seeds: FeedSeeds; cursor?: string | null; exclude?: string[]; local?: boolean; signal?: AbortSignal }): Promise<FeedPage> {
   const state = decode(opts.cursor);
   const curated = curatedFor(opts.country);

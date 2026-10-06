@@ -208,7 +208,7 @@ export function ProductDetail({
   renderSave?: (card: ShopifyCard) => React.ReactNode;
   /** Sheet: open a similar / Style it / same-brand product in place (the page links to it instead). */
   onOpenSimilar?: (p: ShopifyCard) => void;
-  /** Rails show only products shipped from the buyer's country (Blend search). */
+  /** Rails show only products shipped from the buyer's country (Scout). */
   localSellers?: boolean;
 }) {
   const [view, setView] = useState<ProductView | null>(initial);

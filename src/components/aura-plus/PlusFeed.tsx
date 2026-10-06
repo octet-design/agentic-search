@@ -55,7 +55,7 @@ export function PlusFeed({ blend: mixShopify = false }: { blend?: boolean }) {
     try {
       const post = (url: string, body: unknown) => fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
       const exclude = [...seeds.hidden, ...ids.current].slice(-300);
-      // Our catalog is the backbone; in Blend search, Shopify's feed (India-based sellers only) is mixed in and fails soft.
+      // Our catalog is the backbone; in Scout, Shopify's feed (India-based sellers only) is mixed in and fails soft.
       const [res, shop] = await Promise.all([
         post("/api/aura-plus/feed", { seedIds: seeds.seedIds.filter((id) => !id.startsWith("shopify-")), excludeIds: exclude.filter((id) => !id.startsWith("shopify-")), cursor }),
         mixShopify

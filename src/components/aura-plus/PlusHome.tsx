@@ -16,7 +16,7 @@ import { PlusActionsContext, type PlusActions } from "./PlusTile";
 
 const short = (t: string) => (t.length > 40 ? `${t.slice(0, 38).trimEnd()}…` : t);
 
-/** Typesense / Blend search home: Plush-style hero, example searches, and the personalised feed. */
+/** Typesense / Scout home: Plush-style hero, example searches, and the personalised feed. */
 export function PlusHome({ examples, mode }: { examples: Example[]; mode: PlusMode }) {
   const router = useRouter();
   const hydrated = useHydrated();

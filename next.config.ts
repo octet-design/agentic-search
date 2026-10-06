@@ -5,11 +5,13 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "/**": ["./data/taxonomy.json"],
   },
-  // Genuine Finds became Aura.
+  // Genuine Finds became Aura; Blend search became Scout (chat links keep working).
   async redirects() {
     return [
       { source: "/finds", destination: "/aura", permanent: false },
       { source: "/finds/:path*", destination: "/aura", permanent: false },
+      { source: "/blend", destination: "/scout", permanent: false },
+      { source: "/blend/:path*", destination: "/scout/:path*", permanent: false },
     ];
   },
 };

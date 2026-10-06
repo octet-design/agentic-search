@@ -76,7 +76,7 @@ export type ChatTurnInput = {
   debug?: boolean;
   /** "aura": Aura++'s Plush-style surface (short guidance + one tappable question, results do the talking, no picks). */
   style?: "drape" | "aura";
-  /** Blend search: mix Shopify Global Catalog results into every result set (tagged with their source). */
+  /** Scout: mix Shopify Global Catalog results into every result set (tagged with their source). */
   blend?: boolean;
 };
 
@@ -383,7 +383,7 @@ export function wantsChange(message: string): boolean {
   return /\b(?:than usual|new look|fresh look|different|bolder|experiment\w*|out of (?:my )?comfort zone|change (?:my|of) (?:style|look)|something new|kuch (?:naya|alag|hatke))\b/i.test(message);
 }
 
-/** Blend search's Shopify query for a section: its own angle ("mirror work chaniya choli"), always naming the item. */
+/** Scout's Shopify query for a section: its own angle ("mirror work chaniya choli"), always naming the item. */
 export function shopifyQuery(anchor: { terms: string[] } | undefined, semanticQuery: string): string {
   const item = anchor?.terms[0]?.trim();
   if (!item) return semanticQuery;
@@ -511,9 +511,9 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
     emit({ type: "sections_plan", sections: sections.map(({ id, spec, why }) => ({ id, title: spec.title, why })) });
     emit({ type: "step", id: "search", label: "Finding options in the catalog", status: "running" });
     const s0 = performance.now();
-    // Blend search mixes in Shopify Global Catalog matches, fetched in parallel with Typesense.
+    // Scout mixes in Shopify Global Catalog matches, fetched in parallel with Typesense.
     const blendShopify = !!input.blend;
-    // Blend: Shopify is searched by the item's name; Typesense also searches titles for it in any category.
+    // Scout: Shopify is searched by the item's name; Typesense also searches titles for it in any category.
     const [rails, shopifyLists, anchorLists] = await Promise.all([
       retrieveRails(
         sections.map((s) => ({ id: s.id, title: s.spec.title, intent: s.intent, perPage: 40 })),
@@ -535,7 +535,7 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
         : Promise.resolve([] as ProductCard[][]),
       blendShopify ? Promise.all(sections.map((s) => (s.spec.anchor ? retrieveAnchor(s.intent, s.spec.anchor.terms, tax) : Promise.resolve([])))) : Promise.resolve([] as ProductCard[][]),
     ]);
-    // Blend: only exact matches from either source, on one relevance scale, catalog first on ties.
+    // Scout: only exact matches from either source; our catalog first, then Shopify, each by relevance.
     const blended = blendShopify
       ? await Promise.all(
           sections.map((s, i) =>

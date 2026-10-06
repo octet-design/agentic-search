@@ -71,7 +71,7 @@ function ResultsGrid({ s, hidden, mixShopify }: { s: ChatSection; hidden: Set<st
   useEffect(() => {
     if (!s.intent) return;
     let live = true;
-    // Blend search: one server list of exact matches from both sources, already ranked (lib/relevance.ts).
+    // Scout: one server list of exact matches from both sources, already ranked (lib/relevance.ts).
     const req = mixShopify
       ? fetch("/api/blend/section", {
           method: "POST",

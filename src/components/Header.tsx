@@ -1,6 +1,6 @@
 "use client";
 
-import { Heart, Scale, ShoppingBag, Shuffle, Sparkles, UserRound, Wand2 } from "lucide-react";
+import { Heart, Scale, ShoppingBag, Sparkles, Telescope, UserRound, Wand2 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { TastePanel } from "@/components/taste/TastePanel";
@@ -33,8 +33,8 @@ export function Header() {
           <Link href="/aura-plus" className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-ink-soft hover:bg-sand hover:text-ink">
             <Wand2 size={16} /> <span className="hidden sm:inline">Typesense search</span>
           </Link>
-          <Link href="/blend" className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-ink-soft hover:bg-sand hover:text-ink">
-            <Shuffle size={16} /> <span className="hidden sm:inline">Blend search</span>
+          <Link href="/scout" className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-ink-soft hover:bg-sand hover:text-ink">
+            <Telescope size={16} /> <span className="hidden sm:inline">Scout</span>
           </Link>
           <Link href="/shopify" className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-ink-soft hover:bg-sand hover:text-ink">
             <ShoppingBag size={16} /> <span className="hidden sm:inline">Shopify browse</span>
