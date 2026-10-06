@@ -1,176 +1,175 @@
 # Blend search relevance report
 
-Generated 2026-10-06T10:27:40.427Z · 8 queries · **8/8 passed** (every shown product is an exact match for its section, empty sections say so, an unknown item finds nothing or gets a question) · median turn 9.1s
+Generated 2026-10-06T10:46:04.783Z · 8 queries · **8/8 passed** (every shown product is an exact match for its section, empty sections say so, an unknown item finds nothing or gets a question) · median turn 10.3s
 
 ## 1. chaniya choli ✅
 
-*19.1s · understand 5.5s, search 13.6s, total 19.1s*
+*24.3s · understand 5.6s, search 18.8s, total 24.3s*
 
-**Embroidered Chaniya Cholis**: anchor `chaniya choli` · 2 catalog + 6 Shopify
+**Embroidered Chaniya Cholis**: anchor `chaniya choli` · 3 catalog + 5 Shopify
 
-1. 🛍 Shopify · Ciao Embroidered Navratri Chaniya Choli (Raas, ₹38500)
-2. 🛍 Shopify · Bharat Hand Embroidered Kanthi Yoke for Chaniya Choli (Rynoka, ₹399)
-3. 📦 Typesense · Semi Stitched Attractive Black Gamthi Work Silk Traditional Rajwadi Chaniya Choli (Ethnic Plus, ₹4679)
-4. 🛍 Shopify · Blue Full Flare Chaniya Choli With Embroidered Blouse for Navratri (Raas, ₹38500)
-5. 🛍 Shopify · Designer Chaniya Choli / Mirror Work Muslin / Navratri 2026 (Ethenika.com , ₹3990)
-6. 🛍 Shopify · Navratri Garba Traditional Khadi Cotton Chaniya Choli for Women's (Anant Tex Exports Private Limited, ₹5051)
-7. 📦 Typesense · XS Attractive Navy Blue Cotton Special Navratri Wear Chaniya Choli (Ethnic Plus, ₹6359)
-8. 🛍 Shopify · Bandhani print Chaniya Choli with Hand Embroidered Blouse and Matching Dupatta (Raas, ₹41900)
+1. 📦 Typesense · Semi Stitched Attractive Black Gamthi Work Silk Traditional Rajwadi Chaniya Choli (Ethnic Plus, ₹4679)
+2. 📦 Typesense · Pink Silk Sangeet Wear Sequins Work Chaniya Choli (Sareesbazaar, ₹184)
+3. 📦 Typesense · XS Attractive Navy Blue Cotton Special Navratri Wear Chaniya Choli (Ethnic Plus, ₹6359)
+4. 🛍 Shopify · Designer Navratri Chaniya Choli with Embroidered Yoke & Mirror Work (orhnaa, ₹2799)
+5. 🛍 Shopify · Hand Embroidered Multicolor Chaniya Choli Set (Raas, ₹24800)
+6. 🛍 Shopify · Bandhani print Chaniya Choli with Hand Embroidered Blouse and Matching Dupatta (Raas, ₹41900)
+7. 🛍 Shopify · Ciao Embroidered Navratri Chaniya Choli (Raas, ₹38500)
+8. 🛍 Shopify · Designer Chaniya Choli / Mirror Work Muslin / Navratri 2026 (Ethenika.com , ₹3990)
 
-**Printed and Bandhani Chaniya Cholis**: anchor `chaniya choli` · 1 catalog + 7 Shopify
+**Printed and Bandhani Chaniya Cholis**: anchor `chaniya choli` · 0 catalog + 8 Shopify
 
-1. 🛍 Shopify · Zehra Bandhani Kutchi Chaniya Choli Set (Raas, ₹41900)
+1. 🛍 Shopify · Navratri Special Bandhani Chaniya Choli (Looknbook Art, ₹2000)
 2. 🛍 Shopify · Ivory Mandala Print Chaniya Choli With Bandhani Dupatta (Raas, ₹47000)
-3. 🛍 Shopify · Pristine White Navratri Chaniya Choli Mirror Work / Palkhi Fashion (Palkhi Fashion, ₹19700)
-4. 📦 Typesense · Pink Silk Sangeet Wear Sequins Work Chaniya Choli (Sareesbazaar, ₹184)
-5. 🛍 Shopify · PASTEL BANARASI SILK CHANIYA CHOLI (Label Mishka, ₹17000)
-6. 🛍 Shopify · Viral 2psc chaniya choli 😍 (Pehnava , ₹2499)
-7. 🛍 Shopify · Midnight Joy / Vibrant Purple Banarasi Brocade Halter Chaniya Choli / Palkhi Fashion (Palkhi Fashion, ₹16700)
-8. 🛍 Shopify · Black Bandhej Kutchi Chaniya Choli With Shells (Raas, ₹38500)
+3. 🛍 Shopify · Red Color Georgette Bandhani Print Navratri Chaniya Choli (TANHAI, ₹3599)
+4. 🛍 Shopify · Designer Bandhej Print Chaniya Choli With Embroidered Peacock Motif (Sarees Bazaar, ₹6600)
+5. 🛍 Shopify · Bandhani Georgette Chaniya Choli (Ab Lehenga House, ₹3600)
+6. 🛍 Shopify · Black Ajrakh Print Chaniya Choli With Gota Patti Work Blouse And Dupatta (Raas, ₹25600)
+7. 🛍 Shopify · Muslin Digital Print Designer Chaniya Choli (Ethenika.com , ₹2990)
+8. 🛍 Shopify · Muslin Multicolor Digital Print Chaniya Choli (Ethenika.com , ₹3590)
 
-**Mirror Work and Embellished Chaniya Cholis**: anchor `chaniya choli` · 0 catalog + 8 Shopify
+**Silk and Brocade Chaniya Cholis**: anchor `chaniya choli` · 0 catalog + 8 Shopify
 
-1. 🛍 Shopify · Designer Real Mirror Work Chaniya Choli For Navratri (Anaya Designer Studio, ₹2899)
-2. 🛍 Shopify · Designer Navratri Chaniya Choli with Embroidered Yoke & Mirror Work (orhnaa, ₹2799)
-3. 🛍 Shopify · Muslin Cotton Mirror Work Chaniya Choli / Navratri Garba Wear (Ethenika.com , ₹4590)
-4. 🛍 Shopify · Black Beauty Rayon Mirror Work Chaniya Choli / Navratri Wear (Ethenika.com , ₹3990)
-5. 🛍 Shopify · Gujarati Navratri Chaniya Choli Collection (Looknbook Art, ₹3000)
-6. 🛍 Shopify · Mirror Work Boho Chaniya Choli (PreLoved Pitaras, ₹2999)
-7. 🛍 Shopify · Full Flare Mirror work Chaniya Choli Set (Raas, ₹24800)
-8. 🛍 Shopify · Stone Beige Multicolor Mirror Work Chaniya Choli with Purple Dupatta (Jhalak Kalpi , ₹10399)
+1. 🛍 Shopify · Designer Silk Chaniya Choli with Zari Weaving & Rich Dupatta (MILAN FASHION, ₹7990)
+2. 🛍 Shopify · Traditional Poly Cotton Chaniya Choli for Women, Rich Zari Weaving (CRAZE, ₹4599)
+3. 🛍 Shopify · Multicolor Mulberry Silk Chaniya Choli with Dori and Zari Work (HATKE BRIDE, ₹16200)
+4. 🛍 Shopify · Premium Silk Zari Chaniya Choli – Black, Navy, White & Magenta (MILAN FASHION, ₹9990)
+5. 🛍 Shopify · Mustard Dola Silk Chaniya Choli with Shibori Print  Zari Weaving Border (women's fashion mart, ₹2000)
+6. 🛍 Shopify · Designer Chaniya Choli / Malai Silk Mirror Work & Gota Zari / Garba (Ethenika.com , ₹2990)
+7. 🛍 Shopify · Multi Color Silk Chaniya Choli Set (Raas, ₹47000)
+8. 🛍 Shopify · Premium Silk Zari Chaniya Choli – Purple, Hot Pink, Rust & Red (MILAN FASHION, ₹7990)
 
 ## 2. bandhani saree ✅
 
-*9.1s · understand 3.5s, search 5.6s, total 9.1s*
+*9.2s · understand 4.1s, search 5.1s, total 9.2s*
 
-**Classic Bandhani Sarees**: anchor `bandhani saree` · 4 catalog + 4 Shopify
+**Traditional Bandhani Sarees**: anchor `bandhani saree` · 8 catalog + 0 Shopify
 
 1. 📦 Typesense · Red Festive Tie-Dye Bandhani Saree (Kalki, ₹39950)
-2. 📦 Typesense · Pink Festive Tie-Dye Bandhani Saree (Kalki, ₹7995)
-3. 📦 Typesense · Pink Bandhani Saree with Vibrant Essence (Kalki, ₹64995)
-4. 🛍 Shopify · Handloom mulberry silk bandhani saree tie dye print festive wear (indiya Se, ₹1319)
-5. 📦 Typesense · Indigo BlueVasansi Silk Bandhani Saree (Vasansi, ₹28350)
-6. 🛍 Shopify · Authentic Bandhani Saree (HAANIA.IN, ₹2999)
-7. 🛍 Shopify · BN07 Bandhani Saree (RESHAMJARI, ₹1295)
-8. 🛍 Shopify · Hiral Rani Bandhani Saree (Pratibha Sarees, ₹14800)
+2. 📦 Typesense · Pink Bandhani Saree with Vibrant Essence (Kalki, ₹64995)
+3. 📦 Typesense · Red Bold Pattern Bandhani Saree (Kalki, ₹32500)
+4. 📦 Typesense · Indigo BlueVasansi Silk Bandhani Saree (Vasansi, ₹28350)
+5. 📦 Typesense · Deep Purple Embroidered Pure Bandhani Saree (Lashkaraa, ₹41400)
+6. 📦 Typesense · Red Classic Tie-Dye Bandhani Saree (Kalki, ₹32500)
+7. 📦 Typesense · Green Fresh Tie-Dye Bandhani Saree (Kalki, ₹29950)
+8. 📦 Typesense · Orange Dynamic Bandhani Saree (Kalki, ₹87995)
 
 ## 3. kolhapuri chappal ✅
 
-*13.1s · understand 4.3s, search 8.8s, total 13.1s*
+*10.3s · understand 4.4s, search 5.9s, total 10.3s*
 
-**Classic Kolhapuri Chappals**: anchor `kolhapuri chappal` · 0 catalog + 8 Shopify
+**Classic Kolhapuri Chappals**: anchor `kolhapuri chappal` · 2 catalog + 6 Shopify
 
-1. 🛍 Shopify · Peshwai Kolhapuri Chappal for Women – Handmade Leather (Kalapuri, ₹2699)
-2. 🛍 Shopify · Korakari The Maharani Classic / Women / Kolhapuri Chappal (NIIRA, ₹4099)
-3. 🛍 Shopify · Soothing Tan Kolhapuri Chappal for Women (Flourish, ₹1250)
-4. 🛍 Shopify · The Burgundy Legacy Kolhapuri Chappal for Women (Flourish, ₹2899)
-5. 🛍 Shopify · Tochi Veni Kolhapuri Chappal for Women – Handmade Leather (Kalapuri, ₹1799)
-6. 🛍 Shopify · Jari Chic Kolhapuri Chappal for Women (Flourish, ₹1699)
-7. 🛍 Shopify · Eternal Black Beauty – Women’s Spectrum Classic Kolhapuri Chappal (Kalapuri, ₹1999)
-8. 🛍 Shopify · Golden Glow Walkers Kolhapuri Chappals for Women (Korakari Timeless Fashion | Kolhapuri Chappals | Punjabi Jutties, ₹1299)
+1. 📦 Typesense · Traditional Handmade Genuine Cruelty-Free Leather Kolhapuri Chappal (Tjori, ₹1819)
+2. 📦 Typesense · Premium Handmade Genuine Cruelty-Free Leather Kolhapuri Chappals (Tjori, ₹1819)
+3. 🛍 Shopify · Ethnic Kolhapuri Chappal for Men (Warehouse, ₹999)
+4. 🛍 Shopify · Single wadi Dark Brown Pure Leather Kapashi Kolhapuri Chappal For Men / Vhaan (Vhaan Ethnic Craft, ₹1199)
+5. 🛍 Shopify · The Burgundy Legacy Kolhapuri Chappal for Women (Flourish, ₹2899)
+6. 🛍 Shopify · Original Dark Brown Pure Leather Moja shape Handstitched Kolhapuri Chappal For Men / Vhaan (Vhaan Ethnic Craft, ₹1199)
+7. 🛍 Shopify · Pelle Kolho Nox – Dark Brown Braided Kolhapuri Chappal for Men (dmodot Shoes, ₹7999)
+8. 🛍 Shopify · Karagiri Mustard Muse / Women / Leather Kolhapuri Chappal (NIIRA, ₹3499)
 
-**Embellished Kolhapuri Chappals**: anchor `kolhapuri chappal` · 1 catalog + 7 Shopify
+**Embellished Kolhapuri Chappals**: anchor `kolhapuri chappal` · 0 catalog + 8 Shopify
 
 1. 🛍 Shopify · Diamond Feet Women's Kolhapuri Chappal (ting, ₹999)
 2. 🛍 Shopify · Nine Braids Kolhapuri Chappal for Women (Flourish, ₹1250)
-3. 🛍 Shopify · Kolhapuri Chappal for Women (Warehouse, ₹1299)
-4. 🛍 Shopify · Braided Beauty Floral – Women’s Colorburst Kolhapuri Chappal (Kalapuri, ₹1799)
-5. 🛍 Shopify · Pink Floral Delight – Women’s Colorburst Kolhapuri Chappal (Kalapuri, ₹1799)
-6. 🛍 Shopify · Aakashi Embossed Kapshi Kolhapuri Chappal for Women – Handmade Leather (Kalapuri, ₹1799)
-7. 🛍 Shopify · Lal Gonda Dark Brown Ladies Kolhapuri Chappal (Vhaan Ethnic Craft, ₹999)
-8. 📦 Typesense · Traditional Handmade Genuine Cruelty-Free Leather Kolhapuri Chappal (Tjori, ₹1819)
+3. 🛍 Shopify · Aakashi Embossed Kapshi Kolhapuri Chappal for Women – Handmade Leather (Kalapuri, ₹1799)
+4. 🛍 Shopify · Peshwai Kolhapuri Chappal for Women – Handmade Leather (Kalapuri, ₹2699)
+5. 🛍 Shopify · Braided Beauty Floral – Women’s Colorburst Kolhapuri Chappal (Kalapuri, ₹1799)
+6. 🛍 Shopify · Headturner Grey Kolhapuri Chappal for Women (Flourish, ₹1699)
+7. 🛍 Shopify · Lemon Green Color Ladies  Kolhapuri Chappal (Vhaan Ethnic Craft, ₹999)
+8. 🛍 Shopify · Lal Gonda Dark Brown Ladies Kolhapuri Chappal (Vhaan Ethnic Craft, ₹999)
 
 ## 4. nehru jacket for men ✅
 
-*22.3s · understand 4.7s, search 17.6s, total 22.3s*
+*13.3s · understand 4.0s, search 9.2s, total 13.3s*
 
-**Classic Nehru Jackets**: anchor `nehru jacket` (category) · 3 catalog + 5 Shopify
+**Classic Nehru Jackets**: anchor `nehru jacket` (category) · 8 catalog + 0 Shopify
 
-1. 📦 Typesense · Ishir Embroidered Silk Nehru Jacket · Cream (Anita Dongre, ₹168000)
-2. 🛍 Shopify · Men's Black Mandarin Collar Nehru Jacket (MensUSA, ₹16600)
-3. 📦 Typesense · Azar Embroidered Silk Nehru Jacket · Navy Blue (Anita Dongre, ₹136500)
-4. 📦 Typesense · Kirav Embroidered Silk Nehru Jacket · Blush (Anita Dongre, ₹121000)
-5. 🛍 Shopify · Mens Midweight Cotton Knitted Nehru Jacket (Paul James Knitwear, ₹24100)
-6. 🛍 Shopify · Navy Mayfair Velvet Nehru Jacket (Favourbrook, ₹111500)
-7. 🛍 Shopify · Men Ombre Embellished Sequinned Nehru Jacket (Kisah, ₹3499)
-8. 🛍 Shopify · Velvet Nehru Jacket (House of Nepal, ₹10000)
+1. 📦 Typesense · Men's · Nehru Jacket (Vastramay, ₹14397)
+2. 📦 Typesense · Black & Gold Striped Nehru Jacket · Stylish Festive (Kisah, ₹7499)
+3. 📦 Typesense · Men's Black Cotton Silk Blend Nehru Jacket (Vastramay, ₹6447)
+4. 📦 Typesense · Men's Grey Imported Suiting Nehru Jacket (Vastramay, ₹5817)
+5. 📦 Typesense · Mens Beige Floral Printed Nehru Jacket (Kisah, ₹5249)
+6. 📦 Typesense · Men's Navy Blue Nehru Jacket (Kisah, ₹2249)
+7. 📦 Typesense · Coffee Co-Linen Men's Nehru Jacket (Saphed, ₹8749)
+8. 📦 Typesense · Men Casual Black Solid Nehru Jacket (Louis Philippe, ₹5784)
 
-**Embroidered Nehru Jackets**: anchor `nehru jacket` (category) · 2 catalog + 6 Shopify
+**Embroidered Nehru Jackets**: anchor `nehru jacket` (category) · 8 catalog + 0 Shopify
 
-1. 🛍 Shopify · Men's Embroidered Nehru Jacket, Elegant & Traditional (CRAZE, ₹5199)
-2. 🛍 Shopify · Men's Embroidered Nehru Jacket, Elegant & Traditional (CRAZE, ₹3199)
-3. 🛍 Shopify · Men’s Navy Blue Brocade Nehru Jacket – Multicolor Woven Design Indian Wedding Waistcoat, Festive Modi Jacket, J-3090 (DesiGifts LLC, ₹5302)
-4. 📦 Typesense · Men's Cream Embroidered Georgette Nehru Jacket (Vastramay, ₹13737)
-5. 🛍 Shopify · Men's Black Silk-Blend Embroidered Waist Length Nehru Jacket (vastramay, ₹4999)
-6. 📦 Typesense · Men's Cream Kia Silk Embroidered Nehru Jacket (Vastramay, ₹10497)
-7. 🛍 Shopify · Luxury Cream Bead & Sequin Embroidered Nehru Jacket for Men – Heavy Thread Work Wedding Waistcoat / J-3034 (DesiGifts LLC, ₹8677)
-8. 🛍 Shopify · Fern Silk Embroidered Men's Collarless Nehru Jacket Set (Saphed, ₹26997)
+1. 📦 Typesense · Men's Cream Embroidered Georgette Nehru Jacket (Vastramay, ₹13737)
+2. 📦 Typesense · Men's Red Embroidered Nehru Jacket with Black Kurta & Pant Set (Vastramay, ₹21021)
+3. 📦 Typesense · Men's Cream Kia Silk Embroidered Nehru Jacket (Vastramay, ₹10497)
+4. 📦 Typesense · Men's Studded Nehru Jacket · Set of 1 (Charkhee, ₹5600)
+5. 📦 Typesense · Undyed Linen Embroidered Men's Collarless Nehru Jacket (Saphed, ₹7499)
+6. 📦 Typesense · Grey Embroidered Nehru Jacket Set (Lashkaraa, ₹18400)
+7. 📦 Typesense · Green Embroidered Nehru Jacket (Kisah, ₹7499)
+8. 📦 Typesense · Surjit Embroidered Silk Nehru Jacket · Ivory (Anita Dongre, ₹94500)
 
 ## 5. patola dupatta ✅
 
-*4.8s · understand 3.1s, search 1.7s, total 4.8s*
+*9.5s · understand 3.3s, search 6.2s, total 9.5s*
 
-**Classic Patola Dupattas**: anchor `patola dupatta` · 1 catalog + 5 Shopify
+**Silk Patola Dupattas**: anchor `patola dupatta` · 1 catalog + 4 Shopify
 
-1. 🛍 Shopify · Patola dupatta-SRD001E (Swarna Reddys, ₹1150)
-2. 🛍 Shopify · Handwoven mulberry silk ikat patola dupatta on multiple coloured stripes base (Handpicked, ₹5995)
-3. 🛍 Shopify · Purple Handwoven Ikat Patola Dupatta in Pure Silk (Masakalee, ₹7250)
-4. 🛍 Shopify · Orange Printed Patola Dupatta in Fine Art Silk (Masakalee, ₹2650)
-5. 🛍 Shopify · Green Printed Patola Dupatta in Fine Art Silk (Masakalee, ₹2650)
-6. 📦 Typesense · Green Tissue Woven Saree with Patola Dupatta (Asopalav, ₹17290)
+1. 📦 Typesense · Green Tissue Woven Saree with Patola Dupatta (Asopalav, ₹17290)
+2. 🛍 Shopify · Magenta Ikkat Patola Dupatta in Pure Silk (Khatri Jamnadas Bechardas, ₹4500)
+3. 🛍 Shopify · Patola dupatta-SRD001E (Swarna Reddys, ₹1150)
+4. 🛍 Shopify · Patola Dupatta in fancy design with blue colour (New India Fashion, ₹6500)
+5. 🛍 Shopify · Red & Yellow Navratan Double Ikat Patola Patola Dupatta (SindhoiPatolaArt, ₹33440)
 
 ## 6. potli bag for a wedding ✅
 
-*8.6s · understand 4.4s, search 4.2s, total 8.6s*
+*12.5s · understand 4.3s, search 8.2s, total 12.5s*
 
-**Embellished Potli Bags**: anchor `potli bag` · 4 catalog + 4 Shopify
+**Embroidered Potli Bags**: anchor `potli bag / potli` · 8 catalog + 0 Shopify
 
-1. 📦 Typesense · Multi Embellished Potli Bag (Kalki, ₹8490)
+1. 📦 Typesense · Red Embroidered Motif Potli Bag in Silk (Kalki, ₹7899)
 2. 📦 Typesense · Pink Embroidered Motif Potli Bag (Kalki, ₹7899)
-3. 📦 Typesense · Red Embroidered Motif Potli Bag in Silk (Kalki, ₹7899)
-4. 🛍 Shopify · Elegant Embroidered Potli Bag (Tulsistudiolifestyle, ₹6790)
-5. 🛍 Shopify · Embroidered Pink Silk Potli Bag (Pehnaawaa, ₹5000)
-6. 🛍 Shopify · Gold Potli Bag - Sequin Embroidered Clutch for Weddings & Festivals (Mehar Store, ₹980)
-7. 📦 Typesense · Heavy Embroidery Lehenga Choli Set with Dupatta, Potli Bag & Latkan Detailing (Chhabra 555, ₹62000)
-8. 🛍 Shopify · Traditional New Designer Embroidered Favour Bag Potli Bag  Handcrafted Purse Wed (ComfyStuffGifts, ₹2400)
+3. 📦 Typesense · Black Zardosi Hand-Embroidered Potli (House of Designers, ₹5040)
+4. 📦 Typesense · Embroidered Potli Bag in Ivory (Global Desi, ₹1890)
+5. 📦 Typesense · Black Zari Embroidered Potli (House of Designers, ₹9500)
+6. 📦 Typesense · Green Silk Embroidered Potli Bag (Kalki, ₹7899)
+7. 📦 Typesense · Embroidered Potli Bag in Yellow (Global Desi, ₹1890)
+8. 📦 Typesense · Embroidered Potli Bag in Pink (Global Desi, ₹1890)
 
-**Metallic Box Clutches**: anchor `clutch` · 6 catalog + 2 Shopify
+**Beaded and Sequin Potli Bags**: anchor `potli bag / potli` · 8 catalog + 0 Shopify
 
-1. 🛍 Shopify · Metal clutch Wedding Party Women Hand Clutch  Silver clutch (GillKart, ₹679)
-2. 🛍 Shopify · Allover Glitter Metallic Clutch (David's Bridal, ₹2400)
-3. 📦 Typesense · Gold Plated Metal Clutch (Ayesha Accessories, ₹60200)
-4. 📦 Typesense · Gold Plated Metal Clutch (Ayesha Accessories, ₹53500)
-5. 📦 Typesense · Black Coiled Metallic Sculptural Clutch (Outzidr, ₹1199)
-6. 📦 Typesense · White Coiled Metallic Sculptural Clutch (Outzidr, ₹1599)
-7. 📦 Typesense · Silver Coiled Metallic Sculptural Clutch (Outzidr, ₹1199)
-8. 📦 Typesense · Golden Twist Lock Clutch for Party Wear (Inc.5, ₹3490)
+1. 📦 Typesense · White Champa Sequins Embellished Potli (House of Designers, ₹10200)
+2. 📦 Typesense · Gold Baliyey Sequins Embroidered Potli (House of Designers, ₹9500)
+3. 📦 Typesense · Multi Embellished Potli Bag (Kalki, ₹8490)
+4. 📦 Typesense · Beaded Muse Grey Faux Silk Abstract Embellished Pattern Potli (Anekaant, ₹1959)
+5. 📦 Typesense · Dewdrop Fringe Velvet Beaded Potli (Anekaant, ₹3412)
+6. 📦 Typesense · Beige Satin Potli Bag with Crescent Motif (Kalki, ₹9899)
+7. 📦 Typesense · Midnight Blue Embellished Potli (House of Designers, ₹9500)
+8. 📦 Typesense · Bridal Lehenga Choli Set with Heavy Zardozi Embroidery, Dupatta, Latkans & Potli Bag (Chhabra 555, ₹60000)
 
 ## 7. linen kurta men ✅
 
-*8.5s · understand 4.1s, search 4.4s, total 8.5s*
+*9.8s · understand 4.2s, search 5.6s, total 9.8s*
 
-**Classic Linen Kurtas**: anchor `kurta` (category) · 7 catalog + 1 Shopify
+**Classic Linen Kurtas**: anchor `kurta` (category) · 8 catalog + 0 Shopify
 
 1. 📦 Typesense · Chocolate Linen Men's Classic Kurta (Saphed, ₹9999)
-2. 📦 Typesense · Plum Linen Men's Classic Kurta (Saphed, ₹9999)
-3. 📦 Typesense · Panna Linen Men's Classic Kurta (Saphed, ₹9999)
-4. 📦 Typesense · Now,Men's Navy Blue Linen Solid Kurta (Ethnicity, ₹2495)
-5. 📦 Typesense · Now,Men's White Linen Solid Kurta (Ethnicity, ₹2295)
-6. 📦 Typesense · Now,Men's Off White Linen Solid Kurta (Ethnicity, ₹1247)
-7. 📦 Typesense · Plus Men's Beige Cotton Linen Kurta (Vastramay, ₹4107)
-8. 🛍 Shopify · Kurta Pants - Pure Linen Kurta Pants For Men - White (Linen Trail, ₹4899)
-
-**Embroidered Linen Kurtas**: anchor `kurta` (category) · 3 catalog + 5 Shopify
-
-1. 📦 Typesense · Chocolate Linen Men's Side Open Kurta (Saphed, ₹9999)
-2. 🛍 Shopify · Off white linen embroidered butti festive wear kurta for men (G3+Fashion, ₹4050)
+2. 📦 Typesense · Chocolate Linen Men's Side Open Kurta (Saphed, ₹9999)
 3. 📦 Typesense · Matchles Men's Sky Blue Linen Solid Kurta (Ethnicity, ₹1147)
-4. 📦 Typesense · Matchles Men's Pink Linen Solid Kurta (Ethnicity, ₹1147)
-5. 🛍 Shopify · Black Linen Embroidered Mens Kurta Set (KALKI Fashion India, ₹5999)
-6. 🛍 Shopify · Cream Linen Silk Short Kurta Set for Men with Dori Embroidery & Pant (KoraNM, ₹10980)
-7. 🛍 Shopify · Cream Linen Satin Men’s Kurta with Embroidered Jacket (Riyaasat, ₹15995)
-8. 🛍 Shopify · Grey cotton linen mens short kurta with refined threadwork (G3+Fashion, ₹5496)
+4. 📦 Typesense · Plum Linen Men's Classic Kurta (Saphed, ₹9999)
+5. 📦 Typesense · Plus Men's Beige Cotton Linen Kurta (Vastramay, ₹4107)
+6. 📦 Typesense · Matchles Men's Pink Linen Solid Kurta (Ethnicity, ₹1147)
+7. 📦 Typesense · Premium Grey Linen Blend Kurta (Vastrado, ₹749)
+8. 📦 Typesense · Premium Beige Linen Blend Kurta (Vastrado, ₹644)
+
+**Linen Blend Kurtas**: anchor `kurta` (category) · 8 catalog + 0 Shopify
+
+1. 📦 Typesense · Men's Black Cotton Linen Blend Kurta (Vastramay, ₹2673)
+2. 📦 Typesense · Premium Olive Green Linen Blend Kurta (Vastrado, ₹999)
+3. 📦 Typesense · Premium Sky Blue Linen Blend Kurta (Vastrado, ₹644)
+4. 📦 Typesense · Men Black Linen Solid Kurta (Spykar, ₹1799)
+5. 📦 Typesense · Mens Solid Short Kurta with Pocket (Inddus, ₹990)
+6. 📦 Typesense · Mens Solid Short Kurta with Pocket (Inddus, ₹858)
+7. 📦 Typesense · Men Blue Linen Solid Kurta (Spykar, ₹1799)
+8. 📦 Typesense · Men White Linen Solid Kurta (Spykar, ₹1799)
 
 ## 8. zorblax quantum moonboots ✅
 
-Asked first: Are you looking for moonboots for men, women, or kids?
+Asked first: Are you looking for moonboots for casual wear, winter sports, or a costume/party look?

@@ -18,4 +18,6 @@ export const FEATURES = {
   memory: false,
   /** "Style it" in the product panel: occasions + real pieces that complete the look. Replaces "Ask Drape". */
   styleIt: true,
+  /** Tappable answer / follow-up pills under the agent's question. Off: the question reads as plain chat text (Plush-style). */
+  answerPills: false,
 } as const;

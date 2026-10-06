@@ -4,6 +4,7 @@ import { ChevronRight, Info, Loader2, RotateCcw, Sparkles } from "lucide-react";
 import { CompareBlock } from "@/components/compare/CompareBlock";
 import { ProductCard, ProductSkeleton } from "@/components/product/ProductCard";
 import type { ProductCard as Card } from "@/lib/agent/types";
+import { FEATURES } from "@/lib/config";
 import type { ChatSection, AssistantMessage as Msg } from "@/store/chats";
 import { PicksBlock } from "./PicksBlock";
 import { RichText } from "./RichText";
@@ -101,7 +102,7 @@ export function AssistantMessage({
       {ask && (
         <div className="flex flex-col gap-2">
           <p className="text-[15px] leading-relaxed">{ask.question}</p>
-          {isLast && !running && ask.options.length > 0 && (
+          {FEATURES.answerPills && isLast && !running && ask.options.length > 0 && (
             <div className="flex flex-wrap gap-2">
               {ask.options.map((o) => (
                 <button key={o} onClick={() => onSend(o)} className="rounded-full border border-ink/30 bg-paper px-3 py-1.5 text-sm hover:border-ink">
@@ -113,7 +114,7 @@ export function AssistantMessage({
         </div>
       )}
 
-      {isLast && !running && !ask && msg.followups.length > 0 && (
+      {FEATURES.answerPills && isLast && !running && !ask && msg.followups.length > 0 && (
         <div className="flex flex-wrap gap-2">
           {msg.followups.map((f) => (
             <button key={f} onClick={() => onSend(f)} className="rounded-full border border-line bg-paper px-3 py-1.5 text-sm hover:border-ink">

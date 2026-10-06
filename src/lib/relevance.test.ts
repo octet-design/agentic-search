@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { fixtureTax as tax } from "./agent/testFixture";
 import type { ProductCard } from "./agent/types";
-import { isExact, orderByRelevance } from "./relevance";
+import { catalogFirst, isExact, orderByRelevance } from "./relevance";
 
 const card = (id: string, title: string, extra: Partial<ProductCard> = {}): ProductCard => ({
   id,
@@ -73,5 +73,22 @@ describe("orderByRelevance", () => {
       ["c1", 0.8],
     ]);
     expect(orderByRelevance(items.slice(0, 2), score).map((x) => x.id)).toEqual(["s1", "c1"]);
+  });
+});
+
+describe("catalogFirst", () => {
+  it("puts every catalog match before Shopify, each source by score", () => {
+    const c1 = card("c1", "a", { brand: "X" });
+    const c2 = card("c2", "b", { brand: "Y" });
+    const s1 = card("s1", "c", { source: "shopify", brand: "Z" });
+    const s2 = card("s2", "d", { source: "shopify", brand: "W" });
+    const score = new Map([
+      ["s1", 0.95],
+      ["s2", 0.6],
+      ["c1", 0.5],
+      ["c2", 0.7],
+    ]);
+    expect(catalogFirst([c1, c2], [s2, s1], score, 10).map((x) => x.id)).toEqual(["c2", "c1", "s1", "s2"]);
+    expect(catalogFirst([c1, c2], [s2, s1], score, 3).map((x) => x.id)).toEqual(["c2", "c1", "s1"]);
   });
 });

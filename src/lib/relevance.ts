@@ -1,7 +1,7 @@
 /**
  * Blend search relevance: one yardstick for our catalog and Shopify. A product counts only if it is exactly
- * what the section asks for (the anchor's words, or the whole category when the anchor is a category), and
- * exact matches are ordered by embedding similarity to the query, with our catalog first on ties.
+ * what the section asks for (the anchor's words, or the whole category when the anchor is a category).
+ * Exact matches from our catalog come first, then Shopify's; each source is ordered by embedding similarity.
  * No Shopify imports: Shopify products arrive as ProductCards (lib/blend.ts).
  */
 import { diversify } from "./agent/retrieve";
@@ -93,12 +93,18 @@ export async function similarityScores(query: string, products: ProductCard[], o
   return out;
 }
 
+/** Our catalog's matches first, then Shopify's; each by score, with at most `perBrand` per brand at the top. */
+export function catalogFirst(catalog: ProductCard[], shopify: ProductCard[], score: Map<string, number>, limit: number, perBrand = 3): ProductCard[] {
+  const bySource = (xs: ProductCard[]) => diversify(orderByRelevance(xs, score), limit, perBrand);
+  return [...bySource(catalog), ...bySource(shopify)].slice(0, limit);
+}
+
 export type ExactResult = { products: ProductCard[]; exact: { catalog: number; shopify: number } };
 
 /**
  * Blend search ranking. With an anchor, only exact matches from either source survive; without one
- * ("more like this"), everything is ranked by similarity. Then: one embedding scale, catalog first on ties,
- * at most `perBrand` per brand at the top.
+ * ("more like this"), everything is kept. Our catalog's results come first, then Shopify's, each ordered by
+ * similarity to the query, with at most `perBrand` per brand at the top.
  */
 export async function rankBlend(opts: {
   catalog: ProductCard[];
@@ -119,8 +125,7 @@ export async function rankBlend(opts: {
   const shopify = unique(opts.shopify).filter(gate);
   const pool = [...catalog, ...shopify];
   const score = await similarityScores(opts.query, pool, { usage: opts.usage, signal: opts.signal });
-  const ranked = diversify(orderByRelevance(pool, score), opts.limit, opts.perBrand ?? 3);
-  return { products: ranked.slice(0, opts.limit), exact: { catalog: catalog.length, shopify: shopify.length } };
+  return { products: catalogFirst(catalog, shopify, score, opts.limit, opts.perBrand ?? 3), exact: { catalog: catalog.length, shopify: shopify.length } };
 }
 
 /** "No products found" note for a section where neither source had an exact match. */

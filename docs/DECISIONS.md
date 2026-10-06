@@ -161,3 +161,8 @@ Feedback (screenshots vs Plush's AI stylist): "men" jumped straight to shirts an
 - **Evals:**
   - `eval:chat` adds two conversations ("men" → "office wear"; "women" → "apparel" → "birthday party"). The vague turns must be clarify, and clarify turns must show no products.
   - `eval:blend` accepts a clarifying question for an unknown item.
+
+### Follow-up (2026-10-06): Typesense first, questions without pills
+
+- **Blend order is now catalog first.** Product owner's call: exact Typesense matches come first, then exact Shopify matches, each ordered by embedding similarity (`catalogFirst` in `lib/relevance.ts`). This replaces "pure relevance, catalog wins ties". The exact-only gate is unchanged. When our catalog has 8+ exact matches, the chat section shows only catalog items, and Shopify follows in the results grid (e.g. linen kurta, potli bag, nehru jacket). Chaniya choli shows 3 catalog, then Shopify.
+- **No answer or follow-up pills** (`FEATURES.answerPills = false`), to match Plush's stylist. The agent's question is a natural chat sentence that names a few choices inline ("Are you shopping for everyday wear, office wear, something festive, or footwear and accessories?"). `ask.options` is still generated, but it isn't shown.

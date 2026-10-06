@@ -11,6 +11,7 @@ import { ProductImage } from "@/components/product/ProductImage";
 import { Loader } from "@/components/shopify/aura/Loader";
 import { Composer, Sheet, useHydrated, type ComposerHandle } from "@/components/shopify/aura/ui";
 import type { ProductCard } from "@/lib/agent/types";
+import { FEATURES } from "@/lib/config";
 import { sendChatMessage, stopChat } from "@/lib/chatClient";
 import { useChats, type AssistantMessage, type Chat, type ChatSection } from "@/store/chats";
 import { useSession } from "@/store/session";
@@ -172,7 +173,7 @@ function AssistantTurn({
       {ask && (
         <div className="flex flex-col gap-2">
           <p className="leading-relaxed">{ask.question}</p>
-          {isLast && !running && ask.options.length > 0 && (
+          {FEATURES.answerPills && isLast && !running && ask.options.length > 0 && (
             <div className="flex flex-wrap gap-2">
               {ask.options.map((o) => (
                 <button key={o} onClick={() => onSend(o)} className="border border-line bg-paper px-3 py-1.5 text-sm hover:border-ink">
@@ -183,7 +184,7 @@ function AssistantTurn({
           )}
         </div>
       )}
-      {isLast && !running && !ask && m.followups.length > 0 && (
+      {FEATURES.answerPills && isLast && !running && !ask && m.followups.length > 0 && (
         <div className="flex flex-wrap gap-2">
           {m.followups.map((f) => (
             <button key={f} onClick={() => onSend(f)} className="border border-line bg-paper px-3 py-1.5 text-sm hover:border-ink">
