@@ -129,9 +129,9 @@ function Description({ text }: { text: string }) {
 }
 
 /** A horizontal rail of products from the search API (similar items, more from this brand). */
-function ProductRail({ title, params, country, onOpen }: { title: string; params: Record<string, string>; country: Country; onOpen?: (p: ShopifyCard) => void }) {
+function ProductRail({ title, params, country, local, onOpen }: { title: string; params: Record<string, string>; country: Country; local?: boolean; onOpen?: (p: ShopifyCard) => void }) {
   const [items, setItems] = useState<ShopifyCard[] | null>(null);
-  const qs = new URLSearchParams({ ...params, country: country.code }).toString();
+  const qs = new URLSearchParams({ ...params, country: country.code, ...(local ? { local: "1" } : {}) }).toString();
   useEffect(() => {
     let live = true;
     fetch(`/api/shopify/search?${qs}`)
@@ -196,6 +196,7 @@ export function ProductDetail({
   layout,
   onOpenSimilar,
   renderSave,
+  localSellers,
 }: {
   id: string;
   country: Country | null;
@@ -207,6 +208,8 @@ export function ProductDetail({
   renderSave?: (card: ShopifyCard) => React.ReactNode;
   /** Sheet: open a similar / Style it / same-brand product in place (the page links to it instead). */
   onOpenSimilar?: (p: ShopifyCard) => void;
+  /** Rails show only products shipped from the buyer's country (Blend search). */
+  localSellers?: boolean;
 }) {
   const [view, setView] = useState<ProductView | null>(initial);
   const [loading, setLoading] = useState(!initial);
@@ -361,9 +364,9 @@ export function ProductDetail({
           </div>
         )}
         <StyleIt id={id} country={shopIn} onOpen={onOpenSimilar} />
-        {view && <ProductRail title="Similar items" params={{ like: view.id, exclude: view.id }} country={shopIn} onOpen={onOpenSimilar} />}
+        {view && <ProductRail title="Similar items" params={{ like: view.id, exclude: view.id }} country={shopIn} local={localSellers} onOpen={onOpenSimilar} />}
         {view?.seller.id && (
-          <ProductRail title={`More from ${view.seller.name ?? "this brand"}`} params={{ shop: view.seller.id, exclude: view.id }} country={shopIn} onOpen={onOpenSimilar} />
+          <ProductRail title={`More from ${view.seller.name ?? "this brand"}`} params={{ shop: view.seller.id, exclude: view.id }} country={shopIn} local={localSellers} onOpen={onOpenSimilar} />
         )}
         {!!view?.highlights.length && (
           <Section title="Highlights">

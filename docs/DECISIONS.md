@@ -166,3 +166,9 @@ Feedback (screenshots vs Plush's AI stylist): "men" jumped straight to shirts an
 
 - **Blend order is now catalog first.** Product owner's call: exact Typesense matches come first, then exact Shopify matches, each ordered by embedding similarity (`catalogFirst` in `lib/relevance.ts`). This replaces "pure relevance, catalog wins ties". The exact-only gate is unchanged. When our catalog has 8+ exact matches, the chat section shows only catalog items, and Shopify follows in the results grid (e.g. linen kurta, potli bag, nehru jacket). Chaniya choli shows 3 catalog, then Shopify.
 - **No answer or follow-up pills** (`FEATURES.answerPills = false`), to match Plush's stylist. The agent's question is a natural chat sentence that names a few choices inline ("Are you shopping for everyday wear, office wear, something festive, or footwear and accessories?"). `ask.options` is still generated, but it isn't shown.
+- **Sellers from the buyer's country** (2026-10-06). Blend search shows Shopify products only from sellers in the buyer's country (India). Shopify's catalog has no seller country (its seller record holds only id, name and links), so we use its closest filter, `ships_from`. It applies to:
+  - chat sections, the results grid and "more like" (`LOCAL_SELLERS` in `lib/blendServer.ts`);
+  - the Blend home feed (optional `local` on `/api/shopify/feed`);
+  - the Similar / More-from-brand rails in the product view (optional `localSellers` on the Shopify `ProductDetail`).
+
+  The Shopify tab itself is unchanged. Measured cost: none. Every probe query still returned a full 20 results, all from India-based stores. Stores that ship from India but price in USD still appear (converted, "≈ ₹").

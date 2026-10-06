@@ -1,6 +1,8 @@
 /**
  * Server side of blending Shopify into Typesense search: Shopify Global Catalog lookups shaped as catalog
  * ProductCards (India, INR, fashion only). Every call fails soft: Shopify is additive, never a blocker.
+ * Sellers must be in the buyer's country: Shopify's catalog has no seller country, so we use its closest
+ * filter, "ships from" (LOCAL_SELLERS).
  */
 import type { Intent, ProductCard } from "./agent/types";
 import { fromShopify, isShopifyId, shopifyIdOf, withAudience } from "./blend";
@@ -11,11 +13,13 @@ import { searchFashion } from "./shopify/search";
 import { toProductView } from "./shopify/view";
 
 const INDIA = getCountry("IN");
+/** Only products shipped from the buyer's country (India-based sellers). */
+const LOCAL_SELLERS = true;
 
 /** Shopify products for a chat section: same need, same budget. Blend search passes the item's name as the query. */
 export async function shopifyForSection(opts: { query: string; audience: Intent["audience"]; min?: number | null; max?: number | null; limit?: number; signal?: AbortSignal }): Promise<ProductCard[]> {
   try {
-    const page = await searchFashion({ query: withAudience(opts.query, opts.audience), min: opts.min ?? null, max: opts.max ?? null, local: false }, INDIA, { limit: opts.limit ?? 8, signal: opts.signal });
+    const page = await searchFashion({ query: withAudience(opts.query, opts.audience), min: opts.min ?? null, max: opts.max ?? null, local: LOCAL_SELLERS }, INDIA, { limit: opts.limit ?? 8, signal: opts.signal });
     return page.products.map(fromShopify);
   } catch {
     return [];
@@ -26,8 +30,8 @@ export async function shopifyForSection(opts: { query: string; audience: Intent[
 export async function shopifyLike(target: { id: string; title: string }, opts: { max?: number | null; limit?: number; signal?: AbortSignal } = {}): Promise<ProductCard[]> {
   try {
     const spec = isShopifyId(target.id)
-      ? { query: "", like: shopifyIdOf(target.id), min: null, max: opts.max ?? null, local: false }
-      : { query: similarQuery(target.title), min: null, max: opts.max ?? null, local: false };
+      ? { query: "", like: shopifyIdOf(target.id), min: null, max: opts.max ?? null, local: LOCAL_SELLERS }
+      : { query: similarQuery(target.title), min: null, max: opts.max ?? null, local: LOCAL_SELLERS };
     if (!spec.query && !("like" in spec && spec.like)) return [];
     const page = await searchFashion(spec, INDIA, { limit: opts.limit ?? 8, exclude: new Set([shopifyIdOf(target.id)]), signal: opts.signal });
     return page.products.map(fromShopify);

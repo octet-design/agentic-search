@@ -17,6 +17,8 @@ const BodySchema = z.object({
     .default({ products: [], queries: [], brands: [] }),
   cursor: z.string().max(8000).nullish(),
   exclude: z.array(Id).max(300).default([]),
+  /** Only products shipped from the buyer's country. */
+  local: z.boolean().default(false),
 });
 
 /** POST { country, seeds, cursor?, exclude? } → a page of the personalised "For you" feed. */

@@ -92,7 +92,7 @@ export function interleave(lists: FeedItem[][], exclude: Set<string>): FeedItem[
 const cache = new Map<string, { at: number; v: { items: ShopifyCard[]; next: string | false } }>();
 const TTL = 10 * 60_000;
 async function fetchSource(src: Source, country: Country, cursor: string, signal?: AbortSignal) {
-  const key = `${country.code}|${src.key}|${cursor}`;
+  const key = `${country.code}|${src.spec.local ? "local" : "any"}|${src.key}|${cursor}`;
   const hit = cache.get(key);
   if (hit && Date.now() - hit.at < TTL) return hit.v;
   const page = await searchFashion(src.spec, country, { limit: 10, cursor: cursor || null, signal });
@@ -104,14 +104,17 @@ async function fetchSource(src: Source, country: Country, cursor: string, signal
 
 const CURATED_PER_PAGE = 3;
 
-export async function feedPage(opts: { country: Country; seeds: FeedSeeds; cursor?: string | null; exclude?: string[]; signal?: AbortSignal }): Promise<FeedPage> {
+/** `local`: only products shipped from the buyer's country (Blend search's local-sellers rule). */
+export async function feedPage(opts: { country: Country; seeds: FeedSeeds; cursor?: string | null; exclude?: string[]; local?: boolean; signal?: AbortSignal }): Promise<FeedPage> {
   const state = decode(opts.cursor);
   const curated = curatedFor(opts.country);
   const fromCurated: Source[] = Array.from({ length: CURATED_PER_PAGE }, (_, i) => {
     const q = curated[(state.c + i) % curated.length];
     return { key: `c:${q}`, spec: spec({ query: q }), reason: null };
   });
-  const sources = [...seedSources(opts.seeds), ...fromCurated].filter((s) => state.s[s.key] !== false);
+  const sources = [...seedSources(opts.seeds), ...fromCurated]
+    .filter((s) => state.s[s.key] !== false)
+    .map((s) => (opts.local ? { ...s, spec: { ...s.spec, local: true } } : s));
 
   const results = await Promise.all(
     sources.map((src) =>

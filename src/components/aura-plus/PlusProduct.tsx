@@ -110,6 +110,7 @@ export function PlusProduct({
           layout="sheet"
           onOpenSimilar={(c) => onOpen(fromShopify(c))}
           renderSave={(card) => <SharedSave card={card} />}
+          localSellers
         />
       ) : (
         <>
