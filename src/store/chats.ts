@@ -8,7 +8,7 @@ import { create } from "zustand";
 import { createJSONStorage, persist, type StateStorage } from "zustand/middleware";
 import type { StepState } from "@/hooks/useAgentStream";
 import type { AudienceKey } from "@/store/session";
-import type { AgentEvent, Anchor, ChatPick, ChatSectionSpec, Chip, CompareBlockData, Intent, ProductCard } from "@/lib/agent/types";
+import type { AgentEvent, Anchor, ChatPick, SegmentOffer, ChatSectionSpec, Chip, CompareBlockData, Intent, ProductCard } from "@/lib/agent/types";
 
 export type ChatSection = {
   id: string;
@@ -35,6 +35,8 @@ export type AssistantMessage = {
   intro: string;
   sections: ChatSection[];
   outro: string;
+  /** Scout: segments offered as pills, fetched only when tapped. */
+  segments?: SegmentOffer[];
   /** Drape's picks: products from this message's sections, explained. */
   picks?: ChatPick[];
   answer: string;
@@ -82,6 +84,8 @@ type Actions = {
   addUser: (chatId: string, text: string, refs?: number[]) => string;
   addAssistant: (chatId: string) => string;
   applyEvent: (chatId: string, msgId: string, e: AgentEvent) => void;
+  /** Scout: a tapped segment pill becomes a result set in that message (products get refs here). */
+  openSegment: (chatId: string, msgId: string, seg: SegmentOffer, products: ProductCard[], emptyNote?: string) => void;
   failAssistant: (chatId: string, msgId: string, error: string) => void;
   finishAssistant: (chatId: string, msgId: string) => void;
 };
@@ -125,6 +129,8 @@ function reduce(chat: Chat, msgId: string, e: AgentEvent): Chat {
       return updateMsg(chat, msgId, (m) => ({ ...m, compare: { ...e.data, products: e.data.products.map(slim) } }));
     case "clarify":
       return updateMsg(chat, msgId, (m) => ({ ...m, clarify: { question: e.question, options: e.options } }));
+    case "segments":
+      return updateMsg(chat, msgId, (m) => ({ ...m, segments: e.items }));
     case "picks":
       return updateMsg(chat, msgId, (m) => ({ ...m, picks: e.items }));
     case "ask":
@@ -244,6 +250,16 @@ export const useChats = create<State & Actions>()(
         return id;
       },
       applyEvent: (chatId, msgId, e) => set((s) => (s.chats[chatId] ? { chats: { ...s.chats, [chatId]: reduce(s.chats[chatId], msgId, e) } } : s)),
+      openSegment: (chatId, msgId, seg, products, emptyNote) =>
+        set((s) => {
+          const chat = s.chats[chatId];
+          if (!chat) return s;
+          let ref = chat.nextRef;
+          const withRefs = products.map((p) => ({ ...p, ref: ref++ }));
+          const e: AgentEvent = { type: "section", id: seg.id, title: seg.title, why: seg.why, query: seg.intent.semanticQuery, products: withRefs, more: [], intent: seg.intent, anchor: seg.anchor, emptyNote };
+          const next = updateMsg(reduce(chat, msgId, e), msgId, (m) => ({ ...m, segments: (m.segments ?? []).filter((x) => x.id !== seg.id) }));
+          return { chats: { ...s.chats, [chatId]: next } };
+        }),
       failAssistant: (chatId, msgId, error) =>
         set((s) => (s.chats[chatId] ? { chats: { ...s.chats, [chatId]: updateMsg(s.chats[chatId], msgId, (m) => ({ ...m, status: "error", error })) } } : s)),
       finishAssistant: (chatId, msgId) =>
@@ -276,8 +292,9 @@ export function historyText(m: ChatMessage): string {
   const asked = m.ask ?? m.clarify;
   // The closing question goes last and is never cut, so the next turn knows what "red" answers.
   const tail = asked ? ` I asked: ${asked.question}` : "";
+  const offered = m.segments?.length ? `[Can also show: ${m.segments.map((x) => x.title).join(", ")}]` : "";
   const picked = m.picks?.length ? `[Picked: ${m.picks.map((x) => `#${x.ref} (${x.headline})`).join(", ")}]` : "";
-  const body = [m.intro, m.answer, picked, m.outro, shown ? `[Showed: ${shown}]` : "", m.compare ? `[Compared ${m.compare.products.map((p) => `#${p.ref}`).join(", ")}]` : ""]
+  const body = [m.intro, m.answer, picked, m.outro, shown ? `[Showed: ${shown}]` : "", offered, m.compare ? `[Compared ${m.compare.products.map((p) => `#${p.ref}`).join(", ")}]` : ""]
     .filter(Boolean)
     .join(" ");
   return (body.slice(0, 1200 - tail.length) + tail).trim();

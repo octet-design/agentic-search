@@ -148,6 +148,10 @@ type Plan = z.infer<typeof PlanSchema>;
 
 let plannerSystem: string | null = null;
 
+/** Scout shows only the first section; the others become tappable pills. */
+const SCOUT_SEGMENTS = `
+- SCOUT: only the FIRST section's results are shown right away; the other sections appear as buttons the user can tap to see them. Put the most important section first. In the intro, talk about the first section and mention the others briefly as things you can also show ("I can also pull up bags and cozy accessories").`;
+
 /** Used when a clarify turn comes back without a (new) question. */
 const CLARIFY_FALLBACK = { question: "What are you shopping for today: everyday wear, office wear, something festive, or footwear and accessories?", options: ["Everyday wear", "Office wear", "Party or festive", "Footwear", "Accessories"] };
 
@@ -423,7 +427,7 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
     name: "chat-plan",
     model,
     schema: PlanSchema,
-    system: input.style === "aura" ? plannerPrompt(tax) + AURA_STYLE : plannerPrompt(tax),
+    system: input.style === "aura" ? plannerPrompt(tax) + AURA_STYLE + (input.blend ? SCOUT_SEGMENTS : "") : plannerPrompt(tax),
     user: plannerUser(input),
     usage,
     signal: input.signal,
@@ -507,12 +511,15 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
 
   // 2. Act
   if (hasSections) {
-    const sections = specs.map((s, i) => ({ id: `s${Date.now().toString(36)}-${i}`, spec: s, why: whyByTitle.get(s.title) ?? "", intent: sectionIntent(base, s, tax) }));
+    const planned = specs.map((s, i) => ({ id: `s${Date.now().toString(36)}-${i}`, spec: s, why: whyByTitle.get(s.title) ?? "", intent: sectionIntent(base, s, tax) }));
+    // Scout mixes in Shopify Global Catalog matches, fetched in parallel with Typesense. It shows only the first
+    // segment; the rest are offered as pills and fetched when tapped (/api/blend/section with these filters).
+    const blendShopify = !!input.blend;
+    const sections = blendShopify ? planned.slice(0, 1) : planned;
+    const offered = blendShopify ? planned.slice(1) : [];
     emit({ type: "sections_plan", sections: sections.map(({ id, spec, why }) => ({ id, title: spec.title, why })) });
     emit({ type: "step", id: "search", label: "Finding options in the catalog", status: "running" });
     const s0 = performance.now();
-    // Scout mixes in Shopify Global Catalog matches, fetched in parallel with Typesense.
-    const blendShopify = !!input.blend;
     // Scout: Shopify is searched by the item's name; Typesense also searches titles for it in any category.
     const [rails, shopifyLists, anchorLists] = await Promise.all([
       retrieveRails(
@@ -577,6 +584,12 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
       top.push({ title: s.spec.title, products: shown.slice(0, 4) });
       emit({ type: "section", id: s.id, title: s.spec.title, why: s.why, query: s.intent.semanticQuery, products: shown, more, relaxedNote: blendShopify ? undefined : rail.relaxedNote, intent: rail.intent, ...(blendShopify ? { anchor, emptyNote } : {}) });
     });
+    if (offered.length) {
+      emit({
+        type: "segments",
+        items: offered.map((o) => ({ id: o.id, title: o.spec.title, why: o.why, intent: o.intent, anchor: o.spec.anchor, categories: o.spec.categories })),
+      });
+    }
     debug.rails = rails.map((r) => ({ id: r.id, title: r.title, q: r.debug.q, filter: r.debug.filter, rounds: r.debug.rounds, dropped: r.debug.dropped, relaxed: r.relaxed.map((x) => x.id) }));
 
     // 3. Drape's picks: 3–4 products explained like a stylist would (what it is, why it suits, how to style it).

@@ -4,7 +4,7 @@ import { getTaxonomy } from "@/lib/agent/taxonomy";
 import { IntentSchema } from "@/lib/agent/types";
 import { shopifyForSection } from "@/lib/blendServer";
 import { rateLimited, tooMany } from "@/lib/rateLimit";
-import { rankBlend } from "@/lib/relevance";
+import { noExactNote, rankBlend } from "@/lib/relevance";
 import { jsonError, publicMessage } from "@/lib/sse";
 
 export const runtime = "nodejs";
@@ -13,7 +13,7 @@ export const dynamic = "force-dynamic";
 const BodySchema = z.object({
   intent: IntentSchema,
   anchor: z.object({ terms: z.array(z.string()).max(8), categoryLevel: z.boolean() }).nullable().optional(),
-  categories: z.array(z.string()).max(10).default([]),
+  categories: z.array(z.string()).max(40).default([]),
 });
 
 /**
@@ -42,7 +42,8 @@ export async function POST(req: Request) {
       limit: 120,
       perBrand: 4,
     });
-    return Response.json(res);
+    // Scout's segment pills show this when a tapped segment has no exact match.
+    return Response.json({ ...res, emptyNote: anchor && !res.products.length ? noExactNote(anchor) : undefined });
   } catch (err) {
     return jsonError(publicMessage(err), 502, true);
   }

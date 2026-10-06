@@ -176,3 +176,13 @@ Feedback (screenshots vs Plush's AI stylist): "men" jumped straight to shirts an
 ## Blend search renamed to Scout (2026-10-06)
 
 User-facing name, header tab (telescope icon), page titles and route are now **Scout** at `/scout`. `/blend` and `/blend/c/:id` redirect there (307, in `next.config.ts`), so shared links keep working. Internal names stay as they were (`surface: "blend"` keeps chats saved before the rename, plus the `blend` flag, `lib/blend*.ts`, `rankBlend` and `/api/blend/section`), because renaming them changes nothing for users.
+
+## Scout: one segment first, the rest as pills (2026-10-06)
+
+CEO feedback: when the intent is clear, Scout showed three result sets at once (e.g. Jewellery Gifts, Fashionable Bags, Cozy Accessories). Now it shows only the first, most important one, and offers the others as pills in the chat. Tapping a pill fetches that segment and adds its result card to the conversation. Scope: Scout only. Typesense search and Drape home still show every section.
+
+- **Server:** the planner still plans every segment, and the Scout prompt asks for the most important one first. Only the first is retrieved. The others are sent as a `segments` event carrying the exact filters the agent planned (`SegmentOffer`: intent, anchor, categories), so a tap needs no AI call.
+- **Tap:** an instant fetch through `POST /api/blend/section` (the same exact-match ranking; ~1.7s), with no extra agent reply (product owner's choice). Products already shown in that answer are skipped. The new result card gets refs in the store (`openSegment`), so "more like this" and product questions work on it. The results pane opens on it. A segment with no exact match shows the route's "No products found" note. If a fetch fails, the pill stays and tapping it again retries.
+- **History:** the planner sees "[Can also show: …]", so typing "show the bags" also works.
+- **Fix found while testing:** a broad segment ("Accessories") expands to 16 categories, and the endpoint's limit of 10 rejected it, so the limit is now 40.
+- **Effect:** the search step dropped from 1–9s to 1–2s, because one segment is searched instead of three. `eval:blend` passes 8/8.

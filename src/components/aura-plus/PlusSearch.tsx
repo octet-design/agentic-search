@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, Clock, Loader2, MessageCircle, MessageSquare, MoreHorizontal, RotateCcw, Sparkles, Trash2, X } from "lucide-react";
+import { ArrowRight, Clock, Plus, Loader2, MessageCircle, MessageSquare, MoreHorizontal, RotateCcw, Sparkles, Trash2, X } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -10,7 +10,7 @@ import { CompareBlock } from "@/components/compare/CompareBlock";
 import { ProductImage } from "@/components/product/ProductImage";
 import { Loader } from "@/components/shopify/aura/Loader";
 import { Composer, Sheet, useHydrated, type ComposerHandle } from "@/components/shopify/aura/ui";
-import type { ProductCard } from "@/lib/agent/types";
+import type { ProductCard, SegmentOffer } from "@/lib/agent/types";
 import { FEATURES } from "@/lib/config";
 import { sendChatMessage, stopChat } from "@/lib/chatClient";
 import { useChats, type AssistantMessage, type Chat, type ChatSection } from "@/store/chats";
@@ -131,6 +131,8 @@ function AssistantTurn({
   onSend,
   onRetry,
   onOpen,
+  onOpenSegment,
+  opening,
 }: {
   m: AssistantMessage;
   isLast: boolean;
@@ -141,6 +143,9 @@ function AssistantTurn({
   onSend: (t: string) => void;
   onRetry: () => void;
   onOpen: (p: ProductCard) => void;
+  /** Scout: tap a segment pill to fetch that segment. */
+  onOpenSegment: (seg: SegmentOffer) => void;
+  opening: string | null;
 }) {
   const running = m.status === "streaming";
   const current = m.steps.find((s) => s.status === "running");
@@ -154,6 +159,23 @@ function AssistantTurn({
           {s.loaded && s.emptyNote && <p className="mt-1.5 text-sm text-ink-soft">{s.emptyNote}</p>}
         </div>
       ))}
+      {!!m.segments?.length && (
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-sm text-ink-soft">Also explore</span>
+          {m.segments.map((seg) => (
+            <button
+              key={seg.id}
+              type="button"
+              onClick={() => onOpenSegment(seg)}
+              disabled={opening !== null}
+              title={seg.why}
+              className="inline-flex items-center gap-1.5 rounded-full border border-line bg-paper px-3 py-1.5 text-sm hover:border-ink disabled:opacity-60"
+            >
+              {opening === seg.id ? <Loader2 size={13} className="animate-spin" /> : <Plus size={13} />} {seg.title}
+            </button>
+          ))}
+        </div>
+      )}
       <RichText text={m.answer} onRef={onRef} refLabel={refLabel} />
       {m.compare && <CompareBlock data={m.compare} onOpen={onOpen} />}
       <RichText text={m.outro} onRef={onRef} refLabel={refLabel} />
@@ -211,6 +233,7 @@ export function PlusSearch({ id, mode }: { id: string; mode: PlusMode }) {
   const [menu, setMenu] = useState(false);
   const [tab, setTab] = useState<"chat" | "results">("chat");
   const [picked, setPicked] = useState<string | null>(null);
+  const [opening, setOpening] = useState<string | null>(null);
   const [draft, setDraft] = useState<{ text: string; n: number } | null>(null);
   const composer = useRef<ComposerHandle>(null);
   const scroller = useRef<HTMLDivElement>(null);
@@ -220,6 +243,33 @@ export function PlusSearch({ id, mode }: { id: string; mode: PlusMode }) {
     (text: string, refList?: number[]) => {
       setPicked(null);
       void sendChatMessage(id, text, refList?.length ? { refs: refList } : {});
+    },
+    [id],
+  );
+
+  // Scout: a tapped segment is fetched with exactly the filters the agent planned, then opened on the right.
+  const openSegment = useCallback(
+    async (msgId: string, seg: SegmentOffer) => {
+      setOpening(seg.id);
+      try {
+        const res = await fetch("/api/blend/section", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ intent: seg.intent, anchor: seg.anchor ?? null, categories: seg.categories }),
+        });
+        if (!res.ok) throw new Error(String(res.status));
+        const j = (await res.json()) as { products: ProductCard[]; emptyNote?: string };
+        const msg = useChats.getState().chats[id]?.messages.find((x) => x.id === msgId);
+        const already = new Set(msg?.role === "assistant" ? msg.sections.flatMap((x) => x.products.map((p) => p.id)) : []);
+        const products = j.products.filter((p) => !already.has(p.id)).slice(0, 8);
+        useChats.getState().openSegment(id, msgId, seg, products, products.length ? undefined : (j.emptyNote ?? "Nothing suitable in stock for this one."));
+        setPicked(seg.id);
+        setTab("results");
+      } catch {
+        // The pill stays; tapping again retries.
+      } finally {
+        setOpening(null);
+      }
     },
     [id],
   );
@@ -334,6 +384,8 @@ export function PlusSearch({ id, mode }: { id: string; mode: PlusMode }) {
                     onSend={(t) => send(t)}
                     onRetry={() => lastUser?.role === "user" && send(lastUser.text, lastUser.refs)}
                     onOpen={setQuick}
+                    onOpenSegment={(seg) => void openSegment(m.id, seg)}
+                    opening={opening}
                   />
                 ),
               )}
