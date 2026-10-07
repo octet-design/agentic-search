@@ -21,6 +21,8 @@ export type SearchSpec = {
   like?: string | null;
   /** Only this shop (gid://shopify/Shop/…). */
   shop?: string | null;
+  /** Every product category, not just Apparel & Accessories (Scout is a general shopping assistant). */
+  allCategories?: boolean;
 };
 
 export const PRODUCT_GID = (id: string) => (id.startsWith("gid://") ? id : `gid://shopify/p/${id}`);
@@ -45,7 +47,7 @@ export async function searchFashion(
     // With no budget, a sky-high cap still makes Shopify report its USD rate (see usdRateFrom) without filtering.
     price: { min, max: max ?? toMinor(RATE_PROBE_MAX, cur) },
     shipsFrom: spec.local ? [country.code] : undefined,
-    categories: FASHION_CATEGORIES,
+    categories: spec.allCategories ? undefined : FASHION_CATEGORIES,
     shops: spec.shop ? [spec.shop] : undefined,
     like: spec.like ? [PRODUCT_GID(spec.like)] : undefined,
     signal: opts.signal,

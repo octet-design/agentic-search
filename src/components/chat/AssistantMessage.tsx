@@ -15,6 +15,7 @@ export function AssistantMessage({
   hidden,
   onRef,
   refLabel,
+  refCard,
   onOpen,
   onMoreLike,
   onSeeAll,
@@ -26,6 +27,7 @@ export function AssistantMessage({
   hidden: Set<string>;
   onRef: (ref: number) => void;
   refLabel?: (ref: number) => string | undefined;
+  refCard?: (ref: number) => { title: string; image: string | null } | undefined;
   onOpen: (p: Card) => void;
   onMoreLike: (p: Card) => void;
   onSeeAll: (s: ChatSection) => void;
@@ -53,7 +55,7 @@ export function AssistantMessage({
         </span>
       )}
 
-      <RichText text={msg.intro} onRef={onRef} refLabel={refLabel} className="text-[15px]" />
+      <RichText text={msg.intro} onRef={onRef} refLabel={refLabel} refCard={refCard} className="text-[15px]" />
 
       {msg.sections.map((s) => (
         <section key={s.id}>
@@ -86,9 +88,9 @@ export function AssistantMessage({
 
       {msg.picks && msg.picks.length > 0 && <PicksBlock picks={msg.picks} cards={cards} onOpen={onOpen} />}
 
-      <RichText text={msg.answer} onRef={onRef} refLabel={refLabel} className="text-[15px]" />
+      <RichText text={msg.answer} onRef={onRef} refLabel={refLabel} refCard={refCard} className="text-[15px]" />
       {msg.compare && <CompareBlock data={msg.compare} onOpen={onOpen} />}
-      <RichText text={msg.outro} onRef={onRef} refLabel={refLabel} className="text-[15px]" />
+      <RichText text={msg.outro} onRef={onRef} refLabel={refLabel} refCard={refCard} className="text-[15px]" />
 
       {msg.status === "error" && (
         <div className="flex items-center gap-3 rounded-xl border border-warn/30 bg-warn/5 px-3 py-2 text-sm text-warn">

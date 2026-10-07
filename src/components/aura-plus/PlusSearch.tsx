@@ -134,6 +134,7 @@ function AssistantTurn({
   onView,
   onRef,
   refLabel,
+  refCard,
   onSend,
   onRetry,
   onOpen,
@@ -146,6 +147,7 @@ function AssistantTurn({
   onView: (id: string) => void;
   onRef: (ref: number) => void;
   refLabel: (ref: number) => string | undefined;
+  refCard: (ref: number) => { title: string; image: string | null } | undefined;
   onSend: (t: string) => void;
   onRetry: () => void;
   onOpen: (p: ProductCard) => void;
@@ -158,7 +160,7 @@ function AssistantTurn({
   const ask = m.ask ?? m.clarify;
   return (
     <div className="flex flex-col gap-3 text-[15px]">
-      <RichText text={m.intro} onRef={onRef} refLabel={refLabel} />
+      <RichText text={m.intro} onRef={onRef} refLabel={refLabel} refCard={refCard} />
       {m.sections.map((s) => (
         <div key={s.id}>
           <ResultCard s={s} active={s.id === active} onView={() => onView(s.id)} />
@@ -182,9 +184,9 @@ function AssistantTurn({
           ))}
         </div>
       )}
-      <RichText text={m.answer} onRef={onRef} refLabel={refLabel} />
+      <RichText text={m.answer} onRef={onRef} refLabel={refLabel} refCard={refCard} />
       {m.compare && <CompareBlock data={m.compare} onOpen={onOpen} />}
-      <RichText text={m.outro} onRef={onRef} refLabel={refLabel} />
+      <RichText text={m.outro} onRef={onRef} refLabel={refLabel} refCard={refCard} />
       {running && (
         <div className="inline-flex items-center gap-2 text-sm text-ink-soft" aria-live="polite">
           <Loader2 size={14} className="animate-spin" /> {current?.label ?? "Thinking"}
@@ -387,6 +389,7 @@ export function PlusSearch({ id, mode }: { id: string; mode: PlusMode }) {
                       const p = refs.get(n);
                       return p ? shortName(p) : undefined;
                     }}
+                    refCard={(n) => refs.get(n)}
                     onSend={(t) => send(t)}
                     onRetry={() => lastUser?.role === "user" && send(lastUser.text, lastUser.refs)}
                     onOpen={setQuick}

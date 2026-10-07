@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { retrieveAnchor, retrieveRails } from "@/lib/agent/retrieve";
 import { getTaxonomy } from "@/lib/agent/taxonomy";
+import { anchorQueries, shopifyQuery } from "@/lib/agent/chatAgent";
 import { IntentSchema } from "@/lib/agent/types";
 import { shopifyForSection } from "@/lib/blendServer";
 import { rateLimited, tooMany } from "@/lib/rateLimit";
@@ -15,7 +16,7 @@ const MAX_LIST = 400;
 
 const BodySchema = z.object({
   intent: IntentSchema,
-  anchor: z.object({ terms: z.array(z.string()).max(8), categoryLevel: z.boolean() }).nullable().optional(),
+  anchor: z.object({ terms: z.array(z.string()).max(8), categoryLevel: z.boolean(), mustInclude: z.array(z.string()).max(4).optional() }).nullable().optional(),
   categories: z.array(z.string()).max(40).default([]),
 });
 
@@ -32,11 +33,12 @@ export async function POST(req: Request) {
   try {
     const [[rail], fromTitles, shopify] = await Promise.all([
       retrieveRails([{ id: "all", intent, perPage: 100 }], tax, { strict: true }),
-      anchor ? retrieveAnchor(intent, anchor.terms, tax, 60) : Promise.resolve([]),
-      shopifyForSection({ query: anchor?.terms[0] ?? intent.semanticQuery, audience: intent.audience, min: intent.price?.min, max: intent.price?.max, limit: 40 }),
+      anchor ? retrieveAnchor(intent, anchorQueries(anchor), tax, 60) : Promise.resolve([]),
+      shopifyForSection({ query: anchor ? shopifyQuery(anchor, intent.semanticQuery) : intent.semanticQuery, audience: intent.audience, min: intent.price?.min, max: intent.price?.max, limit: 40 }),
     ]);
     const res = await rankBlend({
-      catalog: [...fromTitles, ...rail.products],
+      // Our catalog is fashion-only: no fashion category means partner stores only.
+      catalog: categories.length ? [...fromTitles, ...rail.products] : [],
       shopify,
       query: anchor?.terms[0] ? `${anchor.terms[0]} ${intent.semanticQuery}` : intent.semanticQuery,
       anchor: anchor ?? null,
@@ -46,6 +48,7 @@ export async function POST(req: Request) {
       // whenever our catalog has many matches, e.g. 182 linen kurtas).
       limit: MAX_LIST,
       perBrand: 4,
+      sort: intent.sort,
     });
     // Scout's segment pills show this when a tapped segment has no exact match.
     return Response.json({ ...res, emptyNote: anchor && !res.products.length ? noExactNote(anchor) : undefined });

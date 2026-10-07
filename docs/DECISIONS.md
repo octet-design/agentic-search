@@ -183,7 +183,26 @@ CEO feedback: when the intent is clear, Scout showed three result sets at once (
 
 - **Server:** the planner still plans every segment, and the Scout prompt asks for the most important one first. Only the first is retrieved. The others are sent as a `segments` event carrying the exact filters the agent planned (`SegmentOffer`: intent, anchor, categories), so a tap needs no AI call.
 - **Tap:** an instant fetch through `POST /api/blend/section` (the same exact-match ranking; ~1.7s), with no extra agent reply (product owner's choice). Products already shown in that answer are skipped. The new result card gets refs in the store (`openSegment`), so "more like this" and product questions work on it. The results pane opens on it. A segment with no exact match shows the route's "No products found" note. If a fetch fails, the pill stays and tapping it again retries.
-- **History:** the planner sees "[Can also show: …]", so typing "show the bags" also works.
+- **History:** the planner sees "[Can also show: …]", so typing "show the bags" also works. 
 - **Fix found while testing:** a broad segment ("Accessories") expands to 16 categories, and the endpoint's limit of 10 rejected it, so the limit is now 40.
 - **Effect:** the search step dropped from 1–9s to 1–2s, because one segment is searched instead of three. `eval:blend` passes 8/8.
 - **Fix: Shopify never appeared when scrolling** (2026-10-06). The results list was capped at 120, and with "ours first", popular items filled every slot with our catalog: 182 linen kurtas and 250 sling bags against Shopify's 40 and 27. Per the product owner, the rule stays the same (all of ours, then all of Shopify's), so the cap is now a 400-item safety net and nothing gets cut. A full-width "More from other stores" divider marks where Shopify's products start in the grid. The list is ~150 KB and takes ~2s.
+
+## Scout becomes a shopping agent; off-topic, names, chips, sorting (2026-10-07)
+
+Feedback from testing (the product owner asked for general rules, not fixes tuned to the test messages):
+
+- **Shopping, not just fashion.** Scout's planner swaps Drape's stylist persona for a shopping-assistant one (`scoutPrompt`; it throws if the persona line ever changes). Shopify searches from Scout cover every category (`allCategories`); the Shopify tab stays fashion-only. Our catalog is fashion-only, so a section with no fashion category (headphones, cookware) uses partner stores only.
+- **No general questions.** New turn types:
+  - `off_topic` (maths, general knowledge, news, coding, "how were you built / can you be copied"). It is decided first in the plan, so nothing is streamed, and the reply is always the fixed `OFF_TOPIC_NOTE` with no question or follow-ups. The chat keeps what it already knew.
+  - `advice` ("what should I avoid…"). It gets its own answer step with concrete dos and don'ts and no product sections, so there are no sections "of things to avoid".
+- **"No results for Virat Kohli t-shirts".** Shopify had plenty. The exact gate wanted the whole phrase in order. Now:
+  - a term matches when all its words appear anywhere (any order, plurals, joined or split spellings like "tshirt" / "t shirt", whole tokens only);
+  - anchors can carry `mustInclude` names (person, team, brand, character) that must also appear;
+  - both catalogs are queried with those names.
+- **Exact by words, not by meaning.** "Tee with Headphones Artwork" passed for headphones. Among exact matches, items scoring more than 0.30 below the best embedding similarity are dropped (`dropOffMeaning`). Measured: real matches sit within 0.22 of the best, while that tee was 0.37 below.
+- **Shopify variant duplicates** (same title and price) collapse to one.
+- **Product mentions as image chips.** A `[name](#n)` link renders as a small rounded card with the product's thumbnail (`RichText` `refCard`, in Drape and Scout). `tidyLinks` repairs the model's "[Name ([Name](#3))]" and "1. Name (#8): …" forms. The answer prompts list products already written as links, so the model copies the format.
+- **Sorting when asked.** The chat base has `sort` (relevance / price_asc / price_desc), carried forward. Section results, the Scout list and the Typesense list are sorted by price when asked; in Scout a price sort overrides "ours first". "Which is best among these" (any language) answers with a numbered list, best first, rendered as chips.
+- **Guidance bullets became a structured field.** Every new prompt rule made gpt-4.1-mini shorten Drape's recommend intros (eval 35–38/43). The bullets are now a separate `tips` array that the server joins under the intro and streams as each completes (`eval:chat` 41/43, and the 2 misses pass on rerun). Scout and Typesense search never show tips.
+- **Evals:** `eval:blend` has 11 queries, adding a name-specific item, a non-fashion item and an off-topic question, and passes 11/11. There are 119 unit tests.

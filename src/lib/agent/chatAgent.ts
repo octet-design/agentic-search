@@ -6,7 +6,7 @@
 import { z } from "zod";
 import { isShopifyId } from "../blend";
 import { shopifyFacts, shopifyForSection, shopifyLike } from "../blendServer";
-import { noExactNote, rankBlend } from "../relevance";
+import { noExactNote, rankBlend, sortByPrice } from "../relevance";
 import { compareProducts } from "../compare";
 import { FEATURES } from "../config";
 import { getEnv } from "../env";
@@ -38,7 +38,7 @@ export const ChatSectionSpecSchema = z.object({
   softPreferences: z.array(z.string()),
   semanticQuery: z.string(),
   budgetMax: z.number().nullable(),
-  anchor: z.object({ terms: z.array(z.string()).max(8), categoryLevel: z.boolean() }).optional(),
+  anchor: z.object({ terms: z.array(z.string()).max(8), categoryLevel: z.boolean(), mustInclude: z.array(z.string()).max(4).optional() }).optional(),
 });
 
 export const ShownProductSchema = z.object({
@@ -84,7 +84,7 @@ export type ChatTurnInput = {
 // Planner
 // ---------------------------------------------------------------------------
 
-const TURN_TYPES = ["recommend", "refine", "product_question", "compare", "more_like", "clarify", "chitchat"] as const;
+const TURN_TYPES = ["recommend", "refine", "product_question", "compare", "more_like", "clarify", "advice", "chitchat", "off_topic"] as const;
 
 const SectionSchema = z.object({
   title: z.string(),
@@ -97,7 +97,7 @@ const SectionSchema = z.object({
   softPreferences: z.array(z.string()),
   semanticQuery: z.string(),
   budgetMax: z.number().nullable(),
-  anchor: z.object({ terms: z.array(z.string()), categoryLevel: z.boolean() }),
+  anchor: z.object({ terms: z.array(z.string()), categoryLevel: z.boolean(), mustInclude: z.array(z.string()) }),
 });
 
 /**
@@ -122,6 +122,7 @@ const ChatBaseSchema = z.object({
   textExclusions: z.array(z.string()),
   preferences: z.array(z.string()),
   occasion: z.string().nullable(),
+  sort: z.enum(["relevance", "price_asc", "price_desc"]),
   summary: z.string(),
 });
 type ChatBase = z.infer<typeof ChatBaseSchema>;
@@ -132,6 +133,8 @@ const PlanSchema = z.object({
   tasteWhy: z.string(),
   useTaste: z.boolean(),
   intro: z.string(),
+  /** recommend: the guidance bullets ("**Key idea**: why"), joined onto the intro by the server. */
+  tips: z.array(z.string()),
   refs: z.array(z.number().int()),
   sections: z.array(SectionSchema),
   base: ChatBaseSchema,
@@ -148,9 +151,31 @@ type Plan = z.infer<typeof PlanSchema>;
 
 let plannerSystem: string | null = null;
 
-/** Scout shows only the first section; the others become tappable pills. */
+/** Scout: a shopping assistant for any product; shows only the first section, the others become tappable pills. */
 const SCOUT_SEGMENTS = `
+
+SCOUT (overrides the persona above): you are Scout, a shopping assistant for ANY product, not only fashion: clothing and footwear, but also electronics, home and kitchen, beauty, sports, toys, books, gifts and more. Products come from our own catalog (fashion) and partner stores (everything). For a non-fashion item, set section categories [] (the category vocabulary is fashion-only) and rely on anchor (e.g. "wireless earbuds" → terms ["wireless earbuds","earbuds","tws earphones"]). Only ask who it's for when it matters for the product (clothing, footwear, gifts); set audience "unknown" for things like headphones or cookware. When you greet people or describe what you can do, say you help them shop for anything (fashion, electronics, home, beauty, gifts…), never only fashion.
 - SCOUT: only the FIRST section's results are shown right away; the other sections appear as buttons the user can tap to see them. Put the most important section first. In the intro, talk about the first section and mention the others briefly as things you can also show ("I can also pull up bags and cozy accessories").`;
+
+/** The reply to anything that isn't about shopping. */
+export const OFF_TOPIC_NOTE = "I'm a shopping assistant, so I can't help with that one. Tell me what you're looking for and I'll find the right options for you.";
+
+const DRAPE_PERSONA = "You are Drape, a warm, knowledgeable personal stylist for Indian shoppers (women, men, kids; apparel, footwear, bags, accessories, jewellery), chatting with a user.";
+const SCOUT_PERSONA = "You are Scout, a warm, knowledgeable shopping assistant for Indian shoppers who helps people buy anything (fashion, electronics, home and kitchen, beauty, sports, gifts and more), chatting with a user.";
+
+let scoutSystem: string | null = null;
+/** Scout's planner prompt: Drape's, with the shopping-assistant persona, Aura style and Scout's rules. */
+function scoutPrompt(tax: TaxonomyApi): string {
+  if (scoutSystem) return scoutSystem;
+  const base = plannerPrompt(tax);
+  // Fail loudly if the persona line is edited: Scout would silently become a fashion-only stylist.
+  if (!base.includes(DRAPE_PERSONA)) throw new Error("scoutPrompt: Drape persona line not found in the planner prompt");
+  scoutSystem = base.replace(DRAPE_PERSONA, SCOUT_PERSONA) + AURA_STYLE + SCOUT_SEGMENTS;
+  return scoutSystem;
+}
+
+/** Answer-step rules for Scout (the stylist rules, as a general shopping assistant). */
+const SCOUT_RULES_PREFIX = "You are Scout, a warm, knowledgeable shopping assistant for Indian shoppers (any product, not only fashion).";
 
 /** Used when a clarify turn comes back without a (new) question. */
 const CLARIFY_FALLBACK = { question: "What are you shopping for today: everyday wear, office wear, something festive, or footwear and accessories?", options: ["Everyday wear", "Office wear", "Party or festive", "Footwear", "Accessories"] };
@@ -160,10 +185,11 @@ const AURA_STYLE = `
 
 AURA STYLE (this chat is in a Plush-style search app: the results appear as a big grid next to the chat, so your words stay short). These rules override the intro, sections and ask guidance above:
 - intro for clarify: one short friendly sentence (no products, no bullets); the question goes in ask.
-- intro for recommend/refine: 2–3 warm sentences (≤ 60 words), no bullets, no headings. Say what you're showing and what to look for, like a personal stylist: e.g. "Here are some Western-inspired pieces to get you started, from casual denim and fringe to polished Americana silhouettes." Don't end the intro with a question.
+- intro for recommend/refine: 2–3 warm sentences (≤ 60 words), no bullets, no headings; tips = [] always. Say what you're showing and what to look for, like a personal stylist: e.g. "Here are some Western-inspired pieces to get you started, from casual denim and fringe to polished Americana silhouettes." Don't end the intro with a question.
 - sections: usually 1–2 (one per distinct thing to shop); up to 3 only for a full look or outfit.
 - ask: ALWAYS set it for recommend/refine/clarify: one guiding question that narrows the search, written as a natural chat sentence (e.g. "Are you looking for a full Western look or a few key pieces for your existing wardrobe?"), with 2–4 short options.
-- product_question / compare / more_like: keep the answer to 2–4 sentences.`;
+- product_question / compare / more_like: keep the answer to 2–4 sentences.
+- advice: answer it properly: one sentence, a blank line, then 3–5 "- **Point**: why" bullets of concrete dos and don'ts (≤ 130 words).`;
 
 function plannerPrompt(tax: TaxonomyApi): string {
   if (plannerSystem) return plannerSystem;
@@ -178,15 +204,15 @@ turnType
 - compare: the user wants to compare 2–3 shown products. refs = those numbers; compareCriterion = what they care about (occasion, comfort…) or null.
 - more_like: "more like #3", "like #3 but in blue". refs = [3]; similar = the requested changes (colours/fabrics/patterns ids, maxPrice), label e.g. "in blue" or "".
 - clarify: the request is too vague to guide well; ask first, no sections (see VAGUE REQUESTS at the end).
-- chitchat: greetings, thanks, off-topic → short friendly reply, no sections.
+- advice: a shopping question that needs an explanation, not products; no sections (see NON-PRODUCT TURNS at the end).
+- chitchat: greetings, thanks, or what you can help with → short friendly reply, no sections.
+- off_topic: not about shopping at all; intro "" (see NON-PRODUCT TURNS at the end).
 
 intro (shown first, streamed) is your GUIDANCE, the way a great stylist (or ChatGPT) answers before showing anything:
-- recommend: ALWAYS one or two sentences that answer directly, then a blank line, then 3–5 bullets (never just a sentence; the short one-sentence intro is for clarify turns only) ("- **Key idea**: why / how", one or two sentences each), ≤ 160 words in all. Cover what actually works for this occasion, outfit and person: which styles, colours that pair, fabric, how much embellishment, proportions, what to avoid. Build on everything this chat already knows (the outfit they described, occasion, place, season, budget). Example for "purse for my wedding lehenga":
-"For a wedding lehenga, pick a small, embellished bag that echoes your outfit's work without competing with it.
-
-- **Potli bags** are the classic pick: zari or gota work sits naturally with traditional embroidery.
-- **Match the metal**: gold-toned hardware with gold jewellery, silver or oxidised with silver.
-- **Keep it compact**: a heavy lehenga needs a bag that carries only the essentials."
+- recommend: intro = one or two sentences that answer directly (no bullets in intro), and tips = 3–5 guidance bullets, each "**Key idea**: why / how" in one or two sentences (≤ 130 words across tips). Cover what actually works for this occasion, outfit and person: which styles, colours that pair, fabric, how much embellishment, proportions, what to avoid. Build on everything this chat already knows (the outfit they described, occasion, place, season, budget). Example for "purse for my wedding lehenga":
+intro "For a wedding lehenga, pick a small, embellished bag that echoes your outfit's work without competing with it."
+tips ["**Potli bags** are the classic pick: zari or gota work sits naturally with traditional embroidery.", "**Match the metal**: gold-toned hardware with gold jewellery, silver or oxidised with silver.", "**Keep it compact**: a heavy lehenga needs a bag that carries only the essentials."]
+- every other turn type: tips = [].
 - refine: 1–2 sentences on what you changed, plus one styling tip for the new direction.
 Don't name specific products yet (you haven't seen them).
 - product_question: leave intro "" (a detailed answer follows separately).
@@ -194,9 +220,9 @@ Don't name specific products yet (you haven't seen them).
 - clarify / chitchat: the full reply.
 You may use general fashion knowledge freely (fabric behaviour, styling, pairing, occasion norms, climate, body-shape tips). Never invent stock, delivery, discounts, ratings or reviews.
 
-sections: each = a category the user should shop, with title (2–4 words), why = a practical tip for choosing within it (≤ 25 words, e.g. "Pick zari or mirror work if your lehenga is heavily embroidered; plain silk if it's minimal"), categories (1–3 canonical CATEGORY ids from the lists below, e.g. "shirt", "trouser", "loafer", "kurta-set", never department names), optional colors/fabrics/patterns/useCases ids that suit, softPreferences, semanticQuery (clean English, 6–12 words, for embedding search), budgetMax (per-section ₹ cap only when the user gave a total budget; else null), anchor = the exact item this section is for, used to show only exact matches: terms = the ITEM's name as the user said it (or this section's product noun when you chose it, e.g. "anarkali") plus spellings and transliterations of the SAME item only, lowercase ("chaniya choli", "chaniya-choli", "chaniyacholi", "chania choli"); never broader or related items ("lehenga" or "navratri lehenga" are not chaniya choli). Keep named types that change what the item is (bandhani saree, kanjivaram saree, kolhapuri chappal, patola dupatta, potli bag), but leave out plain attributes, which are filtered separately: fabric, colour, fit, print, occasion ("linen kurta" → "kurta", "red silk saree" → "saree"). categoryLevel = true when the name is a whole canonical category ("saree", "kurta set", "loafer"), false when it's narrower than its category ("chaniya choli" within lehenga, "kolhapuri" within sandals, "bandhani saree" within saree).
+sections: each = a category the user should shop, with title (2–4 words), why = a practical tip for choosing within it (≤ 25 words, e.g. "Pick zari or mirror work if your lehenga is heavily embroidered; plain silk if it's minimal"), categories (1–3 canonical CATEGORY ids from the lists below, e.g. "shirt", "trouser", "loafer", "kurta-set", never department names), optional colors/fabrics/patterns/useCases ids that suit, softPreferences, semanticQuery (clean English, 6–12 words, for embedding search), budgetMax (per-section ₹ cap only when the user gave a total budget; else null), anchor = the exact item this section is for, used to show only exact matches: terms = the ITEM's name as the user said it (or this section's product noun when you chose it, e.g. "anarkali") plus spellings and transliterations of the SAME item only, lowercase ("chaniya choli", "chaniya-choli", "chaniyacholi", "chania choli"); never broader or related items ("lehenga" or "navratri lehenga" are not chaniya choli). Keep named types that change what the item is (bandhani saree, kanjivaram saree, kolhapuri chappal, patola dupatta, potli bag), but leave out plain attributes, which are filtered separately: fabric, colour, fit, print, occasion ("linen kurta" → "kurta", "red silk saree" → "saree"). categoryLevel = true when the name is a whole canonical category ("saree", "kurta set", "loafer"), false when it's narrower than its category ("chaniya choli" within lehenga, "kolhapuri" within sandals, "bandhani saree" within saree). mustInclude = the specific names the user insists on, which every result must mention: a person, team, brand, franchise, character or model ("Virat Kohli t-shirt" → terms ["t-shirt","tshirt","tee","jersey"], mustInclude ["kohli"]; "Nike running shoes" → mustInclude ["nike"]; "Marvel hoodie" → ["marvel"]). Use the most distinctive single word of a name (a surname, the brand). Never put colours, fabrics or styles in mustInclude. Usually [].
 
-base: the chat's running understanding, CARRIED FORWARD from the current state and updated with this message: audience; budgetMin/budgetMax (₹) with budgetStrict (true when the user stated a limit or said "cheaper"); mustColors/mustFabrics ONLY when the user explicitly requires them ("only cotton", "must be black"). Fabrics/colours YOU suggest go in section fabrics/colors, never in must; excludeColors/excludeFabrics/excludePatterns/excludeBrands (canonical ids) and textExclusions (other negatives: "cutouts", "sleeveless", "heavy embroidery"); preferences (soft style words: "breathable", "minimal", "not too heavy"); occasion; summary (short English description of the current need). Keep everything from the previous state unless the user changes or drops it ("polyester is fine now" removes that exclusion; a new unrelated need resets occasion/preferences but keeps audience and exclusions).
+base: the chat's running understanding, CARRIED FORWARD from the current state and updated with this message: audience; budgetMin/budgetMax (₹) with budgetStrict (true when the user stated a limit or said "cheaper"); mustColors/mustFabrics ONLY when the user explicitly requires them ("only cotton", "must be black"). Fabrics/colours YOU suggest go in section fabrics/colors, never in must; excludeColors/excludeFabrics/excludePatterns/excludeBrands (canonical ids) and textExclusions (other negatives: "cutouts", "sleeveless", "heavy embroidery"); preferences (soft style words: "breathable", "minimal", "not too heavy"); occasion; sort ("price_asc" for cheapest first / price low to high, "price_desc" for most expensive first / high to low, else "relevance"; a sort request alone is a refine turn that re-issues the previous sections, and the sort is carried forward until the user changes it or starts a new need); summary (short English description of the current need). Keep everything from the previous state unless the user changes or drops it ("polyester is fine now" removes that exclusion; a new unrelated need resets occasion/preferences but keeps audience and exclusions).
 Rules: canonical ids only (from the vocabulary). "k" = ×1000; "under 2k" → budgetMax 2000 strict; "around 2000" → 1600–2400 not strict; "cheaper" → budgetMax below most shown prices, strict. Audience: explicit words or gender-implicit items (saree → women, sherwani → men); "for my wife/daughter/dad" sets it; if unknown and the profile has exactly one audience use it. If it's still unknown and the need is gendered clothing or footwear, set ask {"Who is this for?", ["Women","Men","Kids"]} and still plan best-guess sections.
 
 ask: end every recommend/refine/clarify turn with ONE relevant question, as ChatGPT does: the detail that would most improve your next suggestion (outfit colour or work, budget, venue or time of day, formality, who it's for, style leaning) or a natural next step ("Want me to find jewellery to match?"). Short, friendly, specific to this chat. It must unlock NEW information or move the look forward: don't ask them to choose between the sections you just showed (the cards already do that), never repeat a question you asked earlier in this chat ("I asked: …" in the conversation), and never ask what they already told you. Once the main item is settled, suggest the next piece ("Should I find a belt and socks to match?"). Write the question as a natural chat sentence; when it helps, name 2–3 example choices inline ("Is your lehenga red and gold, pastel, or something else?"). options = 2–4 short answers (kept for the app; not shown as buttons). product_question/compare/more_like: a question only if it genuinely helps, else null. chitchat: null.
@@ -209,6 +235,8 @@ ${
   }
 
 tasteWhy + useTaste (decide these FIRST; tasteWhy ≤ 12 words): decide from the INTENT of this message whether the user's learned taste (colours, fabrics, brands and budget learned from their clicks and saves; you don't see it, the app applies it as gentle tie-breaks) would genuinely help. true when the ask is open-ended about the user's own style and they haven't specified those things ("new tops for college", "something for date night"). false when it would distort the ask: shopping for someone else (a gift for dad, clothes for a child), a specific or functional need that already states what matters, or a new direction the user asks for ("something different", "bolder than usual", "try a new style"). Rule: if the user asks for a change from their usual (new look, different, bolder, experiment, "than usual", out of comfort zone), useTaste is false: their past taste is exactly what they want to move away from. Examples: "saree for my mom" → false (her taste, not the user's); "gift for dad" → false; "bolder than usual for a party" → false (user wants a change); "office shirts, only white cotton" → false (fully specified); "new tops for college" → true; "what should I wear to brunch" → true. Context from THIS chat always applies; that is not taste.
+
+NON-PRODUCT TURNS. advice: a shopping question that needs an explanation rather than products ("what should I avoid when buying sarees?", "how do I choose running shoes?", "is linen good for humid weather?", "what should I avoid wearing to client meetings?"); no sections, and never make sections of things to avoid; a separate step writes the answer, so keep intro short. off_topic: anything not about shopping, products or style (maths, general knowledge, news, politics, people, coding, homework, health or legal advice, jokes, questions about how you were built or whether you can be copied); intro "", ask null; the app replies with a fixed note; never answer the question itself.
 
 VAGUE REQUESTS (turnType clarify): you're a guidance agent, so when a request is too vague to guide well, ask before showing anything. Vague = you know neither WHAT kind of item they want nor an occasion or purpose to choose items for: "men", "women", "kids", "apparel", "clothes", "I need something", "show me something nice", "gift ideas" with no recipient. A gender, a budget, a colour or a vibe alone is not enough. Then: sections = [], intro = one short friendly sentence on what you know so far (this short intro is for clarify only), ask = the single most useful missing detail as a natural, friendly question that names a few example choices inline (e.g. "Are you shopping for everyday wear, office wear, something festive, or footwear and accessories?"), with 3–5 short options. Keep clarifying across turns until you know the item type or an occasion or purpose to recommend for: one new question per turn, never repeat one, never ask what you already know. Only when they answer one of your questions with "just show me", "anything" or "surprise me", stop asking and recommend your best guess; an opening "show me something" is still vague. As soon as the need is clear ("office wear", "a birthday party", "linen shirts"), recommend with the full guidance intro.
 
@@ -249,6 +277,7 @@ export function toIntent(b: ChatBase, tax: TaxonomyApi, message: string): Intent
     textExclusions: b.textExclusions,
     softPreferences: b.preferences,
     occasion: b.occasion ? { name: b.occasion, location: null, timeOfYear: null, role: null } : null,
+    sort: b.sort,
   };
   return { ...sanitizeIntent(draft, tax, message), mustKeywords: [], needsClarification: null };
 }
@@ -288,6 +317,9 @@ function compactIntent(i: Intent | null): string {
 }
 
 const shortTitle = (t: string) => (t.length > 40 ? `${t.slice(0, 38).trimEnd()}…` : t);
+
+/** A product as the model should write it: a link with a short name (copied as-is into answers). */
+const asLink = (p: { ref?: number; title: string }) => `[${shortTitle(p.title)}](#${p.ref})`;
 
 const productLine = (p: ShownProduct) => `#${p.ref} ${p.title} | ${p.brand} | ${p.color}${p.fabric ? ` | ${p.fabric}` : ""} | ₹${Math.round(p.price)}`;
 
@@ -387,14 +419,19 @@ export function wantsChange(message: string): boolean {
   return /\b(?:than usual|new look|fresh look|different|bolder|experiment\w*|out of (?:my )?comfort zone|change (?:my|of) (?:style|look)|something new|kuch (?:naya|alag|hatke))\b/i.test(message);
 }
 
-/** Scout's Shopify query for a section: its own angle ("mirror work chaniya choli"), always naming the item. */
-export function shopifyQuery(anchor: { terms: string[] } | undefined, semanticQuery: string): string {
+/** Scout's Shopify query for a section: its own angle ("mirror work chaniya choli"), always naming the item and any insisted-on names. */
+export function shopifyQuery(anchor: { terms: string[]; mustInclude?: string[] } | undefined, semanticQuery: string): string {
   const item = anchor?.terms[0]?.trim();
   if (!item) return semanticQuery;
   const flat = (x: string) => x.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
-  const words = semanticQuery.split(/\s+/).slice(0, 8).join(" ");
-  return flat(words).includes(flat(item)) ? words : `${item} ${words}`;
+  let words = semanticQuery.split(/\s+/).slice(0, 8).join(" ");
+  if (!flat(words).includes(flat(item))) words = `${item} ${words}`;
+  const missing = (anchor?.mustInclude ?? []).filter((n) => !flat(words).split(" ").includes(flat(n)));
+  return missing.length ? `${missing.join(" ")} ${words}` : words;
 }
+
+/** Title searches for an anchor: each spelling of the item, with the insisted-on names ("kohli t-shirt"). */
+export const anchorQueries = (anchor: { terms: string[]; mustInclude?: string[] }) => anchor.terms.map((t) => [...(anchor.mustInclude ?? []), t].join(" "));
 
 function tasteNote(taste: TastePayload): string {
   const liked = [...taste.likes.colors, ...taste.likes.fabrics, ...taste.likes.brands].slice(0, 3);
@@ -410,7 +447,13 @@ type Pick = z.infer<typeof PickSchema>;
 const PicksSchema = z.object({ picks: z.array(PickSchema), wrap: z.string() });
 
 const STYLIST_RULES =
-  "You are Drape, a warm, knowledgeable stylist for Indian shoppers. Write in friendly, concise English. Use general fashion knowledge and reasonable inference freely (fabric behaviour, fit and feel, styling and pairing, occasion norms, weather, care). Users can't see product numbers: whenever you mention a product, write it as a markdown link with a short name (3–6 words) and its number, e.g. [Libas cotton straight kurta](#3); never write a bare #number. Never invent stock, delivery, discounts, ratings or reviews; for those, say the brand's page has the latest details.";
+  "You are Drape, a warm, knowledgeable stylist for Indian shoppers. Write in friendly, concise English. Use general fashion knowledge and reasonable inference freely (fabric behaviour, fit and feel, styling and pairing, occasion norms, weather, care). Users can't see product numbers: whenever you mention a product, write it as a markdown link with a short name (3–6 words) and its number, e.g. [Libas cotton straight kurta](#3); never write a bare #number. Each link is shown as a small product card with its image, so mention each product once, never wrap a link in brackets or parentheses, and never put a product name next to its own link. Never invent stock, delivery, discounts, ratings or reviews; for those, say the brand's page has the latest details.";
+
+/** The same rules for Scout's answers, as a general shopping assistant. */
+const SCOUT_RULES = STYLIST_RULES.replace("You are Drape, a warm, knowledgeable stylist for Indian shoppers.", SCOUT_RULES_PREFIX).replace(
+  "general fashion knowledge",
+  "general product and fashion knowledge",
+);
 
 export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<void> {
   const tax = getTaxonomy();
@@ -423,24 +466,41 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
   // 1. Understand + plan (intro streams while the rest of the plan is generated)
   emit({ type: "step", id: "understand", label: "Thinking about what you need", status: "running" });
   let introSent = "";
+  let tipsSent = 0;
+  // Scout and Typesense search keep replies short: their results grid does the showing, so no bullets.
+  const withTips = input.style !== "aura";
+  // The tips are bullets under the intro; each is sent once complete (the next one has started, or the plan ended).
+  const sendTips = (tips: unknown, final: boolean) => {
+    if (!Array.isArray(tips)) return;
+    const done = (final ? tips : tips.slice(0, -1)).filter((t): t is string => typeof t === "string" && !!t.trim());
+    for (; tipsSent < done.length; tipsSent++) emit({ type: "chat_text", block: "intro", delta: `${tipsSent === 0 ? "\n\n" : "\n"}- ${done[tipsSent].trim()}` });
+  };
   const plan: Plan = await llmStructuredStream({
     name: "chat-plan",
     model,
     schema: PlanSchema,
-    system: input.style === "aura" ? plannerPrompt(tax) + AURA_STYLE + (input.blend ? SCOUT_SEGMENTS : "") : plannerPrompt(tax),
+    system: input.blend ? scoutPrompt(tax) : input.style === "aura" ? plannerPrompt(tax) + AURA_STYLE : plannerPrompt(tax),
     user: plannerUser(input),
     usage,
     signal: input.signal,
     timeoutMs: 30_000,
     onPartial: (p) => {
+      // turnType is generated first: an off-topic answer is never streamed, and advice has its own answer step.
+      if (p.turnType === "off_topic" || p.turnType === "advice") return;
       if (typeof p.intro === "string" && p.intro.length > introSent.length && p.intro.startsWith(introSent)) {
         emit({ type: "chat_text", block: "intro", delta: p.intro.slice(introSent.length) });
         introSent = p.intro;
       }
+      if (withTips && p.turnType === "recommend" && Array.isArray(p.tips) && p.tips.length) sendTips(p.tips, false);
     },
   });
-  if (plan.intro.length > introSent.length && plan.intro.startsWith(introSent)) {
-    emit({ type: "chat_text", block: "intro", delta: plan.intro.slice(introSent.length) });
+  if (plan.turnType === "off_topic") {
+    // A fixed note, whatever the model drafted: we never answer non-shopping questions.
+    emit({ type: "chat_text", block: "intro", delta: OFF_TOPIC_NOTE });
+  } else if (plan.turnType !== "advice") {
+    if (plan.intro.length > introSent.length && plan.intro.startsWith(introSent)) emit({ type: "chat_text", block: "intro", delta: plan.intro.slice(introSent.length) });
+    // Bullets only once, and only when the intro didn't already include its own.
+    if (withTips && plan.turnType === "recommend" && !/^\s*[-•*]\s+/m.test(plan.intro)) sendTips(plan.tips, true);
   }
   timings.understand = Math.round(performance.now() - t0);
   emit({ type: "step", id: "understand", label: "Thinking about what you need", status: "done", ms: timings.understand });
@@ -481,7 +541,9 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
           softPreferences: s.softPreferences,
           semanticQuery: s.semanticQuery,
           budgetMax: s.budgetMax,
-          anchor: s.anchor.terms.length ? { terms: s.anchor.terms.slice(0, 6), categoryLevel: s.anchor.categoryLevel } : undefined,
+          anchor: s.anchor.terms.length
+            ? { terms: s.anchor.terms.slice(0, 6), categoryLevel: s.anchor.categoryLevel, ...(s.anchor.mustInclude.length ? { mustInclude: s.anchor.mustInclude.slice(0, 4) } : {}) }
+            : undefined,
         }));
   const whyByTitle = new Map(plan.sections.map((s) => [s.title, s.why]));
   // A clarify turn only asks: products come once the need is clear.
@@ -489,8 +551,9 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
 
   emit({
     type: "chat_state",
-    intent: userBase,
-    chips: deriveChips(userBase, tax),
+    // An off-topic message changes nothing the chat knows.
+    intent: plan.turnType === "off_topic" && input.state.intent ? input.state.intent : userBase,
+    chips: deriveChips(plan.turnType === "off_topic" && input.state.intent ? input.state.intent : userBase, tax),
     lastSections: hasSections ? specs : input.state.lastSections,
     personalized: personalized.notes,
   });
@@ -500,7 +563,7 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
   // The model sometimes repeats its last question; drop it then (the follow-up chips show instead).
   const fresh = asked && !sameQuestion(asked, lastAsked(input.history)) ? { question: asked, options: plan.ask!.options.slice(0, plan.turnType === "clarify" ? 5 : 4) } : null;
   // A clarify turn is only a question, so it must have one.
-  const ask = fresh ?? (plan.turnType === "clarify" ? CLARIFY_FALLBACK : null);
+  const ask = plan.turnType === "off_topic" ? null : (fresh ?? (plan.turnType === "clarify" ? CLARIFY_FALLBACK : null));
 
   let nextRef = input.state.nextRef;
   const withRefs = (cards: ProductCard[]) => cards.map((c) => ({ ...c, ref: nextRef++ }));
@@ -540,20 +603,22 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
             ),
           )
         : Promise.resolve([] as ProductCard[][]),
-      blendShopify ? Promise.all(sections.map((s) => (s.spec.anchor ? retrieveAnchor(s.intent, s.spec.anchor.terms, tax) : Promise.resolve([])))) : Promise.resolve([] as ProductCard[][]),
+      blendShopify ? Promise.all(sections.map((s) => (s.spec.anchor ? retrieveAnchor(s.intent, anchorQueries(s.spec.anchor), tax) : Promise.resolve([])))) : Promise.resolve([] as ProductCard[][]),
     ]);
     // Scout: only exact matches from either source; our catalog first, then Shopify, each by relevance.
     const blended = blendShopify
       ? await Promise.all(
           sections.map((s, i) =>
             rankBlend({
-              catalog: [...(anchorLists[i] ?? []), ...tasteBoost(rails[i].products, taste, tax)],
+              // Our catalog is fashion-only: a section with no fashion category (headphones, cookware) uses partner stores only.
+              catalog: s.spec.categories.length ? [...(anchorLists[i] ?? []), ...tasteBoost(rails[i].products, taste, tax)] : [],
               shopify: shopifyLists[i] ?? [],
               query: s.intent.semanticQuery || s.spec.title,
               anchor: s.spec.anchor ?? null,
               sectionCategories: s.spec.categories,
               tax,
               limit: 16,
+              sort: s.intent.sort,
               usage,
               signal: input.signal,
             }),
@@ -576,7 +641,7 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
     rails.forEach((rail, i) => {
       const s = sections[i];
       // 8 per section like a chat answer; "See all" lists more with these same filters (/api/chat/section).
-      const ranked = diversify(tasteBoost(rail.products, taste, tax), 8, 2);
+      const ranked = sortByPrice(diversify(tasteBoost(rail.products, taste, tax), 8, 2), s.intent.sort);
       const shown = withRefs(blendShopify ? blendedShown[i] : ranked.slice(0, 8));
       const anchor = s.spec.anchor;
       const emptyNote = blendShopify && anchor && !shown.length ? noExactNote(anchor) : undefined;
@@ -621,7 +686,7 @@ You just gave styling guidance and the catalog returned options. Pick your 3–4
 - tip: 1 sentence on how to wear or pair it.
 - wrap: 1 short sentence tying the picks together (≤ 25 words). No question.
 Don't write product numbers in the text.`,
-        user: `User asked: ${input.message}\nYour guidance: ${plan.intro}\nWhat you know: ${intentSummary(base, tax)}\n\nOptions by section:\n${top
+        user: `User asked: ${input.message}\nYour guidance: ${[plan.intro, ...plan.tips].join(" ")}\nWhat you know: ${intentSummary(base, tax)}\n\nOptions by section:\n${top
           .map(
             (t) =>
               `${t.title}:\n${t.products
@@ -644,6 +709,21 @@ Don't write product numbers in the text.`,
       timings.write = Math.round(performance.now() - w0);
       emit({ type: "step", id: "curate", label: "Picking my favourites", status: "done", ms: timings.write });
     }
+  } else if (plan.turnType === "advice") {
+    // Shopping advice gets its own answer step: the planner's intro is too short for real dos and don'ts.
+    await llmTextStream({
+      name: "chat-advice",
+      model,
+      system: `${input.blend ? SCOUT_RULES : STYLIST_RULES}\nAnswer the shopping question with practical, specific advice for this person: one sentence that answers directly, a blank line, then 3–5 "- **Point**: why" bullets of concrete dos and don'ts (≤ 140 words). No product links (no products were searched).`,
+      user: `Context: ${intentSummary(base, tax)}\nConversation:\n${input.history
+        .slice(-4)
+        .map((m) => `${m.role}: ${m.content.slice(0, 400)}`)
+        .join("\n")}\n\nQuestion: ${input.message}`,
+      usage,
+      signal: input.signal,
+      maxTokens: 320,
+      onDelta: (delta) => emit({ type: "chat_text", block: "answer", delta }),
+    });
   } else if (plan.turnType === "product_question" || (plan.turnType === "compare" && refProducts(plan.refs).some((t) => isShopifyId(t.id)))) {
     let targets = refProducts(plan.refs);
     if (!targets.length) targets = input.state.products.slice(-6);
@@ -656,16 +736,17 @@ Don't write product numbers in the text.`,
     await llmTextStream({
       name: "chat-answer",
       model,
-      system: `${STYLIST_RULES}\nAnswer the user's question about the products below like an expert stylist: direct answer first, then the reasoning (fabric, construction, fit, occasion, weather, body shape, styling). If comparing, say which one wins for what. 2–5 sentences, or a short list if several products.`,
+      system: `${input.blend ? SCOUT_RULES : STYLIST_RULES}\nAnswer the user's question about the products below like an expert: direct answer first, then the reasoning (fabric, construction, fit, occasion, weather, body shape, styling). If comparing, say which one wins for what. 2–5 sentences, or a short list if several products.
+When they ask which is best, to rank or to sort the products (in any language, e.g. "aama thi best kai?", "inme se best kaunsa?"), answer with one sentence, then a numbered list ranked best first, one line per product, exactly in this form: "1. [short name](#n): the reason in under 15 words" (the link IS the product name; don't write the name again or "(#n)"). Rank by what they asked for (overall fit for their need, price, comfort…); for price, order by the prices given.`,
       user: `Context: ${intentSummary(base, tax)}\nConversation:\n${input.history
         .slice(-4)
         .map((m) => `${m.role}: ${m.content.slice(0, 400)}`)
         .join("\n")}\n\nProducts:\n${targets
         .map((t) => {
           const facts = shopifyLines.get(t.id);
-          if (isShopifyId(t.id)) return `#${t.ref} ${t.title} | ${t.brand} (an online store on Shopify) | ₹${Math.round(t.price)} | ${facts ?? "details unavailable"}`;
+          if (isShopifyId(t.id)) return `${asLink(t)} | ${t.brand} (an online store on Shopify) | ₹${Math.round(t.price)} | ${facts ?? "details unavailable"}`;
           const r = byId.get(t.id);
-          return `#${t.ref} ${t.title} | ${t.brand} | ₹${Math.round(t.price)} | colour ${t.color} | fabric ${r?.fabric ?? t.fabric ?? "?"} | fit ${r?.fit ?? "?"} | pattern ${r?.pattern ?? "?"} | occasions ${(r?.use_case ?? []).join(", ")} | sizes ${(r?.sizes ?? []).slice(0, 10).join(", ") || "not listed"} | ${cleanText(r?.description).slice(0, 200)}`;
+          return `${asLink(t)} | ${t.brand} | ₹${Math.round(t.price)} | colour ${t.color} | fabric ${r?.fabric ?? t.fabric ?? "?"} | fit ${r?.fit ?? "?"} | pattern ${r?.pattern ?? "?"} | occasions ${(r?.use_case ?? []).join(", ")} | sizes ${(r?.sizes ?? []).slice(0, 10).join(", ") || "not listed"} | ${cleanText(r?.description).slice(0, 200)}`;
         })
         .join("\n")}\n\nQuestion: ${input.message}`,
       usage,
@@ -734,7 +815,7 @@ Don't write product numbers in the text.`,
 
   // The closing question comes last, after the products and picks.
   if (ask) emit({ type: "ask", ...ask });
-  emit({ type: "suggestions", items: plan.followups.slice(0, 3) });
+  emit({ type: "suggestions", items: plan.turnType === "off_topic" ? [] : plan.followups.slice(0, 3) });
   timings.total = Math.round(performance.now() - t0);
   if (input.debug) emit({ type: "debug", data: { ...debug, base, llmCalls: usage.calls } });
   emit({ type: "done", timings, tokens: { in: usage.in, out: usage.out }, costUsd: +usage.costUsd.toFixed(5), cacheHit: false });

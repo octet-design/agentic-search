@@ -110,6 +110,7 @@ export function ChatView({ id, debug = false }: { id: string; debug?: boolean })
                 isLast={m.id === lastAssistant?.id}
                 hidden={hidden}
                 refLabel={refLabel}
+                refCard={(n) => refs.get(n)}
                 onRef={(n) => {
                   const p = refs.get(n);
                   if (p) setQuick(p);

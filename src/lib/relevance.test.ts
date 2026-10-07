@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { fixtureTax as tax } from "./agent/testFixture";
 import type { ProductCard } from "./agent/types";
-import { catalogFirst, isExact, orderByRelevance } from "./relevance";
+import { catalogFirst, dropOffMeaning, hasTerm, isExact, orderByRelevance, sortByPrice } from "./relevance";
 
 const card = (id: string, title: string, extra: Partial<ProductCard> = {}): ProductCard => ({
   id,
@@ -90,5 +90,51 @@ describe("catalogFirst", () => {
     ]);
     expect(catalogFirst([c1, c2], [s2, s1], score, 10).map((x) => x.id)).toEqual(["c2", "c1", "s1", "s2"]);
     expect(catalogFirst([c1, c2], [s2, s1], score, 3).map((x) => x.id)).toEqual(["c2", "c1", "s1"]);
+  });
+});
+
+describe("hasTerm", () => {
+  it("matches words in any order, plurals and joined/split spellings", () => {
+    expect(hasTerm("Men's White Virat Kohli Printed Oversized T-Shirt", "kohli t-shirt")).toBe(true);
+    expect(hasTerm("Virat Kohli Oversized Tshirt", "t-shirt")).toBe(true);
+    expect(hasTerm("Virat Kohli Oversized Tshirt", "tshirt")).toBe(true);
+    expect(hasTerm("Classic T Shirt", "tshirt")).toBe(true);
+    expect(hasTerm("Running Shoes for Men", "running shoe")).toBe(true);
+  });
+  it("needs whole words, not substrings", () => {
+    expect(hasTerm("Sareesbazaar Cotton Kurta", "saree")).toBe(false);
+    expect(hasTerm("Handbag in tan leather", "bag")).toBe(false);
+  });
+});
+
+describe("isExact with mustInclude", () => {
+  const kohliTee = { terms: ["t-shirt", "tshirt", "tee", "jersey"], categoryLevel: false, mustInclude: ["kohli"] };
+  it("needs the item and every insisted-on name", () => {
+    expect(isExact(card("k1", "King Kohli Unrivaled Graphic Oversized Tee", { source: "shopify" }), kohliTee, [], tax)).toBe(true);
+    expect(isExact(card("k2", "Virat Kohli - Premium Off-White Oversized Tshirt", { source: "shopify" }), kohliTee, [], tax)).toBe(true);
+    expect(isExact(card("k3", "MS Dhoni 7 Printed T-Shirt", { source: "shopify" }), kohliTee, [], tax)).toBe(false);
+    expect(isExact(card("k4", "Virat Kohli Signature Cap", { source: "shopify" }), kohliTee, [], tax)).toBe(false);
+  });
+});
+
+describe("sortByPrice", () => {
+  const xs = [card("a", "a", { price: 900 }), card("b", "b", { price: 300 }), card("c", "c", { price: 300 }), card("d", "d", { price: 1200 })];
+  it("sorts by price when asked, keeping relevance order for equal prices", () => {
+    expect(sortByPrice(xs, "price_asc").map((x) => x.id)).toEqual(["b", "c", "a", "d"]);
+    expect(sortByPrice(xs, "price_desc").map((x) => x.id)).toEqual(["d", "a", "b", "c"]);
+    expect(sortByPrice(xs, "relevance").map((x) => x.id)).toEqual(["a", "b", "c", "d"]);
+  });
+});
+
+describe("dropOffMeaning", () => {
+  it("drops an item far below the best match, keeps the normal spread", () => {
+    const xs = ["tee", "edifier", "jbl", "noise"].map((id) => ({ id }));
+    const score = new Map([
+      ["tee", 0.391],
+      ["edifier", 0.765],
+      ["jbl", 0.592],
+      ["noise", 0.55],
+    ]);
+    expect(dropOffMeaning(xs, score).map((x) => x.id)).toEqual(["edifier", "jbl", "noise"]);
   });
 });

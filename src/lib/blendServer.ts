@@ -19,7 +19,7 @@ const LOCAL_SELLERS = true;
 /** Shopify products for a chat section: same need, same budget. Scout passes the item's name as the query. */
 export async function shopifyForSection(opts: { query: string; audience: Intent["audience"]; min?: number | null; max?: number | null; limit?: number; signal?: AbortSignal }): Promise<ProductCard[]> {
   try {
-    const page = await searchFashion({ query: withAudience(opts.query, opts.audience), min: opts.min ?? null, max: opts.max ?? null, local: LOCAL_SELLERS }, INDIA, { limit: opts.limit ?? 8, signal: opts.signal });
+    const page = await searchFashion({ query: withAudience(opts.query, opts.audience), min: opts.min ?? null, max: opts.max ?? null, local: LOCAL_SELLERS, allCategories: true }, INDIA, { limit: opts.limit ?? 8, signal: opts.signal });
     return page.products.map(fromShopify);
   } catch {
     return [];
@@ -30,8 +30,8 @@ export async function shopifyForSection(opts: { query: string; audience: Intent[
 export async function shopifyLike(target: { id: string; title: string }, opts: { max?: number | null; limit?: number; signal?: AbortSignal } = {}): Promise<ProductCard[]> {
   try {
     const spec = isShopifyId(target.id)
-      ? { query: "", like: shopifyIdOf(target.id), min: null, max: opts.max ?? null, local: LOCAL_SELLERS }
-      : { query: similarQuery(target.title), min: null, max: opts.max ?? null, local: LOCAL_SELLERS };
+      ? { query: "", like: shopifyIdOf(target.id), min: null, max: opts.max ?? null, local: LOCAL_SELLERS, allCategories: true }
+      : { query: similarQuery(target.title), min: null, max: opts.max ?? null, local: LOCAL_SELLERS, allCategories: true };
     if (!spec.query && !("like" in spec && spec.like)) return [];
     const page = await searchFashion(spec, INDIA, { limit: opts.limit ?? 8, exclude: new Set([shopifyIdOf(target.id)]), signal: opts.signal });
     return page.products.map(fromShopify);

@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { retrieveRails, diversify } from "@/lib/agent/retrieve";
+import { sortByPrice } from "@/lib/relevance";
 import { getTaxonomy } from "@/lib/agent/taxonomy";
 import { IntentSchema } from "@/lib/agent/types";
 import { rateLimited, tooMany } from "@/lib/rateLimit";
@@ -20,7 +21,7 @@ export async function POST(req: Request) {
   if (!parsed.success) return jsonError("Invalid request.");
   try {
     const [rail] = await retrieveRails([{ id: "all", intent: parsed.data.intent, perPage: 100 }], getTaxonomy(), { strict: true });
-    return Response.json({ products: diversify(rail.products, 48, 4), found: rail.found });
+    return Response.json({ products: sortByPrice(diversify(rail.products, 48, 4), parsed.data.intent.sort), found: rail.found });
   } catch (err) {
     return jsonError(publicMessage(err), 502, true);
   }

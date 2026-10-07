@@ -280,7 +280,12 @@ export type ChatSectionSpec = {
  * same item ("chaniya choli", "chaniyacholi"). categoryLevel: the name is a whole taxonomy category
  * ("saree"), so a catalog item in that category counts even without the word in its title.
  */
-export type Anchor = { terms: string[]; categoryLevel: boolean };
+export type Anchor = {
+  terms: string[];
+  categoryLevel: boolean;
+  /** Names the user insisted on (a person, team, brand, character): each must also appear ("kohli" for "Virat Kohli t-shirt"). */
+  mustInclude?: string[];
+};
 
 export type Emit = (e: AgentEvent) => void;
 

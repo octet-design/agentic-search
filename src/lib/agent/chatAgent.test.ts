@@ -34,6 +34,7 @@ describe("toIntent", () => {
     textExclusions: ["cutouts"],
     preferences: ["breathable"],
     occasion: "office",
+    sort: "price_asc" as const,
     summary: "comfortable office wear",
   };
 
@@ -47,6 +48,7 @@ describe("toIntent", () => {
     expect(i.softPreferences).toEqual(["breathable"]);
     expect(i.mustKeywords).toEqual([]);
     expect(i.semanticQuery).toBe("comfortable office wear");
+    expect(i.sort).toBe("price_asc");
   });
 
   it("makes a non-strict budget a preference", () => {

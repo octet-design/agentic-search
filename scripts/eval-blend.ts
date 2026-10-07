@@ -6,13 +6,13 @@
  */
 import { writeFile } from "node:fs/promises";
 import path from "node:path";
-import { runChatTurn } from "../src/lib/agent/chatAgent";
+import { OFF_TOPIC_NOTE, runChatTurn } from "../src/lib/agent/chatAgent";
 import { getTaxonomy } from "../src/lib/agent/taxonomy";
 import type { AgentEvent, Anchor, ProductCard } from "../src/lib/agent/types";
 import { isExact } from "../src/lib/relevance";
 import { ROOT, mapLimit } from "./lib/io";
 
-const QUERIES: { q: string; audience?: "women" | "men" | "girls" | "boys"; expectEmpty?: boolean }[] = [
+const QUERIES: { q: string; audience?: "women" | "men" | "girls" | "boys"; expectEmpty?: boolean; offTopic?: boolean }[] = [
   { q: "chaniya choli", audience: "women" },
   { q: "bandhani saree", audience: "women" },
   { q: "kolhapuri chappal", audience: "women" },
@@ -21,10 +21,13 @@ const QUERIES: { q: string; audience?: "women" | "men" | "girls" | "boys"; expec
   { q: "potli bag for a wedding", audience: "women" },
   { q: "linen kurta men" },
   { q: "zorblax quantum moonboots", expectEmpty: true },
+  { q: "virat kohli t-shirt", audience: "men" },
+  { q: "noise cancelling headphones under 8000" },
+  { q: "what is 75 times 99?", offTopic: true },
 ];
 
 type Section = { title: string; anchor?: Anchor; categories: string[]; products: ProductCard[]; emptyNote?: string };
-type Row = { n: number; q: string; sections: Section[]; ask?: string; ms: number; timings?: Record<string, number>; fails: string[]; error?: string };
+type Row = { n: number; q: string; sections: Section[]; ask?: string; text: string; ms: number; timings?: Record<string, number>; fails: string[]; error?: string };
 
 const arg = (name: string) => {
   const i = process.argv.indexOf(`--${name}`);
@@ -33,7 +36,7 @@ const arg = (name: string) => {
 
 async function run(n: number, spec: (typeof QUERIES)[number]): Promise<Row> {
   const tax = getTaxonomy();
-  const row: Row = { n, q: spec.q, sections: [], ms: 0, fails: [] };
+  const row: Row = { n, q: spec.q, text: "", sections: [], ms: 0, fails: [] };
   const specs = new Map<string, string[]>();
   const t0 = performance.now();
   try {
@@ -43,6 +46,7 @@ async function run(n: number, spec: (typeof QUERIES)[number]): Promise<Row> {
         if (e.type === "chat_state") for (const s of e.lastSections) specs.set(s.title, s.categories);
         if (e.type === "done") row.timings = e.timings;
         if (e.type === "ask") row.ask = e.question;
+        if (e.type === "chat_text") row.text += e.delta;
         if (e.type === "section") row.sections.push({ title: e.title, anchor: e.anchor, categories: specs.get(e.title) ?? [], products: e.products, emptyNote: e.emptyNote });
       },
     );
@@ -61,7 +65,11 @@ async function run(n: number, spec: (typeof QUERIES)[number]): Promise<Row> {
   if (spec.expectEmpty && shown.length) row.fails.push(`EXPECTED NO PRODUCTS, got ${shown.length}`);
   // An unknown item may get "no products found" or, as a guidance agent, a question about what they mean.
   if (spec.expectEmpty && !row.sections.some((s) => s.emptyNote) && !row.ask) row.fails.push("EXPECTED a 'no products found' note or a clarifying question");
-  if (!spec.expectEmpty && !shown.length) row.fails.push("NO PRODUCTS");
+  if (spec.offTopic) {
+    // Not about shopping: the fixed note, no products, no answer.
+    if (shown.length) row.fails.push(`OFF-TOPIC showed ${shown.length} products`);
+    if (row.text.trim() !== OFF_TOPIC_NOTE) row.fails.push(`OFF-TOPIC answered: "${row.text.slice(0, 80)}"`);
+  } else if (!spec.expectEmpty && !shown.length) row.fails.push("NO PRODUCTS");
   // Sections of one answer shouldn't mostly repeat each other.
   const ids = shown.map((p) => p.id);
   const repeats = ids.length - new Set(ids).size;
@@ -97,7 +105,7 @@ async function main() {
   const only = arg("only")?.split(",").map(Number);
   const picked = QUERIES.map((q, i) => ({ n: i + 1, q })).filter((x) => !only || only.includes(x.n));
   console.log(`Running ${picked.length} blend queries…`);
-  const rows = await mapLimit(picked, 3, async ({ n, q }) => {
+  const rows = await mapLimit(picked, 4, async ({ n, q }) => {
     const r = await run(n, q);
     const shown = r.sections.flatMap((s) => s.products);
     console.log(`${String(n).padStart(2)}. ${r.fails.length ? "FAIL" : "pass"} ${(r.ms / 1000).toFixed(1).padStart(5)}s ${r.q}${r.timings ? ` [search ${((r.timings.search ?? 0) / 1000).toFixed(1)}s]` : ""} → ${shown.filter((p) => p.source !== "shopify").length} catalog + ${shown.filter((p) => p.source === "shopify").length} Shopify${r.fails.length ? `\n      ${r.fails.slice(0, 4).join("\n      ")}` : ""}`);
