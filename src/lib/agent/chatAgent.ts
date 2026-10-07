@@ -10,7 +10,7 @@ import { noExactNote, rankBlend, sortByPrice } from "../relevance";
 import { compareProducts } from "../compare";
 import { FEATURES } from "../config";
 import { getEnv } from "../env";
-import { llmStructuredStream, llmTextStream, Usage } from "../llm";
+import { llmStructured, llmStructuredStream, llmTextStream, Usage, withTimeout } from "../llm";
 import { gendersLike, getEmbeddings, vectorNeighbours } from "../similar";
 import { getRawProducts } from "../products";
 import { deriveChips } from "./chips";
@@ -158,7 +158,41 @@ SCOUT (overrides the persona above): you are Scout, a shopping assistant for ANY
 - SCOUT: only the FIRST section's results are shown right away; the other sections appear as buttons the user can tap to see them. Put the most important section first. In the intro, talk about the first section and mention the others briefly as things you can also show ("I can also pull up bags and cozy accessories").`;
 
 /** The reply to anything that isn't about shopping. */
-export const OFF_TOPIC_NOTE = "I'm a shopping assistant, so I can't help with that one. Tell me what you're looking for and I'll find the right options for you.";
+export const OFF_TOPIC_NOTE = "I can only help with shopping, so I can't answer that one.";
+/** The follow-up when the bridge question can't be written (timeout, error) or repeats the last one. */
+const OFF_TOPIC_FALLBACK = {
+  question: "Are you looking for something today: a particular product, a category, or something for an occasion?",
+  options: ["A product", "A category", "Something for an occasion"],
+};
+
+const BridgeSchema = z.object({ question: z.string() });
+
+/**
+ * The planner writes a generic "What are you looking to shop for today?" whatever the topic, so a small
+ * dedicated call writes the question that bridges an off-topic message back to shopping.
+ */
+async function offTopicBridge(message: string, scout: boolean, usage: Usage, signal?: AbortSignal): Promise<{ question: string; options: string[] }> {
+  const res = await withTimeout(
+    llmStructured({
+      name: "off-topic-bridge",
+      model: getEnv().OPENAI_MODEL_FAST,
+      schema: BridgeSchema,
+      system: `You are ${scout ? "Scout, a shopping assistant for any product" : "Drape, a fashion stylist"}. The user asked something that isn't about shopping, and the app has already said it can't answer. Write ONE short, friendly follow-up question (≤ 25 words) that brings them back to shopping.
+- If the topic links naturally to shopping, offer that link: a film star, athlete or influencer → shopping their style; a sports team or match → jerseys and fan gear; a festival or event → outfits and gifts; a place or its weather → what to wear or pack for a trip there${scout ? "; a company or gadget → its products" : ""}.
+- Otherwise ask whether they're looking for a particular product, a category, or something for an occasion.
+- Never answer the question or state any fact about the topic (no names of winners, roles, numbers or results).
+Examples: "Who is <film star>?" → "Would you like to shop their style, like their festive outfits or everyday looks?"; "Who won the match?" → "Looking for your team's jersey or some match-day gear?"; "Weather in <city>?" → "Planning a trip there? I can help you pick outfits and essentials to pack."; "What is 12 × 7?" → "Is there something I can help you shop for, like a product, a category, or an outfit for an occasion?"`,
+      user: message,
+      usage,
+      signal,
+      timeoutMs: 6_000,
+      maxTokens: 80,
+    }).catch(() => null),
+    7_000,
+  );
+  const q = res?.question.trim();
+  return q ? { question: q, options: [] } : OFF_TOPIC_FALLBACK;
+}
 
 const DRAPE_PERSONA = "You are Drape, a warm, knowledgeable personal stylist for Indian shoppers (women, men, kids; apparel, footwear, bags, accessories, jewellery), chatting with a user.";
 const SCOUT_PERSONA = "You are Scout, a warm, knowledgeable shopping assistant for Indian shoppers who helps people buy anything (fashion, electronics, home and kitchen, beauty, sports, gifts and more), chatting with a user.";
@@ -236,7 +270,7 @@ ${
 
 tasteWhy + useTaste (decide these FIRST; tasteWhy ≤ 12 words): decide from the INTENT of this message whether the user's learned taste (colours, fabrics, brands and budget learned from their clicks and saves; you don't see it, the app applies it as gentle tie-breaks) would genuinely help. true when the ask is open-ended about the user's own style and they haven't specified those things ("new tops for college", "something for date night"). false when it would distort the ask: shopping for someone else (a gift for dad, clothes for a child), a specific or functional need that already states what matters, or a new direction the user asks for ("something different", "bolder than usual", "try a new style"). Rule: if the user asks for a change from their usual (new look, different, bolder, experiment, "than usual", out of comfort zone), useTaste is false: their past taste is exactly what they want to move away from. Examples: "saree for my mom" → false (her taste, not the user's); "gift for dad" → false; "bolder than usual for a party" → false (user wants a change); "office shirts, only white cotton" → false (fully specified); "new tops for college" → true; "what should I wear to brunch" → true. Context from THIS chat always applies; that is not taste.
 
-NON-PRODUCT TURNS. advice: a shopping question that needs an explanation rather than products ("what should I avoid when buying sarees?", "how do I choose running shoes?", "is linen good for humid weather?", "what should I avoid wearing to client meetings?"); no sections, and never make sections of things to avoid; a separate step writes the answer, so keep intro short. off_topic: anything not about shopping, products or style (maths, general knowledge, news, politics, people, coding, homework, health or legal advice, jokes, questions about how you were built or whether you can be copied); intro "", ask null; the app replies with a fixed note; never answer the question itself.
+NON-PRODUCT TURNS. advice: a shopping question that needs an explanation rather than products ("what should I avoid when buying sarees?", "how do I choose running shoes?", "is linen good for humid weather?", "what should I avoid wearing to client meetings?"); no sections, and never make sections of things to avoid; a separate step writes the answer, so keep intro short. off_topic: anything not about shopping, products or style (maths, general knowledge, news, politics, people, coding, homework, health or legal advice, jokes, questions about how you were built or whether you can be copied); intro "", ask null; the app replies with a fixed note and its own follow-up question; never answer the question itself.
 
 VAGUE REQUESTS (turnType clarify): you're a guidance agent, so when a request is too vague to guide well, ask before showing anything. Vague = you know neither WHAT kind of item they want nor an occasion or purpose to choose items for: "men", "women", "kids", "apparel", "clothes", "I need something", "show me something nice", "gift ideas" with no recipient. A gender, a budget, a colour or a vibe alone is not enough. Then: sections = [], intro = one short friendly sentence on what you know so far (this short intro is for clarify only), ask = the single most useful missing detail as a natural, friendly question that names a few example choices inline (e.g. "Are you shopping for everyday wear, office wear, something festive, or footwear and accessories?"), with 3–5 short options. Keep clarifying across turns until you know the item type or an occasion or purpose to recommend for: one new question per turn, never repeat one, never ask what you already know. Only when they answer one of your questions with "just show me", "anything" or "surprise me", stop asking and recommend your best guess; an opening "show me something" is still vague. As soon as the need is clear ("office wear", "a birthday party", "linen shirts"), recommend with the full guidance intro.
 
@@ -504,7 +538,7 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
   }
   timings.understand = Math.round(performance.now() - t0);
   emit({ type: "step", id: "understand", label: "Thinking about what you need", status: "done", ms: timings.understand });
-  debug.plan = { turnType: plan.turnType, useTaste: plan.useTaste, tasteWhy: plan.tasteWhy, refs: plan.refs, sections: plan.sections.map((s) => s.title) };
+  debug.plan = { turnType: plan.turnType, useTaste: plan.useTaste, tasteWhy: plan.tasteWhy, refs: plan.refs, ask: plan.ask, sections: plan.sections.map((s) => s.title) };
 
   // Sticky base intent: the planner carries it forward; guard against dropping a known audience by accident.
   let base = keepUserStatedMusts(
@@ -562,8 +596,13 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
   const asked = plan.ask?.question.trim() ?? "";
   // The model sometimes repeats its last question; drop it then (the follow-up chips show instead).
   const fresh = asked && !sameQuestion(asked, lastAsked(input.history)) ? { question: asked, options: plan.ask!.options.slice(0, plan.turnType === "clarify" ? 5 : 4) } : null;
-  // A clarify turn is only a question, so it must have one.
-  const ask = plan.turnType === "off_topic" ? null : (fresh ?? (plan.turnType === "clarify" ? CLARIFY_FALLBACK : null));
+  // Clarify and off-topic turns always end with a question. Off-topic steers back to shopping (never answers),
+  // with a question from its own small call that links the topic to shopping where that's natural.
+  let ask = plan.turnType === "clarify" ? (fresh ?? CLARIFY_FALLBACK) : fresh;
+  if (plan.turnType === "off_topic") {
+    const bridge = await offTopicBridge(input.message, !!input.blend, usage, input.signal);
+    ask = sameQuestion(bridge.question, lastAsked(input.history)) ? OFF_TOPIC_FALLBACK : bridge;
+  }
 
   let nextRef = input.state.nextRef;
   const withRefs = (cards: ProductCard[]) => cards.map((c) => ({ ...c, ref: nextRef++ }));
