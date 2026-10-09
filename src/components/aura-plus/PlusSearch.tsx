@@ -10,7 +10,7 @@ import { CompareBlock } from "@/components/compare/CompareBlock";
 import { ProductImage } from "@/components/product/ProductImage";
 import { Loader } from "@/components/shopify/aura/Loader";
 import { Composer, Sheet, useHydrated, type ComposerHandle } from "@/components/shopify/aura/ui";
-import type { ProductCard, SegmentOffer } from "@/lib/agent/types";
+import type { CompareBlockData, ProductCard, SegmentOffer } from "@/lib/agent/types";
 import { FEATURES } from "@/lib/config";
 import { sendChatMessage, stopChat } from "@/lib/chatClient";
 import { useChats, type AssistantMessage, type Chat, type ChatSection } from "@/store/chats";
@@ -61,6 +61,31 @@ function ResultCard({ s, active, onView }: { s: ChatSection; active: boolean; on
     </button>
   );
 }
+
+/** A comparison in the chat: the compared products' thumbnails + "View comparison" (it opens on the right). */
+function CompareCard({ products, active, onView }: { products: ProductCard[]; active: boolean; onView: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onView}
+      className={`flex w-full items-center gap-2 border bg-paper p-2.5 text-left shadow-sm transition hover:shadow-md ${active ? "border-ink" : "border-line"}`}
+    >
+      {products.slice(0, 3).map((p) => (
+        <ProductImage key={p.id} src={p.image} alt={p.title} className="aspect-[3/4] w-[22%] shrink-0" />
+      ))}
+      <span className="ml-auto flex shrink-0 flex-col items-end gap-0.5 pr-1 text-right">
+        <span className="text-xs text-ink-soft">Comparison</span>
+        <span className="inline-flex items-center gap-1.5 text-sm font-medium">
+          View comparison <ArrowRight size={15} />
+        </span>
+      </span>
+    </button>
+  );
+}
+
+/** What the right-hand pane can show: a result set, or a comparison (one per message). */
+type PaneView = { kind: "section"; id: string; msgId: string; s: ChatSection } | { kind: "compare"; id: string; msgId: string; data: CompareBlockData };
+const compareViewId = (msgId: string) => `compare:${msgId}`;
 
 /** The live grid for one result set: the chat's picks first, then the same filters' longer list as you scroll. */
 function ResultsGrid({ s, hidden, mixShopify }: { s: ChatSection; hidden: Set<string>; mixShopify: boolean }) {
@@ -135,9 +160,9 @@ function AssistantTurn({
   onRef,
   refLabel,
   refCard,
+  withCards,
   onSend,
   onRetry,
-  onOpen,
   onOpenSegment,
   opening,
 }: {
@@ -148,9 +173,10 @@ function AssistantTurn({
   onRef: (ref: number) => void;
   refLabel: (ref: number) => string | undefined;
   refCard: (ref: number) => { title: string; image: string | null } | undefined;
+  /** Fills compared products with the chat's full cards (images, links) by ref. */
+  withCards: (ps: ProductCard[]) => ProductCard[];
   onSend: (t: string) => void;
   onRetry: () => void;
-  onOpen: (p: ProductCard) => void;
   /** Scout: tap a segment pill to fetch that segment. */
   onOpenSegment: (seg: SegmentOffer) => void;
   opening: string | null;
@@ -185,7 +211,7 @@ function AssistantTurn({
         </div>
       )}
       <RichText text={m.answer} onRef={onRef} refLabel={refLabel} refCard={refCard} />
-      {m.compare && <CompareBlock data={m.compare} onOpen={onOpen} />}
+      {m.compare && <CompareCard products={withCards(m.compare.products)} active={active === compareViewId(m.id)} onView={() => onView(compareViewId(m.id))} />}
       <RichText text={m.outro} onRef={onRef} refLabel={refLabel} refCard={refCard} />
       {running && (
         <div className="inline-flex items-center gap-2 text-sm text-ink-soft" aria-live="polite">
@@ -247,6 +273,15 @@ export function PlusSearch({ id, mode }: { id: string; mode: PlusMode }) {
   const scroller = useRef<HTMLDivElement>(null);
 
   const refs = useMemo(() => (chat ? cardsByRef(chat) : new Map<number, ProductCard>()), [chat]);
+  // The engine sends compared products as minimal cards; the chat already holds their full cards (image, link).
+  const withCards = useCallback(
+    (ps: ProductCard[]) =>
+      ps.map((p) => {
+        const full = p.ref != null ? refs.get(p.ref) : undefined;
+        return full && full.id === p.id ? { ...full, ref: p.ref } : p;
+      }),
+    [refs],
+  );
   const send = useCallback(
     (text: string, refList?: number[]) => {
       setPicked(null);
@@ -314,7 +349,7 @@ export function PlusSearch({ id, mode }: { id: string; mode: PlusMode }) {
   // The newest answer that brought products. When a new one lands, phones switch to the results tab (a reply
   // that only asks a question stays in the chat); desktop viewers of older results get a "New results" pill.
   const latestResultsId =
-    [...(chat?.messages ?? [])].reverse().find((m) => m.role === "assistant" && m.sections.some((s) => s.loaded && s.products.length))?.id ?? null;
+    [...(chat?.messages ?? [])].reverse().find((m) => m.role === "assistant" && (!!m.compare || m.sections.some((s) => s.loaded && s.products.length)))?.id ?? null;
   const [seenResultsId, setSeenResultsId] = useState(latestResultsId);
   if (latestResultsId !== seenResultsId) {
     setSeenResultsId(latestResultsId);
@@ -339,12 +374,14 @@ export function PlusSearch({ id, mode }: { id: string; mode: PlusMode }) {
   const last = assistants[assistants.length - 1];
   const lastUser = [...chat.messages].reverse().find((m) => m.role === "user");
   const running = last?.status === "streaming";
-  const sections = assistants.flatMap((m) => m.sections);
-  const newest = [...sections].reverse().find((s) => s.loaded && s.products.length);
-  const active = sections.find((s) => s.id === picked) ?? newest ?? null;
+  // Everything the right pane can show, oldest first: result sets and comparisons.
+  const views: PaneView[] = assistants.flatMap((m) => [
+    ...m.sections.filter((s) => s.loaded && s.products.length).map((s) => ({ kind: "section" as const, id: s.id, msgId: m.id, s })),
+    ...(m.compare ? [{ kind: "compare" as const, id: compareViewId(m.id), msgId: m.id, data: m.compare }] : []),
+  ]);
+  const active = views.find((v) => v.id === picked) ?? views.at(-1) ?? null;
   const showLoader = running && stageOf(last) < 3;
-  const latestResults = assistants.find((m) => m.id === latestResultsId);
-  const viewingOld = !!active && !!latestResults && !latestResults.sections.some((x) => x.id === active.id);
+  const viewingOld = !!active && active.msgId !== latestResultsId;
   // Pending "ask about" text typed into the composer; the user may still be editing a product mention.
   const pendingRefs = (text: string) => [...refs.values()].filter((p) => p.ref != null && text.includes(shortName(p))).map((p) => p.ref!);
 
@@ -390,9 +427,9 @@ export function PlusSearch({ id, mode }: { id: string; mode: PlusMode }) {
                       return p ? shortName(p) : undefined;
                     }}
                     refCard={(n) => refs.get(n)}
+                    withCards={withCards}
                     onSend={(t) => send(t)}
                     onRetry={() => lastUser?.role === "user" && send(lastUser.text, lastUser.refs)}
-                    onOpen={setQuick}
                     onOpenSegment={(seg) => void openSegment(m.id, seg)}
                     opening={opening}
                   />
@@ -449,8 +486,13 @@ export function PlusSearch({ id, mode }: { id: string; mode: PlusMode }) {
           )}
           {showLoader ? (
             <Loader key={last?.id} startedAt={last?.at ?? 0} stage={stageOf(last)} activity={last?.steps.find((s) => s.status === "running")?.label ?? null} />
+          ) : active?.kind === "compare" ? (
+            <div key={active.id} className="mx-auto max-w-5xl">
+              <h2 className="mb-4 font-display text-2xl tracking-tight">Comparison</h2>
+              <CompareBlock data={{ ...active.data, products: withCards(active.data.products) }} onOpen={setQuick} />
+            </div>
           ) : active ? (
-            <ResultsGrid key={active.id} s={active} hidden={hidden} mixShopify={mode.blend} />
+            <ResultsGrid key={active.id} s={active.s} hidden={hidden} mixShopify={mode.blend} />
           ) : last?.sections.some((s) => s.emptyNote) ? (
             <div className="py-24 text-center text-ink-soft">
               {last.sections.filter((s) => s.emptyNote).map((s) => (

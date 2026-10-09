@@ -26,31 +26,52 @@ const CompareSchema = z.object({
   verdict: z.array(z.string()),
 });
 
-const SYSTEM = `You are a fashion stylist comparing 2–3 products for an Indian shopper.
+const SYSTEM = `You are an expert shopping assistant comparing 2–3 products for an Indian shopper.
 Return:
 - summary: 1–2 sentences on how they differ overall.
-- occasions: 4–6 occasions or events that matter for these products and the shopper's context (e.g. Office, Wedding guest, Festive puja, Casual outing, Date night, Travel, College, Monsoon days). For each: a fit per product (great / ok / poor) with a ≤ 8-word note, and "best" = the letter of the best pick (or "none").
+- occasions: 4–6 occasions, events or use cases that matter for these products and the shopper's context. For clothing and accessories, occasions (e.g. Office, Wedding guest, Festive puja, Casual outing, Date night, Travel); for other products, use cases (e.g. for headphones: Daily commute, Work calls, Gym, Long flights). For each: a fit per product (great / ok / poor) with a ≤ 8-word note, and "best" = the letter of the best pick (or "none").
 - verdict: 2–3 bullets like "Pick A if …", "Pick B if …".
-Use the product data plus general fashion knowledge (fabric comfort, formality, weather, styling). Don't state stock, delivery, discounts or ratings. Mention prices as ₹1,999.`;
+Use the product data plus general product knowledge (materials, comfort, build, features, formality, weather). Don't state stock, delivery or discounts. Mention prices as ₹1,999.`;
 
-export async function compareProducts(opts: { ids: string[]; query?: string; criterion?: string; usage?: Usage; signal?: AbortSignal }): Promise<CompareResult> {
-  const raw = await getRawProducts(opts.ids);
+/** A product that isn't in our catalog (e.g. from a partner store): its card plus a line of live facts. */
+export type CompareExtra = { id: string; card: ProductCard; facts: string };
+
+export async function compareProducts(opts: {
+  ids: string[];
+  /** Products not in our catalog, with their own card and facts (the caller fetches them). */
+  extra?: CompareExtra[];
+  query?: string;
+  criterion?: string;
+  usage?: Usage;
+  signal?: AbortSignal;
+}): Promise<CompareResult> {
+  const extra = new Map((opts.extra ?? []).map((x) => [x.id, x]));
+  const raw = await getRawProducts(opts.ids.filter((id) => !extra.has(id)));
   const byId = new Map(raw.map((r) => [r.id, r]));
-  const ordered = opts.ids.map((id) => byId.get(id)).filter((r): r is NonNullable<typeof r> => !!r).slice(0, 3);
-  if (ordered.length < 2) throw new Error("Some of these products are no longer available.");
   const tax = getTaxonomy();
-  const products = ordered.map((r) => toCard(r, 0, tax));
+  // Each product as a card plus one line of data for the model, in the order asked.
+  const rows = opts.ids
+    .map((id) => {
+      const x = extra.get(id);
+      if (x) return { card: x.card, line: `${cleanText(x.card.title)} | ${x.card.brand} | ₹${Math.round(x.card.price)} | ${x.facts}` };
+      const r = byId.get(id);
+      if (!r) return null;
+      const card = toCard(r, 0, tax);
+      return {
+        card,
+        line: `${cleanText(r.title)} | ${card.brand} | ₹${Math.round(r.price)} | colour ${r.color} | fabric ${r.fabric ?? "?"} | fit ${r.fit ?? "?"} | pattern ${r.pattern ?? "?"} | occasions ${(r.use_case ?? []).join(", ")} | ${cleanText(r.description).slice(0, 160)}`,
+      };
+    })
+    .filter((x): x is NonNullable<typeof x> => !!x)
+    .slice(0, 3);
+  if (rows.length < 2) throw new Error("Some of these products are no longer available.");
+  const products = rows.map((x) => x.card);
   const res = await llmStructured({
     name: "compare",
     model: getEnv().OPENAI_MODEL_FAST,
     schema: CompareSchema,
     system: SYSTEM,
-    user: `${opts.query ? `Shopper's context: ${opts.query}\n` : ""}${opts.criterion ? `They care about: ${opts.criterion}\n` : ""}${ordered
-      .map(
-        (r, i) =>
-          `${LETTERS[i]}: ${cleanText(r.title)} | ${products[i].brand} | ₹${Math.round(r.price)} | colour ${r.color} | fabric ${r.fabric ?? "?"} | fit ${r.fit ?? "?"} | pattern ${r.pattern ?? "?"} | occasions ${(r.use_case ?? []).join(", ")} | ${cleanText(r.description).slice(0, 160)}`,
-      )
-      .join("\n")}`,
+    user: `${opts.query ? `Shopper's context: ${opts.query}\n` : ""}${opts.criterion ? `They care about: ${opts.criterion}\n` : ""}${rows.map((x, i) => `${LETTERS[i]}: ${x.line}`).join("\n")}`,
     usage: opts.usage,
     signal: opts.signal,
     timeoutMs: 35_000,

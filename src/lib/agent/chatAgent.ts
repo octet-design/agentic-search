@@ -352,6 +352,28 @@ function compactIntent(i: Intent | null): string {
 
 const shortTitle = (t: string) => (t.length > 40 ? `${t.slice(0, 38).trimEnd()}…` : t);
 
+/** A minimal card for a product the chat has shown (the client fills in its image from the same ref). */
+const shownCard = (p: ShownProduct): ProductCard => ({
+  id: p.id,
+  title: p.title,
+  brand: p.brand,
+  category: p.category,
+  gender: "",
+  color: p.color,
+  fabric: p.fabric,
+  fit: null,
+  pattern: null,
+  useCase: [],
+  price: p.price,
+  sizes: [],
+  image: null,
+  url: "",
+  domain: "",
+  reason: "",
+  matched: [],
+  score: 0,
+});
+
 /** A product as the model should write it: a link with a short name (copied as-is into answers). */
 const asLink = (p: { ref?: number; title: string }) => `[${shortTitle(p.title)}](#${p.ref})`;
 
@@ -763,7 +785,7 @@ Don't write product numbers in the text.`,
       maxTokens: 320,
       onDelta: (delta) => emit({ type: "chat_text", block: "answer", delta }),
     });
-  } else if (plan.turnType === "product_question" || (plan.turnType === "compare" && refProducts(plan.refs).some((t) => isShopifyId(t.id)))) {
+  } else if (plan.turnType === "product_question") {
     let targets = refProducts(plan.refs);
     if (!targets.length) targets = input.state.products.slice(-6);
     const raw = targets.length ? await getRawProducts(targets.filter((t) => !isShopifyId(t.id)).map((t) => t.id)) : [];
@@ -798,8 +820,19 @@ When they ask which is best, to rank or to sort the products (in any language, e
     if (targets.length >= 2) {
       emit({ type: "step", id: "curate", label: "Comparing them side by side", status: "running" });
       try {
+        // Partner-store products aren't in our catalog: compare them on their live details.
+        const extra = await Promise.all(
+          targets
+            .filter((t) => isShopifyId(t.id))
+            .map(async (t) => ({
+              id: t.id,
+              card: { ...shownCard(t), source: "shopify" as const },
+              facts: (await shopifyFacts(t.id, input.signal)) ?? "details unavailable",
+            })),
+        );
         const res = await compareProducts({
           ids: targets.map((t) => t.id),
+          extra,
           query: `${input.message} (${intentSummary(base, tax)})`,
           criterion: plan.compareCriterion ?? undefined,
           usage,
