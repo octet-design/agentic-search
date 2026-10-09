@@ -184,6 +184,13 @@ export function sortByPrice<T extends { price: number }>(items: T[], sort: Inten
 
 export type ExactResult = { products: ProductCard[]; exact: { catalog: number; shopify: number }; storeNote?: string };
 
+/**
+ * One ranked list per Scout result set: the chat shows its top 8 and the results grid scrolls through the rest,
+ * so both use the same pool sizes and the list is cached by section id (the grid reads it back unchanged).
+ */
+export const SCOUT_LIST = { catalogPerPage: 100, anchorPerPage: 60, shopifyLimit: 40, limit: 400, perBrand: 4 } as const;
+export const scoutLists = namedCache<ExactResult>("scout-lists", 300, 60 * 60_000);
+
 const squash = (s: string) => norm(s).replace(/ /g, "");
 /** Is this product from the store the shopper asked for ("DailyObjects" ~ "Daily Objects", "dailyobjects.com")? */
 export function fromStore(p: { brand: string; domain?: string }, store: string): boolean {

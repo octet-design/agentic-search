@@ -6,7 +6,7 @@
 import { z } from "zod";
 import { isShopifyId } from "../blend";
 import { shopifyFacts, shopifyForSection, shopifyLike } from "../blendServer";
-import { noExactNote, rankBlend, sortByPrice } from "../relevance";
+import { noExactNote, rankBlend, SCOUT_LIST, scoutLists, sortByPrice } from "../relevance";
 import { compareProducts } from "../compare";
 import { FEATURES } from "../config";
 import { getEnv } from "../env";
@@ -740,7 +740,8 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
     // Scout: Shopify is searched by the item's name; Typesense also searches titles for it in any category.
     const [rails, shopifyLists, anchorLists] = await Promise.all([
       retrieveRails(
-        sections.map((s) => ({ id: s.id, title: s.spec.title, intent: s.intent, perPage: 40 })),
+        // Scout pulls the same pool as its results grid, so the chat's top 8 are the top of the grid's one list.
+        sections.map((s) => ({ id: s.id, title: s.spec.title, intent: s.intent, perPage: blendShopify ? SCOUT_LIST.catalogPerPage : 40 })),
         tax,
       ),
       blendShopify
@@ -754,13 +755,15 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
                 audience: s.intent.audience,
                 min: s.intent.price?.min,
                 max: s.intent.price?.max,
-                limit: 20,
+                limit: SCOUT_LIST.shopifyLimit,
                 signal: input.signal,
               }),
             ),
           )
         : Promise.resolve([] as ProductCard[][]),
-      blendShopify ? Promise.all(sections.map((s) => (s.spec.anchor ? retrieveAnchor(s.intent, anchorQueries(s.spec.anchor), tax) : Promise.resolve([])))) : Promise.resolve([] as ProductCard[][]),
+      blendShopify
+        ? Promise.all(sections.map((s) => (s.spec.anchor ? retrieveAnchor(s.intent, anchorQueries(s.spec.anchor), tax, SCOUT_LIST.anchorPerPage) : Promise.resolve([]))))
+        : Promise.resolve([] as ProductCard[][]),
     ]);
     // Scout: only exact matches from either source; our catalog first, then Shopify, each by relevance.
     const blended = blendShopify
@@ -774,7 +777,8 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
               anchor: s.spec.anchor ?? null,
               sectionCategories: s.spec.categories,
               tax,
-              limit: 16,
+              limit: SCOUT_LIST.limit,
+              perBrand: SCOUT_LIST.perBrand,
               sort: s.intent.sort,
               visual: !!input.image && i === 0,
               usage,
@@ -786,9 +790,12 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
     // Sections of one answer shouldn't repeat each other: earlier sections keep their items, later ones
     // take the next best (repeats only when a section would otherwise run short).
     const usedIds = new Set<string>();
-    const blendedShown = blended.map((r) => {
+    // Each section's list is cached under its id: its top 8 go in the chat, and the results grid reads the same list.
+    const blendedShown = blended.map((r, i) => {
       const fresh = r.products.filter((p) => !usedIds.has(p.id));
-      const pick = (fresh.length >= 4 ? fresh : [...fresh, ...r.products.filter((p) => usedIds.has(p.id))]).slice(0, 8);
+      const list = fresh.length >= 4 ? fresh : [...fresh, ...r.products.filter((p) => usedIds.has(p.id))];
+      scoutLists.set(sections[i].id, { ...r, products: list });
+      const pick = list.slice(0, 8);
       pick.forEach((p) => usedIds.add(p.id));
       return pick;
     });

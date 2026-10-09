@@ -5,14 +5,11 @@ import { anchorQueries, shopifyQuery } from "@/lib/agent/chatAgent";
 import { IntentSchema } from "@/lib/agent/types";
 import { shopifyForSection } from "@/lib/blendServer";
 import { rateLimited, tooMany } from "@/lib/rateLimit";
-import { noExactNote, rankBlend } from "@/lib/relevance";
+import { noExactNote, rankBlend, SCOUT_LIST, scoutLists } from "@/lib/relevance";
 import { jsonError, publicMessage } from "@/lib/sse";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
-
-/** Upper bound on the list (ours ≤ ~250 after dedupe + Shopify ≤ 40), just as a safety net. */
-const MAX_LIST = 400;
 
 const BodySchema = z.object({
   intent: IntentSchema,
@@ -27,6 +24,8 @@ const BodySchema = z.object({
     .nullable()
     .optional(),
   categories: z.array(z.string()).max(40).default([]),
+  /** The result set's id: the list the chat ranked for it is reused as-is, so the grid keeps the same order. */
+  id: z.string().max(80).optional(),
 });
 
 /**
@@ -37,28 +36,37 @@ export async function POST(req: Request) {
   if (rateLimited(req, 60)) return tooMany();
   const parsed = BodySchema.safeParse(await req.json().catch(() => null));
   if (!parsed.success) return jsonError("Invalid request.");
-  const { intent, anchor, categories } = parsed.data;
+  const { intent, anchor, categories, id } = parsed.data;
+  const cached = id ? scoutLists.get(id) : undefined;
+  if (cached) return Response.json({ ...cached, emptyNote: anchor && !cached.products.length ? noExactNote(anchor) : undefined });
   const tax = getTaxonomy();
   try {
     const [[rail], fromTitles, shopify] = await Promise.all([
-      retrieveRails([{ id: "all", intent, perPage: 100 }], tax, { strict: true }),
-      anchor ? retrieveAnchor(intent, anchorQueries(anchor), tax, 60) : Promise.resolve([]),
-      shopifyForSection({ query: anchor ? shopifyQuery(anchor, intent.semanticQuery) : intent.semanticQuery, audience: intent.audience, min: intent.price?.min, max: intent.price?.max, limit: 40 }),
+      retrieveRails([{ id: "all", intent, perPage: SCOUT_LIST.catalogPerPage }], tax, { strict: true }),
+      anchor ? retrieveAnchor(intent, anchorQueries(anchor), tax, SCOUT_LIST.anchorPerPage) : Promise.resolve([]),
+      shopifyForSection({
+        query: anchor ? shopifyQuery(anchor, intent.semanticQuery) : intent.semanticQuery,
+        audience: intent.audience,
+        min: intent.price?.min,
+        max: intent.price?.max,
+        limit: SCOUT_LIST.shopifyLimit,
+      }),
     ]);
     const res = await rankBlend({
       // Our catalog is fashion-only: no fashion category means partner stores only.
       catalog: categories.length ? [...fromTitles, ...rail.products] : [],
       shopify,
-      query: anchor?.terms[0] ? `${anchor.terms[0]} ${intent.semanticQuery}` : intent.semanticQuery,
+      // The same query the chat ranks with, so a recomputed list matches the chat's order.
+      query: intent.semanticQuery,
       anchor: anchor ?? null,
       sectionCategories: categories,
       tax,
-      // Every exact match: all of ours first, then all of Shopify's (a total cap would cut Shopify off
-      // whenever our catalog has many matches, e.g. 182 linen kurtas).
-      limit: MAX_LIST,
-      perBrand: 4,
+      // Every exact match, ranked by relevance across both sources.
+      limit: SCOUT_LIST.limit,
+      perBrand: SCOUT_LIST.perBrand,
       sort: intent.sort,
     });
+    if (id) scoutLists.set(id, res);
     // Scout's segment pills show this when a tapped segment has no exact match.
     return Response.json({ ...res, emptyNote: anchor && !res.products.length ? noExactNote(anchor) : undefined });
   } catch (err) {

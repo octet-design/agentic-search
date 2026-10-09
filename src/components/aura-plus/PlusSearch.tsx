@@ -102,7 +102,7 @@ function ResultsGrid({ s, hidden, mixShopify }: { s: ChatSection; hidden: Set<st
       ? fetch("/api/blend/section", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ intent: s.intent, anchor: s.anchor ?? null, categories: s.intent.categories.include }),
+          body: JSON.stringify({ id: s.id, intent: s.intent, anchor: s.anchor ?? null, categories: s.intent.categories.include }),
         })
       : fetch("/api/chat/section", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ intent: s.intent }) });
     req
@@ -112,7 +112,7 @@ function ResultsGrid({ s, hidden, mixShopify }: { s: ChatSection; hidden: Set<st
     return () => {
       live = false;
     };
-  }, [s.intent, s.anchor, mixShopify]);
+  }, [s.id, s.intent, s.anchor, mixShopify]);
 
   const seen = new Set<string>();
   const all = [...s.products, ...(more ?? [])].filter((p) => !hidden.has(p.id) && !seen.has(p.id) && (seen.add(p.id), true));
@@ -301,7 +301,7 @@ export function PlusSearch({ id, mode }: { id: string; mode: PlusMode }) {
         const res = await fetch("/api/blend/section", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ intent: seg.intent, anchor: seg.anchor ?? null, categories: seg.categories }),
+          body: JSON.stringify({ id: seg.id, intent: seg.intent, anchor: seg.anchor ?? null, categories: seg.categories }),
         });
         if (!res.ok) throw new Error(String(res.status));
         const j = (await res.json()) as { products: ProductCard[]; emptyNote?: string };
