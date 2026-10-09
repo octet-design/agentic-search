@@ -225,7 +225,8 @@ export type AgentEvent =
     }
   | { type: "error"; message: string; retryable: boolean }
   // Conversational mode
-  | { type: "chat_text"; block: "intro" | "outro" | "answer"; delta: string }
+  /** Streamed text; `replace` swaps the whole block (e.g. the intro after key words are bolded). */
+  | { type: "chat_text"; block: "intro" | "outro" | "answer"; delta: string; replace?: boolean }
   | { type: "sections_plan"; sections: { id: string; title: string; why: string }[] }
   | {
       type: "section";

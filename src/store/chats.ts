@@ -122,7 +122,7 @@ function updateMsg(chat: Chat, msgId: string, fn: (m: AssistantMessage) => Assis
 function reduce(chat: Chat, msgId: string, e: AgentEvent): Chat {
   switch (e.type) {
     case "chat_text":
-      return updateMsg(chat, msgId, (m) => ({ ...m, [e.block]: m[e.block] + e.delta }));
+      return updateMsg(chat, msgId, (m) => ({ ...m, [e.block]: e.replace ? e.delta : m[e.block] + e.delta }));
     case "sections_plan":
       return updateMsg(chat, msgId, (m) => ({
         ...m,

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { normalizeAttributes, normalizeCompare } from "../compare";
-import { namesWithoutStore, shopifyQuery } from "./chatAgent";
+import { boldItem, namesWithoutStore, shopifyQuery } from "./chatAgent";
 import { forSomeoneElse, keepUserStatedMusts, lastAsked, pickedAudience, recipientAudience, sameQuestion, refsInText, resolveCategories, toIntent, wantsChange } from "./chatAgent";
 import { fixtureTax as tax, intentWith } from "./testFixture";
 
@@ -179,5 +179,13 @@ describe("namesWithoutStore", () => {
     expect(namesWithoutStore(["dailyobjects"], "DailyObjects")).toEqual([]);
     expect(namesWithoutStore(["apple", "Daily Objects"], "dailyobjects")).toEqual(["apple"]);
     expect(namesWithoutStore(["kohli"], "")).toEqual(["kohli"]);
+  });
+});
+
+describe("boldItem", () => {
+  it("bolds the first mention of the item, longest name first, plural allowed", () => {
+    expect(boldItem("Here are some insulated tumblers perfect for your desk.", ["tumbler", "insulated tumbler"])).toBe("Here are some **insulated tumblers** perfect for your desk.");
+    expect(boldItem("Here are some t-shirts for you.", ["t-shirt"])).toBe("Here are some **t-shirts** for you.");
+    expect(boldItem("Nothing to bold here.", ["headphones"])).toBe("Nothing to bold here.");
   });
 });

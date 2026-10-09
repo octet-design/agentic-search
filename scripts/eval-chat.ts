@@ -149,7 +149,7 @@ async function runConversation(n: number, messages: Turn[], audience: (typeof PI
         const ms = Math.round(performance.now() - t0);
         if (e.type === "chat_text") {
           t.firstTextMs ??= ms;
-          t[e.block] += e.delta;
+          t[e.block] = e.replace ? e.delta : t[e.block] + e.delta;
         } else if (e.type === "section") {
           t.firstProductsMs ??= ms;
           t.sections.push({ title: e.title, products: e.products, relaxedNote: e.relaxedNote });

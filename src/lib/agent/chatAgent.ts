@@ -167,6 +167,7 @@ let plannerSystem: string | null = null;
 const SCOUT_SEGMENTS = `
 
 SCOUT (overrides the persona above): you are Scout, a shopping assistant for ANY product, not only fashion: clothing and footwear, but also electronics, home and kitchen, beauty, sports, toys, books, gifts and more. Products come from our own catalog (fashion) and partner stores (everything). For a non-fashion item, set section categories [] (the category vocabulary is fashion-only) and rely on anchor (e.g. "wireless earbuds" → terms ["wireless earbuds","earbuds","tws earphones"]). Only ask who it's for when it matters for the product (clothing, footwear, gifts); set audience "unknown" for things like headphones or cookware. When you greet people or describe what you can do, say you help them shop for anything (fashion, electronics, home, beauty, gifts…), never only fashion.
+- SCOUT FORMATTING: in the intro, bold the 2–3 words or short phrases that matter most with **…** (what you're showing and the key quality to look for, e.g. "Here are **lightweight athletic shorts** with **side pockets**…"). Never bold whole sentences, and no other formatting.
 - SCOUT VOICE: speak like a knowledgeable personal shopper, not only a stylist. For non-fashion items, explain what actually matters when choosing (specs, materials, features, capacity, battery, durability, care) instead of styling. Closing questions ask about what matters for that kind of product (budget, size or capacity, must-have features, brand preference, who it's for), not outfit colours. A vague opener ("men", "women", "something nice", "a gift") gets a question about what kind of product, across everything you can shop (clothing, footwear, gadgets, home, beauty, gifts…), not only clothing.
 - SCOUT: only the FIRST section's results are shown right away; the other sections appear as buttons the user can tap to see them. Put the most important section first. In the intro, talk about the first section and mention the others briefly as things you can also show ("I can also pull up bags and cozy accessories").`;
 
@@ -519,6 +520,22 @@ export function wantsChange(message: string): boolean {
   return /\b(?:than usual|new look|fresh look|different|bolder|experiment\w*|out of (?:my )?comfort zone|change (?:my|of) (?:style|look)|something new|kuch (?:naya|alag|hatke))\b/i.test(message);
 }
 
+/**
+ * Bolds the first mention of the item in a sentence ("insulated tumblers"), trying the longest names first and
+ * allowing a plural. Pure; unit-tested.
+ */
+export function boldItem(text: string, names: string[]): string {
+  const sorted = [...new Set(names.map((n) => n.trim().toLowerCase()).filter((n) => n.length >= 3))].sort((a, b) => b.length - a.length);
+  for (const name of sorted) {
+    const words = name.replace(/[^a-z0-9 ]+/g, " ").split(/\s+/).filter(Boolean);
+    if (!words.length) continue;
+    const re = new RegExp(`\\b(${words.map((w) => w.replace(/s$/, "")).join("[\\s-]+")}(?:s|es)?)\\b`, "i");
+    const m = re.exec(text);
+    if (m) return `${text.slice(0, m.index)}**${m[1]}**${text.slice(m.index + m[1].length)}`;
+  }
+  return text;
+}
+
 /** mustInclude minus the store the shopper asked to buy from (the planner sometimes puts it in both). */
 export function namesWithoutStore(names: string[], store: string): string[] {
   const squash = (x: string) => x.toLowerCase().replace(/[^a-z0-9]+/g, "");
@@ -621,6 +638,11 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
     if (plan.intro.length > introSent.length && plan.intro.startsWith(introSent)) emit({ type: "chat_text", block: "intro", delta: plan.intro.slice(introSent.length) });
     // Bullets only once, and only when the intro didn't already include its own.
     if (withTips && plan.turnType === "recommend" && !/^\s*[-•*]\s+/m.test(plan.intro)) sendTips(plan.tips, true);
+  }
+  // Scout bolds the key words; when the model didn't, bold the item's name where the intro mentions it.
+  if (input.blend && (plan.turnType === "recommend" || plan.turnType === "refine") && plan.intro && !plan.intro.includes("**")) {
+    const bolded = boldItem(plan.intro, plan.sections.flatMap((s) => [...s.anchor.terms, s.title]));
+    if (bolded !== plan.intro) emit({ type: "chat_text", block: "intro", delta: bolded, replace: true });
   }
   timings.understand = Math.round(performance.now() - t0);
   emit({ type: "step", id: "understand", label: "Thinking about what you need", status: "done", ms: timings.understand });

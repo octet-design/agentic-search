@@ -65,6 +65,7 @@ function shopifyPreview(p: ProductCard): ShopifyCard {
     title: p.title,
     image: p.image,
     price: { amount: Math.round(p.price * 100), currency: "INR" },
+    listPrice: p.listPrice ? { amount: Math.round(p.listPrice * 100), currency: "INR" } : null,
     priceFrom: false,
     seller: p.brand,
     sellerId: null,

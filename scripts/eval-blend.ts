@@ -49,7 +49,7 @@ async function run(n: number, spec: (typeof QUERIES)[number]): Promise<Row> {
         if (e.type === "chat_state") for (const s of e.lastSections) specs.set(s.title, s.categories);
         if (e.type === "done") row.timings = e.timings;
         if (e.type === "ask") row.ask = e.question;
-        if (e.type === "chat_text") row.text += e.delta;
+        if (e.type === "chat_text") row.text = e.replace ? e.delta : row.text + e.delta;
         if (e.type === "section") row.sections.push({ title: e.title, anchor: e.anchor, categories: specs.get(e.title) ?? [], products: e.products, emptyNote: e.emptyNote });
       },
     );
