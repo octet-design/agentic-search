@@ -5,7 +5,7 @@ import { scoutExamples } from "@/lib/blendServer";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = { title: "Scout", description: "A shopping agent that scouts our catalog and India-based stores on Shopify, asks what you need, and shows only exact matches." };
+export const metadata: Metadata = { title: "Scout", description: "A shopping agent that scouts our catalog and stores on Shopify that deliver to India, asks what you need, and shows only exact matches." };
 
 /** Scout (formerly Blend search): Typesense search's flow with Shopify Global Catalog results mixed in, tagged by source. */
 export default async function ScoutPage() {

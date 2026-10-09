@@ -120,7 +120,7 @@ function priceCap(v: ProductView, country: Country): number | null {
   return Math.max(floor, Math.round(major * 1.5));
 }
 
-/** `general` (Scout): any product; non-fashion gets "goes well with" items, searched across every category from local sellers. */
+/** `general` (Scout): any product; non-fashion gets "goes well with" items, searched across every category. */
 export async function styleIt(opts: { id: string; country: Country; occasion?: string; general?: boolean; signal?: AbortSignal }): Promise<StyleItResult | null> {
   const { id, country } = opts;
   let v = pieces.get(`${id}:${country.code}`);
@@ -152,14 +152,14 @@ export function sameProduct(a: string, b: string): boolean {
   return any > 0 && both / any >= 0.5;
 }
 
-/** One real product per planned item (cached). Scout searches every category, from local sellers only. */
+/** One real product per planned item (cached). Scout searches every category. */
 async function lookFor(key: string, items: z.infer<typeof ItemSchema>[], v: ProductView, country: Country, general: boolean, signal?: AbortSignal): Promise<StyleLookItem[]> {
   const hit = looks.get(key);
   if (hit) return hit;
   const max = priceCap(v, country);
   const pages = await Promise.all(
     items.map((it) =>
-      searchFashion({ query: it.query, min: null, max, local: general, allCategories: general }, country, { limit: 10, exclude: new Set([v.id]), signal }).catch(() => null),
+      searchFashion({ query: it.query, min: null, max, local: false, allCategories: general }, country, { limit: 10, exclude: new Set([v.id]), signal }).catch(() => null),
     ),
   );
   const used = new Set([v.id]);

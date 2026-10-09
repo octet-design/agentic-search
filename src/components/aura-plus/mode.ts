@@ -31,7 +31,7 @@ export const SCOUT_MODE: PlusMode = {
   title: "Scout",
   blend: true,
   headline: { lead: "Find anything, ", em: "the smart", tail: " way" },
-  subtitle: "Tell Scout what you need in English, Hinglish or Hindi. It asks what matters, then finds the best options from our catalog and stores across India.",
+  subtitle: "Tell Scout what you need in English, Hinglish or Hindi. It asks what matters, then finds the best options from our catalog and partner stores.",
   placeholder: "What are you shopping for today?",
   feedQueries: [
     "wireless earbuds",

@@ -1,8 +1,8 @@
 /**
  * Server side of blending Shopify into Typesense search: Shopify Global Catalog lookups shaped as catalog
  * ProductCards (India, INR, fashion only). Every call fails soft: Shopify is additive, never a blocker.
- * Sellers must be in the buyer's country: Shopify's catalog has no seller country, so we use its closest
- * filter, "ships from" (LOCAL_SELLERS).
+ * Every search keeps Shopify's "ships to India" filter (deliverable, priced in ₹). The "ships from India"
+ * seller filter (LOCAL_SELLERS) is off: the product owner wants stores from anywhere that deliver to India.
  */
 import type { Intent, ProductCard } from "./agent/types";
 import { fromShopify, isShopifyId, shopifyIdOf, withAudience } from "./blend";
@@ -15,8 +15,8 @@ import { searchFashion } from "./shopify/search";
 import { toProductView } from "./shopify/view";
 
 const INDIA = getCountry("IN");
-/** Only products shipped from the buyer's country (India-based sellers). */
-const LOCAL_SELLERS = true;
+/** Only products shipped from the buyer's country (India-based sellers). Off: any store that delivers to India. */
+const LOCAL_SELLERS = false;
 
 /** Shopify products for a chat section: same need, same budget. Scout passes the item's name as the query. */
 export async function shopifyForSection(opts: { query: string; audience: Intent["audience"]; min?: number | null; max?: number | null; limit?: number; signal?: AbortSignal }): Promise<ProductCard[]> {

@@ -12,7 +12,7 @@ const BodySchema = z.object({
   id: z.string().regex(/^[\w-]{1,64}$/),
   country: z.string().optional(),
   occasion: z.string().max(60).optional(),
-  /** Scout: any product (non-fashion gets "goes well with"), local sellers, every category. */
+  /** Scout: any product (non-fashion gets "goes well with"), every category. */
   general: z.boolean().optional(),
 });
 
