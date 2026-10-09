@@ -17,7 +17,8 @@ export function isChatRunning(chatId: string) {
 }
 
 /** opts.refs: products the message is about (from card buttons); the server treats them like typed "#n". */
-export async function sendChatMessage(chatId: string, text: string, opts: { debug?: boolean; refs?: number[] } = {}) {
+/** opts.image: a photo sent with the text (full for the agent, thumb kept on the message). Text is always required. */
+export async function sendChatMessage(chatId: string, text: string, opts: { debug?: boolean; refs?: number[]; image?: { full: string; thumb: string } } = {}) {
   const message = text.trim();
   if (!message) return;
   running.get(chatId)?.abort();
@@ -28,7 +29,7 @@ export async function sendChatMessage(chatId: string, text: string, opts: { debu
   const before = chats.chats[chatId];
   if (!before) return;
   const history = before.messages.slice(-10).map((m) => ({ role: m.role, content: historyText(m) })).filter((m) => m.content);
-  chats.addUser(chatId, message, opts.refs);
+  const userMsgId = chats.addUser(chatId, message, opts.refs, opts.image?.thumb);
   const msgId = chats.addAssistant(chatId);
 
   const session = useSession.getState();
@@ -37,6 +38,7 @@ export async function sendChatMessage(chatId: string, text: string, opts: { debu
     history,
     state: { intent: before.intent, lastSections: before.lastSections, products: before.shown.slice(-120), nextRef: before.nextRef },
     refs: opts.refs ?? [],
+    ...(opts.image ? { image: opts.image.full } : {}),
     audience: before.audience ?? null,
     memory: FEATURES.memory ? session.memory.map((m) => m.text) : [],
     taste: tastePayload({ profile: session.profile, signals: session.signals }),
@@ -73,6 +75,10 @@ export async function sendChatMessage(chatId: string, text: string, opts: { debu
           continue;
         }
         if (e.type === "memory" && FEATURES.memory) useSession.getState().addMemory(e.facts);
+        if (e.type === "photo") {
+          useChats.getState().setPhoto(chatId, userMsgId, e.description);
+          continue;
+        }
         useChats.getState().applyEvent(chatId, msgId, e);
       }
     }

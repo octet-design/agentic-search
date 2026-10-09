@@ -38,7 +38,15 @@ export const ChatSectionSpecSchema = z.object({
   softPreferences: z.array(z.string()),
   semanticQuery: z.string(),
   budgetMax: z.number().nullable(),
-  anchor: z.object({ terms: z.array(z.string()).max(8), categoryLevel: z.boolean(), mustInclude: z.array(z.string()).max(4).optional() }).optional(),
+  anchor: z
+    .object({
+      terms: z.array(z.string()).max(8),
+      categoryLevel: z.boolean(),
+      mustInclude: z.array(z.string()).max(4).optional(),
+      store: z.string().max(80).optional(),
+      forItem: z.string().max(40).optional(),
+    })
+    .optional(),
 });
 
 export const ShownProductSchema = z.object({
@@ -67,6 +75,10 @@ export type ChatTurnInput = {
   refs?: number[];
   /** "Shopping for" picker choice for this chat (null = anyone). */
   audience?: "women" | "men" | "girls" | "boys" | null;
+  /** A photo the user attached to this message (JPEG/PNG/WebP data URL). It always comes with text. */
+  image?: string;
+  /** Filled by runChatTurn from `image`: what the photo shows, for the planner. */
+  photo?: string;
   history: { role: "user" | "assistant"; content: string }[];
   state: ChatState;
   memory: string[];
@@ -97,7 +109,7 @@ const SectionSchema = z.object({
   softPreferences: z.array(z.string()),
   semanticQuery: z.string(),
   budgetMax: z.number().nullable(),
-  anchor: z.object({ terms: z.array(z.string()), categoryLevel: z.boolean(), mustInclude: z.array(z.string()) }),
+  anchor: z.object({ terms: z.array(z.string()), categoryLevel: z.boolean(), mustInclude: z.array(z.string()), store: z.string(), forItem: z.string() }),
 });
 
 /**
@@ -157,6 +169,28 @@ const SCOUT_SEGMENTS = `
 SCOUT (overrides the persona above): you are Scout, a shopping assistant for ANY product, not only fashion: clothing and footwear, but also electronics, home and kitchen, beauty, sports, toys, books, gifts and more. Products come from our own catalog (fashion) and partner stores (everything). For a non-fashion item, set section categories [] (the category vocabulary is fashion-only) and rely on anchor (e.g. "wireless earbuds" → terms ["wireless earbuds","earbuds","tws earphones"]). Only ask who it's for when it matters for the product (clothing, footwear, gifts); set audience "unknown" for things like headphones or cookware. When you greet people or describe what you can do, say you help them shop for anything (fashion, electronics, home, beauty, gifts…), never only fashion.
 - SCOUT VOICE: speak like a knowledgeable personal shopper, not only a stylist. For non-fashion items, explain what actually matters when choosing (specs, materials, features, capacity, battery, durability, care) instead of styling. Closing questions ask about what matters for that kind of product (budget, size or capacity, must-have features, brand preference, who it's for), not outfit colours. A vague opener ("men", "women", "something nice", "a gift") gets a question about what kind of product, across everything you can shop (clothing, footwear, gadgets, home, beauty, gifts…), not only clothing.
 - SCOUT: only the FIRST section's results are shown right away; the other sections appear as buttons the user can tap to see them. Put the most important section first. In the intro, talk about the first section and mention the others briefly as things you can also show ("I can also pull up bags and cozy accessories").`;
+
+const PhotoSchema = z.object({ description: z.string() });
+
+/** What the attached photo shows, as a shopper would describe it (vision model, low detail). */
+async function describePhoto(image: string, message: string, usage: Usage, signal?: AbortSignal): Promise<string | null> {
+  const res = await llmStructured({
+    name: "photo",
+    model: getEnv().OPENAI_MODEL_VISION,
+    schema: PhotoSchema,
+    system:
+      "Describe the main product (or outfit) in the photo the way a shopper would search for it: product type, colour, material, pattern, style and notable details, plus any brand or text you can read. 15–40 words, plain English. If the user's message points at one item in the photo, describe that one. Don't guess prices.",
+    user: [
+      { type: "text", text: `User's message: ${message}` },
+      { type: "image_url", image_url: { url: image, detail: "low" } },
+    ],
+    usage,
+    signal,
+    timeoutMs: 20_000,
+    maxTokens: 120,
+  });
+  return res.description.trim() || null;
+}
 
 /** The reply to anything that isn't about shopping. */
 export const OFF_TOPIC_NOTE = "I can only help with shopping, so I can't answer that one.";
@@ -261,7 +295,7 @@ Don't name specific products yet (you haven't seen them).
 - clarify / chitchat: the full reply.
 You may use general fashion knowledge freely (fabric behaviour, styling, pairing, occasion norms, climate, body-shape tips). Never invent stock, delivery, discounts, ratings or reviews.
 
-sections: each = a category the user should shop, with title (2–4 words), why = a practical tip for choosing within it (≤ 25 words, e.g. "Pick zari or mirror work if your lehenga is heavily embroidered; plain silk if it's minimal"), categories (1–3 canonical CATEGORY ids from the lists below, e.g. "shirt", "trouser", "loafer", "kurta-set", never department names), optional colors/fabrics/patterns/useCases ids that suit, softPreferences, semanticQuery (clean English, 6–12 words, for embedding search), budgetMax (per-section ₹ cap only when the user gave a total budget; else null), anchor = the exact item this section is for, used to show only exact matches: terms = the ITEM's name as the user said it (or this section's product noun when you chose it, e.g. "anarkali") plus spellings and transliterations of the SAME item only, lowercase ("chaniya choli", "chaniya-choli", "chaniyacholi", "chania choli"); never broader or related items ("lehenga" or "navratri lehenga" are not chaniya choli). Keep named types that change what the item is (bandhani saree, kanjivaram saree, kolhapuri chappal, patola dupatta, potli bag), but leave out plain attributes, which are filtered separately: fabric, colour, fit, print, occasion ("linen kurta" → "kurta", "red silk saree" → "saree"). categoryLevel = true when the name is a whole canonical category ("saree", "kurta set", "loafer"), false when it's narrower than its category ("chaniya choli" within lehenga, "kolhapuri" within sandals, "bandhani saree" within saree). mustInclude = the specific names the user insists on, which every result must mention: a person, team, brand, franchise, character or model ("Virat Kohli t-shirt" → terms ["t-shirt","tshirt","tee","jersey"], mustInclude ["kohli"]; "Nike running shoes" → mustInclude ["nike"]; "Marvel hoodie" → ["marvel"]). Use the most distinctive single word of a name (a surname, the brand). Never put colours, fabrics or styles in mustInclude. Usually [].
+sections: each = a category the user should shop, with title (2–4 words), why = a practical tip for choosing within it (≤ 25 words, e.g. "Pick zari or mirror work if your lehenga is heavily embroidered; plain silk if it's minimal"), categories (1–3 canonical CATEGORY ids from the lists below, e.g. "shirt", "trouser", "loafer", "kurta-set", never department names), optional colors/fabrics/patterns/useCases ids that suit, softPreferences, semanticQuery (clean English, 6–12 words, for embedding search), budgetMax (per-section ₹ cap only when the user gave a total budget; else null), anchor = the exact item this section is for, used to show only exact matches: terms = the ITEM's name as the user said it (or this section's product noun when you chose it, e.g. "anarkali") plus spellings and transliterations of the SAME item only, lowercase ("chaniya choli", "chaniya-choli", "chaniyacholi", "chania choli"); never broader or related items ("lehenga" or "navratri lehenga" are not chaniya choli). Keep named types that change what the item is (bandhani saree, kanjivaram saree, kolhapuri chappal, patola dupatta, potli bag), but leave out plain attributes, which are filtered separately: fabric, colour, fit, print, occasion ("linen kurta" → "kurta", "red silk saree" → "saree"). categoryLevel = true when the name is a whole canonical category ("saree", "kurta set", "loafer"), false when it's narrower than its category ("chaniya choli" within lehenga, "kolhapuri" within sandals, "bandhani saree" within saree). mustInclude = the specific names the user insists on, which every result must mention: a person, team, brand, franchise, character or model ("Virat Kohli t-shirt" → terms ["t-shirt","tshirt","tee","jersey"], mustInclude ["kohli"]; "Nike running shoes" → mustInclude ["nike"]; "Marvel hoodie" → ["marvel"]). Use the most distinctive single word of a name (a surname, the brand). Never put colours, fabrics or styles in mustInclude. Usually []. store = the store or brand the user asked to buy FROM ("leather watch straps from DailyObjects" → "DailyObjects"; "Nike running shoes" is a brand of the product, so it goes in mustInclude, not store); "" when none. The app checks whether that store is available, so don't promise its products in the intro. forItem = for an accessory or part, the main item it is FOR, in one or two words ("watch straps" → "watch"; "phone case" → "phone"; "laptop sleeve" → "laptop"; "saree blouse" → "saree"); "" when the item isn't an accessory of something else (a chaniya choli is a kind of lehenga, not an accessory: "").
 
 base: the chat's running understanding, CARRIED FORWARD from the current state and updated with this message: audience; budgetMin/budgetMax (₹) with budgetStrict (true when the user stated a limit or said "cheaper"); mustColors/mustFabrics ONLY when the user explicitly requires them ("only cotton", "must be black"). Fabrics/colours YOU suggest go in section fabrics/colors, never in must; excludeColors/excludeFabrics/excludePatterns/excludeBrands (canonical ids) and textExclusions (other negatives: "cutouts", "sleeveless", "heavy embroidery"); preferences (soft style words: "breathable", "minimal", "not too heavy"); occasion; sort ("price_asc" for cheapest first / price low to high, "price_desc" for most expensive first / high to low, else "relevance"; a sort request alone is a refine turn that re-issues the previous sections, and the sort is carried forward until the user changes it or starts a new need); summary (short English description of the current need). Keep everything from the previous state unless the user changes or drops it ("polyester is fine now" removes that exclusion; a new unrelated need resets occasion/preferences but keeps audience and exclusions).
 Rules: canonical ids only (from the vocabulary). "k" = ×1000; "under 2k" → budgetMax 2000 strict; "around 2000" → 1600–2400 not strict; "cheaper" → budgetMax below most shown prices, strict. Audience: explicit words or gender-implicit items (saree → women, sherwani → men); "for my wife/daughter/dad" sets it; if unknown and the profile has exactly one audience use it. If it's still unknown and the need is gendered clothing or footwear, set ask {"Who is this for?", ["Women","Men","Kids"]} and still plan best-guess sections.
@@ -412,6 +446,9 @@ function plannerUser(input: ChatTurnInput): string {
     shown.length ? `Products shown so far:\n${shown.map(productLine).join("\n")}` : "No products shown yet.",
     input.history.length ? `Conversation so far:\n${input.history.slice(-8).map((m) => `${m.role}: ${m.content.slice(0, 600)}`).join("\n")}` : "",
     mentioned.size ? `The user is pointing at: ${[...mentioned].map((r) => `#${r}`).join(", ")}` : "",
+    input.photo
+      ? `The user attached a photo with this message. It shows: ${input.photo}\nRead their words together with the photo ("this", "something like this", "in blue", "what goes with this"). Name the items to search from the photo plus their words.`
+      : "",
     `User: ${input.message}`,
   ]
     .filter(Boolean)
@@ -482,14 +519,21 @@ export function wantsChange(message: string): boolean {
   return /\b(?:than usual|new look|fresh look|different|bolder|experiment\w*|out of (?:my )?comfort zone|change (?:my|of) (?:style|look)|something new|kuch (?:naya|alag|hatke))\b/i.test(message);
 }
 
+/** mustInclude minus the store the shopper asked to buy from (the planner sometimes puts it in both). */
+export function namesWithoutStore(names: string[], store: string): string[] {
+  const squash = (x: string) => x.toLowerCase().replace(/[^a-z0-9]+/g, "");
+  const st = squash(store);
+  return st ? names.filter((n) => squash(n) && !st.includes(squash(n)) && !squash(n).includes(st)) : names;
+}
+
 /** Scout's Shopify query for a section: its own angle ("mirror work chaniya choli"), always naming the item and any insisted-on names. */
-export function shopifyQuery(anchor: { terms: string[]; mustInclude?: string[] } | undefined, semanticQuery: string): string {
+export function shopifyQuery(anchor: { terms: string[]; mustInclude?: string[]; store?: string } | undefined, semanticQuery: string): string {
   const item = anchor?.terms[0]?.trim();
   if (!item) return semanticQuery;
   const flat = (x: string) => x.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
   let words = semanticQuery.split(/\s+/).slice(0, 8).join(" ");
   if (!flat(words).includes(flat(item))) words = `${item} ${words}`;
-  const missing = (anchor?.mustInclude ?? []).filter((n) => !flat(words).split(" ").includes(flat(n)));
+  const missing = [...(anchor?.mustInclude ?? []), ...(anchor?.store ? [anchor.store] : [])].filter((n) => !flat(words).includes(flat(n)));
   return missing.length ? `${missing.join(" ")} ${words}` : words;
 }
 
@@ -525,6 +569,19 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
   const t0 = performance.now();
   const timings: Record<string, number> = {};
   const debug: Record<string, unknown> = {};
+
+  // 0. A photo: read it first, so the planner works from what it shows plus the user's words.
+  if (input.image && !input.photo) {
+    emit({ type: "step", id: "understand", label: "Looking at your photo", status: "running" });
+    const p0 = performance.now();
+    const seen = await describePhoto(input.image, input.message, usage, input.signal).catch(() => null);
+    timings.photo = Math.round(performance.now() - p0);
+    if (seen) {
+      input = { ...input, photo: seen };
+      // The client keeps this on the user's message, so later turns know what the photo showed.
+      emit({ type: "photo", description: seen });
+    }
+  }
 
   // 1. Understand + plan (intro streams while the rest of the plan is generated)
   emit({ type: "step", id: "understand", label: "Thinking about what you need", status: "running" });
@@ -605,7 +662,14 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
           semanticQuery: s.semanticQuery,
           budgetMax: s.budgetMax,
           anchor: s.anchor.terms.length
-            ? { terms: s.anchor.terms.slice(0, 6), categoryLevel: s.anchor.categoryLevel, ...(s.anchor.mustInclude.length ? { mustInclude: s.anchor.mustInclude.slice(0, 4) } : {}) }
+            ? {
+                terms: s.anchor.terms.slice(0, 6),
+                categoryLevel: s.anchor.categoryLevel,
+                // A store is a preference (with a note when unavailable), never a word every title must contain.
+                ...(namesWithoutStore(s.anchor.mustInclude, s.anchor.store).length ? { mustInclude: namesWithoutStore(s.anchor.mustInclude, s.anchor.store).slice(0, 4) } : {}),
+                ...(s.anchor.store.trim() ? { store: s.anchor.store.trim() } : {}),
+                ...(s.anchor.forItem.trim() ? { forItem: s.anchor.forItem.trim().toLowerCase() } : {}),
+              }
             : undefined,
         }));
   const whyByTitle = new Map(plan.sections.map((s) => [s.title, s.why]));
@@ -711,11 +775,13 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
       // 8 per section like a chat answer; "See all" lists more with these same filters (/api/chat/section).
       const ranked = sortByPrice(diversify(tasteBoost(rail.products, taste, tax), 8, 2), s.intent.sort);
       const shown = withRefs(blendShopify ? blendedShown[i] : ranked.slice(0, 8));
+      // Scout: when the store the shopper asked for isn't available, say so above the other stores' results.
+      const storeNote = blendShopify ? blended[i].storeNote : undefined;
       const anchor = s.spec.anchor;
       const emptyNote = blendShopify && anchor && !shown.length ? noExactNote(anchor) : undefined;
       const more: ProductCard[] = [];
       top.push({ title: s.spec.title, products: shown.slice(0, 4) });
-      emit({ type: "section", id: s.id, title: s.spec.title, why: s.why, query: s.intent.semanticQuery, products: shown, more, relaxedNote: blendShopify ? undefined : rail.relaxedNote, intent: rail.intent, ...(blendShopify ? { anchor, emptyNote } : {}) });
+      emit({ type: "section", id: s.id, title: s.spec.title, why: s.why, query: s.intent.semanticQuery, products: shown, more, relaxedNote: blendShopify ? storeNote : rail.relaxedNote, intent: rail.intent, ...(blendShopify ? { anchor, emptyNote } : {}) });
     });
     if (offered.length) {
       emit({

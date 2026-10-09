@@ -26,7 +26,17 @@ export type ChatSection = {
 };
 
 /** refs: products the message points at (card buttons), since ref numbers are no longer typed by users. */
-export type UserMessage = { id: string; role: "user"; text: string; at: number; refs?: number[] };
+export type UserMessage = {
+  id: string;
+  role: "user";
+  text: string;
+  at: number;
+  refs?: number[];
+  /** A small preview of the photo sent with this message (the full image isn't stored). */
+  thumb?: string;
+  /** What the photo shows, as the agent read it; carried into later turns' history. */
+  photo?: string;
+};
 export type AssistantMessage = {
   id: string;
   role: "assistant";
@@ -81,7 +91,9 @@ type Actions = {
   pin: (chatId: string, card: ProductCard) => number;
   deleteChat: (id: string) => void;
   renameChat: (id: string, title: string) => void;
-  addUser: (chatId: string, text: string, refs?: number[]) => string;
+  addUser: (chatId: string, text: string, refs?: number[], thumb?: string) => string;
+  /** Records what the photo on a user message shows. */
+  setPhoto: (chatId: string, userMsgId: string, description: string) => void;
   addAssistant: (chatId: string) => string;
   applyEvent: (chatId: string, msgId: string, e: AgentEvent) => void;
   /** Scout: a tapped segment pill becomes a result set in that message (products get refs here). */
@@ -225,13 +237,13 @@ export const useChats = create<State & Actions>()(
           return { chats, order: s.order.filter((x) => x !== id) };
         }),
       renameChat: (id, title) => set((s) => (s.chats[id] ? { chats: { ...s.chats, [id]: { ...s.chats[id], title: titleFrom(title) } } } : s)),
-      addUser: (chatId, text, refs) => {
+      addUser: (chatId, text, refs, thumb) => {
         const id = uid();
         set((s) => {
           const chat = s.chats[chatId];
           if (!chat) return s;
           const first = !chat.messages.some((m) => m.role === "user");
-          const msg: UserMessage = { id, role: "user", text, at: Date.now(), ...(refs?.length ? { refs } : {}) };
+          const msg: UserMessage = { id, role: "user", text, at: Date.now(), ...(refs?.length ? { refs } : {}), ...(thumb ? { thumb } : {}) };
           return {
             chats: { ...s.chats, [chatId]: { ...chat, title: first ? titleFrom(text) : chat.title, messages: [...chat.messages, msg].slice(-MAX_MESSAGES), updatedAt: Date.now() } },
             order: [chatId, ...s.order.filter((x) => x !== chatId)],
@@ -239,6 +251,13 @@ export const useChats = create<State & Actions>()(
         });
         return id;
       },
+      setPhoto: (chatId, userMsgId, description) =>
+        set((s) => {
+          const chat = s.chats[chatId];
+          if (!chat) return s;
+          const messages = chat.messages.map((m) => (m.id === userMsgId && m.role === "user" ? { ...m, photo: description } : m));
+          return { chats: { ...s.chats, [chatId]: { ...chat, messages } } };
+        }),
       addAssistant: (chatId) => {
         const id = uid();
         set((s) => {
@@ -284,7 +303,7 @@ export const useChats = create<State & Actions>()(
 
 /** Compact text of a message for the model's conversation history. */
 export function historyText(m: ChatMessage): string {
-  if (m.role === "user") return m.text;
+  if (m.role === "user") return m.photo ? `${m.text} [attached photo: ${m.photo}]` : m.text;
   const shown = m.sections
     .filter((s) => s.products.length)
     .map((s) => `${s.title} (#${s.products[0].ref}–#${s.products[s.products.length - 1].ref})`)

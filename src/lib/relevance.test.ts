@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { fixtureTax as tax } from "./agent/testFixture";
 import type { ProductCard } from "./agent/types";
-import { catalogFirst, dropOffMeaning, hasTerm, isExact, orderByRelevance, sortByPrice } from "./relevance";
+import { catalogFirst, dropOffMeaning, fromStore, hasTerm, isExact, isTheItemItself, namesCategory, orderByRelevance, sortByPrice } from "./relevance";
 
 const card = (id: string, title: string, extra: Partial<ProductCard> = {}): ProductCard => ({
   id,
@@ -136,5 +136,43 @@ describe("dropOffMeaning", () => {
       ["noise", 0.55],
     ]);
     expect(dropOffMeaning(xs, score).map((x) => x.id)).toEqual(["edifier", "jbl", "noise"]);
+  });
+});
+
+describe("category-level anchors only accept the category they name", () => {
+  it("lets a saree search accept sarees, but not a narrower item accept its parent category", () => {
+    expect(namesCategory("saree", "saree", tax)).toBe(true);
+    expect(namesCategory("kurta sets", "kurta-set", tax)).toBe(true);
+    expect(namesCategory("silk saree blouse", "saree", tax)).toBe(false);
+    const sareeItem = card("s1", "Banarasi weave six yards", { category: "silk sarees" });
+    expect(isExact(sareeItem, { terms: ["saree blouse"], categoryLevel: true }, ["saree"], tax)).toBe(false);
+    expect(isExact(sareeItem, { terms: ["saree"], categoryLevel: true }, ["saree"], tax)).toBe(true);
+  });
+});
+
+describe("fromStore", () => {
+  it("matches a store however it's spaced or cased, by brand or domain", () => {
+    expect(fromStore({ brand: "Daily Objects" }, "DailyObjects")).toBe(true);
+    expect(fromStore({ brand: "Shop", domain: "dailyobjects.com" }, "dailyobjects")).toBe(true);
+    expect(fromStore({ brand: "watchtopia.in" }, "DailyObjects")).toBe(false);
+    expect(fromStore({ brand: "Argos Watches" }, "")).toBe(false);
+  });
+});
+
+describe("isTheItemItself (accessories)", () => {
+  it("rejects the main item, keeps accessories for it", () => {
+    expect(isTheItemItself({ title: "Leather Strap Analog Watch", source: "shopify" }, "watch", tax)).toBe(true);
+    expect(isTheItemItself({ title: "Duke Analogue Men Black Watch with Leather Strap", source: "shopify" }, "watch", tax)).toBe(true);
+    expect(isTheItemItself({ title: "Apple Watch Leather Strap (Vintage Brown)", source: "shopify" }, "watch", tax)).toBe(false);
+    expect(isTheItemItself({ title: "Croc Leather Watch Strap (18mm)", source: "shopify" }, "watch", tax)).toBe(false);
+    expect(isTheItemItself({ title: "Silk Saree with Blouse Piece", source: "shopify" }, "saree", tax)).toBe(true);
+    expect(isTheItemItself({ title: "Embroidered Silk Blouse for Sarees", source: "shopify" }, "saree", tax)).toBe(false);
+    expect(isTheItemItself({ title: "Banarasi weave six yards", category: "silk sarees" }, "saree", tax)).toBe(true);
+  });
+  it("is part of the exact check", () => {
+    const strap = { terms: ["leather strap", "watch strap"], categoryLevel: false, forItem: "watch" };
+    expect(isExact(card("w1", "Leather Strap Analog Watch"), strap, [], tax)).toBe(false);
+    expect(isExact(card("w2", "Croc Leather Watch Strap (18mm)", { source: "shopify" }), strap, [], tax)).toBe(true);
+    expect(isExact(card("w3", "Brown Leather Strap Clogs"), strap, [], tax)).toBe(false);
   });
 });

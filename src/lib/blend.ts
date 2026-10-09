@@ -37,6 +37,7 @@ export function fromShopify(c: ShopifyCard): ProductCard {
     pattern: null,
     useCase: [],
     price: c.price ? Math.round(major(c.price)) : 0,
+    ...(c.listPrice && c.price && c.listPrice.amount > c.price.amount ? { listPrice: Math.round(major(c.listPrice)) } : {}),
     sizes: [],
     image: c.image,
     url,

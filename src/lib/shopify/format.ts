@@ -9,6 +9,13 @@ const fractionDigits = (currency: string) => {
 };
 
 /** UCP prices are integers in minor units ({ amount: 249900, currency: "INR" } is ₹2,499). */
+/** "40% off" for a discounted price, or null when there's no real discount. */
+export function percentOff(price: { amount: number } | null | undefined, list: { amount: number } | null | undefined): number | null {
+  if (!price || !list || list.amount <= price.amount) return null;
+  const pct = Math.round((1 - price.amount / list.amount) * 100);
+  return pct >= 1 ? pct : null;
+}
+
 export function money(m: Money, locale = "en-IN"): string {
   try {
     const major = m.amount / 10 ** fractionDigits(m.currency);

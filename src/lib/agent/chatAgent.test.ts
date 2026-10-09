@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { normalizeAttributes, normalizeCompare } from "../compare";
-import { shopifyQuery } from "./chatAgent";
+import { namesWithoutStore, shopifyQuery } from "./chatAgent";
 import { forSomeoneElse, keepUserStatedMusts, lastAsked, pickedAudience, recipientAudience, sameQuestion, refsInText, resolveCategories, toIntent, wantsChange } from "./chatAgent";
 import { fixtureTax as tax, intentWith } from "./testFixture";
 
@@ -171,5 +171,13 @@ describe("normalizeAttributes", () => {
       { name: "Capacity", values: ["530 ml", "1.18 L"] },
       { name: "Insulation", values: ["Double-wall vacuum", "—"] },
     ]);
+  });
+});
+
+describe("namesWithoutStore", () => {
+  it("keeps the store out of the must-mention names", () => {
+    expect(namesWithoutStore(["dailyobjects"], "DailyObjects")).toEqual([]);
+    expect(namesWithoutStore(["apple", "Daily Objects"], "dailyobjects")).toEqual(["apple"]);
+    expect(namesWithoutStore(["kohli"], "")).toEqual(["kohli"]);
   });
 });

@@ -36,15 +36,47 @@ export function hasTerm(text: string, term: string): boolean {
   return ws.length === 1 && tokens.some((t, i) => i + 1 < tokens.length && `${t}${tokens[i + 1]}`.replace(/s$/, "") === ws[0].replace(/s$/, ""));
 }
 
+/**
+ * For an accessory ("watch strap", forItem "watch"): is this product the main item itself rather than an accessory
+ * for it? Catalog products filed under that item's category are; so is any title whose head noun is the item
+ * ("Leather Strap Analog Watch", "Black Watch with Leather Strap"), while "Apple Watch Leather Strap (Brown)" stays.
+ */
+export function isTheItemItself(p: { title: string; category?: string; source?: string }, forItem: string, tax: TaxonomyApi): boolean {
+  const item = norm(forItem);
+  if (!item) return false;
+  if (p.source !== "shopify" && p.category) {
+    const cats = tax.classify("category", p.category);
+    if (cats.some((c) => namesCategory(item, c, tax))) return true;
+  }
+  // The title's head noun is its last word once brackets, model codes and "with …" / "for …" parts are stripped:
+  // "Black Watch with Leather Strap" is a watch, "Silk Saree with Blouse Piece" is a saree.
+  const words = norm(p.title.replace(/\([^)]*\)|\[[^\]]*\]/g, " ").split(/[|·,–—-]\s/)[0].split(/\s(?:with|w\/|for)\s/i)[0])
+    .split(" ")
+    .filter((w) => w && !/\d/.test(w));
+  const head = words.at(-1) ?? "";
+  const last = item.split(" ").at(-1)!;
+  return head === last || head === `${last}s` || head === `${last}es`;
+}
+
+/** Does the item's name name this category itself ("formal shoes" ~ "Formal shoe"), not something narrower ("watch strap" vs "Watch")? */
+export function namesCategory(term: string, categoryId: string, tax: TaxonomyApi): boolean {
+  const label = tax.label("category", categoryId) || categoryId.replace(/-/g, " ");
+  return [label, categoryId.replace(/-/g, " ")].some((name) => hasTerm(name, term) && hasTerm(term, name));
+}
+
 /** Is this product exactly what the anchor names (the item, plus every name the user insisted on)? */
 export function isExact(p: ProductCard, anchor: Anchor, sectionCategories: string[], tax: TaxonomyApi): boolean {
   const text = [p.title, p.extraText ?? ""].join(" ");
+  // An accessory must say what it's for ("watch strap", "iPhone 15 case") and must not be that item itself.
+  if (anchor.forItem && (!hasTerm(text, anchor.forItem) || isTheItemItself(p, anchor.forItem, tax))) return false;
   if (!(anchor.mustInclude ?? []).every((name) => hasTerm(text, name))) return false;
   if (anchor.terms.some((t) => hasTerm(text, t))) return true;
-  // A whole-category anchor ("saree") accepts catalog items filed under that category.
+  // A whole-category anchor ("saree") accepts catalog items filed under that category, but only categories the
+  // item's name really is: "watch strap" filed under "watch" must not let every watch through.
   if (anchor.categoryLevel && p.source !== "shopify" && p.category && sectionCategories.length) {
-    const ok = new Set(sectionCategories.flatMap((c) => [c, ...tax.children(c)]));
-    return tax.classify("category", p.category).some((c) => ok.has(c));
+    const named = sectionCategories.filter((c) => anchor.terms.some((t) => namesCategory(t, c, tax)));
+    const ok = new Set(named.flatMap((c) => [c, ...tax.children(c)]));
+    return ok.size > 0 && tax.classify("category", p.category).some((c) => ok.has(c));
   }
   return false;
 }
@@ -133,7 +165,18 @@ export function sortByPrice<T extends { price: number }>(items: T[], sort: Inten
   return [...items].sort((a, b) => dir * (a.price - b.price));
 }
 
-export type ExactResult = { products: ProductCard[]; exact: { catalog: number; shopify: number } };
+export type ExactResult = { products: ProductCard[]; exact: { catalog: number; shopify: number }; storeNote?: string };
+
+const squash = (s: string) => norm(s).replace(/ /g, "");
+/** Is this product from the store the shopper asked for ("DailyObjects" ~ "Daily Objects", "dailyobjects.com")? */
+export function fromStore(p: { brand: string; domain?: string }, store: string): boolean {
+  const want = squash(store);
+  if (want.length < 3) return false;
+  return [p.brand, p.domain ?? ""].some((x) => {
+    const have = squash(x);
+    return have.length >= 3 && (have.includes(want) || want.includes(have));
+  });
+}
 
 /**
  * Scout ranking. With an anchor, only exact matches from either source survive; without one
@@ -168,8 +211,23 @@ export async function rankBlend(opts: {
   const pool = all.filter((x) => keep.has(x.id));
   catalog = catalog.filter((x) => keep.has(x.id));
   shopify = shopify.filter((x) => keep.has(x.id));
-  const products = opts.sort === "price_asc" || opts.sort === "price_desc" ? sortByPrice(pool, opts.sort).slice(0, opts.limit) : catalogFirst(catalog, shopify, score, opts.limit, opts.perBrand ?? 3);
-  return { products, exact: { catalog: catalog.length, shopify: shopify.length } };
+  // A store the shopper asked for: only its products when it has any; otherwise everyone's, with a note.
+  let storeNote: string | undefined;
+  const store = opts.anchor?.store?.trim();
+  if (store) {
+    const c = catalog.filter((p) => fromStore(p, store));
+    const s = shopify.filter((p) => fromStore(p, store));
+    if (c.length + s.length) {
+      catalog = c;
+      shopify = s;
+    } else if (catalog.length + shopify.length) storeNote = `Couldn't find ${store} in our stores, so these are from other sellers.`;
+  }
+  const ranked = new Set([...catalog, ...shopify].map((x) => x.id));
+  const products =
+    opts.sort === "price_asc" || opts.sort === "price_desc"
+      ? sortByPrice(pool.filter((x) => ranked.has(x.id)), opts.sort).slice(0, opts.limit)
+      : catalogFirst(catalog, shopify, score, opts.limit, opts.perBrand ?? 3);
+  return { products, exact: { catalog: catalog.length, shopify: shopify.length }, ...(storeNote ? { storeNote } : {}) };
 }
 
 /** "No products found" note for a section where neither source had an exact match. */

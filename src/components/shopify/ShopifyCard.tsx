@@ -3,7 +3,7 @@
 import { ShoppingBag, Star } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { money, shopifyProductHref } from "@/lib/shopify/format";
+import { money, percentOff, shopifyProductHref } from "@/lib/shopify/format";
 import type { ShopifyCard as Card } from "@/lib/shopify/types";
 
 export function ShopifyImage({ src, alt, className = "" }: { src: string | null; alt: string; className?: string }) {
@@ -37,6 +37,12 @@ export function ShopifyCard({ p }: { p: Card }) {
             <span className="shrink-0 text-sm font-semibold">
               {p.priceFrom && <span className="font-normal text-ink-soft">from </span>}
               {money(p.price)}
+              {percentOff(p.price, p.listPrice) && (
+                <>
+                  {" "}
+                  <s className="font-normal text-ink-faint">{money(p.listPrice!)}</s> <span className="font-medium text-ok">{percentOff(p.price, p.listPrice)}% off</span>
+                </>
+              )}
             </span>
           )}
         </div>

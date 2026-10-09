@@ -14,6 +14,12 @@ const BodySchema = z.object({
   history: z.array(z.object({ role: z.enum(["user", "assistant"]), content: z.string().max(4000) })).max(20),
   state: ChatStateSchema,
   refs: z.array(z.number().int()).max(5).default([]),
+  /** A photo attached to the message (resized client-side). Always sent with text: `message` is required. */
+  image: z
+    .string()
+    .max(2_000_000)
+    .regex(/^data:image\/(jpeg|png|webp);base64,/)
+    .optional(),
   /** The "Shopping for" picker choice for this chat. */
   audience: z.enum(["women", "men", "girls", "boys"]).nullable().default(null),
   memory: z.array(z.string().max(200)).max(30).default([]),

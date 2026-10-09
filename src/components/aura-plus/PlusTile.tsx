@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Heart, Layers, Sparkles, ThumbsDown } from "lucide-react";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
+import { Price } from "@/components/product/Price";
 import { ProductImage } from "@/components/product/ProductImage";
 import type { ProductCard } from "@/lib/agent/types";
 import { inr } from "@/lib/format";
@@ -158,10 +159,7 @@ export function PlusTile({ p, masonry = false, index = 0 }: { p: ProductCard; ma
         <button type="button" onClick={open} className={`text-left leading-snug text-ink-soft hover:underline ${masonry ? "line-clamp-1 text-xs" : "line-clamp-2 text-sm uppercase tracking-wide"}`}>
           {p.title}
         </button>
-        <span className={`mt-0.5 font-semibold ${masonry ? "text-sm" : "text-base"}`} title={p.priceApprox ? "Converted from the store's currency" : undefined}>
-          {p.priceApprox ? "≈ " : ""}
-          {inr(p.price)}
-        </span>
+        <Price p={p} className={`mt-0.5 ${masonry ? "text-sm" : "text-base"}`} />
       </div>
     </motion.article>
   );

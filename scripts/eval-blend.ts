@@ -25,6 +25,8 @@ const QUERIES: { q: string; audience?: "women" | "men" | "girls" | "boys"; expec
   { q: "virat kohli t-shirt", audience: "men" },
   { q: "noise cancelling headphones under 8000" },
   { q: "what is 75 times 99?", offTopic: true },
+  // An accessory (watch straps, not watches) from a store that isn't available.
+  { q: "leather straps for watch from dailyobjects" },
 ];
 
 type Section = { title: string; anchor?: Anchor; categories: string[]; products: ProductCard[]; emptyNote?: string };

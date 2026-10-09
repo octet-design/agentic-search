@@ -10,6 +10,7 @@ import { sendChatMessage } from "@/lib/chatClient";
 import type { Example } from "@/lib/examples";
 import { useChats } from "@/store/chats";
 import type { PlusMode } from "./mode";
+import { AttachButton, PhotoPreview, type Photo } from "./PhotoAttach";
 import { PlusFeed } from "./PlusFeed";
 import { PlusProduct } from "./PlusProduct";
 import { PlusActionsContext, type PlusActions } from "./PlusTile";
@@ -21,14 +22,15 @@ export function PlusHome({ examples, mode }: { examples: Example[]; mode: PlusMo
   const router = useRouter();
   const hydrated = useHydrated();
   const [query, setQuery] = useState("");
+  const [photo, setPhoto] = useState<Photo | null>(null);
   const [quick, setQuick] = useState<ProductCard | null>(null);
 
   /** Starts an Aura++ chat; `about` pins a feed product so the agent can answer about it. */
-  const start = (text: string, about?: ProductCard) => {
+  const start = (text: string, about?: ProductCard, image?: Photo | null) => {
     const { newChat, pin } = useChats.getState();
     const id = newChat(null, mode.surface);
     const ref = about ? pin(id, about) : null;
-    void sendChatMessage(id, text, ref != null ? { refs: [ref] } : {});
+    void sendChatMessage(id, text, { ...(ref != null ? { refs: [ref] } : {}), ...(image ? { image } : {}) });
     router.push(`${mode.base}/c/${id}`);
   };
 
@@ -61,15 +63,16 @@ export function PlusHome({ examples, mode }: { examples: Example[]; mode: PlusMo
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              if (query.trim()) start(query.trim());
+              // A photo always goes with words: nothing is sent until there's text.
+              if (query.trim()) start(query.trim(), undefined, photo);
             }}
             className="mx-auto mt-10 flex max-w-3xl items-center gap-3 bg-paper px-5 py-4 shadow-[0_10px_40px_rgba(0,0,0,0.08)]"
           >
-            <Search size={20} className="shrink-0" />
+            {mode.blend ? <AttachButton onPick={setPhoto} className="-ml-2" /> : <Search size={20} className="shrink-0" />}
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder={mode.placeholder}
+              placeholder={photo ? "Say what you want with this photo…" : mode.placeholder}
               aria-label="Search"
               maxLength={500}
               autoFocus
@@ -81,6 +84,11 @@ export function PlusHome({ examples, mode }: { examples: Example[]; mode: PlusMo
               </button>
             )}
           </form>
+          {photo && (
+            <div className="mx-auto mt-3 max-w-3xl">
+              <PhotoPreview photo={photo} onRemove={() => setPhoto(null)} needsText={!query.trim()} />
+            </div>
+          )}
 
           <div className="mx-auto mt-6 grid max-w-3xl gap-3 sm:grid-cols-2">
             {examples.slice(0, 4).map((ex, i) => (

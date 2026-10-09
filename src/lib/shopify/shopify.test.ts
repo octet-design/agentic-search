@@ -39,6 +39,7 @@ describe("shopify catalog", () => {
       title: "The Casa Blanca - Short Sleeve White Linen Shirt",
       image: "https://cdn.shopify.com/a.jpg",
       price: { amount: 960000, currency: "INR" },
+      listPrice: null,
       priceFrom: true,
       seller: "Kenny Flowers",
       sellerId: null,
@@ -97,5 +98,14 @@ describe("sameProduct", () => {
     expect(sameProduct("Khadi Men's Cotton Kurta (Half Sleeves)", "Khadi Men's Cotton Kurta (Full Sleeves)")).toBe(true);
     expect(sameProduct("Hard Case for Sony WH-CH720N/WH-CH520 Headphone Storage Bag", "Sony WH-CH720N Noise Canceling Wireless Headphones Bluetooth")).toBe(false);
     expect(sameProduct("Stanley 40 Oz Tumbler Lids", "Stanley - H2.0 Quencher 1.2L Stainless Steel Tumbler (40 Oz)")).toBe(false);
+  });
+});
+
+describe("discounts", () => {
+  it("keeps the original price only when it's above the selling price", async () => {
+    const { percentOff } = await import("./format");
+    expect(percentOff({ amount: 149900 }, { amount: 250000 })).toBe(40);
+    expect(percentOff({ amount: 99000 }, { amount: 99000 })).toBeNull();
+    expect(percentOff({ amount: 99000 }, null)).toBeNull();
   });
 });

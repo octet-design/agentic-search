@@ -6,6 +6,8 @@ export type ProductView = {
   title: string;
   images: { url: string; alt: string }[];
   price: { amount: number; currency: string } | null;
+  /** Original price of the selected variant when discounted. */
+  listPrice: { amount: number; currency: string } | null;
   available: boolean;
   /** One-click checkout for the selected variant, else the store product page. */
   buyUrl: string | null;
@@ -39,6 +41,7 @@ export function toProductView(id: string, p: Product): ProductView {
     title: p.title,
     images,
     price: v?.price ?? p.price_range?.min ?? null,
+    listPrice: v?.list_price && v.price && v.list_price.currency === v.price.currency && v.list_price.amount > v.price.amount ? v.list_price : null,
     available: v?.availability?.available !== false,
     buyUrl: v?.checkout_url ?? v?.url ?? null,
     storeUrl: v?.url ?? seller?.url ?? null,
@@ -66,6 +69,7 @@ export function cardFromView(v: ProductView): ShopifyCard {
     title: v.title,
     image: v.images[0]?.url ?? null,
     price: v.price,
+    listPrice: v.listPrice,
     priceFrom: false,
     seller: v.seller.name,
     sellerId: v.seller.id,

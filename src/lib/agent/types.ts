@@ -151,6 +151,8 @@ export type ProductCard = {
   checkoutUrl?: string | null;
   /** Shopify products priced in another currency: `price` is converted at Shopify's rate. */
   priceApprox?: boolean;
+  /** Shopify products on discount: the original price (higher than `price`), in the same units. */
+  listPrice?: number;
   /** Shopify products: merchant highlights and default options, also searched for exact matches. */
   extraText?: string;
 };
@@ -242,6 +244,8 @@ export type AgentEvent =
     }
   | { type: "compare"; data: CompareBlockData }
   | { type: "memory"; facts: string[] }
+  /** What the photo attached to the user's message shows (kept on that message for later turns). */
+  | { type: "photo"; description: string }
   /** Scout: further segments of this answer, offered as pills and fetched only when tapped. */
   | { type: "segments"; items: SegmentOffer[] }
   /** Drape's picks: products (by ref) explained in detail. Sent again, longer, as picks complete. */
@@ -287,6 +291,10 @@ export type Anchor = {
   categoryLevel: boolean;
   /** Names the user insisted on (a person, team, brand, character): each must also appear ("kohli" for "Virat Kohli t-shirt"). */
   mustInclude?: string[];
+  /** A store or brand the user asked to buy from ("from DailyObjects"): preferred, with a note when unavailable. */
+  store?: string;
+  /** For an accessory or part: the item it's FOR ("watch" for a watch strap). Products that ARE that item don't match. */
+  forItem?: string;
 };
 
 export type Emit = (e: AgentEvent) => void;

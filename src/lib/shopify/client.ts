@@ -67,6 +67,8 @@ export function toCard(p: Product): ShopifyCard {
     title: p.title,
     image: p.media[0]?.url ?? v?.media[0]?.url ?? null,
     price: min,
+    // The discount belongs to the first variant: only show it when that variant is the price shown.
+    listPrice: v?.list_price && v.price && min && v.price.amount === min.amount && v.list_price.currency === min.currency && v.list_price.amount > min.amount ? v.list_price : null,
     priceFrom: !!p.price_range && p.price_range.min.amount !== p.price_range.max.amount,
     seller: v?.seller?.name ?? null,
     sellerId: v?.seller?.id ?? null,

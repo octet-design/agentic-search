@@ -23,6 +23,8 @@ const Variant = z.object({
   url: z.string().nullish(),
   checkout_url: z.string().nullish(),
   price: Money.nullish(),
+  /** The original price when the variant is discounted (shown struck through). */
+  list_price: Money.nullish(),
   availability: z.object({ available: z.boolean().nullish() }).nullish(),
   options: z.array(z.object({ name: z.string(), label: z.string() })).default([]),
   media: z.array(Media).default([]),
@@ -68,6 +70,8 @@ export type ShopifyCard = {
   title: string;
   image: string | null;
   price: Money | null;
+  /** Original price when discounted (higher than `price`), else null. */
+  listPrice?: Money | null;
   /** True when variants span a price range ("from ₹…"). */
   priceFrom: boolean;
   seller: string | null;

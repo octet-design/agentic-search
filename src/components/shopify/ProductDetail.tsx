@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight, ExternalLink, Loader2, ShieldCheck, Shopping
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { getCountry, type Country } from "@/lib/shopify/countries";
-import { money, shopifyProductHref } from "@/lib/shopify/format";
+import { money, percentOff, shopifyProductHref } from "@/lib/shopify/format";
 import type { ShopifyCard, ShopifyPage } from "@/lib/shopify/types";
 import { cardFromView, type ProductView } from "@/lib/shopify/view";
 import { SaveButton } from "./aura/ProductTile";
@@ -257,6 +257,7 @@ export function ProductDetail({
   const sellerName = view?.seller.name ?? preview?.seller ?? null;
   const images = view?.images ?? (preview?.image ? [{ url: preview.image, alt: preview.title }] : []);
   const price = view?.price ?? preview?.price ?? null;
+  const listPrice = view ? view.listPrice : (preview?.listPrice ?? null);
   const rating = view?.rating ?? preview?.rating ?? null;
   const storeUrl = view?.storeUrl ?? preview?.url ?? null;
   const shopIn = country ?? getCountry(null);
@@ -282,6 +283,13 @@ export function ProductDetail({
           </div>
           <div className="mt-2 flex flex-wrap items-center gap-3">
             {price && <span className="text-xl font-semibold">{fmt(price)}</span>}
+            {/* Discounted: the original price struck through, and how much is off. */}
+            {price && listPrice && percentOff(price, listPrice) && (
+              <span className="inline-flex items-baseline gap-1.5">
+                <s className="text-ink-faint">{fmt(listPrice)}</s>
+                <span className="text-sm font-medium text-ok">{percentOff(price, listPrice)}% off</span>
+              </span>
+            )}
             {rating && (
               <span className="inline-flex items-center gap-1 text-sm text-ink-soft">
                 <Star size={14} className="fill-current text-accent" /> {rating.value.toFixed(1)}

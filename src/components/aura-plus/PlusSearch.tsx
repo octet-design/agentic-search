@@ -16,6 +16,7 @@ import { sendChatMessage, stopChat } from "@/lib/chatClient";
 import { useChats, type AssistantMessage, type Chat, type ChatSection } from "@/store/chats";
 import { useSession } from "@/store/session";
 import type { PlusMode } from "./mode";
+import { AttachButton, PhotoPreview, type Photo } from "./PhotoAttach";
 import { PlusProduct } from "./PlusProduct";
 import { PlusActionsContext, PlusSkeleton, PlusTile, type PlusActions } from "./PlusTile";
 
@@ -190,7 +191,7 @@ function AssistantTurn({
       {m.sections.map((s) => (
         <div key={s.id}>
           <ResultCard s={s} active={s.id === active} onView={() => onView(s.id)} />
-          {s.loaded && s.emptyNote && <p className="mt-1.5 text-sm text-ink-soft">{s.emptyNote}</p>}
+          {s.loaded && (s.emptyNote ?? s.relaxedNote) && <p className="mt-1.5 text-sm text-ink-soft">{s.emptyNote ?? s.relaxedNote}</p>}
         </div>
       ))}
       {!!m.segments?.length && (
@@ -282,10 +283,12 @@ export function PlusSearch({ id, mode }: { id: string; mode: PlusMode }) {
       }),
     [refs],
   );
+  // Scout: a photo waiting to go with the next message (sent only together with text).
+  const [photo, setPhoto] = useState<Photo | null>(null);
   const send = useCallback(
-    (text: string, refList?: number[]) => {
+    (text: string, refList?: number[], image?: Photo | null) => {
       setPicked(null);
-      void sendChatMessage(id, text, refList?.length ? { refs: refList } : {});
+      void sendChatMessage(id, text, { ...(refList?.length ? { refs: refList } : {}), ...(image ? { image } : {}) });
     },
     [id],
   );
@@ -410,7 +413,11 @@ export function PlusSearch({ id, mode }: { id: string; mode: PlusMode }) {
               {chat.messages.map((m) =>
                 m.role === "user" ? (
                   <div key={m.id} className="flex justify-end">
-                    <div className="max-w-[85%] whitespace-pre-wrap rounded-2xl bg-sand px-4 py-2.5 text-[15px]">{m.text}</div>
+                    <div className="flex max-w-[85%] flex-col items-end gap-1.5">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      {m.thumb && <img src={m.thumb} alt="Your photo" title={m.photo} className="h-24 w-24 rounded-xl object-cover" />}
+                      <div className="whitespace-pre-wrap rounded-2xl bg-sand px-4 py-2.5 text-[15px]">{m.text}</div>
+                    </div>
                   </div>
                 ) : (
                   <AssistantTurn
@@ -466,7 +473,22 @@ export function PlusSearch({ id, mode }: { id: string; mode: PlusMode }) {
                 )}
               </div>
             </div>
-            <Composer ref={composer} onSend={(t) => send(t, pendingRefs(t))} onStop={() => stopChat(id)} running={running} placeholder="Ask follow up…" />
+            {photo && <PhotoPreview photo={photo} onRemove={() => setPhoto(null)} needsText />}
+            <div className="flex items-end gap-1">
+              {mode.blend && <AttachButton onPick={setPhoto} className="mb-1.5" />}
+              <div className="min-w-0 flex-1">
+                <Composer
+                  ref={composer}
+                  onSend={(t) => {
+                    send(t, pendingRefs(t), photo);
+                    setPhoto(null);
+                  }}
+                  onStop={() => stopChat(id)}
+                  running={running}
+                  placeholder={photo ? "Say what you want with this photo…" : "Ask follow up…"}
+                />
+              </div>
+            </div>
           </div>
         </aside>
 

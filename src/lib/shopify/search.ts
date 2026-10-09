@@ -76,6 +76,6 @@ const usdRates = new Map<string, number>();
 export function localise(c: ShopifyCard, cur: string, usdRate: number | null): ShopifyCard | null {
   if (!c.price || c.price.currency === cur) return c;
   if (c.price.currency !== "USD" || !usdRate) return null;
-  const usd = c.price.amount / 100;
-  return { ...c, price: { amount: toMinor(Math.round(usd * usdRate), cur), currency: cur }, priceApprox: true };
+  const conv = (m: { amount: number }) => ({ amount: toMinor(Math.round((m.amount / 100) * usdRate), cur), currency: cur });
+  return { ...c, price: conv(c.price), listPrice: c.listPrice?.currency === "USD" ? conv(c.listPrice) : null, priceApprox: true };
 }

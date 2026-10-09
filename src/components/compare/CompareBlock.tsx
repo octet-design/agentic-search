@@ -1,10 +1,11 @@
 "use client";
 
 import { Check, CheckCheck, ExternalLink, Minus, Star } from "lucide-react";
+import { Price } from "@/components/product/Price";
 import { ProductImage } from "@/components/product/ProductImage";
 import type { CompareBlockData, ProductCard } from "@/lib/agent/types";
 import { FEATURES } from "@/lib/config";
-import { cn, inr, outboundUrl } from "@/lib/format";
+import { cn, outboundUrl } from "@/lib/format";
 import { useSession } from "@/store/session";
 
 const LETTERS = ["A", "B", "C"];
@@ -27,7 +28,7 @@ export function CompareBlock({ data, onOpen }: { data: CompareBlockData; onOpen?
   const general = !!data.attributes?.length;
   const idx = new Map(data.products.map((p, i) => [p.id, i]));
   const rows: [string, (p: ProductCard) => React.ReactNode][] = [
-    ["Price", (p) => <span className="font-semibold">{inr(p.price)}</span>],
+    ["Price", (p) => <Price p={p} />],
     ["Brand", (p) => p.brand],
     ...(general
       ? data.attributes!.map((a): [string, (p: ProductCard) => React.ReactNode] => [a.name, (p) => a.values[idx.get(p.id) ?? 0] ?? "—"])

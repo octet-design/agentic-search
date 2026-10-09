@@ -16,7 +16,16 @@ const MAX_LIST = 400;
 
 const BodySchema = z.object({
   intent: IntentSchema,
-  anchor: z.object({ terms: z.array(z.string()).max(8), categoryLevel: z.boolean(), mustInclude: z.array(z.string()).max(4).optional() }).nullable().optional(),
+  anchor: z
+    .object({
+      terms: z.array(z.string()).max(8),
+      categoryLevel: z.boolean(),
+      mustInclude: z.array(z.string()).max(4).optional(),
+      store: z.string().max(80).optional(),
+      forItem: z.string().max(40).optional(),
+    })
+    .nullable()
+    .optional(),
   categories: z.array(z.string()).max(40).default([]),
 });
 
