@@ -342,6 +342,7 @@ export function PlusSearch({ id, mode }: { id: string; mode: PlusMode }) {
         send(`More like this: ${shortName(p)}`, [ref]);
       },
       showSource: mode.blend,
+      anyProduct: mode.blend,
     }),
     [id, mode.blend, send],
   );

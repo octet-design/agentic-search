@@ -16,10 +16,14 @@ import { cardFromView, toProductView, type ProductView } from "./view";
 
 const ItemSchema = z.object({ label: z.string(), query: z.string(), why: z.string() });
 const PlanSchema = z.object({ occasions: z.array(z.object({ name: z.string(), note: z.string(), items: z.array(ItemSchema) })) });
-type StylePlan = z.infer<typeof PlanSchema>;
+/** Any product (Scout): fashion gets occasions; anything else gets "goes well with" complementary items. */
+const GeneralPlanSchema = PlanSchema.extend({ fashion: z.boolean(), pairs: z.array(ItemSchema) });
+type StylePlan = z.infer<typeof PlanSchema> & { pairs?: z.infer<typeof ItemSchema>[] };
 
 export type StyleLookItem = { label: string; why: string; product: ShopifyCard };
 export type StyleItResult = {
+  /** "style": occasions + a complete look (fashion). "pairs": things that go well with it (any other product). */
+  kind: "style" | "pairs";
   piece: ShopifyCard;
   occasions: { name: string; note: string }[];
   occasion: string;
@@ -56,8 +60,15 @@ Return 3 distinct occasions where this piece genuinely works (names of 1-3 words
   why (at most 12 words: why it works with this piece).
 Match the piece's audience (women's piece → women's items; kids' piece → kids' items). For men prefer watches, belts, stoles, cufflinks over necklaces and earrings. Only fashion items: clothing, footwear, bags, jewellery, watches, eyewear, accessories.`;
 
-async function planFor(v: ProductView, country: Country, signal?: AbortSignal): Promise<StylePlan> {
-  const key = `${v.id}:${country.code}`;
+const GENERAL_SYSTEM = `First decide whether the product is fashion (clothing, footwear, bags, jewellery, watches, eyewear, fashion accessories): set fashion.
+- If fashion: follow the stylist rules below for occasions, and set pairs [].
+- If not fashion (a tumbler, headphones, a phone, cookware, skincare, a toy…): set occasions [] and pairs = 3–4 complementary products people buy WITH it: accessories, add-ons, refills, care or protection items (a tumbler → insulated sleeve, spare straw lid, bottle cleaning brush; a phone → case, fast charger, screen protector; a frying pan → silicone spatula set, pan protector). Each: label (shown to the user, e.g. "Sleeve", "Charger"), query (a 2–6 word English shopping query naming the item and, when relevant, the product it fits, e.g. "stanley 40oz tumbler straw lid"), why (at most 12 words).
+
+Stylist rules (fashion only):
+`;
+
+async function planFor(v: ProductView, country: Country, general: boolean, signal?: AbortSignal): Promise<StylePlan> {
+  const key = `${v.id}:${country.code}:${general ? "any" : "fashion"}`;
   const hit = plans.get(key);
   if (hit) return hit;
   const model = getShopifyEnv().SHOPIFY_AGENT_MODEL;
@@ -73,16 +84,22 @@ async function planFor(v: ProductView, country: Country, signal?: AbortSignal): 
     {
       model,
       messages: [
-        { role: "system", content: SYSTEM },
+        { role: "system", content: general ? GENERAL_SYSTEM + SYSTEM : SYSTEM },
         { role: "user", content: `${facts.join(" | ")}\n${(v.description ?? "").slice(0, 400)}` },
       ],
-      response_format: zodResponseFormat(PlanSchema, "style_it"),
+      response_format: general ? zodResponseFormat(GeneralPlanSchema, "style_it") : zodResponseFormat(PlanSchema, "style_it"),
       ...(isReasoning(model) ? { reasoning_effort: "low" as const } : { temperature: 0.4 }),
     },
     { timeout: 20_000, maxRetries: 1, signal },
   );
-  const parsed = res.choices[0]?.message.parsed;
+  const parsed = res.choices[0]?.message.parsed as (z.infer<typeof PlanSchema> & { fashion?: boolean; pairs?: z.infer<typeof ItemSchema>[] }) | null | undefined;
   if (!parsed) throw new Error("style-it: no plan");
+  if (general && parsed.fashion === false) {
+    const pairs = (parsed.pairs ?? []).filter((it) => it.query.trim()).slice(0, 4);
+    const plan: StylePlan = { occasions: [], pairs };
+    plans.set(key, plan);
+    return plan;
+  }
   const clean = {
     occasions: parsed.occasions
       .filter((o) => o.name.trim())
@@ -103,7 +120,8 @@ function priceCap(v: ProductView, country: Country): number | null {
   return Math.max(floor, Math.round(major * 1.5));
 }
 
-export async function styleIt(opts: { id: string; country: Country; occasion?: string; signal?: AbortSignal }): Promise<StyleItResult | null> {
+/** `general` (Scout): any product; non-fashion gets "goes well with" items, searched across every category from local sellers. */
+export async function styleIt(opts: { id: string; country: Country; occasion?: string; general?: boolean; signal?: AbortSignal }): Promise<StyleItResult | null> {
   const { id, country } = opts;
   let v = pieces.get(`${id}:${country.code}`);
   if (!v) {
@@ -114,29 +132,45 @@ export async function styleIt(opts: { id: string; country: Country; occasion?: s
   }
   const piece: ShopifyCard = { ...cardFromView(v), defaultOptions: null };
 
-  const plan = await planFor(v, country, opts.signal);
+  const general = !!opts.general;
+  const plan = await planFor(v, country, general, opts.signal);
+  if (plan.pairs?.length) return { kind: "pairs", piece, occasions: [], occasion: "", note: "", look: await lookFor(`${id}:${country.code}:pairs`, plan.pairs, v, country, general, opts.signal) };
   const occ = plan.occasions.find((o) => o.name === opts.occasion) ?? plan.occasions[0];
   if (!occ) return null;
 
-  const key = `${id}:${country.code}:${occ.name}`;
-  let look = looks.get(key);
-  if (!look) {
-    const max = priceCap(v, country);
-    const pages = await Promise.all(
-      occ.items.map((it) =>
-        searchFashion({ query: it.query, min: null, max, local: false }, country, { limit: 10, exclude: new Set([id]), signal: opts.signal }).catch(() => null),
-      ),
-    );
-    const used = new Set([id]);
-    look = [];
-    pages.forEach((page, i) => {
-      const hit = page?.products.find((x) => !used.has(x.id));
-      if (!hit) return;
-      used.add(hit.id);
-      look!.push({ label: occ.items[i].label, why: occ.items[i].why, product: hit });
-    });
-    looks.set(key, look);
-  }
+  const look = await lookFor(`${id}:${country.code}:${general ? "any" : "fashion"}:${occ.name}`, occ.items, v, country, general, opts.signal);
+  return { kind: "style", piece, occasions: plan.occasions.map((o) => ({ name: o.name, note: o.note })), occasion: occ.name, note: occ.note, look };
+}
 
-  return { piece, occasions: plan.occasions.map((o) => ({ name: o.name, note: o.note })), occasion: occ.name, note: occ.note, look };
+const words = (t: string) => new Set(t.toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length > 1));
+/** Two titles name the same product when most of their words overlap (Jaccard ≥ 0.5). Pure; unit-tested. */
+export function sameProduct(a: string, b: string): boolean {
+  const x = words(a);
+  const y = words(b);
+  const both = [...x].filter((w) => y.has(w)).length;
+  const any = new Set([...x, ...y]).size;
+  return any > 0 && both / any >= 0.5;
+}
+
+/** One real product per planned item (cached). Scout searches every category, from local sellers only. */
+async function lookFor(key: string, items: z.infer<typeof ItemSchema>[], v: ProductView, country: Country, general: boolean, signal?: AbortSignal): Promise<StyleLookItem[]> {
+  const hit = looks.get(key);
+  if (hit) return hit;
+  const max = priceCap(v, country);
+  const pages = await Promise.all(
+    items.map((it) =>
+      searchFashion({ query: it.query, min: null, max, local: general, allCategories: general }, country, { limit: 10, exclude: new Set([v.id]), signal }).catch(() => null),
+    ),
+  );
+  const used = new Set([v.id]);
+  const look: StyleLookItem[] = [];
+  pages.forEach((page, i) => {
+    // Stores relist the same product (or a sleeve-length variant): a complement must be something else.
+    const found = page?.products.find((x) => !used.has(x.id) && !sameProduct(x.title, v.title));
+    if (!found) return;
+    used.add(found.id);
+    look.push({ label: items[i].label, why: items[i].why, product: found });
+  });
+  looks.set(key, look);
+  return look;
 }

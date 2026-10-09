@@ -6,6 +6,8 @@
  */
 import type { Intent, ProductCard } from "./agent/types";
 import { fromShopify, isShopifyId, shopifyIdOf, withAudience } from "./blend";
+import { namedCache } from "./cache";
+import type { Example } from "./examples";
 import { getProduct } from "./shopify/client";
 import { getCountry } from "./shopify/countries";
 import { money, similarQuery } from "./shopify/format";
@@ -61,4 +63,28 @@ export async function shopifyFacts(id: string, signal?: AbortSignal): Promise<st
   } catch {
     return null;
   }
+}
+
+/** Scout's "try asking" cards: a mix of categories, each with a cover from a real local-seller product. */
+const SCOUT_EXAMPLES = [
+  { query: "Noise cancelling headphones under ₹8,000", title: "Headphones", coverQuery: "noise cancelling headphones" },
+  { query: "What should I wear to a mehendi in Jaipur?", title: "Mehendi outfits", coverQuery: "yellow lehenga women" },
+  { query: "A gift for my mom who loves cooking, under ₹3,000", title: "Gifts for mom", coverQuery: "stainless steel cookware set" },
+  { query: "Insulated tumbler that keeps coffee hot all day", title: "Tumblers", coverQuery: "insulated stainless steel tumbler" },
+];
+const exampleCovers = namedCache<string | null>("scout-example-covers", 20, 6 * 60 * 60_000);
+
+export async function scoutExamples(): Promise<Example[]> {
+  const missing = SCOUT_EXAMPLES.filter((e) => exampleCovers.get(e.query) === undefined);
+  await Promise.all(
+    missing.map(async (e) => {
+      try {
+        const page = await searchFashion({ query: e.coverQuery, min: null, max: null, local: LOCAL_SELLERS, allCategories: true }, INDIA, { limit: 5 });
+        exampleCovers.set(e.query, page.products.find((p) => p.image)?.image ?? null);
+      } catch {
+        // Covers are decoration: a failed lookup leaves a text-only card.
+      }
+    }),
+  );
+  return SCOUT_EXAMPLES.map((e) => ({ query: e.query, title: e.title, image: exampleCovers.get(e.query) ?? null }));
 }

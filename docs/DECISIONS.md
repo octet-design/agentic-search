@@ -213,3 +213,19 @@ Feedback from testing (the product owner asked for general rules, not fixes tune
 In Scout and Typesense search, which share the same screen, a comparison now opens in the right-hand pane where results are listed, instead of inside the chat bubble. The chat shows a compact "Comparison" card (the products' thumbnails + "View comparison →"). The pane works with "views" (a result set or a comparison, one per message): a new comparison opens automatically, and when you're looking at an older one the "View new results" pill appears as for results. The engine sends compared products as minimal cards, and the screen fills in their images and links from the chat's cards by ref (`withCards`).
 
 Comparisons now also work with partner-store (Shopify) products. Before, any Shopify product turned a comparison into a plain-text answer. `compareProducts` takes them as `extra` (card + live facts from `shopifyFacts`, fetched by the chat engine, so `compare.ts` still never imports Shopify code). The compare prompt is product-agnostic: occasions for clothing, use cases for everything else (e.g. headphones: commute, work calls, travel, gaming).
+
+## Scout's purpose: a shopping agent for anything (2026-10-09)
+
+The product owner asked for a full pass over Scout so nothing still assumes fashion. Decisions:
+- Shopify's catalog is allowed in full: no blocked categories.
+- Non-fashion products get "Goes well with" instead of Style it.
+- The home page mixes categories.
+- Scope is Scout only; Drape home and Typesense search stay fashion-focused, since their catalog is fashion.
+
+What changed:
+- **Compare:** in Scout mode (`compareProducts({ general })`) the model picks the 4–6 spec rows that matter for that kind of product (a tumbler: Capacity, Material, Insulation, Lid type…; headphones: Battery life, Noise cancelling…) and fills them only from the data given, with "—" when a value isn't stated. These replace the fixed Fabric / Fit / Pattern / Colour rows, and the heading becomes "Best for" (use cases for non-fashion). Images are square.
+- **Style it → "Goes well with":** in Scout (`anyProduct` → `general` on the Shopify style-it route), the plan first decides whether the product is fashion. Fashion keeps occasions + complete the look; anything else gets 3–4 complementary items (a tumbler → sleeve, straw lid, cleaning brush, car cup holder; headphones → case, cleaning kit), searched across all categories from local sellers. Complements that are really the same product, i.e. relistings or variants with title word overlap of 50% or more (`sameProduct`), are skipped; headphones "cables" and a kurta's "bottoms" were the product again.
+- **Home page:** Scout-specific headline ("Find anything, the smart way"), subtitle and placeholder (`PlusMode` wording). The example cards span categories, with covers from local-seller Shopify products (`scoutExamples`). The feed's Shopify side rotates a mixed query list (`feedQueries`, sent as `curated` + `allCategories` to `/api/shopify/feed`) and is mixed 1:1 with our catalog.
+- **Card menus:** quick questions "Is it worth the price? / What goes well with it? / Cheaper alternatives?"; "Not for me" reasons "Too pricey / Not what I need / Other".
+- **Agent voice:** a personal shopper (what matters when choosing: specs, materials, features), closing questions about what matters for that product type, and vague openers asked across every category. `SCOUT_CLARIFY_FALLBACK` replaces the clothing-only fallback.
+- **Eval:** the nonsense query became "zorblax quantum fluxomatic". "…moonboots" correctly found Moon Boot (a real brand) once Scout searched every category. `eval:blend` passes 11/11, with 121 unit tests.

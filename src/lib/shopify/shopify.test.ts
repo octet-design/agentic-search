@@ -89,3 +89,13 @@ describe("Shopify prices in another currency", () => {
     expect(localise({ ...card, price: { amount: 100000, currency: "INR" } }, "INR", 96)?.priceApprox).toBeUndefined();
   });
 });
+
+describe("sameProduct", () => {
+  it("spots relistings and variants of the same product", async () => {
+    const { sameProduct } = await import("./styleIt");
+    expect(sameProduct("Sony WH-CH720N, Wireless Over-Ear Active Noise Cancelling Headphones", "Sony WH-CH720N Noise Canceling Wireless Headphones Bluetooth")).toBe(true);
+    expect(sameProduct("Khadi Men's Cotton Kurta (Half Sleeves)", "Khadi Men's Cotton Kurta (Full Sleeves)")).toBe(true);
+    expect(sameProduct("Hard Case for Sony WH-CH720N/WH-CH520 Headphone Storage Bag", "Sony WH-CH720N Noise Canceling Wireless Headphones Bluetooth")).toBe(false);
+    expect(sameProduct("Stanley 40 Oz Tumbler Lids", "Stanley - H2.0 Quencher 1.2L Stainless Steel Tumbler (40 Oz)")).toBe(false);
+  });
+});

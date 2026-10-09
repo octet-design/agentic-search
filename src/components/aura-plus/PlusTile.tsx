@@ -17,6 +17,8 @@ export type PlusActions = {
   onMoreLike?: (p: ProductCard) => void;
   /** Scout: show where each product comes from. */
   showSource?: boolean;
+  /** Scout: any kind of product, so the menus use shopping wording rather than fashion's. */
+  anyProduct?: boolean;
 };
 export const PlusActionsContext = createContext<PlusActions | null>(null);
 const useActions = () => {
@@ -31,6 +33,12 @@ const DISLIKE: { id: DislikeReason; label: string }[] = [
   { id: "style", label: "Not my style" },
   { id: "color", label: "Colour" },
   { id: "fabric", label: "Fabric" },
+  { id: "other", label: "Other" },
+];
+const QUICK_ASKS_ANY = ["Is it worth the price?", "What goes well with it?", "Cheaper alternatives?"];
+const DISLIKE_ANY: { id: DislikeReason; label: string }[] = [
+  { id: "price", label: "Too pricey" },
+  { id: "style", label: "Not what I need" },
   { id: "other", label: "Other" },
 ];
 
@@ -57,7 +65,7 @@ const Item = ({ onClick, children }: { onClick: () => void; children: React.Reac
 
 /** Drape catalog product as an Aura tile: 3:4 in grids, a fixed per-product shape in the masonry feed. Saves are shared with Drape. */
 export function PlusTile({ p, masonry = false, index = 0 }: { p: ProductCard; masonry?: boolean; index?: number }) {
-  const { onOpen, onAsk, onMoreLike, showSource } = useActions();
+  const { onOpen, onAsk, onMoreLike, showSource, anyProduct } = useActions();
   const saved = useSession((s) => s.saved.includes(p.id));
   const { toggleLike, dislike, track } = useSession.getState();
   const [menu, setMenu] = useState<"ask" | "hide" | null>(null);
@@ -92,7 +100,7 @@ export function PlusTile({ p, masonry = false, index = 0 }: { p: ProductCard; ma
             </button>
             <Menu open={menu === "hide"} onClose={() => setMenu(null)} className="right-0 top-10">
               <div className="px-2.5 py-1 text-xs text-ink-soft">Not for me because…</div>
-              {DISLIKE.map((d) => (
+              {(anyProduct ? DISLIKE_ANY : DISLIKE).map((d) => (
                 <Item
                   key={d.id}
                   onClick={() => {
@@ -113,7 +121,7 @@ export function PlusTile({ p, masonry = false, index = 0 }: { p: ProductCard; ma
             </button>
             <Menu open={menu === "ask"} onClose={() => setMenu(null)} className="bottom-10 left-0">
               <div className="px-2.5 py-1 text-xs text-ink-soft">Ask about this</div>
-              {QUICK_ASKS.map((q) => (
+              {(anyProduct ? QUICK_ASKS_ANY : QUICK_ASKS).map((q) => (
                 <Item
                   key={q}
                   onClick={() => {

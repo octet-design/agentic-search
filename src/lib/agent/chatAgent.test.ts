@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { normalizeCompare } from "../compare";
+import { normalizeAttributes, normalizeCompare } from "../compare";
 import { shopifyQuery } from "./chatAgent";
 import { forSomeoneElse, keepUserStatedMusts, lastAsked, pickedAudience, recipientAudience, sameQuestion, refsInText, resolveCategories, toIntent, wantsChange } from "./chatAgent";
 import { fixtureTax as tax, intentWith } from "./testFixture";
@@ -153,5 +153,23 @@ describe("shopifyQuery", () => {
     expect(shopifyQuery({ terms: ["chaniya choli"] }, "mirror work garba outfit for navratri")).toBe("chaniya choli mirror work garba outfit for navratri");
     expect(shopifyQuery({ terms: ["chaniya choli"] }, "printed Chaniya-Choli for women")).toBe("printed Chaniya-Choli for women");
     expect(shopifyQuery(undefined, "linen kurta for men")).toBe("linen kurta for men");
+  });
+});
+
+describe("normalizeAttributes", () => {
+  it("gives every row one value per product and drops empty rows", () => {
+    const rows = normalizeAttributes(
+      [
+        { name: "Capacity", values: ["530 ml", "1.18 L"] },
+        { name: "Insulation", values: ["Double-wall vacuum"] },
+        { name: "Warranty", values: ["", "—"] },
+        { name: " ", values: ["x", "y"] },
+      ],
+      2,
+    );
+    expect(rows).toEqual([
+      { name: "Capacity", values: ["530 ml", "1.18 L"] },
+      { name: "Insulation", values: ["Double-wall vacuum", "—"] },
+    ]);
   });
 });

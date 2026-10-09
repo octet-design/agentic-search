@@ -20,7 +20,8 @@ const QUERIES: { q: string; audience?: "women" | "men" | "girls" | "boys"; expec
   { q: "patola dupatta", audience: "women" },
   { q: "potli bag for a wedding", audience: "women" },
   { q: "linen kurta men" },
-  { q: "zorblax quantum moonboots", expectEmpty: true },
+  // Pure nonsense: "moonboots" was dropped from this query because Moon Boot is a real brand.
+  { q: "zorblax quantum fluxomatic", expectEmpty: true },
   { q: "virat kohli t-shirt", audience: "men" },
   { q: "noise cancelling headphones under 8000" },
   { q: "what is 75 times 99?", offTopic: true },

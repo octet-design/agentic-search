@@ -23,13 +23,20 @@ export function CompareBlock({ data, onOpen }: { data: CompareBlockData; onOpen?
   const cols = { gridTemplateColumns: `8rem repeat(${n}, minmax(9rem, 1fr))` };
   const label = (i: number) => (FEATURES.refBadges && data.products[i].ref != null ? `#${data.products[i].ref}` : LETTERS[i]);
 
+  // Any product (Scout): the spec rows the comparison chose for this kind of product; otherwise fashion's.
+  const general = !!data.attributes?.length;
+  const idx = new Map(data.products.map((p, i) => [p.id, i]));
   const rows: [string, (p: ProductCard) => React.ReactNode][] = [
     ["Price", (p) => <span className="font-semibold">{inr(p.price)}</span>],
     ["Brand", (p) => p.brand],
-    ["Fabric", (p) => cap(p.fabric)],
-    ["Fit", (p) => cap(p.fit)],
-    ["Pattern", (p) => cap(p.pattern)],
-    ["Colour", (p) => cap(p.color)],
+    ...(general
+      ? data.attributes!.map((a): [string, (p: ProductCard) => React.ReactNode] => [a.name, (p) => a.values[idx.get(p.id) ?? 0] ?? "—"])
+      : ([
+          ["Fabric", (p) => cap(p.fabric)],
+          ["Fit", (p) => cap(p.fit)],
+          ["Pattern", (p) => cap(p.pattern)],
+          ["Colour", (p) => cap(p.color)],
+        ] as [string, (p: ProductCard) => React.ReactNode][])),
   ];
 
   return (
@@ -42,7 +49,7 @@ export function CompareBlock({ data, onOpen }: { data: CompareBlockData; onOpen?
             {data.products.map((p, i) => (
               <button key={p.id} type="button" onClick={() => onOpen?.(p)} className="text-left">
                 <div className="relative overflow-hidden rounded-xl">
-                  <ProductImage src={p.image} alt={p.title} className="aspect-[3/4] w-full" />
+                  <ProductImage src={p.image} alt={p.title} className={cn("w-full", general ? "aspect-square" : "aspect-[3/4]")} />
                   <span className="absolute left-2 top-2 rounded-full bg-ink/85 px-2 py-0.5 text-xs font-semibold text-canvas">{label(i)}</span>
                 </div>
                 <div className="mt-1.5 line-clamp-2 font-medium leading-snug">{p.title}</div>
@@ -60,7 +67,7 @@ export function CompareBlock({ data, onOpen }: { data: CompareBlockData; onOpen?
 
           {data.occasions.length > 0 && (
             <>
-              <div className="mt-3 border-t border-line pt-3 text-xs uppercase tracking-wide text-ink-faint">Best for which occasion</div>
+              <div className="mt-3 border-t border-line pt-3 text-xs uppercase tracking-wide text-ink-faint">{general ? "Best for" : "Best for which occasion"}</div>
               {data.occasions.map((o) => (
                 <div key={o.occasion} className="grid items-start gap-2 border-t border-line/60 py-2" style={cols}>
                   <div className="font-medium">{o.occasion}</div>

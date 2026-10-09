@@ -38,6 +38,7 @@ export function PlusHome({ examples, mode }: { examples: Example[]; mode: PlusMo
       onAsk: (p, q) => start(`About ${short(p.title)}: ${q ?? "Tell me about it. Is it worth it?"}`, p),
       onMoreLike: (p) => start(`More like this: ${short(p.title)}`, p),
       showSource: mode.blend,
+      anyProduct: mode.blend,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
@@ -50,9 +51,11 @@ export function PlusHome({ examples, mode }: { examples: Example[]; mode: PlusMo
         <div className="relative mx-auto max-w-7xl px-4 pb-16 pt-12 md:px-8 md:pt-20">
           <div className="mx-auto max-w-3xl text-center">
             <motion.h1 initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="font-display text-4xl leading-tight tracking-tight md:text-6xl">
-              Style that speaks <em>your</em> language
+              {mode.headline.lead}
+              <em>{mode.headline.em}</em>
+              {mode.headline.tail}
             </motion.h1>
-            <p className="mx-auto mt-4 max-w-md text-ink-soft">Describe what you&rsquo;re looking for in English, Hinglish or Hindi, and we&rsquo;ll curate tasteful results from {mode.blend ? "our catalog and stores across Shopify" : "our catalog"}.</p>
+            <p className="mx-auto mt-4 max-w-md text-ink-soft">{mode.subtitle}</p>
           </div>
 
           <form
@@ -66,7 +69,7 @@ export function PlusHome({ examples, mode }: { examples: Example[]; mode: PlusMo
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Describe what you're looking for…"
+              placeholder={mode.placeholder}
               aria-label="Search"
               maxLength={500}
               autoFocus
@@ -100,7 +103,7 @@ export function PlusHome({ examples, mode }: { examples: Example[]; mode: PlusMo
             ))}
           </div>
 
-          <div className="mt-16">{hydrated && <PlusFeed blend={mode.blend} />}</div>
+          <div className="mt-16">{hydrated && <PlusFeed blend={mode.blend} feedQueries={mode.feedQueries} />}</div>
         </div>
       </div>
 

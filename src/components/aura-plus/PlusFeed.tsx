@@ -29,7 +29,7 @@ const SKELETON_SHAPES = ["aspect-[3/4]", "aspect-[2/3]", "aspect-square", "aspec
  * Aura++ "For you": a stable Pinterest-style feed from the Typesense catalog, personalised by what the shopper
  * saved in Drape or Aura++ (shared), mixed with curated picks, paged in as they scroll.
  */
-export function PlusFeed({ blend: mixShopify = false }: { blend?: boolean }) {
+export function PlusFeed({ blend: mixShopify = false, feedQueries }: { blend?: boolean; feedQueries?: string[] }) {
   const [items, setItems] = useState<ProductCard[]>([]);
   const [cursor, setCursor] = useState<string | null>(null);
   const [shopifyCursor, setShopifyCursor] = useState<string | null>(null);
@@ -59,7 +59,14 @@ export function PlusFeed({ blend: mixShopify = false }: { blend?: boolean }) {
       const [res, shop] = await Promise.all([
         post("/api/aura-plus/feed", { seedIds: seeds.seedIds.filter((id) => !id.startsWith("shopify-")), excludeIds: exclude.filter((id) => !id.startsWith("shopify-")), cursor }),
         mixShopify
-          ? post("/api/shopify/feed", { country: "IN", local: true, cursor: shopifyCursor, exclude: exclude.filter((id) => id.startsWith("shopify-")).map((id) => id.slice(8)) })
+          ? post("/api/shopify/feed", {
+              country: "IN",
+              local: true,
+              // Scout: a rotation across categories, not just fashion.
+              ...(feedQueries?.length ? { curated: feedQueries, allCategories: true } : {}),
+              cursor: shopifyCursor,
+              exclude: exclude.filter((id) => id.startsWith("shopify-")).map((id) => id.slice(8)),
+            })
               .then((r) => (r.ok ? (r.json() as Promise<{ items: ShopifyCard[]; cursor: string | null }>) : null))
               .catch(() => null)
           : Promise.resolve(null),
@@ -67,7 +74,8 @@ export function PlusFeed({ blend: mixShopify = false }: { blend?: boolean }) {
       if (!res.ok) throw new Error();
       const data = (await res.json()) as { items: ProductCard[]; cursor: string };
       if (shop) setShopifyCursor(shop.cursor);
-      const mixed = blend(data.items, (shop?.items ?? []).slice(0, 10).map(fromShopify));
+      // Scout mixes evenly (our catalog is fashion; partner stores bring every other category).
+      const mixed = blend(data.items, (shop?.items ?? []).slice(0, 10).map(fromShopify), feedQueries?.length ? 1 : 2);
       const fresh = mixed.filter((i) => !ids.current.has(i.id));
       fresh.forEach((i) => ids.current.add(i.id));
       setItems((prev) => [...prev, ...fresh]);

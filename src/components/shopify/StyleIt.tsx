@@ -11,8 +11,11 @@ import { ShopifyImage } from "./ShopifyCard";
 /** The last response, tagged with what was asked for; "loading" is derived from it. */
 type Result = { id: string; asked: string | null; data?: StyleItResult; error?: boolean };
 
-/** "Style it": pick one of 3 occasions, see real pieces from other stores that complete the look. */
-export function StyleIt({ id, country, onOpen }: { id: string; country: Country; onOpen?: (p: ShopifyCard) => void }) {
+/**
+ * "Style it": pick one of 3 occasions, see real pieces from other stores that complete the look.
+ * `general` (Scout, any product): a non-fashion product shows "Goes well with" (complementary items) instead.
+ */
+export function StyleIt({ id, country, onOpen, general }: { id: string; country: Country; onOpen?: (p: ShopifyCard) => void; general?: boolean }) {
   const [result, setResult] = useState<Result | null>(null);
   const [occasion, setOccasion] = useState<string | null>(null);
 
@@ -21,7 +24,7 @@ export function StyleIt({ id, country, onOpen }: { id: string; country: Country;
     fetch("/api/shopify/style-it", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id, country: country.code, ...(occasion ? { occasion } : {}) }),
+      body: JSON.stringify({ id, country: country.code, ...(occasion ? { occasion } : {}), ...(general ? { general: true } : {}) }),
       signal: ac.signal,
     })
       .then(async (r) => {
@@ -30,7 +33,7 @@ export function StyleIt({ id, country, onOpen }: { id: string; country: Country;
       })
       .catch(() => !ac.signal.aborted && setResult({ id, asked: occasion, error: true }));
     return () => ac.abort();
-  }, [id, country.code, occasion]);
+  }, [id, country.code, occasion, general]);
 
   const current = result?.id === id ? result : null;
   const loading = !current || current.asked !== occasion;
@@ -39,10 +42,32 @@ export function StyleIt({ id, country, onOpen }: { id: string; country: Country;
   if (current?.error && !loading && !data) return null;
   const active = occasion ?? data?.occasion;
 
+  if (data?.kind === "pairs") {
+    return (
+      <section className="border-t border-line pt-4">
+        <h3 className="font-display text-lg">Goes well with</h3>
+        <p className="text-sm text-ink-soft">Things people often pick up with this.</p>
+        <div className="no-scrollbar -mx-1 mt-3 flex snap-x gap-3 overflow-x-auto px-1 pb-2">
+          {data.look.map((it) => (
+            <LookCard key={it.product.id} p={it.product} label={it.label} why={it.why} country={country} onOpen={onOpen} />
+          ))}
+        </div>
+        {data.look.length === 0 && <p className="text-sm text-ink-soft">Couldn&apos;t find matching items in stock for this one.</p>}
+      </section>
+    );
+  }
+
   return (
     <section className="border-t border-line pt-4">
-      <h3 className="font-display text-lg">Style it</h3>
-      <p className="text-sm text-ink-soft">Pick an occasion to see how this piece styles.</p>
+      {/* Any-product mode doesn't know yet whether this is fashion: no title until the answer arrives. */}
+      {general && !data ? (
+        <span className="skeleton block h-6 w-32 rounded" />
+      ) : (
+        <>
+          <h3 className="font-display text-lg">Style it</h3>
+          <p className="text-sm text-ink-soft">Pick an occasion to see how this piece styles.</p>
+        </>
+      )}
 
       <div className="mt-3 flex flex-wrap gap-2">
         {data

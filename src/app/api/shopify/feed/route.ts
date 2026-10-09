@@ -19,6 +19,10 @@ const BodySchema = z.object({
   exclude: z.array(Id).max(300).default([]),
   /** Only products shipped from the buyer's country. */
   local: z.boolean().default(false),
+  /** Replaces the fashion rotation (Scout sends a mix of categories). */
+  curated: z.array(z.string().trim().min(1).max(80)).max(40).optional(),
+  /** Search beyond fashion (Scout). */
+  allCategories: z.boolean().default(false),
 });
 
 /** POST { country, seeds, cursor?, exclude? } → a page of the personalised "For you" feed. */

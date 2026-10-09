@@ -197,6 +197,7 @@ export function ProductDetail({
   onOpenSimilar,
   renderSave,
   localSellers,
+  anyProduct,
 }: {
   id: string;
   country: Country | null;
@@ -210,6 +211,8 @@ export function ProductDetail({
   onOpenSimilar?: (p: ShopifyCard) => void;
   /** Rails show only products shipped from the buyer's country (Scout). */
   localSellers?: boolean;
+  /** Any kind of product (Scout): non-fashion items get "Goes well with" instead of Style it. */
+  anyProduct?: boolean;
 }) {
   const [view, setView] = useState<ProductView | null>(initial);
   const [loading, setLoading] = useState(!initial);
@@ -363,7 +366,7 @@ export function ProductDetail({
             <div className="skeleton h-3 w-2/3 rounded" />
           </div>
         )}
-        <StyleIt id={id} country={shopIn} onOpen={onOpenSimilar} />
+        <StyleIt id={id} country={shopIn} onOpen={onOpenSimilar} general={anyProduct} />
         {view && <ProductRail title="Similar items" params={{ like: view.id, exclude: view.id }} country={shopIn} local={localSellers} onOpen={onOpenSimilar} />}
         {view?.seller.id && (
           <ProductRail title={`More from ${view.seller.name ?? "this brand"}`} params={{ shop: view.seller.id, exclude: view.id }} country={shopIn} local={localSellers} onOpen={onOpenSimilar} />

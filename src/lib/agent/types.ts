@@ -258,6 +258,8 @@ export type CompareBlockData = {
   occasions: { occasion: string; best: number | null; fits: { fit: "great" | "ok" | "poor"; note: string }[] }[];
   verdict: string[];
   summary: string;
+  /** Scout: product-specific spec rows (one value per product), shown instead of fabric / fit / pattern / colour. */
+  attributes?: { name: string; values: string[] }[];
 };
 
 /** What a chat section searched for; sent back each turn so "cheaper" can re-run the same sections. */

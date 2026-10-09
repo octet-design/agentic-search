@@ -155,6 +155,7 @@ let plannerSystem: string | null = null;
 const SCOUT_SEGMENTS = `
 
 SCOUT (overrides the persona above): you are Scout, a shopping assistant for ANY product, not only fashion: clothing and footwear, but also electronics, home and kitchen, beauty, sports, toys, books, gifts and more. Products come from our own catalog (fashion) and partner stores (everything). For a non-fashion item, set section categories [] (the category vocabulary is fashion-only) and rely on anchor (e.g. "wireless earbuds" → terms ["wireless earbuds","earbuds","tws earphones"]). Only ask who it's for when it matters for the product (clothing, footwear, gifts); set audience "unknown" for things like headphones or cookware. When you greet people or describe what you can do, say you help them shop for anything (fashion, electronics, home, beauty, gifts…), never only fashion.
+- SCOUT VOICE: speak like a knowledgeable personal shopper, not only a stylist. For non-fashion items, explain what actually matters when choosing (specs, materials, features, capacity, battery, durability, care) instead of styling. Closing questions ask about what matters for that kind of product (budget, size or capacity, must-have features, brand preference, who it's for), not outfit colours. A vague opener ("men", "women", "something nice", "a gift") gets a question about what kind of product, across everything you can shop (clothing, footwear, gadgets, home, beauty, gifts…), not only clothing.
 - SCOUT: only the FIRST section's results are shown right away; the other sections appear as buttons the user can tap to see them. Put the most important section first. In the intro, talk about the first section and mention the others briefly as things you can also show ("I can also pull up bags and cozy accessories").`;
 
 /** The reply to anything that isn't about shopping. */
@@ -210,6 +211,12 @@ function scoutPrompt(tax: TaxonomyApi): string {
 
 /** Answer-step rules for Scout (the stylist rules, as a general shopping assistant). */
 const SCOUT_RULES_PREFIX = "You are Scout, a warm, knowledgeable shopping assistant for Indian shoppers (any product, not only fashion).";
+
+/** Scout's version: it shops for anything, not only clothes. */
+const SCOUT_CLARIFY_FALLBACK = {
+  question: "What are you shopping for today: something to wear, a gadget, something for your home, beauty and personal care, or a gift?",
+  options: ["Something to wear", "A gadget", "For my home", "Beauty & personal care", "A gift"],
+};
 
 /** Used when a clarify turn comes back without a (new) question. */
 const CLARIFY_FALLBACK = { question: "What are you shopping for today: everyday wear, office wear, something festive, or footwear and accessories?", options: ["Everyday wear", "Office wear", "Party or festive", "Footwear", "Accessories"] };
@@ -620,7 +627,7 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
   const fresh = asked && !sameQuestion(asked, lastAsked(input.history)) ? { question: asked, options: plan.ask!.options.slice(0, plan.turnType === "clarify" ? 5 : 4) } : null;
   // Clarify and off-topic turns always end with a question. Off-topic steers back to shopping (never answers),
   // with a question from its own small call that links the topic to shopping where that's natural.
-  let ask = plan.turnType === "clarify" ? (fresh ?? CLARIFY_FALLBACK) : fresh;
+  let ask = plan.turnType === "clarify" ? (fresh ?? (input.blend ? SCOUT_CLARIFY_FALLBACK : CLARIFY_FALLBACK)) : fresh;
   if (plan.turnType === "off_topic") {
     const bridge = await offTopicBridge(input.message, !!input.blend, usage, input.signal);
     ask = sameQuestion(bridge.question, lastAsked(input.history)) ? OFF_TOPIC_FALLBACK : bridge;
@@ -833,6 +840,7 @@ When they ask which is best, to rank or to sort the products (in any language, e
         const res = await compareProducts({
           ids: targets.map((t) => t.id),
           extra,
+          general: !!input.blend,
           query: `${input.message} (${intentSummary(base, tax)})`,
           criterion: plan.compareCriterion ?? undefined,
           usage,

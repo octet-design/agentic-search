@@ -10,7 +10,9 @@ import { getRawProducts } from "./products";
 
 export type Fit = "great" | "ok" | "poor";
 export type OccasionRow = { occasion: string; best: number | null; fits: { fit: Fit; note: string }[] };
-export type CompareResult = { products: ProductCard[]; occasions: OccasionRow[]; verdict: string[]; summary: string };
+/** Product-specific spec rows (Scout): e.g. a tumbler's Capacity / Material / Insulation, one value per product. */
+export type AttributeRow = { name: string; values: string[] };
+export type CompareResult = { products: ProductCard[]; occasions: OccasionRow[]; verdict: string[]; summary: string; attributes?: AttributeRow[] };
 
 const LETTERS = ["A", "B", "C"];
 
@@ -33,6 +35,11 @@ Return:
 - verdict: 2–3 bullets like "Pick A if …", "Pick B if …".
 Use the product data plus general product knowledge (materials, comfort, build, features, formality, weather). Don't state stock, delivery or discounts. Mention prices as ₹1,999.`;
 
+/** Scout compares any product: the model also picks the spec rows that matter for this kind of product. */
+const GeneralSchema = CompareSchema.extend({ attributes: z.array(z.object({ name: z.string(), values: z.array(z.string()) })) });
+const ATTRIBUTES_RULE = `
+- attributes: the 4–6 specs that matter most when choosing this kind of product, in order of importance (a tumbler: Capacity, Material, Insulation, Lid type, Weight; headphones: Type, Battery life, Noise cancelling, Connectivity, Weight; clothing: Fabric, Fit, Pattern, Colour). Don't repeat price or brand. values = one short value per product (≤ 5 words) in the A, B, C order, taken only from the data given; write "—" when it isn't stated. Never guess numbers.`;
+
 /** A product that isn't in our catalog (e.g. from a partner store): its card plus a line of live facts. */
 export type CompareExtra = { id: string; card: ProductCard; facts: string };
 
@@ -42,6 +49,8 @@ export async function compareProducts(opts: {
   extra?: CompareExtra[];
   query?: string;
   criterion?: string;
+  /** Any kind of product (Scout): adds product-specific spec rows instead of the fashion ones. */
+  general?: boolean;
   usage?: Usage;
   signal?: AbortSignal;
 }): Promise<CompareResult> {
@@ -69,14 +78,24 @@ export async function compareProducts(opts: {
   const res = await llmStructured({
     name: "compare",
     model: getEnv().OPENAI_MODEL_FAST,
-    schema: CompareSchema,
-    system: SYSTEM,
+    schema: opts.general ? GeneralSchema : CompareSchema,
+    system: opts.general ? SYSTEM + ATTRIBUTES_RULE : SYSTEM,
     user: `${opts.query ? `Shopper's context: ${opts.query}\n` : ""}${opts.criterion ? `They care about: ${opts.criterion}\n` : ""}${rows.map((x, i) => `${LETTERS[i]}: ${x.line}`).join("\n")}`,
     usage: opts.usage,
     signal: opts.signal,
     timeoutMs: 35_000,
   });
-  return { products, ...normalizeCompare(res, products.length) };
+  const attributes = "attributes" in res ? normalizeAttributes(res.attributes as AttributeRow[], products.length) : undefined;
+  return { products, ...normalizeCompare(res, products.length), ...(attributes?.length ? { attributes } : {}) };
+}
+
+/** One value per product (missing → "—"), at most 6 rows, empty rows dropped. Pure; unit-tested. */
+export function normalizeAttributes(rows: AttributeRow[], n: number): AttributeRow[] {
+  return rows
+    .filter((r) => r.name.trim())
+    .map((r) => ({ name: r.name.trim(), values: Array.from({ length: n }, (_, i) => r.values[i]?.trim() || "—") }))
+    .filter((r) => r.values.some((v) => v !== "—"))
+    .slice(0, 6);
 }
 
 /** Maps letters to indexes and fills gaps so every row has one fit per product. Pure; unit-tested. */

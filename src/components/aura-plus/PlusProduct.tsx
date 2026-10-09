@@ -111,6 +111,7 @@ export function PlusProduct({
           onOpenSimilar={(c) => onOpen(fromShopify(c))}
           renderSave={(card) => <SharedSave card={card} />}
           localSellers
+          anyProduct
         />
       ) : (
         <>
