@@ -30,7 +30,18 @@ const BodySchema = z.object({
       z.object({
         key: z.string().max(80),
         label: z.string().max(60),
-        facts: z.array(z.object({ id: z.string().max(40), kind: z.enum(MEMORY_KINDS), text: z.string().max(160), at: z.number() })).max(15),
+        facts: z
+          .array(
+            z.object({
+              id: z.string().max(40),
+              kind: z.enum(MEMORY_KINDS),
+              text: z.string().max(160),
+              at: z.number(),
+              source: z.enum(["stated", "inferred"]).optional(),
+              seen: z.number().optional(),
+            }),
+          )
+          .max(15),
       }),
     )
     .max(12)

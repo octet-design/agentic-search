@@ -232,7 +232,9 @@ function AssistantTurn({
             "Removed from memory."
           ) : (
             <>
-              Saved to memory: {m.memorySaved.facts.map((f) => `${f.label === "You" ? "" : `${f.label}: `}${f.text}`).join(" · ")}
+              {/* Told facts are "saved"; things learned from what was asked for are "noted" (quieter, still undoable). */}
+              {m.memorySaved.facts.every((f) => f.source === "inferred") ? "Noted" : "Saved to memory"}:{" "}
+              {m.memorySaved.facts.map((f) => `${f.label === "You" ? "" : `${f.label}: `}${f.source === "inferred" ? f.text.charAt(0).toLowerCase() + f.text.slice(1) : f.text}`).join(" · ")}
               <button type="button" onClick={onUndoMemory} className="font-medium text-ink underline underline-offset-2">
                 Undo
               </button>

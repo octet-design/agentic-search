@@ -283,3 +283,15 @@ What was built:
   - a gift for Dad uses none of yours;
   - Mom's notes are used only for Mom;
   - an updated size replaces the old one.
+
+### Memory learns from ordinary chat (2026-10-09)
+
+Feedback: Scout should also remember during normal chatting, not only when told facts (reference: mem0's e-commerce memory: taste, size, intent and price range from what shoppers search for and choose; an extract → add/update/delete loop on every turn). Decisions:
+- learned preferences are used right away;
+- a quiet "Noted: … · Undo" line in the chat;
+- behaviour (saves, clicks, "Not for me") doesn't feed memory yet.
+
+- **A separate extraction step** (`extractMemory`, mem0-style) runs on every Scout turn, in parallel with planning and search, so it adds no wait. It returns stated facts plus **inferred** preferences implied by the request: colours, fabrics, brands, styles, usual budget, sizes in passing, rejections, lifestyle context ("for office"). It never saves one-off choices ("red for this Diwali", "a saree for my cousin's wedding"), gift budgets (the giver's spend, not the recipient's habit), the product type alone, or the assistant's own suggestions. Inside the big planner prompt, gpt-4.1-mini saved nothing from ordinary requests, so capture moved out of the planner (its `memory` field was removed).
+- **Notes carry `source` (stated / inferred) and `seen`.** A repeat strengthens a note (`seen` + 1, no new "Undo"); a stated repeat upgrades a learned one; `replaces` updates or contradicts. Learned notes are capped at 10 per person (least seen, then oldest, go first). The planner sees learned notes marked "(learned)" and phrases them as a hunch ("you seemed to like pastels").
+- **UI:** stated facts show "Saved to memory: …"; learned ones show "Noted: you like pastel colours · Undo". The panel groups each person's notes into "Told me" and "Learned from chats" ("seen in 3 chats").
+- **Eval:** `eval:memory` has 9 steps, adding ordinary-chat learning (pastel, cotton → used in the next chat) and two must-not-learn cases (a one-off wedding colour, a gift budget), and passes 9/9.

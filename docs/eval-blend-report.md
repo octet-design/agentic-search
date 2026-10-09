@@ -1,153 +1,148 @@
 # Blend search relevance report
 
-Generated 2026-10-09T13:02:43.541Z · 12 queries · **12/12 passed** (every shown product is an exact match for its section, empty sections say so, an unknown item finds nothing or gets a question) · median turn 6.0s
+Generated 2026-10-09T13:21:31.268Z · 12 queries · **12/12 passed** (every shown product is an exact match for its section, empty sections say so, an unknown item finds nothing or gets a question) · median turn 5.9s
 
 ## 1. chaniya choli ✅
 
-*7.2s · understand 3.8s, search 3.4s, total 7.2s*
+*5.9s · understand 4.1s, search 1.8s, total 5.9s*
 
-**Embroidered Chaniya Cholis**: anchor `chaniya choli` · 3 catalog + 5 Shopify
+**Embroidered Chaniya Cholis**: anchor `chaniya choli` · 2 catalog + 6 Shopify
 
 1. 📦 Typesense · XS Attractive Navy Blue Cotton Special Navratri Wear Chaniya Choli (Ethnic Plus, ₹6359)
-2. 🛍 Shopify · Occasion Wear Chaniya Choli In Red Art Silk Fabric With Embroidery Work And Wedding Wear Blouse (women's fashion mart, ₹30765)
+2. 🛍 Shopify · 1407  Vibrant Multicolor Georgette Navratri Chaniya Choli with Mirror Work (Ghoomar grace, ₹2500)
 3. 📦 Typesense · Semi Stitched Attractive Black Gamthi Work Silk Traditional Rajwadi Chaniya Choli (Ethnic Plus, ₹4679)
-4. 🛍 Shopify · Blush Pink Mirror Work Chaniya Choli Set – Navratri & Festive Wear (Ghoomar grace, ₹2799)
-5. 🛍 Shopify · Designer Chaniya Choli / Muslin Digital Print / Party Wear / Navratri (Ethenika.com , ₹4590)
-6. 🛍 Shopify · Taupe Beige Mirror Work Chaniya Choli Set – Navratri & Festive Wear (Ghoomar grace, ₹2900)
-7. 📦 Typesense · Pink Silk Sangeet Wear Sequins Work Chaniya Choli (Sareesbazaar, ₹184)
-8. 🛍 Shopify · Net Wedding Wear Chaniya Choli In Peach With Embroidery Work And Designer Blouse (women's fashion mart, ₹20181)
+4. 🛍 Shopify · Traditional Poly Cotton Chaniya Choli for Women, Rich Zari Weaving (CRAZE, ₹4899)
+5. 🛍 Shopify · Raw Silk Multicolor Embroidered Chaniya Choli (Gauri Saree, ₹20000)
+6. 🛍 Shopify · Crimson Red Micro-Pleated Chaniya Choli Set – Festive Navratri Wear (Ghoomar grace, ₹2799)
+7. 🛍 Shopify · Eyeful Black Navratri Chaniya Choli, Indian traditional festive outfit for Princess, Design GRL # 1616 (DesiGifts LLC, ₹5320)
+8. 🛍 Shopify · Modal Silk Navratri Chaniya Choli (Ethenika.com , ₹5990)
 
 ## 2. bandhani saree ✅
 
-*7.4s · understand 3.8s, search 3.6s, total 7.4s*
+*8.2s · understand 5.9s, search 2.3s, total 8.2s*
 
 **Bandhani Sarees**: anchor `bandhani saree` (category) · 4 catalog + 4 Shopify
 
 1. 📦 Typesense · Red Festive Tie-Dye Bandhani Saree (Kalki, ₹39950)
 2. 📦 Typesense · Pink Festive Tie-Dye Bandhani Saree (Kalki, ₹7995)
-3. 📦 Typesense · Red Vintage Tie-Dye Bandhani Saree (Kalki, ₹15995)
-4. 📦 Typesense · Blue Tie-Dye Bandhani Saree (Kalki, ₹22995)
-5. 🛍 Shopify · Woven Border Tie and Dye Handcrafted Bandhani Cotton Saree - 34374 (FABK, ₹4860)
-6. 🛍 Shopify · Cotton Silk Bandhani Saree with Traditional Hand Dyeing (EthnicsLand, ₹2749)
-7. 🛍 Shopify · Bandhani Silk Saree In Green With Tie And Dye Design (Sundari Silks, ₹16157)
-8. 🛍 Shopify · Bandhani Silk Saree In Magenta With Tie And Dye Design (Sundari Silks, ₹18335)
+3. 📦 Typesense · Blue Tie-Dye Bandhani Saree (Kalki, ₹22995)
+4. 📦 Typesense · Red Vintage Tie-Dye Bandhani Saree (Kalki, ₹15995)
+5. 🛍 Shopify · Bandhani Silk Saree In Bright Orange With Tie And Dye Design (Sundari Silks, ₹25207)
+6. 🛍 Shopify · Tie and Dye Handcrafted Bandhani Cotton Saree - 34360 (FABK, ₹3400)
+7. 🛍 Shopify · Bandhani Silk Saree In Magenta With Tie And Dye Design (Sundari Silks, ₹18335)
+8. 🛍 Shopify · Tie and Dye Handcrafted Bandhani Cotton Saree - 34358 (FABK, ₹3400)
 
 ## 3. kolhapuri chappal ✅
 
-*7.0s · understand 3.8s, search 3.2s, total 7.0s*
+*5.4s · understand 3.6s, search 1.9s, total 5.4s*
 
-**Kolhapuri Chappals**: anchor `kolhapuri chappal / kolhapuri sandal / kolhapuri chappal women` · 2 catalog + 6 Shopify
+**Kolhapuri Chappals**: anchor `kolhapuri chappal / kolhapuri chappals` · 2 catalog + 6 Shopify
 
-1. 🛍 Shopify · Kolhapuri Ladies Leather Chappal (CRAZE, ₹1949)
-2. 🛍 Shopify · Kolhapuri Ladies Leather Chappal (CRAZE, ₹1149)
-3. 🛍 Shopify · Golden Color Ladies   Highest Quality Leather Ladies Kolhapuri Chappal (Vhaan Ethnic Craft, ₹999)
-4. 📦 Typesense · Traditional Handmade Genuine Cruelty-Free Leather Kolhapuri Chappal (Tjori, ₹1819)
-5. 🛍 Shopify · Grey Ladies Kolhapuri Chappal (Vhaan Ethnic Craft, ₹999)
+1. 🛍 Shopify · Peshwai Kolhapuri Chappal for Women – Handmade Leather (Kalapuri, ₹2699)
+2. 🛍 Shopify · Tochi Veni Kolhapuri Chappal for Women – Handmade Leather (Kalapuri, ₹1799)
+3. 📦 Typesense · Traditional Handmade Genuine Cruelty-Free Leather Kolhapuri Chappal (Tjori, ₹1819)
+4. 🛍 Shopify · Grey Ladies Kolhapuri Chappal (Vhaan Ethnic Craft, ₹999)
+5. 📦 Typesense · Premium Handmade Genuine Cruelty-Free Leather Kolhapuri Chappals (Tjori, ₹1819)
 6. 🛍 Shopify · Handmade Cruelty-Free Leather Kolhapuri Chappals for Women (TJORI, ₹1599)
-7. 📦 Typesense · Premium Handmade Genuine Cruelty-Free Leather Kolhapuri Chappals (Tjori, ₹1819)
-8. 🛍 Shopify · Golden Weni Red Gonda Dark Brown Ladies Kolhapuri Chappal (Vhaan Ethnic Craft, ₹999)
+7. 🛍 Shopify · Golden Color Ladies   Highest Quality Leather Ladies Kolhapuri Chappal (Vhaan Ethnic Craft, ₹999)
+8. 🛍 Shopify · Traditional Handmade Genuine Cruelty-Free Leather Kolhapuri Chappal (TJORI, ₹1499)
 
 ## 4. nehru jacket for men ✅
 
-*6.9s · understand 4.3s, search 2.6s, total 6.9s*
+*6.5s · understand 3.5s, search 3.0s, total 6.5s*
 
-**Classic Nehru Jackets**: anchor `nehru jacket` (category) · 7 catalog + 1 Shopify
+**Classic Nehru Jackets**: anchor `nehru jacket` (category) · 5 catalog + 3 Shopify
 
 1. 📦 Typesense · Men's Black Cotton Silk Blend Nehru Jacket (Vastramay, ₹6447)
-2. 🛍 Shopify · Men's Navy Blue Silk Blend Nehru Jacket (vastramay, ₹4399)
-3. 📦 Typesense · Men's Navy Blue · Nehru Jacket (Vastramay, ₹11427)
-4. 📦 Typesense · Men's Plus Size Maroon Cotton Blend Nehru Jacket (Vastramay, ₹6747)
-5. 📦 Typesense · Men Black Premium Linen Blend Solid Casual Nehru Jacket (Louis Philippe, ₹6561)
-6. 📦 Typesense · Coffee Co-Linen Men's Nehru Jacket (Saphed, ₹8749)
-7. 📦 Typesense · Mens Beige Floral Printed Nehru Jacket (Kisah, ₹5249)
-8. 📦 Typesense · Navy Blue Silk Blend Printed Nehru Jacket (Kisah, ₹4499)
+2. 🛍 Shopify · Nehru Jacket - Cotton Blend Classic Fit (Nicobar, ₹9500)
+3. 📦 Typesense · Men's Plus Size Maroon Cotton Blend Nehru Jacket (Vastramay, ₹6747)
+4. 📦 Typesense · Men's Cream Pure Cotton Nehru Jacket (Vastramay, ₹4377)
+5. 📦 Typesense · Men's Grey Imported Suiting Nehru Jacket (Vastramay, ₹5817)
+6. 🛍 Shopify · Mens Silk Blend Self Design Navy Nehru Jacket (Sojanya, ₹1221)
+7. 📦 Typesense · Coffee Co-Linen Men's Nehru Jacket (Saphed, ₹8749)
+8. 🛍 Shopify · Men's Yellow Silk Blend Patola Print Mandarin Collar Nehru Jacket (Trendia, ₹3440)
 
 ## 5. patola dupatta ✅
 
-*6.4s · understand 4.3s, search 2.1s, total 6.4s*
+*5.5s · understand 4.2s, search 1.4s, total 5.5s*
 
-**Patola Dupattas**: anchor `patola dupatta` · 0 catalog + 8 Shopify
+**Patola Silk Dupattas**: anchor `patola dupatta` · 1 catalog + 7 Shopify
 
-1. 🛍 Shopify · Red Patola Silk Dupatta – Ikat Geometric Print with Tassel (Taniva, ₹499)
-2. 🛍 Shopify · Patola dupatta -SRD001F (Swarna Reddys, ₹1150)
+1. 🛍 Shopify · Patola dupatta -SRD001F (Swarna Reddys, ₹1150)
+2. 📦 Typesense · M Amazing Black Patola Printed Silk Traditional Gown With Dupatta (Ethnic Plus, ₹2759)
 3. 🛍 Shopify · Patola dupatta-SRD001A (Swarna Reddys, ₹1150)
 4. 🛍 Shopify · Patola dupatta-SRD001E (Swarna Reddys, ₹1150)
-5. 🛍 Shopify · Blue Patola Printed Silk Dupatta (SZDGDP-PATOLA-167) (KARMAPLACE, ₹2200)
-6. 🛍 Shopify · Pure Silk Patola Digital Print Dupatta with Silk Tissue Pallu - Design 11 (Leheriya, ₹2799)
-7. 🛍 Shopify · Pure Silk Patola Digital Print Dupatta with Tassels (Leheriya, ₹3499)
-8. 🛍 Shopify · Patola Dupatta in fancy design with blue colour (New India Fashion, ₹6500)
+5. 🛍 Shopify · Red Patola Silk Dupatta – Ikat Geometric Print with Tassel (Taniva, ₹499)
+6. 🛍 Shopify · Patola Dupatta in fancy design with blue colour (New India Fashion, ₹6500)
+7. 🛍 Shopify · Blue Patola Printed Silk Dupatta (SZDGDP-PATOLA-167) (KARMAPLACE, ₹2200)
+8. 🛍 Shopify · Pure Silk Patola Digital Print Dupatta with Silk Tissue Pallu - Design 11 (Leheriya, ₹2799)
 
 ## 6. potli bag for a wedding ✅
 
-*6.0s · understand 3.8s, search 2.2s, total 6.0s*
+*7.0s · understand 4.6s, search 2.4s, total 7.0s*
 
-**Embellished Potli Bags**: anchor `potli bag / potli` · 5 catalog + 3 Shopify
+**Embroidered Potli Bags**: anchor `potli bag / potli` · 7 catalog + 1 Shopify
 
-1. 📦 Typesense · Multi Embellished Potli Bag (Kalki, ₹8490)
-2. 📦 Typesense · Pink Embroidered Motif Potli Bag (Kalki, ₹7899)
-3. 📦 Typesense · Red Embroidered Motif Potli Bag in Silk (Kalki, ₹7899)
-4. 🛍 Shopify · Handcrafted Embroidered Potli Bag with Pearl Handle for Women / Wedding & Festive Potli Purse (Diwam Handicrafts, ₹249)
-5. 🛍 Shopify · Women Handmade Embroidered Bridal Potli Bag - Golden Glow (Vivistry, ₹2749)
-6. 🛍 Shopify · Handcrafted Embroidered Potli Bag with Golden Bead Handle / Bridal & Wedding Ethnic Purse for Women (Diwam Handicrafts, ₹249)
-7. 📦 Typesense · Purple Floral Embroidered Potli (House of Designers, ₹8600)
-8. 📦 Typesense · Green Floral Embroidered Potli (House of Designers, ₹10000)
+1. 📦 Typesense · Pink Embroidered Motif Potli Bag (Kalki, ₹7899)
+2. 📦 Typesense · Red Embroidered Motif Potli Bag in Silk (Kalki, ₹7899)
+3. 📦 Typesense · Embroidered Potli Bag in Ivory (Global Desi, ₹1890)
+4. 🛍 Shopify · Embroidered Potli Bags, Clutch, Pouch Wedding Favors, Return Gifts (Desi Tohfa, ₹304)
+5. 📦 Typesense · Multi Embellished Potli Bag (Kalki, ₹8490)
+6. 📦 Typesense · Green Silk Embroidered Potli Bag (Kalki, ₹7899)
+7. 📦 Typesense · Embroidered Potli Bag in Pink (Global Desi, ₹1890)
+8. 📦 Typesense · Purple Floral Embroidered Potli (House of Designers, ₹8600)
 
 ## 7. linen kurta men ✅
 
-*5.9s · understand 3.8s, search 2.1s, total 5.9s*
+*6.3s · understand 4.1s, search 2.3s, total 6.3s*
 
-**Classic Linen Kurtas**: anchor `kurta` (category) · 8 catalog + 0 Shopify
+**Linen Kurtas**: anchor `kurta` (category) · 8 catalog + 0 Shopify
 
 1. 📦 Typesense · Now,Men's Sky Blue Linen Solid Kurta (Ethnicity, ₹2295)
-2. 📦 Typesense · Chocolate Linen Men's Classic Kurta (Saphed, ₹9999)
+2. 📦 Typesense · Now,Men's Yellow Linen Solid Kurta (Ethnicity, ₹2495)
 3. 📦 Typesense · Now,Men's Navy Blue Linen Solid Kurta (Ethnicity, ₹2495)
-4. 📦 Typesense · Chocolate Linen Men's Side Open Kurta (Saphed, ₹9999)
-5. 📦 Typesense · Now,Men's Yellow Linen Solid Kurta (Ethnicity, ₹2495)
-6. 📦 Typesense · Now,Men's White Linen Solid Kurta (Ethnicity, ₹2295)
-7. 📦 Typesense · Plum Linen Men's Classic Kurta (Saphed, ₹9999)
-8. 📦 Typesense · Plus Men's Beige Cotton Linen Kurta (Vastramay, ₹4107)
+4. 📦 Typesense · Now,Men's White Linen Solid Kurta (Ethnicity, ₹2295)
+5. 📦 Typesense · Chocolate Linen Men's Classic Kurta (Saphed, ₹9999)
+6. 📦 Typesense · Chocolate Linen Men's Side Open Kurta (Saphed, ₹9999)
+7. 📦 Typesense · Plus Men's Beige Cotton Linen Kurta (Vastramay, ₹4107)
+8. 📦 Typesense · Plum Linen Men's Classic Kurta (Saphed, ₹9999)
 
 ## 8. zorblax quantum fluxomatic ✅
 
-Asked first: Is 'zorblax quantum fluxomatic' a gadget, appliance, or something else?
+Asked first: Are you looking for electronics, gadgets, or something else?
 
 ## 9. virat kohli t-shirt ✅
 
-*4.4s · understand 3.1s, search 1.2s, total 4.4s*
+*5.9s · understand 4.2s, search 1.7s, total 5.9s*
 
-**Virat Kohli T-Shirts**: anchor `t-shirt / tshirt / tee / jersey` (category) · 0 catalog + 8 Shopify
+**Virat Kohli T-Shirts**: anchor `virat kohli t-shirt / kohli t-shirt / virat t-shirt` · 0 catalog + 3 Shopify
 
-1. 🛍 Shopify · King Kohli Graphic Printed T-shirt (RoadTrip®, ₹799)
-2. 🛍 Shopify · Virat Kohli - Premium Oversized Tshirt (CRAZEE MOD, ₹1248)
-3. 🛍 Shopify · Virat Kohli 18 – Iconic Graphic Fan Tee (PD CLORI, ₹499)
-4. 🛍 Shopify · Virat Kohli - Regular Print T-Shirt (ECLIPSE THEORY, ₹349)
-5. 🛍 Shopify · Kohli Goes Down the Ground T-Shirt (Cricket Mantra Shop, ₹750)
-6. 🛍 Shopify · VIRAT KOHLI Oversized Tee-Shirt (Audace, ₹999)
-7. 🛍 Shopify · One8 Virat Kohli Graphic T-Shirt (Uncaged Shop, ₹1999)
-8. 🛍 Shopify · Women’s White Virat Kohli Printed Oversized T-Shirt (My Store, ₹999)
+1. 🛍 Shopify · Virat Kohli - Regular Print T-Shirt (ECLIPSE THEORY, ₹349)
+2. 🛍 Shopify · Virat Kohli With Work In Progress Sorry For Any Inconvenience Caused T-shirt Unisex T-shirt, Sweatshirt, Hoodie, Long Sleeve Tee (Tee Hivey, ₹1832)
+3. 🛍 Shopify · KING KOHLI Cricket - Unisex T-Shirt (Red Raven Store, ₹599)
 
 ## 10. noise cancelling headphones under 8000 ✅
 
-*5.4s · understand 3.4s, search 2.0s, total 5.4s*
+*6.0s · understand 4.0s, search 2.0s, total 6.0s*
 
-**Noise Cancelling Headphones**: anchor `noise cancelling headphones / headphones / wireless headphones / ANC headphones` · 0 catalog + 8 Shopify
+**Over-Ear Noise Cancelling Headphones**: anchor `noise cancelling headphones / headphones / over ear headphones` (category) · 0 catalog + 8 Shopify
 
-1. 🛍 Shopify · JBL Tune 780NC Wireless Noise Cancelling Headphone Blue (Bestomart, ₹7110)
-2. 🛍 Shopify · New Quiet Comfort Ultra Wireless Noise Cancelling Headphones with Spatial Audio, Over-The-Ear Headphones with Mic, Up to 24 Hours of Battery Life, Black (Pro Plus | The Smarter Choice, ₹6000)
-3. 🛍 Shopify · Sony WH-CH720N Noise Cancellation Wireless Bluetooth Over Ear Headphones with Mic, Up to 50Hrs Battery- Unboxed (Flashify, ₹5990)
+1. 🛍 Shopify · Edifier Wireless Noise Cancellation Over-Ear Headphones WH700NB (BROOT COMPUSOFT LLP, ₹4990)
+2. 🛍 Shopify · JBL Tune 780NC Wireless Noise Cancelling Headphone Blue (Bestomart, ₹7110)
+3. 🛍 Shopify · Sony WH-CH720N Noise Cancellation Wireless Bluetooth Over Ear Headphones with Mic (Shrikant Electronics, ₹7989)
 4. 🛍 Shopify · Wireless Noise Cancelling Headphones / Bluetooth Over-Ear Headset with Premium Sound /Pwolimarket (Pwolimarket, ₹1199)
-5. 🛍 Shopify · Sony WH-CH720N Active Noise Cancellation Wireless Bluetooth Over Ear Headphones with Mic, Adaptive Sound Control, Quick Charge, Up to 35Hrs Battery, Customized EQ- Blue (Aarav Electronics, ₹7990)
-6. 🛍 Shopify · E7 Active Noise Cancelling Bluetooth Over-ear Headphones (Cowinaudio, ₹4836)
-7. 🛍 Shopify · SE7 Dual Feedback Active Noise Cancelling Bluetooth Headphones (Cowinaudio, ₹6771)
-8. 🛍 Shopify · COWIN Bluetooth Headphones Active Noise Cancelling Headphones Wireless Headphones Over Ear with Mic Deep Bass, Comfortable Protein Earpads, 30 Hours Playtime for Travel/Work, Black (Cowinaudio, ₹6771)
+5. 🛍 Shopify · Sony WH-CH720N Noise Canceling Wireless Headphones Bluetooth Over The Ear Headset with Microphone (ShopAtSC, ₹6990)
+6. 🛍 Shopify · Sony WH-CH720N, Wireless Over-Ear Active Noise Cancellation Headphones with Mic (Clickbuy, ₹7990)
+7. 🛍 Shopify · Edifier W830NB Wireless Bluetooth Headphones Active Noise Cancelling Hi-Res Foldable Over-Ear Headset (Furper.com, ₹7999)
+8. 🛍 Shopify · QuietComfort Ultra Headphones - Noise Cancelling, Spatial Audio (Ethoscases, ₹1999)
 
 ## 11. what is 75 times 99? ✅
 
-Asked first: Is there something I can help you shop for, like a product, a category, or an outfit for an occasion?
+Asked first: Are you looking to shop for a calculator, educational tools, or something for a study session?
 
 ## 12. leather straps for watch from dailyobjects ✅
 
-*5.1s · understand 3.4s, search 1.7s, total 5.1s*
+*4.7s · understand 3.2s, search 1.5s, total 4.7s*
 
 **Leather Watch Straps**: anchor `leather watch strap / watch strap / leather strap` · 0 catalog + 8 Shopify
 

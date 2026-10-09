@@ -73,3 +73,23 @@ describe("tidyFact", () => {
     expect(tidyFact("likes", "loves pastel colours.")).toBe("Loves pastel colours");
   });
 });
+
+describe("learned (inferred) notes", () => {
+  it("records the source, grows `seen` on repeats, and a stated repeat upgrades it", () => {
+    const first = mergeFacts([], [{ person: "self", kind: "likes", text: "Likes pastel colours", source: "inferred" }], 1, id);
+    expect(first.saved[0].source).toBe("inferred");
+    const again = mergeFacts(first.people, [{ person: "me", kind: "likes", text: "likes pastel colours", source: "inferred" }], 2, id);
+    expect(again.saved).toEqual([]);
+    expect(again.people[0].facts[0]).toMatchObject({ seen: 2, source: "inferred" });
+    const told = mergeFacts(again.people, [{ person: "me", kind: "likes", text: "Likes pastel colours", source: "stated" }], 3, id);
+    expect(told.people[0].facts[0]).toMatchObject({ seen: 3, source: "stated" });
+  });
+
+  it("drops the least-seen learned notes first when over the cap", () => {
+    const items = Array.from({ length: 12 }, (_, i) => ({ person: "self", kind: "likes" as const, text: `Likes colour ${i}`, source: "inferred" as const }));
+    const { people } = mergeFacts([], [{ person: "self", kind: "size", text: "Wears size M" }, ...items], 1, id);
+    const facts = people[0].facts;
+    expect(facts.filter((f) => f.source === "inferred")).toHaveLength(10);
+    expect(facts.some((f) => f.text === "Wears size M")).toBe(true);
+  });
+});

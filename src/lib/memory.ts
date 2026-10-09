@@ -6,15 +6,20 @@
 
 export const MEMORY_KINDS = ["size", "avoid", "likes", "budget", "other"] as const;
 export type MemoryKind = (typeof MEMORY_KINDS)[number];
-export type MemoryFact = { id: string; kind: MemoryKind; text: string; at: number };
+/** stated: the shopper said it about someone ("I wear M"); inferred: learned from what they ask for in chat. */
+export type MemorySource = "stated" | "inferred";
+/** `seen`: how many chats this came up in (inferred notes grow more certain as it rises). */
+export type MemoryFact = { id: string; kind: MemoryKind; text: string; at: number; source?: MemorySource; seen?: number };
 export type MemoryPerson = { key: string; label: string; facts: MemoryFact[] };
 /** A fact the agent heard in chat, before it's filed (`replaces` = the old fact it updates, if any). */
-export type MemoryItem = { person: string; kind: MemoryKind; text: string; replaces?: string };
+export type MemoryItem = { person: string; kind: MemoryKind; text: string; replaces?: string; source?: MemorySource };
 /** What was just saved, so the chat can offer "Undo". */
-export type SavedFact = { key: string; label: string; id: string; text: string };
+export type SavedFact = { key: string; label: string; id: string; text: string; source?: MemorySource };
 
 export const MAX_PEOPLE = 12;
 export const MAX_FACTS = 15;
+/** Learned notes are more volatile than stated ones: at most this many per person (least seen, oldest go first). */
+export const MAX_INFERRED = 10;
 export const SELF = "self";
 
 /** Relations in English and Hinglish → one key and label each. Order matters: "grandmother" before "mother". */
@@ -88,10 +93,18 @@ export function mergeFacts(
       next = [...next, person];
     }
     if (item.replaces?.trim()) person.facts = person.facts.filter((f) => norm(f.text) !== norm(item.replaces!));
-    if (person.facts.some((f) => norm(f.text) === norm(text))) continue;
-    const fact: MemoryFact = { id: newId(), kind: item.kind, text, at: now };
-    person.facts = [...person.facts, fact].slice(-MAX_FACTS);
-    saved.push({ key, label: person.label, id: fact.id, text });
+    const source: MemorySource = item.source ?? "stated";
+    // Seen again: it's more certain (and a stated repeat upgrades a learned note). Not new, so no "Undo".
+    const same = person.facts.find((f) => norm(f.text) === norm(text));
+    if (same) {
+      person.facts = person.facts.map((f) =>
+        f === same ? { ...f, at: now, seen: (f.seen ?? 1) + 1, source: f.source === "stated" || source === "stated" ? "stated" : "inferred" } : f,
+      );
+      continue;
+    }
+    const fact: MemoryFact = { id: newId(), kind: item.kind, text, at: now, source, seen: 1 };
+    person.facts = capFacts([...person.facts, fact]);
+    saved.push({ key, label: person.label, id: fact.id, text, source });
   }
   next = next.filter((p) => p.facts.length);
   if (next.length > MAX_PEOPLE) {
@@ -100,6 +113,22 @@ export function mergeFacts(
     next = next.filter((p) => keep.has(p.key));
   }
   return { people: next, saved };
+}
+
+/** Keeps a person's notes within the caps: learned notes go first (least seen, then oldest), then the oldest. */
+function capFacts(facts: MemoryFact[]): MemoryFact[] {
+  let out = facts;
+  const inferred = out.filter((f) => f.source === "inferred");
+  if (inferred.length > MAX_INFERRED) {
+    const drop = new Set(
+      [...inferred]
+        .sort((a, b) => (a.seen ?? 1) - (b.seen ?? 1) || a.at - b.at)
+        .slice(0, inferred.length - MAX_INFERRED)
+        .map((f) => f.id),
+    );
+    out = out.filter((f) => !drop.has(f.id));
+  }
+  return out.slice(-MAX_FACTS);
 }
 
 /** Removes the facts that were just saved (the chat's "Undo"); people left with no facts go too. */

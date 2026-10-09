@@ -162,8 +162,6 @@ const PlanSchema = z.object({
   /** The one question that closes the answer (ChatGPT-style), with tappable answers. */
   ask: z.object({ question: z.string(), options: z.array(z.string()) }).nullable(),
   followups: z.array(z.string()),
-  /** Lasting facts the user stated, each for a person ("self", "mom", "Riya"); Scout only, else []. */
-  memory: z.array(z.object({ person: z.string(), kind: z.enum(MEMORY_KINDS), fact: z.string(), replaces: z.string() })),
 });
 type Plan = z.infer<typeof PlanSchema>;
 
@@ -185,7 +183,8 @@ function rememberedFacts(input: ChatTurnInput): { person: MemoryPerson; facts: s
   if (!input.people?.length) return null;
   const key = forPersonOf(input);
   const person = key ? input.people.find((p) => p.key === key) : undefined;
-  return person?.facts.length ? { person, facts: person.facts.map((f) => f.text) } : null;
+  // Learned notes are marked, so the reply can phrase them as a hunch ("you seemed to like pastels").
+  return person?.facts.length ? { person, facts: person.facts.map((f) => (f.source === "inferred" ? `${f.text} (learned)` : f.text)) } : null;
 }
 
 /** The planner's memory context: only the facts of the person this request is for. */
@@ -198,11 +197,51 @@ function memoryLine(input: ChatTurnInput): string {
   return [
     `Memory. People you have notes on: ${known}.`,
     who && facts.length
-      ? `This request is for ${who === "You" ? "the user" : `their ${who.toLowerCase()}`}. What you remember about them: ${facts.join("; ")}. Name at least one of these in the intro, naturally ("Since you wear M and avoid polyester, …"). Don't re-save these notes, but do save any NEW lasting fact the user states.`
+      ? `This request is for ${who === "You" ? "the user" : `their ${who.toLowerCase()}`}. What you remember about them: ${facts.join("; ")}. Name at least one of these in the intro, naturally ("Since you wear M and avoid polyester, …").`
       : who
         ? `This request is for ${who === "You" ? "the user" : who}; you have no notes on them yet.`
         : "This request is for someone you have no notes on: use no memory.",
   ].join(" ");
+}
+
+const MemoryOutSchema = z.object({
+  items: z.array(z.object({ person: z.string(), kind: z.enum(MEMORY_KINDS), fact: z.string(), replaces: z.string(), source: z.enum(["stated", "inferred"]) })),
+});
+
+const MEMORY_SYSTEM = `You are the memory of Scout, a shopping assistant. From the user's latest message, pick out what's worth remembering about the shopper and the people they shop for, the way a good personal shopper would. Two sources:
+- stated: lasting facts the user says about someone ("I wear size M", "my mom loves cotton sarees", "I'm allergic to wool").
+- inferred: preferences implied by what they ask for in ordinary chat: colours, fabrics, brands, fits or styles they ask for ("pastel cotton kurtas" → likes pastel colours, prefers cotton), their usual budget on everyday items ("under ₹2,000" → usually spends under ₹2,000), sizes mentioned in passing ("in M", "size 9 shoes"), things they reject ("not pink", "no polyester" → avoids), and lifestyle context ("for office", "humid weather", "for the gym" → works in an office, lives somewhere humid, goes to the gym).
+Each item: person (whose preference it is: "self" for the user, else the relation or name, e.g. "mom", "dad", "Riya"; when the request is for someone else, it's theirs), kind (size | avoid | likes | budget | other), fact (a short note that reads on its own: "Likes pastel colours", "Usually spends under ₹2,000", "Avoids polyester"), replaces (the exact known note this updates or contradicts, else ""), source.
+Never: a choice made only for one occasion or event ("red for this Diwali", "a saree for my cousin's wedding this Sunday", "under 5k for this wedding"), a gift's budget (that's the giver's one-off spend, not the recipient's habit: "gift for dad under 3000" teaches nothing about dad's budget), the product type alone ("wants kurtas"), anything the assistant suggested, guesses beyond what was said, or notes that are already known. At most 3 items; often none. Return {"items": []} when nothing qualifies.`;
+
+/** What's worth remembering in this message (mem0-style extraction step, separate from planning). */
+async function extractMemory(input: ChatTurnInput, usage: Usage, signal?: AbortSignal): Promise<MemoryItem[]> {
+  const key = forPersonOf(input);
+  const person = key ? input.people?.find((p) => p.key === key) : undefined;
+  const lastAssistant = [...input.history].reverse().find((m) => m.role === "assistant")?.content.slice(0, 300);
+  const res = await llmStructured({
+    name: "memory",
+    model: getEnv().OPENAI_MODEL_FAST,
+    schema: MemoryOutSchema,
+    system: MEMORY_SYSTEM,
+    user: [
+      `This chat is about: ${key === SELF ? "the user themselves" : key ? (person?.label ?? key) : "someone the user hasn't described (e.g. a gift)"}.`,
+      `Known notes about them: ${person?.facts.map((f) => f.text).join("; ") || "none"}.`,
+      lastAssistant ? `The assistant last said: ${lastAssistant}` : "",
+      input.photo ? `The user attached a photo showing: ${input.photo}` : "",
+      `User: ${input.message}`,
+    ]
+      .filter(Boolean)
+      .join("\n"),
+    usage,
+    signal,
+    timeoutMs: 15_000,
+    maxTokens: 250,
+  });
+  return res.items
+    .filter((m) => m.fact.trim())
+    .slice(0, 3)
+    .map((m) => ({ person: m.person, kind: m.kind, text: m.fact.trim(), source: m.source, ...(m.replaces.trim() ? { replaces: m.replaces.trim() } : {}) }));
 }
 
 /** Scout: a shopping assistant for any product; shows only the first section, the others become tappable pills. */
@@ -210,8 +249,7 @@ const SCOUT_SEGMENTS = `
 
 SCOUT (overrides the persona above): you are Scout, a shopping assistant for ANY product, not only fashion: clothing and footwear, but also electronics, home and kitchen, beauty, sports, toys, books, gifts and more. Products come from our own catalog (fashion) and partner stores (everything). For a non-fashion item, set section categories [] (the category vocabulary is fashion-only) and rely on anchor (e.g. "wireless earbuds" → terms ["wireless earbuds","earbuds","tws earphones"]). Only ask who it's for when it matters for the product (clothing, footwear, gifts); set audience "unknown" for things like headphones or cookware. When you greet people or describe what you can do, say you help them shop for anything (fashion, electronics, home, beauty, gifts…), never only fashion.
 - SCOUT FORMATTING: in the intro, bold the 2–3 words or short phrases that matter most with **…** (what you're showing and the key quality to look for, e.g. "Here are **lightweight athletic shorts** with **side pockets**…"). Never bold whole sentences, and no other formatting.
-- SCOUT MEMORY (replaces "memory: always []" above): memory = lasting facts the user states about themselves or someone they shop for: sizes, things they avoid, what they like (colours, fabrics, brands, styles), usual budget. Each item: person ("self" for the user; otherwise the relation or name: "mom", "dad", "wife", "Riya"), kind (size | avoid | likes | budget | other), fact (a short note, e.g. "Wears size M tops", "Avoids polyester", "Loves cotton sarees"), replaces (the exact remembered fact this one updates, from the notes given, else ""). Only what the user actually said and what stays true beyond this request: never one-off needs ("under 2k for this wedding"), guesses or anything from the products. Usually [].
-- USING MEMORY: the notes given are only for the person this request is for. Use them softly: likes and budget shape section semanticQuery and softPreferences; avoids go in preferences ("avoid polyester"); never turn memory into must or exclude filters or a strict budget. Mention them naturally in the intro, the way a good shop assistant would ("Since your mom wears M and loves cotton, I've picked…"). The user's words in this chat always win over memory.
+- USING MEMORY: the notes given are only for the person this request is for. Use them softly: likes and budget shape section semanticQuery and softPreferences; avoids go in preferences ("avoid polyester"); never turn memory into must or exclude filters or a strict budget. Mention them naturally in the intro, the way a good shop assistant would ("Since your mom wears M and loves cotton, I've picked…"). Notes marked (learned) were picked up from earlier chats: phrase them as a hunch ("you seemed to like pastels last time"), not as fact. The user's words in this chat always win over memory.
 - SCOUT VOICE: speak like a knowledgeable personal shopper, not only a stylist. For non-fashion items, explain what actually matters when choosing (specs, materials, features, capacity, battery, durability, care) instead of styling. Closing questions ask about what matters for that kind of product (budget, size or capacity, must-have features, brand preference, who it's for), not outfit colours. A vague opener ("men", "women", "something nice", "a gift") gets a question about what kind of product, across everything you can shop (clothing, footwear, gadgets, home, beauty, gifts…), not only clothing.
 - SCOUT: only the FIRST section's results are shown right away; the other sections appear as buttons the user can tap to see them. Put the most important section first. In the intro, talk about the first section and mention the others briefly as things you can also show ("I can also pull up bags and cozy accessories").`;
 
@@ -348,11 +386,6 @@ Rules: canonical ids only (from the vocabulary). "k" = ×1000; "under 2k" → bu
 ask: end every recommend/refine/clarify turn with ONE relevant question, as ChatGPT does: the detail that would most improve your next suggestion (outfit colour or work, budget, venue or time of day, formality, who it's for, style leaning) or a natural next step ("Want me to find jewellery to match?"). Short, friendly, specific to this chat. It must unlock NEW information or move the look forward: don't ask them to choose between the sections you just showed (the cards already do that), never repeat a question you asked earlier in this chat ("I asked: …" in the conversation), and never ask what they already told you. Once the main item is settled, suggest the next piece ("Should I find a belt and socks to match?"). Write the question as a natural chat sentence; when it helps, name 2–3 example choices inline ("Is your lehenga red and gold, pastel, or something else?"). options = 2–4 short answers (kept for the app; not shown as buttons). product_question/compare/more_like: a question only if it genuinely helps, else null. chitchat: null.
 
 followups: exactly 3 short next steps (shown only when there is no ask) the user might tap (≤ 5 words each), specific to this turn (e.g. "Under ₹1,500", "Show linen only", "Add a watch"). Never put product numbers in followups or the intro: users can't see them. The numbers below are internal; users point at products by name, colour, position ("the second one") or card buttons.
-${
-    FEATURES.memory
-      ? `memory: durable personal facts the user stated about themselves or people they shop for, worth remembering across chats (e.g. "Wears size M tops", "Avoids polyester", "Shops for wife (women's wear)", "Prefers minimal style"). One-off needs for this request ("under 2k for this wedding") are NOT memory. Usually [].`
-      : "memory: always []."
-  }
 
 tasteWhy + useTaste (decide these FIRST; tasteWhy ≤ 12 words): decide from the INTENT of this message whether the user's learned taste (colours, fabrics, brands and budget learned from their clicks and saves; you don't see it, the app applies it as gentle tie-breaks) would genuinely help. true when the ask is open-ended about the user's own style and they haven't specified those things ("new tops for college", "something for date night"). false when it would distort the ask: shopping for someone else (a gift for dad, clothes for a child), a specific or functional need that already states what matters, or a new direction the user asks for ("something different", "bolder than usual", "try a new style"). Rule: if the user asks for a change from their usual (new look, different, bolder, experiment, "than usual", out of comfort zone), useTaste is false: their past taste is exactly what they want to move away from. Examples: "saree for my mom" → false (her taste, not the user's); "gift for dad" → false; "bolder than usual for a party" → false (user wants a change); "office shirts, only white cotton" → false (fully specified); "new tops for college" → true; "what should I wear to brunch" → true. Context from THIS chat always applies; that is not taste.
 
@@ -645,6 +678,9 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
     }
   }
 
+  // Memory extraction runs alongside planning and search (Scout with memory on), so it adds no wait.
+  const memoryP: Promise<MemoryItem[]> = input.people ? extractMemory(input, usage, input.signal).catch(() => []) : Promise.resolve([]);
+
   // 1. Understand + plan (intro streams while the rest of the plan is generated)
   emit({ type: "step", id: "understand", label: "Thinking about what you need", status: "running" });
   let introSent = "";
@@ -717,7 +753,7 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
   // Scout memory: say whose notes shaped this answer (the reply mentions them too).
   const remembered = rememberedFacts(input);
   if (remembered && plan.turnType !== "off_topic" && plan.turnType !== "chitchat") {
-    personalized.notes.push(`Remembered about ${remembered.person.key === SELF ? "you" : remembered.person.label}: ${remembered.facts.slice(0, 3).join(", ")}`);
+    personalized.notes.push(`Remembered about ${remembered.person.key === SELF ? "you" : remembered.person.label}: ${remembered.facts.slice(0, 3).map((f) => f.replace(/ \(learned\)$/, "")).join(", ")}`);
   }
 
   const specs: ChatSectionSpec[] =
@@ -757,12 +793,6 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
     personalized: personalized.notes,
     ...(input.people ? { forPerson: plan.turnType === "off_topic" ? (input.state.forPerson ?? null) : forPersonOf(input) } : {}),
   });
-  // Lasting facts the user stated: Scout files them by person (the client saves them, with Undo).
-  const memory: MemoryItem[] = (input.people || FEATURES.memory ? plan.memory : [])
-    .filter((m) => m.fact.trim())
-    .slice(0, 5)
-    .map((m) => ({ person: m.person, kind: m.kind, text: m.fact.trim(), ...(m.replaces.trim() ? { replaces: m.replaces.trim() } : {}) }));
-  if (memory.length) emit({ type: "memory", facts: memory });
   const asked = plan.ask?.question.trim() ?? "";
   // The model sometimes repeats its last question; drop it then (the follow-up chips show instead).
   const fresh = asked && !sameQuestion(asked, lastAsked(input.history)) ? { question: asked, options: plan.ask!.options.slice(0, plan.turnType === "clarify" ? 5 : 4) } : null;
@@ -1046,6 +1076,10 @@ When they ask which is best, to rank or to sort the products (in any language, e
       emit({ type: "section", id: `like-${target.ref}-${Date.now().toString(36)}`, title: `More like ${shortTitle(target.title)}${label}`, why: target.title, query: `${target.title}${label}`, products: withRefs(ranked.slice(0, blendShopify ? 12 : 8)), more: [] });
     }
   }
+
+  // Memory learned from this message (its own extraction step, run alongside the turn): the client files it by person.
+  const memory = await memoryP;
+  if (memory.length) emit({ type: "memory", facts: memory });
 
   // The closing question comes last, after the products and picks.
   if (ask) emit({ type: "ask", ...ask });

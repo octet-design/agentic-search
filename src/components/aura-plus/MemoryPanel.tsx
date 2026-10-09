@@ -34,8 +34,8 @@ export function MemoryPanel({ open, onClose }: { open: boolean; onClose: () => v
     <Sheet open={open} onClose={onClose} title="What Scout remembers">
       <div className="flex flex-col gap-5 p-5">
         <p className="text-sm text-ink-soft">
-          Scout remembers lasting things you tell it, about you and the people you shop for, and uses only that person&apos;s notes when you shop for them. Saved in
-          this browser only.
+          Scout remembers what you tell it and learns from what you ask for, about you and the people you shop for, and uses only that person&apos;s notes when you
+          shop for them. Saved in this browser only.
         </p>
 
         <label className="flex items-center justify-between gap-3 rounded-xl border border-line px-4 py-3 text-sm">
@@ -74,17 +74,30 @@ export function MemoryPanel({ open, onClose }: { open: boolean; onClose: () => v
                   <Trash2 size={14} />
                 </button>
               </div>
-              <ul className="divide-y divide-line/60">
-                {p.facts.map((f) => (
-                  <li key={f.id} className="flex items-start gap-2 px-4 py-2 text-sm">
-                    <span className="mt-0.5 shrink-0 rounded-full bg-sand px-2 py-0.5 text-[11px] font-medium text-ink-soft">{KIND_LABEL[f.kind]}</span>
-                    <span className="flex-1">{f.text}</span>
-                    <button type="button" onClick={() => removeFact(p.key, f.id)} aria-label={`Forget: ${f.text}`} className="rounded-full p-0.5 text-ink-faint hover:bg-sand hover:text-ink">
-                      <X size={13} />
-                    </button>
-                  </li>
-                ))}
-              </ul>
+              {/* Two groups: what they told Scout, and what Scout learned from what they asked for. */}
+              {(["stated", "inferred"] as const).map((src) => {
+                const facts = p.facts.filter((f) => (f.source ?? "stated") === src);
+                if (!facts.length) return null;
+                return (
+                  <div key={src}>
+                    <div className="px-4 pt-2 text-[11px] font-medium uppercase tracking-wide text-ink-faint">{src === "stated" ? "Told me" : "Learned from chats"}</div>
+                    <ul className="divide-y divide-line/60">
+                      {facts.map((f) => (
+                        <li key={f.id} className="flex items-start gap-2 px-4 py-2 text-sm">
+                          <span className="mt-0.5 shrink-0 rounded-full bg-sand px-2 py-0.5 text-[11px] font-medium text-ink-soft">{KIND_LABEL[f.kind]}</span>
+                          <span className="flex-1">
+                            {f.text}
+                            {src === "inferred" && (f.seen ?? 1) > 1 && <span className="ml-1.5 text-xs text-ink-faint">seen in {f.seen} chats</span>}
+                          </span>
+                          <button type="button" onClick={() => removeFact(p.key, f.id)} aria-label={`Forget: ${f.text}`} className="rounded-full p-0.5 text-ink-faint hover:bg-sand hover:text-ink">
+                            <X size={13} />
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              })}
             </section>
           ))
         )}
