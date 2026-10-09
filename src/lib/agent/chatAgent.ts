@@ -745,9 +745,12 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
       ),
       blendShopify
         ? Promise.all(
-            sections.map((s) =>
+            sections.map((s, i) =>
               shopifyForSection({
-                query: shopifyQuery(s.spec.anchor, s.intent.semanticQuery || s.spec.title),
+                // The photographed item is the first section: Shopify searches by the photo plus the item and the
+                // shopper's own words; a long planner query would drown out what the photo shows.
+                query: input.image && i === 0 ? shopifyQuery(s.spec.anchor, input.message) : shopifyQuery(s.spec.anchor, s.intent.semanticQuery || s.spec.title),
+                ...(input.image && i === 0 ? { image: input.image } : {}),
                 audience: s.intent.audience,
                 min: s.intent.price?.min,
                 max: s.intent.price?.max,
@@ -773,6 +776,7 @@ export async function runChatTurn(input: ChatTurnInput, emit: Emit): Promise<voi
               tax,
               limit: 16,
               sort: s.intent.sort,
+              visual: !!input.image && i === 0,
               usage,
               signal: input.signal,
             }),

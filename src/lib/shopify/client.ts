@@ -95,6 +95,8 @@ export type SearchOpts = CallOpts & {
   shops?: string[];
   /** Look-alikes of these products (gid://shopify/p/…), with or without a query. */
   like?: string[];
+  /** Look-alikes of a photo (Shopify's visual similarity), with or without a query. */
+  likeImage?: { contentType: string; data: string };
 };
 
 export async function searchCatalog(query: string, opts: SearchOpts = {}): Promise<ShopifyPage> {
@@ -109,7 +111,9 @@ export async function searchCatalog(query: string, opts: SearchOpts = {}): Promi
     "search_catalog",
     {
       ...(query.trim() ? { query } : {}),
-      ...(opts.like?.length ? { like: opts.like.map((id) => ({ id })) } : {}),
+      ...(opts.like?.length || opts.likeImage
+        ? { like: [...(opts.like ?? []).map((id) => ({ id })), ...(opts.likeImage ? [{ image: { content_type: opts.likeImage.contentType, data: opts.likeImage.data } }] : [])] }
+        : {}),
       filters,
       pagination: { limit: opts.limit ?? 24, ...(opts.cursor ? { cursor: opts.cursor } : {}) },
     },

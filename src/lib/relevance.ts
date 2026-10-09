@@ -1,7 +1,7 @@
 /**
  * Scout relevance: one yardstick for our catalog and Shopify. A product counts only if it is exactly
  * what the section asks for (the anchor's words, or the whole category when the anchor is a category).
- * Exact matches from our catalog come first, then Shopify's; each source is ordered by embedding similarity.
+ * Exact matches from both sources are ranked together by embedding similarity, with a small nudge for our catalog.
  * No Shopify imports: Shopify products arrive as ProductCards (lib/blend.ts).
  */
 import { diversify } from "./agent/retrieve";
@@ -152,10 +152,27 @@ export function dropOffMeaning<T extends { id: string }>(items: T[], score: Map<
   return items.filter((x) => (score.get(x.id) ?? 0) >= top - OFF_MEANING_GAP);
 }
 
-/** Our catalog's matches first, then Shopify's; each by score, with at most `perBrand` per brand at the top. */
-export function catalogFirst(catalog: ProductCard[], shopify: ProductCard[], score: Map<string, number>, limit: number, perBrand = 3): ProductCard[] {
-  const bySource = (xs: ProductCard[]) => diversify(orderByRelevance(xs, score), limit, perBrand);
-  return [...bySource(catalog), ...bySource(shopify)].slice(0, limit);
+/** How much our catalog is preferred: it wins when a Shopify product is at most this much more relevant. */
+export const CATALOG_NUDGE = 0.03;
+/** Photo searches: Shopify's visual-similarity order adds up to this much (its first result most). */
+export const VISUAL_BONUS = 0.05;
+
+/**
+ * One ranking for both sources: relevance to the request, plus a small nudge for our catalog (ours wins near-ties,
+ * a clearly better Shopify product still comes first) and, for photo searches, Shopify's visual-match order.
+ * At most `perBrand` per brand at the top. Pure; unit-tested.
+ */
+export function mixByRelevance(
+  catalog: ProductCard[],
+  shopify: ProductCard[],
+  score: Map<string, number>,
+  limit: number,
+  opts: { perBrand?: number; visual?: boolean } = {},
+): ProductCard[] {
+  const mixed = new Map(score);
+  for (const p of catalog) mixed.set(p.id, (mixed.get(p.id) ?? 0) + CATALOG_NUDGE);
+  if (opts.visual && shopify.length) shopify.forEach((p, i) => mixed.set(p.id, (mixed.get(p.id) ?? 0) + VISUAL_BONUS * (1 - i / shopify.length)));
+  return diversify(orderByRelevance([...catalog, ...shopify], mixed), limit, opts.perBrand ?? 3).slice(0, limit);
 }
 
 /** Price order when the shopper asked for it (stable, so equal prices keep their relevance order). */
@@ -192,8 +209,10 @@ export async function rankBlend(opts: {
   tax: TaxonomyApi;
   limit: number;
   perBrand?: number;
-  /** A requested price sort overrides "ours first": cheapest (or dearest) across both sources. */
+  /** A requested price sort overrides relevance: cheapest (or dearest) across both sources. */
   sort?: Intent["sort"];
+  /** Photo search: Shopify's results are in visual-similarity order, which counts toward relevance. */
+  visual?: boolean;
   usage?: Usage;
   signal?: AbortSignal;
 }): Promise<ExactResult> {
@@ -226,7 +245,7 @@ export async function rankBlend(opts: {
   const products =
     opts.sort === "price_asc" || opts.sort === "price_desc"
       ? sortByPrice(pool.filter((x) => ranked.has(x.id)), opts.sort).slice(0, opts.limit)
-      : catalogFirst(catalog, shopify, score, opts.limit, opts.perBrand ?? 3);
+      : mixByRelevance(catalog, shopify, score, opts.limit, { perBrand: opts.perBrand, visual: opts.visual });
   return { products, exact: { catalog: catalog.length, shopify: shopify.length }, ...(storeNote ? { storeNote } : {}) };
 }
 

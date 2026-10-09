@@ -242,3 +242,14 @@ From testing:
 - **Checks:** `eval:blend` has 12 queries, adding the strap/store case, and passes 12/12. `eval:chat` passes 43/43, and there are 127 unit tests.
 - **Bold key words in Scout replies** (2026-10-09). The Scout prompt asks the model to bold the 2–3 phrases that matter most. When a recommend or refine intro arrives without any bold, the server bolds the item's name where it appears (`boldItem`) and resends the intro with `chat_text { replace: true }`, which swaps the streamed text in place. The Shopify product view's instant preview now also carries the original price.
 - **Seller-country filter removed** (2026-10-09). The product owner wants stores from anywhere, as long as they deliver to India. `LOCAL_SELLERS = false` (search, more-like, examples), and the Scout feed, product-view rails and "Goes well with" no longer send `ships_from: IN`. Every search still sends `ships_to: IN`, so products are deliverable and priced in ₹; USD-priced stores are converted and shown as "≈ ₹". This reverses the 2026-10-06 "sellers from the buyer's country" rule.
+
+## Scout: relevance mixing and Shopify image search (2026-10-09)
+
+- **Mixing by relevance** (product owner's choice, all Scout searches). This replaces "all of ours, then all of Shopify's", which hid better Shopify matches, especially on photo searches. `mixByRelevance` ranks both sources on one embedding score, plus `CATALOG_NUDGE` (+0.03) for our catalog, so ours wins near-ties while a clearly better Shopify product comes first. On photo searches Shopify's visual-similarity order adds up to `VISUAL_BONUS` (+0.05). Ties are bucketed, with ours first, and there are at most 3 per brand. A requested price sort still overrides. Applies to chat sections and the longer list (`/api/blend/section`).
+- **Shopify supports image search.** `search_catalog`'s `like` accepts an inline image ("visual similarity search") as well as product ids, combinable with a text query. Measured on a tennis-shorts photo:
+  - text only (our description) → generic black athletic shorts;
+  - image only → tennis items, but noisy (skirts, socks);
+  - image + "navy blue" → navy tennis shorts (New Balance Tournament, Lacoste, Court Dri-Fit).
+
+  So for the photographed item's section, Scout sends Shopify the photo plus the item and the shopper's own words (`likeImage`, `shopifyQuery(anchor, message)`; the planner's long query diluted the image). Our catalog keeps searching by the photo's description, since it has no image vectors. The exact-match gate still filters the noise. The longer list behind "View Results" is text-based (the image isn't stored).
+- **Checks:** `eval:blend` passes 12/12, with 130 unit tests. In one live photo run the first section came back empty once and didn't reproduce in two reruns, so it's noted as a possible transient (Shopify rate limit or planner variance).

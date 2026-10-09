@@ -23,6 +23,8 @@ export type SearchSpec = {
   shop?: string | null;
   /** Every product category, not just Apparel & Accessories (Scout is a general shopping assistant). */
   allCategories?: boolean;
+  /** A photo to find look-alikes of (Shopify visual similarity), combined with `query`. */
+  likeImage?: { contentType: string; data: string };
 };
 
 export const PRODUCT_GID = (id: string) => (id.startsWith("gid://") ? id : `gid://shopify/p/${id}`);
@@ -50,6 +52,7 @@ export async function searchFashion(
     categories: spec.allCategories ? undefined : FASHION_CATEGORIES,
     shops: spec.shop ? [spec.shop] : undefined,
     like: spec.like ? [PRODUCT_GID(spec.like)] : undefined,
+    likeImage: spec.likeImage,
     signal: opts.signal,
   });
   if (page.usdRate) usdRates.set(cur, page.usdRate);

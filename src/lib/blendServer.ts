@@ -19,13 +19,33 @@ const INDIA = getCountry("IN");
 const LOCAL_SELLERS = false;
 
 /** Shopify products for a chat section: same need, same budget. Scout passes the item's name as the query. */
-export async function shopifyForSection(opts: { query: string; audience: Intent["audience"]; min?: number | null; max?: number | null; limit?: number; signal?: AbortSignal }): Promise<ProductCard[]> {
+export async function shopifyForSection(opts: {
+  query: string;
+  audience: Intent["audience"];
+  min?: number | null;
+  max?: number | null;
+  limit?: number;
+  /** The shopper's photo (a data URL): Shopify searches by the image and the words together. */
+  image?: string;
+  signal?: AbortSignal;
+}): Promise<ProductCard[]> {
   try {
-    const page = await searchFashion({ query: withAudience(opts.query, opts.audience), min: opts.min ?? null, max: opts.max ?? null, local: LOCAL_SELLERS, allCategories: true }, INDIA, { limit: opts.limit ?? 8, signal: opts.signal });
+    const likeImage = opts.image ? imageOf(opts.image) : undefined;
+    const page = await searchFashion(
+      { query: withAudience(opts.query, opts.audience), min: opts.min ?? null, max: opts.max ?? null, local: LOCAL_SELLERS, allCategories: true, likeImage },
+      INDIA,
+      { limit: opts.limit ?? 8, signal: opts.signal },
+    );
     return page.products.map(fromShopify);
   } catch {
     return [];
   }
+}
+
+/** "data:image/jpeg;base64,…" → Shopify's inline image shape. */
+function imageOf(dataUrl: string): { contentType: string; data: string } | undefined {
+  const m = /^data:(image\/(?:jpeg|png|webp));base64,(.+)$/.exec(dataUrl);
+  return m ? { contentType: m[1], data: m[2] } : undefined;
 }
 
 /** Shopify look-alikes: by product for a Shopify product, by title words for a catalog one. */
