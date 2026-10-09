@@ -1,3 +1,4 @@
+import type { MemoryItem } from "../memory";
 import { z } from "zod";
 
 // ---------------------------------------------------------------------------
@@ -244,14 +245,15 @@ export type AgentEvent =
       emptyNote?: string;
     }
   | { type: "compare"; data: CompareBlockData }
-  | { type: "memory"; facts: string[] }
+  /** Lasting facts heard in chat, each filed under a person (Scout memory; Drape's old memory uses the text). */
+  | { type: "memory"; facts: MemoryItem[] }
   /** What the photo attached to the user's message shows (kept on that message for later turns). */
   | { type: "photo"; description: string }
   /** Scout: further segments of this answer, offered as pills and fetched only when tapped. */
   | { type: "segments"; items: SegmentOffer[] }
   /** Drape's picks: products (by ref) explained in detail. Sent again, longer, as picks complete. */
   | { type: "picks"; items: ChatPick[] }
-  | { type: "chat_state"; intent: Intent; chips: Chip[]; lastSections: ChatSectionSpec[]; personalized: string[] };
+  | { type: "chat_state"; intent: Intent; chips: Chip[]; lastSections: ChatSectionSpec[]; personalized: string[]; forPerson?: string | null };
 
 /** A planned segment not fetched yet: everything needed to fetch it exactly as the agent planned it. */
 export type SegmentOffer = { id: string; title: string; why: string; intent: Intent; anchor?: Anchor; categories: string[] };

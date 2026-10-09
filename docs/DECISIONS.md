@@ -254,3 +254,32 @@ From testing:
   So for the photographed item's section, Scout sends Shopify the photo plus the item and the shopper's own words (`likeImage`, `shopifyQuery(anchor, message)`; the planner's long query diluted the image). Our catalog keeps searching by the photo's description, since it has no image vectors. The exact-match gate still filters the noise. The longer list behind "View Results" is text-based (the image isn't stored).
 - **Checks:** `eval:blend` passes 12/12, with 130 unit tests. In one live photo run the first section came back empty once and didn't reproduce in two reruns, so it's noted as a possible transient (Shopify rate limit or planner variance).
 - **One ranked list per result set** (2026-10-09, product owner: "the UI should keep products in one order"). The chat's 8 and the results grid's longer list used to be computed separately, with different pool sizes, a different query and no photo on the second, so the grid continued in a different order. Now the chat builds the section's full list (same pool sizes as the grid: `SCOUT_LIST`), shows its top 8 and caches the list under the section id (`scoutLists`, 1 h). `/api/blend/section` returns that list when given the id (also for tapped segment pills); if it has expired, it recomputes with the same pools and query. Verified: the grid starts with the chat's 8 in the same order, for text and photo searches. The search step is unchanged (~2.4s).
+
+## Scout memory, by person (2026-10-09)
+
+The product owner wants Scout to have long-term memory. The old "Drape remembers" was a flat list of sentences with no idea who a fact was about, which is how saree preferences leaked into a gift for papa. Decisions:
+- facts are auto-saved with Undo;
+- memory only re-orders results (nothing is filtered because of memory), and Scout says it naturally in the reply;
+- Scout only;
+- a Memory button in Scout.
+
+What was built:
+- **`lib/memory.ts`** (pure, unit-tested): people ("You", Mom, Dad, Riya…), each with typed facts (size / avoid / likes / budget / other).
+  - `personKey` normalises relations in English and Hinglish ("mummy", "maa" → Mom; "papa" → Dad).
+  - `mergeFacts` files facts by person, skips repeats and applies `replaces`, so "I'm size L now" replaces size M. Caps: 12 people, 15 facts each.
+  - `recipientKey` reads who a message is for ("for my mom", "papa ke liye", a known name). Possessives are skipped ("my dad's birthday" is an occasion).
+- **Whose memory a request uses** (`forPersonOf`):
+  1. a person named in the message;
+  2. else the chat's person (carried in chat state as `forPerson`);
+  3. else nobody, for a gift or someone we have no notes on;
+  4. else the shopper.
+
+  Only that person's facts reach the planner (`memoryLine`), so another person's notes can't shape the results. The planner applies them softly: likes and budget go into semanticQuery/softPreferences, avoids into preferences, never into filters. It names at least one in the intro ("Since your mom loves cotton…"). The badge reads "Remembered about Mom: …".
+- **Capture:** the planner's `memory` items are {person, kind, fact, replaces}: only lasting facts the user stated, never one-off needs. The browser files them (`store/memory.ts`, `scout.memory.v1`, this browser only), and the reply shows "Saved to memory: Mom: Loves cotton sarees · Undo".
+- **Memory panel:** a Memory button in Scout's chat header and home page. Notes are grouped by person, and you can delete a fact or a person, rename, add a note by hand, turn memory off, or forget everything.
+- **Eval:** `npm run eval:memory` plays 6 separate chats, carrying only memory between them. It checks:
+  - filing by person;
+  - your notes are used for you and named in the reply;
+  - a gift for Dad uses none of yours;
+  - Mom's notes are used only for Mom;
+  - an updated size replaces the old one.

@@ -10,6 +10,7 @@ import { sendChatMessage } from "@/lib/chatClient";
 import type { Example } from "@/lib/examples";
 import { useChats } from "@/store/chats";
 import type { PlusMode } from "./mode";
+import { MemoryButton } from "./MemoryPanel";
 import { AttachButton, PhotoPreview, type Photo } from "./PhotoAttach";
 import { PlusFeed } from "./PlusFeed";
 import { PlusProduct } from "./PlusProduct";
@@ -51,6 +52,11 @@ export function PlusHome({ examples, mode }: { examples: Example[]; mode: PlusMo
       <div className="relative overflow-hidden">
         <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-[520px] bg-[radial-gradient(60%_50%_at_10%_20%,var(--color-accent-soft),transparent),radial-gradient(50%_50%_at_90%_60%,#f6efe6,transparent)] opacity-80" />
         <div className="relative mx-auto max-w-7xl px-4 pb-16 pt-12 md:px-8 md:pt-20">
+          {mode.blend && (
+            <div className="absolute right-4 top-4 md:right-8">
+              <MemoryButton className="border border-line bg-paper text-ink-soft hover:border-ink hover:text-ink" />
+            </div>
+          )}
           <div className="mx-auto max-w-3xl text-center">
             <motion.h1 initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="font-display text-4xl leading-tight tracking-tight md:text-6xl">
               {mode.headline.lead}

@@ -8,6 +8,7 @@ import type { AgentEvent } from "./agent/types";
 import { FEATURES } from "./config";
 import { tastePayload } from "./taste";
 import { historyText, useChats } from "@/store/chats";
+import { useMemory } from "@/store/memory";
 import { useSession } from "@/store/session";
 
 const running = new Map<string, AbortController>();
@@ -33,11 +34,15 @@ export async function sendChatMessage(chatId: string, text: string, opts: { debu
   const msgId = chats.addAssistant(chatId);
 
   const session = useSession.getState();
+  // Scout memory: sent by person when on; the engine uses only the facts of whoever this request is for.
+  const scout = before.surface === "blend";
+  const mem = useMemory.getState();
   const body = {
     message,
     history,
-    state: { intent: before.intent, lastSections: before.lastSections, products: before.shown.slice(-120), nextRef: before.nextRef },
+    state: { intent: before.intent, lastSections: before.lastSections, products: before.shown.slice(-120), nextRef: before.nextRef, forPerson: before.forPerson ?? null },
     refs: opts.refs ?? [],
+    people: scout && mem.enabled ? mem.people : null,
     ...(opts.image ? { image: opts.image.full } : {}),
     audience: before.audience ?? null,
     memory: FEATURES.memory ? session.memory.map((m) => m.text) : [],
@@ -74,7 +79,14 @@ export async function sendChatMessage(chatId: string, text: string, opts: { debu
         } catch {
           continue;
         }
-        if (e.type === "memory" && FEATURES.memory) useSession.getState().addMemory(e.facts);
+        if (e.type === "memory") {
+          // Scout files facts by person and offers "Undo"; Drape's old memory (off) took plain text.
+          if (scout) {
+            const facts = useMemory.getState().save(e.facts);
+            if (facts.length) useChats.getState().setMemorySaved(chatId, msgId, { facts });
+          } else if (FEATURES.memory) useSession.getState().addMemory(e.facts.map((f) => f.text));
+          continue;
+        }
         if (e.type === "photo") {
           useChats.getState().setPhoto(chatId, userMsgId, e.description);
           continue;

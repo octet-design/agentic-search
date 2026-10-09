@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, Clock, Plus, Loader2, MessageCircle, MessageSquare, MoreHorizontal, RotateCcw, Sparkles, Trash2, X } from "lucide-react";
+import { ArrowRight, Brain, Clock, Loader2, MessageCircle, MessageSquare, MoreHorizontal, Plus, RotateCcw, Sparkles, Trash2, X } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -14,8 +14,10 @@ import type { CompareBlockData, ProductCard, SegmentOffer } from "@/lib/agent/ty
 import { FEATURES } from "@/lib/config";
 import { sendChatMessage, stopChat } from "@/lib/chatClient";
 import { useChats, type AssistantMessage, type Chat, type ChatSection } from "@/store/chats";
+import { useMemory } from "@/store/memory";
 import { useSession } from "@/store/session";
 import type { PlusMode } from "./mode";
+import { MemoryButton } from "./MemoryPanel";
 import { AttachButton, PhotoPreview, type Photo } from "./PhotoAttach";
 import { PlusProduct } from "./PlusProduct";
 import { PlusActionsContext, PlusSkeleton, PlusTile, type PlusActions } from "./PlusTile";
@@ -166,6 +168,7 @@ function AssistantTurn({
   onRetry,
   onOpenSegment,
   opening,
+  onUndoMemory,
 }: {
   m: AssistantMessage;
   isLast: boolean;
@@ -181,12 +184,20 @@ function AssistantTurn({
   /** Scout: tap a segment pill to fetch that segment. */
   onOpenSegment: (seg: SegmentOffer) => void;
   opening: string | null;
+  /** Scout memory: take back what this reply saved. */
+  onUndoMemory: () => void;
 }) {
   const running = m.status === "streaming";
   const current = m.steps.find((s) => s.status === "running");
   const ask = m.ask ?? m.clarify;
   return (
     <div className="flex flex-col gap-3 text-[15px]">
+      {/* What shaped this answer: remembered notes about the person it's for, or learned taste. */}
+      {m.personalized.length > 0 && (
+        <p className="inline-flex w-fit items-start gap-1.5 rounded-full bg-accent-soft px-2.5 py-1 text-xs text-accent">
+          <Brain size={13} className="mt-px shrink-0" /> {m.personalized.join(" · ")}
+        </p>
+      )}
       <RichText text={m.intro} onRef={onRef} refLabel={refLabel} refCard={refCard} />
       {m.sections.map((s) => (
         <div key={s.id}>
@@ -214,6 +225,21 @@ function AssistantTurn({
       <RichText text={m.answer} onRef={onRef} refLabel={refLabel} refCard={refCard} />
       {m.compare && <CompareCard products={withCards(m.compare.products)} active={active === compareViewId(m.id)} onView={() => onView(compareViewId(m.id))} />}
       <RichText text={m.outro} onRef={onRef} refLabel={refLabel} refCard={refCard} />
+      {m.memorySaved && (
+        <p className="flex flex-wrap items-center gap-x-1.5 text-xs text-ink-soft">
+          <Brain size={13} />
+          {m.memorySaved.undone ? (
+            "Removed from memory."
+          ) : (
+            <>
+              Saved to memory: {m.memorySaved.facts.map((f) => `${f.label === "You" ? "" : `${f.label}: `}${f.text}`).join(" · ")}
+              <button type="button" onClick={onUndoMemory} className="font-medium text-ink underline underline-offset-2">
+                Undo
+              </button>
+            </>
+          )}
+        </p>
+      )}
       {running && (
         <div className="inline-flex items-center gap-2 text-sm text-ink-soft" aria-live="polite">
           <Loader2 size={14} className="animate-spin" /> {current?.label ?? "Thinking"}
@@ -404,6 +430,7 @@ export function PlusSearch({ id, mode }: { id: string; mode: PlusMode }) {
           <div className="flex items-center gap-2.5 bg-ink px-4 py-3 text-canvas">
             <Sparkles size={17} />
             <h2 className="flex-1 font-medium">{mode.title}</h2>
+            {mode.blend && <MemoryButton className="text-canvas/90 hover:bg-white/10" />}
             <button onClick={() => router.push(mode.base)} className="rounded-full p-1 hover:bg-white/10" aria-label="Close chat">
               <X size={18} />
             </button>
@@ -439,6 +466,11 @@ export function PlusSearch({ id, mode }: { id: string; mode: PlusMode }) {
                     onSend={(t) => send(t)}
                     onRetry={() => lastUser?.role === "user" && send(lastUser.text, lastUser.refs)}
                     onOpenSegment={(seg) => void openSegment(m.id, seg)}
+                    onUndoMemory={() => {
+                      if (!m.memorySaved) return;
+                      useMemory.getState().undo(m.memorySaved.facts);
+                      useChats.getState().setMemorySaved(id, m.id, { ...m.memorySaved, undone: true });
+                    }}
                     opening={opening}
                   />
                 ),

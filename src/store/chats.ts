@@ -7,6 +7,7 @@
 import { create } from "zustand";
 import { createJSONStorage, persist, type StateStorage } from "zustand/middleware";
 import type { StepState } from "@/hooks/useAgentStream";
+import type { SavedFact } from "@/lib/memory";
 import type { AudienceKey } from "@/store/session";
 import type { AgentEvent, Anchor, ChatPick, SegmentOffer, ChatSectionSpec, Chip, CompareBlockData, Intent, ProductCard } from "@/lib/agent/types";
 
@@ -47,6 +48,8 @@ export type AssistantMessage = {
   outro: string;
   /** Scout: segments offered as pills, fetched only when tapped. */
   segments?: SegmentOffer[];
+  /** Scout memory saved from this reply (shown with "Undo"); `undone` once the shopper took it back. */
+  memorySaved?: { facts: SavedFact[]; undone?: boolean };
   /** Drape's picks: products from this message's sections, explained. */
   picks?: ChatPick[];
   answer: string;
@@ -80,6 +83,8 @@ export type Chat = {
   audience?: AudienceKey | null;
   /** Which app the chat belongs to: Drape's home (default), Typesense search ("aura") or Scout ("blend"). */
   surface?: "drape" | "aura" | "blend";
+  /** Scout: whose memory this chat uses (person key), carried across turns. */
+  forPerson?: string | null;
   /** Aura++: products from outside the chat (feed, similar, brand) the shopper asked about, given refs here. */
   pinned?: ProductCard[];
 };
@@ -94,6 +99,8 @@ type Actions = {
   addUser: (chatId: string, text: string, refs?: number[], thumb?: string) => string;
   /** Records what the photo on a user message shows. */
   setPhoto: (chatId: string, userMsgId: string, description: string) => void;
+  /** Records the memory a reply saved (or that it was undone). */
+  setMemorySaved: (chatId: string, msgId: string, saved: { facts: SavedFact[]; undone?: boolean }) => void;
   addAssistant: (chatId: string) => string;
   applyEvent: (chatId: string, msgId: string, e: AgentEvent) => void;
   /** Scout: a tapped segment pill becomes a result set in that message (products get refs here). */
@@ -150,7 +157,11 @@ function reduce(chat: Chat, msgId: string, e: AgentEvent): Chat {
     case "suggestions":
       return updateMsg(chat, msgId, (m) => ({ ...m, followups: e.items }));
     case "chat_state":
-      return updateMsg({ ...chat, intent: e.intent, chips: e.chips, lastSections: e.lastSections }, msgId, (m) => ({ ...m, personalized: e.personalized }));
+      return updateMsg(
+        { ...chat, intent: e.intent, chips: e.chips, lastSections: e.lastSections, ...(e.forPerson !== undefined ? { forPerson: e.forPerson } : {}) },
+        msgId,
+        (m) => ({ ...m, personalized: e.personalized }),
+      );
     case "step": {
       return updateMsg(chat, msgId, (m) => {
         const idx = m.steps.findIndex((s) => s.id === e.id);
@@ -251,6 +262,8 @@ export const useChats = create<State & Actions>()(
         });
         return id;
       },
+      setMemorySaved: (chatId, msgId, saved) =>
+        set((s) => (s.chats[chatId] ? { chats: { ...s.chats, [chatId]: updateMsg(s.chats[chatId], msgId, (m) => ({ ...m, memorySaved: saved })) } } : s)),
       setPhoto: (chatId, userMsgId, description) =>
         set((s) => {
           const chat = s.chats[chatId];

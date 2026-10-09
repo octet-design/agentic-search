@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { MEMORY_KINDS } from "@/lib/memory";
 import { ChatStateSchema, runChatTurn } from "@/lib/agent/chatAgent";
 import { TastePayloadSchema } from "@/lib/agent/personalize";
 import { rateLimited, tooMany } from "@/lib/rateLimit";
@@ -23,6 +24,18 @@ const BodySchema = z.object({
   /** The "Shopping for" picker choice for this chat. */
   audience: z.enum(["women", "men", "girls", "boys"]).nullable().default(null),
   memory: z.array(z.string().max(200)).max(30).default([]),
+  /** Scout memory by person (null = off). */
+  people: z
+    .array(
+      z.object({
+        key: z.string().max(80),
+        label: z.string().max(60),
+        facts: z.array(z.object({ id: z.string().max(40), kind: z.enum(MEMORY_KINDS), text: z.string().max(160), at: z.number() })).max(15),
+      }),
+    )
+    .max(12)
+    .nullable()
+    .default(null),
   taste: TastePayloadSchema.optional(),
   debug: z.boolean().optional(),
   /** "aura" for Aura++ (short Plush-style replies). */
